@@ -1,0 +1,237 @@
+# Recon: technical notes
+
+The reference behind the [write-up](../README.md). Recon turns one day of raw internet-scan banners (13.4M records) into a ranked list of companies
+that need security help **now**, with the evidence a salesperson can open a conversation with.
+
+- **Plan written before building:** [`plan.md`](../plan.md) · profiling scripts and outputs: [`analysis/`](../analysis/)
+
+---
+
+## 1. What the data is
+
+The file is **one day (2026-11-01) of Shodan-style banner data**: 13,384,515 NDJSON records, one
+per `IP:port`, 17 GB zstd / 118 GB raw. Each record has the IP, port, WHOIS `org`/ASN, hostnames,
+the detected product/version, HTTP data (headers, title, WAF, security.txt), the TLS certificate and
+supported versions, `tags`, and inferred `vulns` (CVE, CVSS, EPSS, CISA-KEV flag).
+
+There are no company records. So the real problem is two problems:
+**which assets are risky** and **whose assets are they**.
+
+I profiled a 1% systematic sample (every 100th record across the whole file) by hand before
+writing any pipeline code. Most of what follows came out of that, and out of reviewing the top of the
+ranking after each full run.
+
+## 2. The traps (what makes a naive ranking wrong)
+
+| Trap | Size | What goes wrong |
+|---|---|---|
+| **CDN edges** (`cdn` tag) | 5.6M records (42%) | CDN IPs answer on every port, so the scanner "finds" RAT C2 servers, PLCs and language servers on Incapsula/Google/Cloudflare. Phantom services. |
+| **Phantom IPs** (answer on > 50 ports) | 1.55M records (12%) | Tarpits and proxies that respond to everything. Invisible in a 1% sample; found only on the full run. |
+| **Honeypots** | 246k records (1.8%) | Each advertises 80–170 fake CVEs. A "most CVEs" ranking puts decoys first. |
+| **Over-reported KEV CVEs** | ~every nginx | CVE-2023-44487 (HTTP/2 Rapid Reset) is KEV-listed and matched on nearly every nginx. The jQuery XSS CVEs (CVE-2020-11023 etc.) come from a JS library on the *page*, not the server. Counting them makes "KEV" meaningless. |
+| **WHOIS `org` and reverse DNS name the ISP** | most records | `hinet.net`, `telecomitalia.it` and "Clientes Residenciales" are carriers and their customer pools, not buyers. |
+| **Hosters' naming schemes** | 1.8k domains | `vps123.hoster.com` on hundreds of IPs looks like one big company. |
+| **Vendor default certificates** | thousands | FortiGate ships CN `support` / `fortinet-subca2001`; Traefik, Kubernetes and DrayTek have their own placeholders. |
+
+## 3. The signals
+
+Every signal is a SQL predicate over the slim schema with a weight, a sales-facing label and an
+evidence string ([`pipeline/signals.py`](../pipeline/signals.py)). Counts are companies, full file:
+
+| Signal | Companies | Why it means "call now" |
+|---|---|---|
+| Exposed firewall/VPN admin plane (FortiGate on 541/10443, NetScaler, SonicWall, Pulse/Ivanti, BIG-IP…) | 9,461 | The #1 ransomware initial-access vector |
+| Edge appliance **with** a KEV CVE | 38 | The above, already known-exploited |
+| On-prem Exchange / OWA | 803 | ProxyShell-class surface; cloud-email pitch |
+| RDP / VNC / Telnet / X11 open | 1,069 | Direct remote access |
+| Database reachable (MS-SQL, MySQL, Oracle, Redis, Mongo…) | 3,429 | Data exposure |
+| SMB / open directories | 1,278 | Data exposure, lateral movement |
+| OT / medical / POS protocols (non-cloud only) | 6,258 | Compliance-driven buyer |
+| KEV CVE (noise CVEs excluded) | 16,272 | Known exploited in the wild |
+| EPSS ≥ 0.5 | 15,741 | Likely to be exploited soon |
+| EOL Windows (from NTLM OS build) / EOL software | 2,618 / 35,918 | Unpatchable |
+| NTLM leaks internal AD domain | 11,304 | Recon handed to attackers |
+| Expired / expiring certs, TLS 1.0/1.1, self-signed | many | Hygiene: points to a thin or absent security team |
+
+**Maturity signals** (WAF, security.txt, post-quantum TLS, HSTS) don't hide an account. They
+change the pitch from "first security purchase" to "consolidation / coverage gaps" (15,943 accounts).
+
+## 4. How a company is identified
+
+1. **Candidate names per record**, strongest first: TLS cert CN/SAN → NTLM FQDN (leaked AD
+   domain) → HTTP Host → reverse DNS. Each is reduced to a registrable domain with the offline public
+   suffix list, after removing vendor default certs, `.local`/`.corp`, and known cloud/SaaS/CDN domains.
+2. **Data-driven infrastructure detection:** a domain is a platform or ISP (not a customer) if it
+   spans ≥ 8 ASNs or ≥ 15 orgs, if it's a reverse-DNS zone over ≥ 20 IPs with almost no certs, or if
+   it names ≥ 30 IPs with numbered hostnames (a hoster's scheme).
+3. **Identity is shared across ports of the same IP:** the FortiGate on port 541 has no useful cert,
+   but port 443 on the same IP names the company. Shared-hosting IPs (≥ 5 distinct domains) are excluded.
+4. **Fallback to the WHOIS org** only when it looks like a business. An org is ISP/hoster if its IPs
+   carry ≥ 10 unrelated company domains (it's hosting them), if ≥ 15% of its IPs have dynamic reverse
+   DNS or ≥ 10% are consumer gear (TR-069 routers, cameras), or if its name/size/cloud share says so.
+   LLM labels settle the long tail (§7). IP-owner and reverse-DNS identities only reach P1/P2 when labeled education/government (measured, §8).
+
+Result: 918k assets attributed to 297k companies; **83,748 companies with a material risk signal**.
+
+## 5. Scoring
+
+`priority = need × urgency × fit × maturity`
+
+- **Need:** for each signal, `weight × (1 + ln n_assets)`, capped at 2.5× weight. Diminishing returns,
+  so 500 nginx boxes don't drown out one exposed FortiGate. Each asset counts once per category, and
+  an edge device already scored for its KEV CVE isn't scored again as a generic vuln.
+- **Urgency:** ×1.4 with a KEV CVE, ×1.2 with EOL, ×1.1 with cert problems.
+- **Fit:** identity confidence (cert/NTLM/HTTP host 1.0, same-IP 0.9, WHOIS org 0.85, reverse DNS
+  0.75) × footprint size.
+- **Maturity:** −5% per maturity flag (floor 0.8).
+
+The score is log-scaled to 0–100. **Tiers are sized to sales capacity, not percentiles:** P1 = top 500
+(this week's calls), P2 = next 2,500, P3 = the rest.
+
+## 6. Architecture and scale
+
+```
+.zst ─► ingest/extract.py (1 zstd reader → 7 orjson workers) ─► Parquet shards (once per file)
+                                                                   │ DuckDB
+   pipeline/build.py: noise filter → identity → signals → company scores + evidence
+                                                                   │
+   pipeline/export.py ─► static JSON (IPs masked to /24) ─► web/ (React + Vite + Tailwind)
+```
+
+| Step | Measured on this file (MacBook Air, 8 GB RAM, 8 cores) |
+|---|---|
+| Ingest 118 GB raw → 1.2 GB Parquet (100× smaller) | **882 s, 134 MB/s, 15k records/s**, flat memory |
+| Full build (13.4M rows → scored accounts) | ~3.5 min |
+| Export | seconds; 5.8 MB summary JSON + 64 evidence shards |
+
+**Volume in production (hundreds to thousands of files a month):** a zstd frame can't be split, so
+the unit of parallelism is the file. Ingest is stateless per file, so N workers on a file queue scale
+linearly: ~15 min/file/machine means ~100 files a day per machine, and 1,000 files a month needs
+1–2 machines. The build is plain SQL over Parquet, so it moves unchanged to DuckDB-on-object-storage or
+a warehouse. Scores come from each company's latest assets, so a new file only re-scores the
+companies it touches. Scan-over-scan changes (newly exposed RDP, a new KEV CVE on a known FortiGate)
+are where "right now" timing signals would come from once there is more than one file.
+
+
+### A stream of scan files
+
+Each scan file is ingested into its own folder (`data/parquet/<scan-id>/`). A `_manifest.json`
+keyed on the source path, size and mtime makes re-running an ingested file a no-op, and shards are
+written to `<scan-id>.partial` and renamed into place only when the whole file is done. With two or
+more scans the build keeps the latest observation per `ip:port:transport`, drops services missing
+from the last 3 scans, and flags a service first seen in the newest scan as new. A company whose
+material risk includes a new service gets urgency ×1.3 and a "Newly exposed" play. Covered by
+`tests/test_build_scans.py`; tested on a simulated two-scan stream from the sample.
+
+## 7. Where an LLM is used, how I know it's right, and what it costs
+
+**Where:** one place only. It classifies **distinct names** behind ranked accounts (WHOIS orgs and
+domains) as carrier / hoster / business / government / education, and gives an industry. Rules can't
+know that "Etihad Etisalat" is a carrier or "Kamatera" a hoster; a model can. Labels only overrule
+the heuristics at medium/high confidence. It is a **batch enrichment step**, not a runtime call: the
+app never calls an LLM, so it's fast, free per view, and its ranking is stable.
+
+**How it ran for this submission:** no API key was available, so the labeling ran inside Claude Code
+as **parallel Haiku subagents with the exact instructions** in
+[`pipeline/llm_label.py`](../pipeline/llm_label.py):
+- [`pipeline/label_queue.py`](../pipeline/label_queue.py) queues the names of unlabeled top-tier accounts.
+- [`pipeline/merge_labels.py`](../pipeline/merge_labels.py) validates every label (allowed values, every
+  ID present) and writes the same cache/CSV format as the API path.
+- Two rounds were run: 3,000 names, then 1,430 names promoted by re-ranking. Unlabeled names in the
+  top tiers dropped 3,000 → 1,430 → 92. All 4,430 labels were valid.
+
+`llm_label.py` is the production path (batched 40 per request, `messages.parse` + Pydantic schema,
+disk cache, per-call token logging). It is written but was **not executed** for this submission.
+
+**Cost** (`data/labels/llm_usage.json`):
+- Measured in-session: **1.51M subagent tokens for 4,430 labels → $0.15–$0.75** at Haiku 5.5 prices
+  ($0.10 / $0.50 per million input/output tokens). It's a range because the harness doesn't split
+  input from output. It includes agent overhead, so it overstates the API path.
+- Estimate for the API path: ~40 names per request at ~2.5k in + ~2k out ≈ **$0.08 per 3,000 names**.
+  Roughly cents per file in production, and falling, because the cache carries over (orgs repeat
+  month to month).
+
+**How I know it's right:** compared against the blind gold labels (§8). On names both labeled,
+buyer-vs-infrastructure agreement is **83% (gold v1, n=47) and 87% (gold v2, n=38)**. The main
+error is calling small ISPs/hosters "business": 7 cases in gold v1, 3 of which were low-confidence
+and therefore already ignored by design.
+
+No LLM writes the outreach copy: the opening line in the app is filled in from observed facts, so it
+can't invent a vulnerability.
+
+## 8. How I measured whether it works
+
+There are no ground-truth sales outcomes, so the metric is **top-tier precision**: the share of
+P1/P2 accounts a seller could actually prospect (a real organisation, correctly named). Each gold
+set is a seeded random sample, labeled **blind** by a separate reviewer agent that never saw the
+pipeline (strict rubric in the agent prompt, files in [`data/eval/`](../data/eval/)). Each change was
+measured on a **fresh** sample that hadn't influenced any tuning, then that sample was retired:
+
+| Pipeline state | Measured on (fresh, blind) | Top-tier precision |
+|---|---|---|
+| Rules only (identity heuristics, noise filters) | gold v1: 60 P1/P2 accounts | **43%** (26/60) |
+| + LLM labels on the top 3,000 names | gold v2: 60 new P1/P2 accounts | **53%** (32/60) |
+| + weak identities need edu/gov confirmation, + 2nd label round | gold v3: 60 new P1/P2 accounts (holdout) | **62%** (37/60) |
+
+With n = 60 the 95% interval is about ±12 points: 43% → 62% is a real gain, while the step-by-step
+figures are indicative. Re-scored in-sample, the final build reaches 65% (v1) and 68% (v2). That's
+optimistic, since those sets informed the rules, and is reported only for completeness.
+
+**What the gold sets showed, and the change each one drove:**
+- gold v1: identity by TLS cert was 62% sellable, by WHOIS org **15%** (21 of 26 were ISPs/hosters).
+  → LLM labels for org/domain type.
+- gold v2: cert 70%; WHOIS org 0/8 and reverse DNS 0/4, even with labels, except universities and
+  governments, which really own their address space.
+  → IP-owner / reverse-DNS accounts only reach P1/P2 when labeled education/government
+  (others stay searchable in P3).
+- gold v3 (holdout): ISPs/hosters are down to 6/60. The remaining error is **single-IP personal or
+  junk sites** (random-string domains, hobby blogs, test boxes): single-IP accounts are 50% sellable
+  vs 72% for multi-IP. That's the next fix, and it would need a fresh gold v4 to measure.
+
+**Other checks:** honeypot / CDN / phantom records can't reach any tier by construction. The top 50
+was reviewed by hand after every full build, and each fix in §2/§4 came from that loop. Parser unit
+tests: `uv run pytest -q`.
+
+## 9. Key decisions
+
+- **Profile before building.** The most damaging problems (CDN phantoms, honeypots, ISP identities)
+  only show up when you look at the raw records.
+- **Develop on a 1% sample, run the full file once.** Iterations took seconds, not 15 minutes.
+  The extractor keeps a superset of fields so the 17 GB file is read once.
+- **Rule-based, explainable scores** over a learned model: there are no labels to learn from, and a
+  seller has to be able to say *why* an account is hot.
+- **Static app, no backend:** all scoring happens offline; the UI only filters and displays.
+- **IPs masked to /24 in anything published:** a list of vulnerable hosts mustn't double as a
+  target list. Full IPs stay in the local build.
+
+## 10. Limitations and next steps
+
+- One snapshot means no change-over-time signals yet. Those are the strongest "right now" triggers.
+- CVEs are inferred from version banners, not verified exploitation.
+- No firmographics (headcount, revenue); footprint size is a proxy. Joining a firmographic source
+  on domain is the obvious next step.
+- Large universities rank high because of large, open networks. Real buyers, but a seller may want
+  to filter them (industry filter in the app).
+
+## 11. Running it
+
+```bash
+uv sync
+uv run python -m ingest.extract ~/Downloads/b2_download_file_by_id data/parquet/scan-2026-11-01
+uv run python -m pipeline.build "data/parquet/scan-2026-11-01/*.parquet" data/build/full
+uv run python -m pipeline.llm_label data/build/full        # optional, needs ANTHROPIC_API_KEY
+uv run python -m pipeline.build "data/parquet/scan-2026-11-01/*.parquet" data/build/full
+uv run python -m pipeline.export data/build/full
+cd web && npm install && npm run dev
+uv run pytest -q
+```
+
+Deploy (static build + Tailscale Funnel sidecar, see `deploy/`): `deploy/push.sh bluedragon` (needs `TS_AUTHKEY` in the host's `.env`; refuses to ship an export that isn't IP-masked).
+
+## 12. How it was built
+
+Built in one day with Claude Code as the main development tool, in this order: hand profiling →
+written plan ([`plan.md`](../plan.md)) → extractor tested on the sample → full ingest in the background
+while building identity and scoring on the sample → full build → review the top of the ranking →
+fix → repeat. An independent agent produced the evaluation labels so the measurement isn't graded by
+the same reasoning that built the pipeline.
