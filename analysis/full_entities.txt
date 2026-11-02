@@ -1,0 +1,90 @@
+records 133848 assigned to a company domain 24989 18.7%
+by source [('domain', 9616), ('cert_cn', 8669), ('hostname', 6704)]
+distinct company domains 9284
+assets per domain (capped 10) [(1, 7511), (2, 750), (3, 290), (4, 139), (5, 94), (6, 71), (7, 71), (8, 35), (9, 35), (10, 288)]
+
+top domains by assets:
+  1187 imperva.com
+   727 flyio.net
+   716 scw.cloud
+   671 hwclouds-dns.com
+   372 hinet.net
+   348 videotron.ca
+   286 service-now.com
+   267 cloudflare.net
+   188 nuro.jp
+   184 awsglobalaccelerator.com
+   179 walmart.com
+   163 ctcdn.cn
+   159 freshdesk.com
+   138 vnpt.vn
+   133 telecomitalia.it
+   130 gen4.ninja
+   125 t-ipconnect.de
+   110 colocrossing.com
+    93 cisco.com
+    92 online.de
+    91 uk.com
+    83 loja.li
+    76 comcastbusiness.net
+    75 youtube.com
+    73 wanadoo.fr
+    71 rima-tde.net
+    71 kpn.net
+    66 incapsula.com
+    66 megapath.net
+    66 cox.net
+    66 btcentralplus.com
+    63 ocn.ne.jp
+    61 ringana.com
+    61 datapacket.com
+    57 viettel.vn
+    57 windows.net
+    57 notexist.com
+    54 sfr.net
+    54 starlink.com
+    54 speakeasy.net
+
+RAT/C2 detections (org, is_cloud, domains):
+397 ('Google LLC', True, ('googleusercontent.com',))
+95 ('Aliyun Computing Co., LTD', False, ())
+45 ('Incapsula Inc', False, ())
+33 ('ACE', False, ())
+30 ('Aliyun Computing Co.LTD', False, ())
+29 ('Google LLC', False, ('googleusercontent.com',))
+27 ('ACEVILLE PTE.LTD.', False, ())
+25 ('Internet Rimon', False, ())
+22 ('Incapsula Inc', False, ('incapdns.net',))
+10 ('Meteverse Limited.', False, ())
+6 ('Palo Alto Networks, Inc', False, ())
+4 ('Fly.io, Inc.', False, ('flyio.net',))
+4 ('Meta Platforms Ireland Limited', False, ('facebook.com',))
+4 ('Alibaba Cloud LLC', True, ())
+3 ('Shenzhen APA Cloud Computing Co., Ltd', False, ())
+
+OT modules (module, org):
+331 ('melsec-q-tcp', 'Incapsula Inc')
+73 ('proconos', 'Google LLC')
+43 ('handpunch', 'Hetzner Online GmbH')
+35 ('handpunch', 'DigitalOcean, LLC')
+31 ('secure-fox', 'Incapsula Inc')
+25 ('dicom', 'Google LLC')
+17 ('handpunch', 'Contabo GmbH')
+16 ('handpunch', 'OVH SAS')
+16 ('handpunch', 'Cogent Communications, LLC')
+16 ('handpunch', 'Google LLC')
+15 ('handpunch', 'Aliyun Computing Co., LTD')
+13 ('handpunch', 'Tencent cloud computing (Beijing) Co., Ltd.')
+11 ('secure-fox', 'Alibaba Cloud LLC')
+10 ('handpunch', 'China Mobile Communications Group Co., Ltd')
+10 ('handpunch', 'Meteverse Limited.')
+9 ('handpunch', 'Korea Telecom')
+9 ('proconos', 'Alibaba Cloud LLC')
+7 ('fox', 'Google LLC')
+7 ('melsec-q-tcp', 'Incapsula Inc.')
+7 ('automated-tank-gauge', 'Aliyun Computing Co., LTD')
+
+LSP samples:
+(2087, 'Cloudflare, Inc.', 'HTTP/1.1 400 Bad Request\r\nServer: cloudflare\r\nDate: Sun, 01 Nov 2026 00:59:59 GMT\r\nContent-Type: text/html\r\nContent-Length: 155\r\nConnection: close\r\nCF-RAY: -\r\n\r\n<html>\r\n<head><title>400 Bad Request</title></head>\r\n<body>\r\n<center><h1>400 Bad Request</h1></center>\r\n<hr><center>cloudflare</center>\r\n</')
+(2087, 'Cloudflare, Inc.', 'HTTP/1.1 400 Bad Request\r\nServer: cloudflare\r\nDate: Sun, 01 Nov 2026 00:59:58 GMT\r\nContent-Type: text/html\r\nContent-Length: 155\r\nConnection: close\r\nCF-RAY: -\r\n\r\n<html>\r\n<head><title>400 Bad Request</title></head>\r\n<body>\r\n<center><h1>400 Bad Request</h1></center>\r\n<hr><center>cloudflare</center>\r\n</')
+(2087, 'Cloudflare, Inc.', 'HTTP/1.1 400 Bad Request\r\nServer: cloudflare\r\nDate: Sun, 01 Nov 2026 00:59:58 GMT\r\nContent-Type: text/html\r\nContent-Length: 155\r\nConnection: close\r\nCF-RAY: -\r\n\r\n<html>\r\n<head><title>400 Bad Request</title></head>\r\n<body>\r\n<center><h1>400 Bad Request</h1></center>\r\n<hr><center>cloudflare</center>\r\n</')

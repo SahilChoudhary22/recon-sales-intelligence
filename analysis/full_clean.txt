@@ -1,0 +1,71 @@
+records 133848
+{
+"clean": 75441,
+"cdn": 55978,
+"sig:edge_device": 2718,
+"honeypot": 2429,
+"sig:epss>0.5": 2007,
+"sig:eol": 1459,
+"sig:ntlm_leak": 1320,
+"sig:kev_non_rapidreset": 800,
+"sig:cert_expired": 425,
+"sig:exposed_db": 216,
+"sig:exposed_remote": 188,
+"sig:exposed_mgmt": 178,
+"sig:exposed_devops": 51,
+"sig:exposed_files": 47
+}
+
+signal -> share attributable to a domain/cert:
+  ntlm_leak                1320  with_domain 30%
+  edge_device              2718  with_domain 79%
+  epss>0.5                 2007  with_domain 58%
+  exposed_files              47  with_domain 72%
+  eol                      1459  with_domain 58%
+  kev_non_rapidreset        800  with_domain 68%
+  cert_expired              425  with_domain 98%
+  exposed_mgmt              178  with_domain 52%
+  exposed_devops             51  with_domain 98%
+  exposed_db                216  with_domain 47%
+  exposed_remote            188  with_domain 37%
+
+clean modules: [('auto', 48438), ('https', 5866), ('http', 5099), ('http-simple-new', 4871), ('https-simple-new', 1960), ('openvpn', 1166), ('ike', 1084), ('handpunch', 577), ('nodata-tcp', 539), ('portmap-tcp', 527), ('dns-udp', 263), ('mikrotik-routeros-api', 249), ('dahua-dvr', 232), ('ntp', 231), ('language-server-protocol', 226), ('ssh', 197), ('darktrack-rat', 197), ('netbios', 194), ('remcos-pro-rat', 166), ('newline-tcp', 141), ('ms-sql', 123), ('xmpp', 114), ('snmp_v3', 111), ('ike-nat-t', 107), ('orcus-rat', 107), ('proconos', 98), ('nsq', 93), ('smtp', 83), ('smtps', 80), ('blackshades', 75)]
+
+clean products: [('', 61390), ('nginx', 4539), ('WinRM', 1239), ('Apache httpd', 1158), ('AWS ELB', 847), ('Fortinet FortiGate', 756), ('OpenSSH', 660), ('OpenResty', 441), ('Microsoft IIS httpd', 363), ('Socks4A', 275), ('Ncat http proxy', 252), ('ntpd', 231), ('TR-069 Connection Request Server', 195), ('Tengine', 136), ('Hikvision IP Camera', 131), ('Microsoft HTTPAPI httpd', 117), ('lighttpd', 83), ('BigIP', 78), ('Postfix smtpd', 63), ('CloudFlare', 60), ('MikroTik RouterOS API Service', 54), ('Chromecast', 53), ('PowerDNS Authoritative Server', 52), ('ISC BIND', 51), ('Kubernetes', 51), ('VNC', 50), ('Exim smtpd', 49), ('ciscoSystems', 45), ('Microsoft Azure Application Gateway', 45), ('Squid http proxy', 45)]
+
+KEV on clean: [('CVE-2023-44487', 699), ('CVE-2020-11023', 325), ('CVE-2024-38475', 310), ('CVE-2021-40438', 208), ('CVE-2026-109619', 130), ('CVE-2026-109618', 93), ('CVE-2019-0211', 62), ('CVE-2012-1823', 36), ('CVE-2026-87902', 14), ('CVE-2024-4577', 11), ('CVE-2019-11043', 8), ('CVE-2026-65660', 7), ('CVE-2026-55040', 7), ('CVE-2026-58644', 7), ('CVE-2026-56164', 7)]
+
+examples:
+edge_device ('70.31.197.x', 1194, 'Bell Canada', ['bell.ca'], '')
+edge_device ('134.128.216.x', 1194, 'Beanfield Technologies Inc.', ['beanfield.net'], '')
+edge_device ('94.201.186.x', 541, 'Emirates Integrated Telecommunications Company PJSC', ['gblenergy.com'], 'Fortinet FortiGate')
+epss>0.5 ('82.186.221.x', 3001, 'Telecom Italia S.p.A.', ['telecomitalia.it'], '')
+epss>0.5 ('113.45.154.x', 400, 'Huawei Public Cloud Service (Huawei Software Technologies Ltd.Co)', ['hwclouds-dns.com'], '')
+epss>0.5 ('61.92.175.x', 443, 'Hong Kong Broadband Network Limited', ['ctinets.com'], 'Apache httpd')
+ntlm_leak ('219.94.241.x', 5985, 'SAKURA Internet Inc.', ['sakura.ne.jp'], 'WinRM')
+ntlm_leak ('190.102.41.x', 5985, 'Servicos de Infraestrutura e Datacenter', ['sourcethestation.com'], 'WinRM')
+ntlm_leak ('181.30.26.x', 5985, 'Telecom Argentina S.A.', ['fibertel.com.ar'], 'WinRM')
+exposed_files ('176.9.70.x', 21, 'Hetzner Online GmbH', ['your-server.de'], '')
+exposed_files ('103.109.109.x', 445, 'Rs Broadband Services Private Limited', ['103.in-addr.arpa'], '')
+exposed_files ('220.134.93.x', 445, 'Chunghwa Telecom Data Communication Business Group', ['hinet.net'], '')
+kev_non_rapidreset ('61.92.175.x', 443, 'Hong Kong Broadband Network Limited', ['ctinets.com'], 'Apache httpd')
+kev_non_rapidreset ('103.109.109.x', 445, 'Rs Broadband Services Private Limited', ['103.in-addr.arpa'], '')
+kev_non_rapidreset ('192.144.60.x', 80, 'ADMIRAL .HR d.o.o.', ['taurus.hr', 'admiral.hr'], 'Apache httpd')
+eol ('61.92.175.x', 443, 'Hong Kong Broadband Network Limited', ['ctinets.com'], 'Apache httpd')
+eol ('208.91.197.x', 80, 'Confluence Networks Inc', ['fwtb.com'], 'nginx')
+eol ('117.72.208.x', 443, 'Beijing Jingdong 360 Degree E-commerce Co., Ltd.', ['bubeijuzi.com'], 'nginx')
+cert_expired ('61.92.175.x', 443, 'Hong Kong Broadband Network Limited', ['ctinets.com'], 'Apache httpd')
+cert_expired ('92.205.179.x', 143, 'Host Europe GmbH', ['secureserver.net'], '')
+cert_expired ('35.174.193.x', 443, 'Amazon Technologies Inc.', ['salesproleads.co', 'amazonaws.com'], 'AWS ELB')
+exposed_mgmt ('69.57.198.x', 161, 'The Municipal Communications Utility of the City of Cedar Falls, Iowa', ['cfu.net'], 'Netgear')
+exposed_mgmt ('93.54.1.x', 161, 'Fastweb SpA', ['fastwebnet.it'], 'HUAWEI Technology Co.,Ltd')
+exposed_mgmt ('51.161.136.x', 389, 'OVH Australia PTY LTD', ['perufix.com'], '')
+exposed_devops ('34.84.0.x', 443, 'Google LLC', ['googleusercontent.com'], 'Kubernetes')
+exposed_devops ('35.198.143.x', 443, 'Google LLC', ['googleusercontent.com'], 'Kubernetes')
+exposed_devops ('34.84.158.x', 443, 'Google LLC', ['googleusercontent.com'], 'Kubernetes')
+exposed_db ('34.49.236.x', 1433, 'Google LLC', ['googleusercontent.com'], '')
+exposed_db ('31.200.209.x', 3306, 'De Webmakers VDC net', ['dewebmakers.nl'], 'MariaDB')
+exposed_db ('117.2.18.x', 1433, 'Dai IP cho dich vu ADSL DGN+NAN', ['viettel.vn'], 'MS-SQL Server 2016 RTMRTM')
+exposed_remote ('136.79.115.x', 3388, 'Google LLC', ['googleusercontent.com'], '')
+exposed_remote ('31.148.99.x', 5907, 'ALFA TELECOM s.r.o.', ['kvm-ssd'], 'VNC')
+exposed_remote ('195.120.173.x', 23, 'Telecom Italia S.p.A.', ['telecomitalia.it'], '')

@@ -1,0 +1,357 @@
+records 133848
+
+== counts
+  97906 has_domain
+  33413 http
+  31297 no_csp
+  30240 no_hsts
+  24911 org_not_hostlike
+  11807 has_cert
+   3546 cert_has_O
+   2631 has_vulns
+   2429 honeypot
+   2077 epss>0.5
+   1699 weak_tls
+   1524 has_kev
+   1320 ntlm
+   1202 self_signed
+    758 svc:fortinet
+    551 cert_expired
+    125 svc:snmp
+     72 has_securitytxt
+     58 svc:vnc
+     52 svc:mysql
+     49 svc:kubernetes
+     38 svc:ftp
+     28 svc:telnet
+     21 svc:rdp_encryption
+     14 svc:open_dir
+     11 svc:microsoft_exchange
+      9 svc:smb
+      8 svc:screenshot
+      2 svc:redis
+      2 svc:mongodb
+
+== tags
+  56005 cdn
+  35360 cloud
+   4161 pqc
+   2429 honeypot
+   1597 proxy
+   1540 vpn
+   1117 eol-product
+   1105 self-signed
+    361 eol-os
+    176 database
+    132 starttls
+     70 iot
+     51 devops
+     24 open-dir
+     22 ics
+     17 ai
+      8 cryptocurrency
+      6 videogame
+      6 tor
+      5 mcp
+      2 malware
+      1 c2
+      1 medical
+      1 ssh-bad-key
+
+== modules
+  87825 auto
+   9973 https
+   7735 http
+   7727 http-simple-new
+   4420 https-simple-new
+   2063 language-server-protocol
+   1166 openvpn
+   1085 ike
+    840 x11
+    585 handpunch
+    576 nodata-tcp
+    535 portmap-tcp
+    475 ms-portmap-tcp
+    455 ta14-353a
+    436 ms-sql
+    385 tc-b
+    384 amqp
+    382 ibm-db2-drda
+    351 dictionary
+    343 melsec-q-tcp
+    333 statsd-admin
+    270 dns-udp
+    262 smtps
+    250 mikrotik-routeros-api
+    240 dahua-dvr
+    232 ntp
+    212 darktrack-rat
+    211 remcos-pro-rat
+    197 ssh
+    194 netbios
+    185 smtp
+    172 xmpp
+    155 newline-tcp
+    150 nsq
+    132 oracle-tns
+    125 orcus-rat
+    111 snmp_v3
+    108 proconos
+    107 ike-nat-t
+     80 nuclear-rat
+     77 blackshades
+     71 teradici-pcoip-old
+     70 rtsp-tcp
+     68 dicom
+     66 automated-tank-gauge
+     66 njrat
+     64 ldaps
+     58 ldap-tcp
+     57 sip
+     56 secure-fox
+     54 l2tp
+     54 telnet
+     52 dns-tcp
+     52 poison-ivy-rat
+     51 mysql
+     45 printer-job-language
+     45 rdp
+     44 socks5-proxy
+     39 ftp
+     38 ikettle
+
+== ports
+   9755 443
+   7245 80
+   3904 541
+   2273 2087
+   1276 5985
+   1166 1194
+   1085 500
+    900 3001
+    768 444
+    711 119
+    678 5357
+    666 111
+    582 4443
+    543 8080
+    528 9073
+    527 8085
+    500 1976
+    493 49767
+    483 9175
+    481 5236
+    475 135
+    475 9138
+    468 3306
+    465 50000
+    463 9055
+    457 24808
+    456 4477
+    455 25004
+    454 22403
+    448 40892
+    445 14895
+    445 6000
+    444 9150
+    441 1433
+    438 17443
+    429 8574
+    428 1973
+    425 5440
+    424 4488
+    422 11681
+
+== KEV cves
+    702 CVE-2023-44487
+    358 CVE-2020-11023
+    316 CVE-2024-38475
+    210 CVE-2021-40438
+    144 CVE-2026-109619
+    105 CVE-2026-109618
+     62 CVE-2019-0211
+     36 CVE-2012-1823
+     23 CVE-2026-87902
+     11 CVE-2024-4577
+      9 CVE-2019-11043
+      7 CVE-2026-65660
+      7 CVE-2026-55040
+      7 CVE-2026-58644
+      7 CVE-2026-56164
+      7 CVE-2026-50522
+      7 CVE-2026-45659
+      7 CVE-2026-32201
+      7 CVE-2026-20963
+      7 CVE-2025-53770
+      7 CVE-2025-49704
+      7 CVE-2024-38094
+      7 CVE-2016-10033
+      6 CVE-2015-1635
+      6 MS15-034
+
+== products w/ KEV
+    743 nginx
+    335 Apache httpd
+    330 None
+     38 Microsoft IIS httpd
+     28 lighttpd
+     10 Jetty
+      5 OpenResty
+      4 ISC BIND
+      3 Nextcloud
+      3 Pulse Secure
+      3 LiteSpeed httpd
+      2 Apache Tomcat/Coyote JSP engine
+      2 Boa Web Server
+      2 ProFTPD
+      1 Sophos SSL VPN User Portal
+      1 Apache Tomcat
+      1 ZTE H268A
+      1 PS3 Media Server UPnP
+      1 GoAhead-Webs httpd
+      1 NET-DK
+
+== cert O
+    765 Fortinet
+    163 天翼云科技有限公司
+    158 Microsoft Corporation
+    132 Huawei
+    118 ServiceNow, Inc.
+    103 Private Internet Access
+     70 Cisco Systems Inc.
+     55 Google Inc
+     49 FIT2CLOUD
+     47 Incapsula
+     46 Default Company Ltd
+     39 Akamai Technologies, Inc.
+     37 Salesforce, Inc.
+     28 DrayTek Corp.
+     26 CloudFlare, Inc.
+     22 Acme Co
+     20 Alibaba (China) Technology Co., Ltd.
+     19 Plesk
+     18 NA
+     18 HTTPS Management Certificate for SonicWALL (self-signed)
+     18 Huawei Software Technologies Co., Ltd.
+     18 Amazon.com Inc.
+     17 Oracle Corporation
+     16 Netlify, Inc
+     15 Apple Inc.
+     14 Ubiquiti Networks Inc.
+     14 Adobe Inc.
+     12 Unspecified
+     11 Incapsula, Inc.
+     11 Fortinet Ltd.
+
+== ntlm dns domain
+      7 WIN-C6U8026KAHH
+      7 WIN-5R0DSV23ED0
+      7 EV-4A6OE6M0E2D
+      6 10_0_0_15
+      5 VAGRANT-MC0J25I
+      4 10_0_0_10
+      4 10_1_0_10
+      4 DL-54-192
+      4 SERVER
+      4 10_0_0_14
+      4 WIN-I7V0K2F3GOD
+      4 10_0_0_9
+      4 10_0_0_5
+      4 WIN-BPN93HA3NON
+      3 10_1_0_6
+      3 172_16_0_9
+      3 172_17_0_3
+      3 10_6_0_13
+      3 WIN-8OA3CCQAE4D
+      3 10_0_0_4
+
+== http titles
+  13485 
+   2171 301 Moved Permanently
+   1754 400 Bad Request
+   1401 Not Found
+   1140 阿里云 Web应用防火墙
+   1051 403 Forbidden
+    802 ERROR: The request could not be satisfied
+    758 400 The plain HTTP request was sent to HTTPS port
+    614 404 Not Found
+    612 Service Unavailable
+    573 Invalid URL
+    490 未找到
+    399 302 Found
+    279 ERROR: The requested URL could not be retrieved
+    229 407 Proxy Authentication Required
+    189 Just a moment...
+    183 401 Unauthorized
+    178 One moment, please...
+    174 Web Filter Block Override
+    164 Welcome to nginx!
+    150 Error 404 (Not Found)!!1
+    144 409 Conflict
+    124 502 Bad Gateway
+     94 503 Service Temporarily Unavailable
+     90 307 Temporary Redirect
+     80 IIS Windows Server
+     64 main page
+     62 Login
+     61 Error
+     51 Attention Required! | Cloudflare
+     45 WEB SERVICE
+     44 Check Point WAF
+     43 403 - Forbidden: Access is denied.
+     43 401 Authorization Required
+     41 Error - VTEX
+     41 Document Moved
+     38 429 Too Many Requests (WAF)
+     36 Freebox OS :: Identification
+     34 404
+     34 501 Not Implemented
+
+== waf
+   3535 Incapsula (Imperva Inc.)
+   3271 Cloudflare (Cloudflare Inc.)
+   2522 Cloudfront (Amazon)
+    990 AWS Elastic Load Balancer (Amazon)
+    600 Kona SiteDefender (Akamai)
+    215 FortiWeb (Fortinet)
+     52 CacheWall (Varnish)
+     45 360WangZhanBao (360 Technologies)
+     40 BIG-IP Local Traffic Manager (F5 Networks)
+     37 Azure Front Door (Microsoft)
+     30 NetScaler AppFirewall (Citrix Systems)
+     29 BIG-IP AppSec Manager (F5 Networks)
+     28 Squarespace (Squarespace)
+     26 SonicWall (Dell)
+     22 Fastly (Fastly CDN)
+
+== components
+   5238 Nginx
+   3582 Amazon Web Services
+   3536 Imperva
+   3372 Cloudflare
+   3171 HSTS
+   2585 Amazon CloudFront
+   2047 Microsoft HTTPAPI
+   1600 Apache HTTP Server
+   1599 HTTP/3
+   1401 jQuery
+   1175 Tengine
+    876 Amazon ELB
+    835 OpenResty
+    778 PHP
+    664 Microsoft ASP.NET
+    621 Amazon S3
+    595 Ubuntu
+    564 Cloudflare Browser Insights
+    509 Bootstrap
+    479 MySQL
+    473 WordPress
+    403 Windows Server
+    382 Google Tag Manager
+    361 jsDelivr
+    360 Python
+    354 IIS
+    281 Basic
+    277 AngularJS
+    258 Ruby
+    253 Ruby on Rails
