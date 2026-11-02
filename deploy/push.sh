@@ -3,7 +3,7 @@
 #   deploy/push.sh [ssh-host] [remote-dir]
 set -euo pipefail
 HOST=${1:-bluedragon}
-DIR=${2:-/home/bluedragon/surface}
+DIR=${2:-/home/bluedragon/recon}
 cd "$(dirname "$0")/.."
 # the published export must be the masked one
 grep -q '"ips_masked":true' web/public/data/accounts.json || { echo "export is not IP-masked; refusing"; exit 1; }
