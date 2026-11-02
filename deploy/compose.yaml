@@ -1,0 +1,17 @@
+# Static site: the pre-built web app (web/dist incl. its data JSON) served read-only by unprivileged
+# nginx. Not published on any host port; only the Tailscale sidecar in compose.tailscale.yaml reaches it.
+#   docker compose -f compose.yaml -f compose.tailscale.yaml up -d
+services:
+  web:
+    image: nginxinc/nginx-unprivileged:1.29-alpine
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    volumes:
+      - ./site:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL

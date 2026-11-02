@@ -1,0 +1,21 @@
+# Publish the site on the internet through Tailscale Funnel as its own tailnet node
+# (https://<TS_HOSTNAME>.<tailnet>.ts.net), same pattern as HighEval on this host.
+# Needs TS_AUTHKEY in .env (a Tailscale auth key) and Funnel allowed for the node by the tailnet policy.
+services:
+  tailscale:
+    image: tailscale/tailscale:v1.102.2
+    restart: unless-stopped
+    environment:
+      TS_AUTHKEY: ${TS_AUTHKEY}
+      TS_HOSTNAME: ${TS_HOSTNAME:-surface}
+      TS_STATE_DIR: /var/lib/tailscale
+      TS_SERVE_CONFIG: /config/serve.json
+      TS_USERSPACE: 'true'
+    volumes:
+      - tailscale-state:/var/lib/tailscale
+      - ./tailscale-serve.json:/config/serve.json:ro
+    depends_on:
+      - web
+
+volumes:
+  tailscale-state:
