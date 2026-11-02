@@ -1,21 +1,24 @@
 """Merge labels produced inside Claude Code (parallel Haiku subagents, same instructions as
 pipeline/llm_label.py) into the shared label cache, validating every row.
 
-usage: python -m pipeline.merge_labels
-reads data/labels/queue/items.json + out_*.jsonl, appends to data/labels/llm_cache.jsonl,
+usage: python -m pipeline.merge_labels [queue_dir]
+reads <queue_dir>/items.json + out_*.jsonl, appends to data/labels/llm_cache.jsonl,
 rewrites org_labels.csv / domain_labels.csv
 """
+import argparse
 import glob
 import json
 import typing
 
 from pipeline.llm_label import CACHE, Industry, OrgType, load_cache, write_label_csvs
 
-QUEUE = "data/labels/queue"
 ORG_TYPES, INDUSTRIES = set(typing.get_args(OrgType)), set(typing.get_args(Industry))
 
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("queue_dir", nargs="?", default="data/labels/queue")
+    QUEUE = ap.parse_args().queue_dir
     items = json.load(open(f"{QUEUE}/items.json"))
     got, bad = {}, 0
     for path in sorted(glob.glob(f"{QUEUE}/out_*.jsonl")):

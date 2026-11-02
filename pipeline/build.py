@@ -193,6 +193,10 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
                    mode(org) filter (where org_type = 'business') business_org,
                    mode(org) top_org, mode(country) country, mode(org_industry) org_industry,
                    bool_or(org_type_source = 'llm') org_confirmed,
+                   -- measured on two blind samples: IP-owner / reverse-DNS identities are 0-15% sellable,
+                   -- except universities and governments, which really do own their address blocks
+                   coalesce(min(ident_prio) in (4, 14), true) weak_identity,
+                   bool_or(org_type_source = 'llm' and org_industry in ('Education', 'Government')) owns_its_ips,
                    count(distinct ip) n_ips, count(*) n_assets, min(ident_prio) ident_prio,
                    list(distinct product) filter (where product is not null)[1:12] products
             from assets where company_id is not null group by company_id),
@@ -211,8 +215,7 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
         select a.*, s.* exclude (company_id), coalesce(m.maturity, []) maturity,
                coalesce(m.maturity_labels, []) maturity_labels,
                1 + 0.4 * has_kev::int + 0.2 * has_eol::int + 0.1 * has_cert_issue::int urgency,
-               (case when ident_prio is null and org_confirmed then 0.85  -- business org, LLM-confirmed
-                     when ident_prio is null then 0.5       -- business org by heuristics only (15% precise)
+               (case when ident_prio is null then 0.85      -- business org only
                      when ident_prio <= 3 then 1.0          -- cert / ntlm / http host
                      when ident_prio = 4 then 0.75          -- reverse DNS
                      else 0.9 end)                          -- inherited from another port on the IP
@@ -221,7 +224,8 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
         from a join s using (company_id) left join m using (company_id)""")
     con.execute("""alter table accounts add column priority double;
         update accounts set priority = need * urgency * fit * maturity_factor
-            * case when has_material then 1 else 0.3 end""")
+            * case when has_material then 1 else 0.3 end
+            * case when weak_identity and not owns_its_ips then 0.3 else 1 end""")
     con.execute("""alter table accounts add column material_rank bigint;
         update accounts set material_rank = r.rk from (
             select company_id, row_number() over (order by priority desc) rk
