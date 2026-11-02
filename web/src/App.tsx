@@ -1,8 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import type { Account, Dataset, Evidence } from './types'
+import type { Account, Dataset, Evidence, Play } from './types'
 import { PLAYS } from './plays'
 import { talkTrack } from './talkTrack'
-import { APP_NAME, TAGLINE } from './brand'
+import { APP_NAME, PRODUCT_LINE } from './brand'
+import { STATUSES, statusLabel, useShortlist, type Saved, type Status } from './shortlist'
+import { Tour } from './Tour'
+import { guideSeen } from './tourSteps'
 
 const fmt = (n: number) => n.toLocaleString('en-US')
 const CRITICAL_WEIGHT = 8
@@ -53,6 +56,8 @@ export default function App() {
   const [failed, setFailed] = useState(false)
   const [f, setF] = useState<Filters>(readUrl)
   const [limit, setLimit] = useState(100)
+  const [guide, setGuide] = useState(() => !guideSeen())
+  const shortlist = useShortlist()
   const set = (patch: Partial<Filters>) => {
     setF((cur) => ({ ...cur, ...patch }))
     if (!('id' in patch)) setLimit(100) // a new filter starts the list from the top
@@ -81,7 +86,12 @@ export default function App() {
     return { countries: sort(c), industries: sort(i) }
   }, [data])
 
-  const play = PLAYS.find((x) => x.id === f.play) ?? PLAYS[0]
+  const myList: Play = {
+    id: 'list', name: 'My list',
+    blurb: 'Accounts you saved from the account panel, with where each one stands. Export it for your CRM.',
+    match: (a) => !!shortlist.list[a.id],
+  }
+  const play = f.play === 'list' ? myList : PLAYS.find((x) => x.id === f.play) ?? PLAYS[0]
   const rows = useMemo(() => {
     if (!data) return []
     const needle = f.q.trim().toLowerCase()
@@ -96,33 +106,36 @@ export default function App() {
   }, [data, play, f.q, f.country, f.industry, f.strong])
   const selected = useMemo(() => data?.accounts.find((a) => a.id === f.id) ?? null, [data, f.id])
   const filtered = f.q || f.country || f.industry || f.strong
+  const nSaved = Object.keys(shortlist.list).length
+
+  const navButton = (p: Play, count: number) => {
+    const on = p.id === play.id
+    return (
+      <button type="button" aria-current={on ? 'page' : undefined} onClick={() => set({ play: p.id })}
+        className={`flex w-full min-h-9 items-center justify-between gap-3 rounded-[var(--radius-ctl)] px-2.5 text-left text-sm transition-colors duration-[var(--dur-micro)] ${
+          on ? 'bg-accent-soft font-medium text-ink' : 'text-ink-2 hover:bg-paper-2'
+        }`}>
+        <span className="whitespace-nowrap lg:whitespace-normal">{p.name}</span>
+        <span className="measured text-xs text-muted">{data ? fmt(count) : ''}</span>
+      </button>
+    )
+  }
 
   return (
     <div className="min-h-screen">
-      <Header data={data} />
+      <Header data={data} onGuide={() => setGuide(true)} />
       <div className="mx-auto max-w-[112rem] lg:grid lg:grid-cols-[16rem_minmax(0,1fr)] 2xl:grid-cols-[16rem_minmax(0,1fr)_minmax(0,34rem)]">
-        <nav aria-label="Plays" className="border-b border-rule px-4 py-3 lg:border-b-0 lg:border-r lg:px-3 lg:py-5">
-          <h2 className="mb-2 hidden px-2 text-sm text-muted lg:block">Plays</h2>
-          <ul className="-mx-1 flex gap-1 overflow-x-auto pb-1 lg:mx-0 lg:flex-col lg:overflow-visible lg:pb-0">
-            {PLAYS.map((p) => {
-              const on = p.id === play.id
-              return (
-                <li key={p.id} className="shrink-0">
-                  <button
-                    type="button"
-                    aria-current={on ? 'page' : undefined}
-                    onClick={() => set({ play: p.id })}
-                    className={`flex w-full min-h-9 items-center justify-between gap-3 rounded-[var(--radius-ctl)] px-2.5 text-left text-sm transition-colors duration-[var(--dur-micro)] ${
-                      on ? 'bg-accent-soft text-ink font-medium' : 'text-ink-2 hover:bg-paper-2'
-                    }`}
-                  >
-                    <span className="whitespace-nowrap lg:whitespace-normal">{p.name}</span>
-                    <span className="measured text-xs text-muted">{data ? fmt(playCounts[p.id]) : ''}</span>
-                  </button>
-                </li>
-              )
-            })}
-          </ul>
+        <nav aria-label="Views" className="flex gap-4 overflow-x-auto border-b border-rule px-4 py-3 lg:block lg:overflow-visible lg:border-b-0 lg:border-r lg:px-3 lg:py-5">
+          <div data-tour="mylist" className="shrink-0 lg:mb-5">
+            <h2 className="mb-2 hidden px-2 text-sm text-muted lg:block">Your work</h2>
+            {navButton(myList, nSaved)}
+          </div>
+          <div data-tour="plays" className="min-w-0">
+            <h2 className="mb-2 hidden px-2 text-sm text-muted lg:block">Plays</h2>
+            <ul className="flex gap-1 lg:flex-col">
+              {PLAYS.map((p) => <li key={p.id} className="shrink-0">{navButton(p, playCounts[p.id])}</li>)}
+            </ul>
+          </div>
         </nav>
 
         <main className="min-w-0 px-4 py-5 sm:px-6">
@@ -131,7 +144,7 @@ export default function App() {
             <p className="mt-1 text-sm text-muted">{play.blurb}</p>
           </div>
 
-          <div className="mb-4 flex flex-wrap items-center gap-2">
+          <div data-tour="filters" className="mb-4 flex flex-wrap items-center gap-2">
             <label className="sr-only" htmlFor="q">Search accounts</label>
             <input id="q" type="search" name="q" autoComplete="off" value={f.q} onChange={(e) => set({ q: e.target.value })}
               placeholder="Search a company or organisation" className="field w-full sm:w-72" />
@@ -144,61 +157,78 @@ export default function App() {
               Strong identity only
             </label>
             <div className="ml-auto flex items-center gap-3">
-              <span className="text-sm text-muted"><span className="measured text-ink">{fmt(rows.length)}</span> accounts</span>
-              <button type="button" className="btn" disabled={!rows.length} onClick={() => data && exportCsv(rows, data)}>Export CSV</button>
+              <span className="text-sm text-muted"><span className="measured text-ink">{fmt(rows.length)}</span> {rows.length === 1 ? 'account' : 'accounts'}</span>
+              <button type="button" className="btn" disabled={!rows.length} onClick={() => data && exportCsv(rows, data, shortlist.list)}>Export CSV</button>
             </div>
           </div>
 
-          {failed ? (
-            <State title="The account list did not load." body="The data file could not be fetched. Check the connection and try again.">
-              <button type="button" className="btn" onClick={() => { setFailed(false); load() }}>Try again</button>
-            </State>
-          ) : !data ? (
-            <SkeletonRows />
-          ) : !rows.length ? (
-            <State title="No accounts match these filters." body={`The ${play.name.toLowerCase()} view has ${fmt(playCounts[play.id])} accounts before filtering.`}>
-              {filtered && <button type="button" className="btn" onClick={() => set({ q: '', country: '', industry: '', strong: false })}>Clear filters</button>}
-            </State>
-          ) : (
-            <>
-              <AccountTable rows={rows.slice(0, limit)} meta={data} selectedId={f.id} onSelect={(id) => set({ id })} />
-              <AccountList rows={rows.slice(0, limit)} meta={data} onSelect={(id) => set({ id })} />
-              {rows.length > limit && (
-                <button type="button" className="btn mt-4" onClick={() => setLimit(limit + 200)}>
-                  Show 200 more <span className="measured text-muted">({fmt(rows.length - limit)} left)</span>
-                </button>
-              )}
-            </>
-          )}
+          <div data-tour="table">
+            {failed ? (
+              <State title="The account list did not load." body="The data file could not be fetched. Check the connection and try again.">
+                <button type="button" className="btn" onClick={() => { setFailed(false); load() }}>Try again</button>
+              </State>
+            ) : !data ? (
+              <SkeletonRows />
+            ) : !rows.length && play.id === 'list' && !filtered ? (
+              <State title="Your list is empty." body="Open any account and choose Add to my list. Saved accounts collect here with their status, ready to export." >
+                <button type="button" className="btn" onClick={() => set({ play: 'p1' })}>Browse the P1 accounts</button>
+              </State>
+            ) : !rows.length ? (
+              <State title="No accounts match these filters." body={`The ${play.name.toLowerCase()} view has ${fmt(play.id === 'list' ? nSaved : playCounts[play.id])} accounts before filtering.`}>
+                {filtered && <button type="button" className="btn" onClick={() => set({ q: '', country: '', industry: '', strong: false })}>Clear filters</button>}
+              </State>
+            ) : (
+              <>
+                <AccountTable rows={rows.slice(0, limit)} meta={data} saved={shortlist.list} selectedId={f.id} onSelect={(id) => set({ id })} />
+                <AccountList rows={rows.slice(0, limit)} meta={data} saved={shortlist.list} onSelect={(id) => set({ id })} />
+                {rows.length > limit && (
+                  <button type="button" className="btn mt-4" onClick={() => setLimit(limit + 200)}>
+                    Show 200 more <span className="measured text-muted">({fmt(rows.length - limit)} left)</span>
+                  </button>
+                )}
+              </>
+            )}
+          </div>
         </main>
 
-        <Detail key={selected?.id ?? 'none'} account={selected} meta={data} onClose={() => set({ id: null })} />
+        <Detail key={selected?.id ?? 'none'} account={selected} meta={data} shortlist={shortlist} onClose={() => set({ id: null })} />
       </div>
+      {guide && data && <Tour onClose={() => setGuide(false)} />}
     </div>
   )
 }
 
-function Header({ data }: { data: Dataset | null }) {
+const compact = new Intl.NumberFormat('en-US', { notation: 'compact', maximumSignificantDigits: 3 })
+const pct = (part?: number, whole?: number) => (part && whole ? `${(100 * part / whole).toFixed(part / whole < 0.1 ? 1 : 0)}%` : '')
+
+function Header({ data, onGuide }: { data: Dataset | null; onGuide: () => void }) {
   const f = data?.funnel as Record<string, number> | undefined
-  const steps: [string, number | undefined][] = [
-    ['banners scanned', f?.raw_records],
-    ['after noise removal', f?.clean],
-    ['tied to a company', f?.attributed_assets],
-    ['companies with real risk', f?.companies_with_material_signal],
+  const steps: { label: string; n?: number; note: string }[] = [
+    { label: 'Banners scanned', n: f?.raw_records, note: 'One day of internet scan data, 1 Nov 2026' },
+    { label: 'Real services', n: f?.clean, note: `${pct(f?.clean, f?.raw_records)} kept after removing CDN edges, honeypots and phantom hosts` },
+    { label: 'Tied to a company', n: f?.attributed_assets, note: f ? `${pct(f.attributed_assets, f.clean)} of real services, across ${compact.format(f.companies)} companies` : '' },
+    { label: 'Companies with real risk', n: f?.companies_with_material_signal, note: data ? `The top ${fmt(data.accounts.length)} are ranked here` : '' },
   ]
   return (
-    <header className="border-b border-rule bg-paper-2">
-      <div className="mx-auto flex max-w-[112rem] flex-wrap items-end justify-between gap-x-10 gap-y-3 px-4 py-4 sm:px-6">
-        <div>
-          <p className="text-lg font-medium leading-tight text-ink">{APP_NAME}</p>
-          <p className="text-sm text-muted">{TAGLINE}</p>
+    <header className="border-b border-rule bg-paper-2" data-tour="funnel">
+      <div className="mx-auto max-w-[112rem] px-4 pt-4 pb-5 sm:px-6">
+        <div className="mb-4 flex items-center justify-between gap-4">
+          <p className="flex items-baseline gap-2.5">
+            <span className="text-xl font-medium leading-none text-ink">{APP_NAME}</span>
+            <span className="text-sm text-muted">{PRODUCT_LINE}</span>
+          </p>
+          <button type="button" className="btn" onClick={onGuide}>How it works</button>
         </div>
-        <dl className="flex flex-wrap gap-x-6 gap-y-1">
-          {steps.map(([label, n]) => (
-            <div key={label} className="flex items-baseline gap-1.5">
-              <dt className="sr-only">{label}</dt>
-              <dd className="measured text-sm text-ink">{n === undefined ? '…' : fmt(n)}</dd>
-              <dd aria-hidden className="text-sm text-muted">{label}</dd>
+        <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-[var(--radius-card)] border border-rule bg-rule lg:grid-cols-4">
+          {steps.map((s) => (
+            <div key={s.label} className="bg-paper-3 px-4 py-3">
+              <dt className="text-sm text-muted">{s.label}</dt>
+              <dd className="measured mt-1 text-[1.75rem] leading-none tracking-[-0.03em] text-ink" title={s.n === undefined ? undefined : fmt(s.n)}>
+                {s.n === undefined ? <span className="skeleton inline-block h-7 w-20 align-middle" /> : (
+                  <><span aria-hidden>{compact.format(s.n)}</span><span className="sr-only">{fmt(s.n)}</span></>
+                )}
+              </dd>
+              <dd className="mt-1.5 text-xs leading-snug text-muted">{s.note}</dd>
             </div>
           ))}
         </dl>
@@ -211,17 +241,20 @@ function Select({ id, label, value, onChange, options, all }: {
   id: string; label: string; value: string; onChange: (v: string) => void; options: [string, string][]; all: string
 }) {
   return (
-    <>
+    <span className="relative inline-flex">
       <label className="sr-only" htmlFor={id}>{label}</label>
-      <select id={id} name={id} value={value} onChange={(e) => onChange(e.target.value)} className="field max-w-[13rem] pr-8">
+      <select id={id} name={id} value={value} onChange={(e) => onChange(e.target.value)}
+        className="field max-w-[14rem] appearance-none pl-3 pr-9">
         <option value="">{all}</option>
         {options.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
       </select>
-    </>
+      <svg aria-hidden viewBox="0 0 16 16" className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted">
+        <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </span>
   )
 }
 
-// list chips stay neutral: order and tier carry urgency; severity is marked only on the evidence record
 function SignalChip({ id, meta }: { id: string; meta: Dataset }) {
   const m = meta.signals[id]
   return <span title={m?.label} className="chip">{SHORT[id] ?? m?.label ?? id}</span>
@@ -233,8 +266,8 @@ function Tier({ tier }: { tier: Account['tier'] }) {
   return <span className="chip border-transparent text-muted">P3</span>
 }
 
-function AccountTable({ rows, meta, selectedId, onSelect }: {
-  rows: Account[]; meta: Dataset; selectedId: string | null; onSelect: (id: string) => void
+function AccountTable({ rows, meta, saved, selectedId, onSelect }: {
+  rows: Account[]; meta: Dataset; saved: Record<string, Saved>; selectedId: string | null; onSelect: (id: string) => void
 }) {
   return (
     <div className="hidden overflow-x-auto md:block">
@@ -267,6 +300,7 @@ function AccountTable({ rows, meta, selectedId, onSelect }: {
                 <div className="mt-0.5 truncate text-sm text-muted">
                   {IDENT[a.ident].label}{a.org && a.org !== a.name ? <>, {a.org}</> : null}
                 </div>
+                {saved[a.id] && <span className="chip chip-act mt-1.5">{statusLabel(saved[a.id].status)}</span>}
               </td>
               <td className="py-3 pr-4">
                 <div className="flex flex-wrap gap-1">
@@ -287,7 +321,7 @@ function AccountTable({ rows, meta, selectedId, onSelect }: {
   )
 }
 
-function AccountList({ rows, meta, onSelect }: { rows: Account[]; meta: Dataset; onSelect: (id: string) => void }) {
+function AccountList({ rows, meta, saved, onSelect }: { rows: Account[]; meta: Dataset; saved: Record<string, Saved>; onSelect: (id: string) => void }) {
   return (
     <ul className="divide-y divide-rule border-y border-rule md:hidden">
       {rows.map((a) => (
@@ -298,6 +332,7 @@ function AccountList({ rows, meta, onSelect }: { rows: Account[]; meta: Dataset;
               <span className="measured text-sm">{a.score.toFixed(0)}</span>
               <span className="min-w-0 truncate font-medium">{a.name}</span>
             </div>
+            {saved[a.id] && <span className="chip chip-act mt-1.5">{statusLabel(saved[a.id].status)}</span>}
             <div className="mt-2 flex flex-wrap gap-1">{a.signals.slice(0, 3).map((s) => <SignalChip key={s} id={s} meta={meta} />)}</div>
             <div className="mt-2 text-sm text-muted">
               <span className="measured">{a.country}</span>, <span className="measured">{fmt(a.assets)}</span> services on <span className="measured">{fmt(a.ips)}</span> IPs
@@ -333,7 +368,9 @@ function State({ title, body, children }: { title: string; body: string; childre
   )
 }
 
-function Detail({ account: a, meta, onClose }: { account: Account | null; meta: Dataset | null; onClose: () => void }) {
+function Detail({ account: a, meta, shortlist, onClose }: {
+  account: Account | null; meta: Dataset | null; shortlist: ReturnType<typeof useShortlist>; onClose: () => void
+}) {
   const [ev, setEv] = useState<Evidence[] | null>(null)
   const [evFailed, setEvFailed] = useState(false)
   const [copied, setCopied] = useState(false)
@@ -390,6 +427,7 @@ function Detail({ account: a, meta, onClose }: { account: Account | null; meta: 
           </div>
           <button type="button" onClick={onClose} className="btn shrink-0">Close</button>
         </div>
+        <ListControl id={a.id} shortlist={shortlist} />
 
         <div className="space-y-8 px-6 py-6">
           <section aria-label="Priority">
@@ -420,7 +458,7 @@ function Detail({ account: a, meta, onClose }: { account: Account | null; meta: 
           <section aria-labelledby="opening">
             <div className="mb-2 flex items-center justify-between gap-3">
               <h3 id="opening" className="text-lg text-ink">Opening line</h3>
-              <button type="button" className="btn btn-primary" disabled={!track}
+              <button type="button" className="btn" disabled={!track}
                 onClick={() => { navigator.clipboard.writeText(track); setCopied(true); setTimeout(() => setCopied(false), 1500) }}>
                 {copied ? 'Copied' : 'Copy'}
               </button>
@@ -434,6 +472,8 @@ function Detail({ account: a, meta, onClose }: { account: Account | null; meta: 
             )}
             <p className="mt-2 text-xs text-muted">Built only from what the scan observed; nothing is generated.</p>
           </section>
+
+          <WhoToContact account={a} />
 
           <section aria-labelledby="evidence">
             <h3 id="evidence" className="mb-3 text-lg text-ink">Evidence</h3>
@@ -490,12 +530,66 @@ function Detail({ account: a, meta, onClose }: { account: Account | null; meta: 
   )
 }
 
-function exportCsv(rows: Account[], meta: Dataset) {
-  const head = ['score', 'tier', 'company', 'organisation', 'country', 'industry', 'identified_by', 'signals', 'ips', 'services']
+function ListControl({ id, shortlist }: { id: string; shortlist: ReturnType<typeof useShortlist> }) {
+  const saved = shortlist.list[id]
+  return (
+    <div className="flex flex-wrap items-center gap-2 border-b border-rule bg-paper-2 px-6 py-3">
+      {saved ? (
+        <>
+          <span className="relative inline-flex">
+            <label className="sr-only" htmlFor="status">Status</label>
+            <select id="status" value={saved.status} onChange={(e) => shortlist.setStatus(id, e.target.value as Status)}
+              className="field appearance-none pl-3 pr-9">
+              {STATUSES.map(([k, l]) => <option key={k} value={k}>{l}</option>)}
+            </select>
+            <svg aria-hidden viewBox="0 0 16 16" className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted">
+              <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+          <span className="text-sm text-muted">On your list since {new Date(saved.added).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}</span>
+          <button type="button" className="ml-auto text-sm text-muted underline underline-offset-4 hover:text-ink" onClick={() => shortlist.remove(id)}>Remove</button>
+        </>
+      ) : (
+        <>
+          <button type="button" className="btn btn-primary" onClick={() => shortlist.save(id)}>Add to my list</button>
+          <span className="text-sm text-muted">Track it from to contact to meeting booked.</span>
+        </>
+      )}
+    </div>
+  )
+}
+
+function WhoToContact({ account: a }: { account: Account }) {
+  const isDomain = !a.id.startsWith('org:')
+  // a domain account is searched by its brand ("chevron" for chevron.com); an IP-owner account by its registered name
+  const company = isDomain ? a.name.split('.')[0] : a.org ?? a.name
+  const roles = '(CISO OR "head of security" OR "IT director" OR "IT manager")'
+  const links: [string, string][] = [
+    ['Security and IT leads on LinkedIn', `https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(`${company} ${roles}`)}`],
+    ['Same search through Google', `https://www.google.com/search?q=${encodeURIComponent(`site:linkedin.com/in "${company}" ${roles}`)}`],
+  ]
+  if (isDomain) links.push(['Company website', `https://${a.name}`])
+  if (isDomain && a.maturity.includes('security_txt')) links.push(['Their security contact (security.txt)', `https://${a.name}/.well-known/security.txt`])
+  return (
+    <section aria-labelledby="contact">
+      <h3 id="contact" className="mb-1 text-lg text-ink">Who to contact</h3>
+      <p className="mb-2 max-w-[60ch] text-sm text-muted">Recon holds no contact data and does not guess names. These open searches for the people who own this exposure.</p>
+      <ul className="space-y-1.5 text-sm">
+        {links.map(([label, href]) => (
+          <li key={href}><a href={href} target="_blank" rel="noopener noreferrer" className="text-ink underline hover:text-accent">{label}</a></li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+function exportCsv(rows: Account[], meta: Dataset, saved: Record<string, Saved>) {
+  const head = ['score', 'tier', 'company', 'organisation', 'country', 'industry', 'identified_by', 'signals', 'ips', 'services', 'list_status']
   const esc = (v: unknown) => `"${String(v ?? '').replace(/"/g, '""')}"`
   const lines = rows.map((a) =>
     [a.score, a.tier, a.name, a.org, a.country, a.industry, IDENT[a.ident].label,
-      a.signals.map((s) => meta.signals[s]?.label ?? s).join('; '), a.ips, a.assets].map(esc).join(','))
+      a.signals.map((s) => meta.signals[s]?.label ?? s).join('; '), a.ips, a.assets,
+      saved[a.id] ? statusLabel(saved[a.id].status) : ''].map(esc).join(','))
   const blob = new Blob([[head.join(','), ...lines].join('\n')], { type: 'text/csv' })
   const url = URL.createObjectURL(blob)
   Object.assign(document.createElement('a'), { href: url, download: 'accounts.csv' }).click()
