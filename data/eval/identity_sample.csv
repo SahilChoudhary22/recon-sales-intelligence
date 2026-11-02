@@ -1,0 +1,113 @@
+company_id,stratum,tier,display_name,identity_source,top_org,country,n_ips,certs,titles,products
+csmingredients.com,tail,P3,csmingredients.com,cert,A100 ROW GmbH,DE,2, | balancer.csmingredients.com | csmingredients.com,"403 Forbidden | 
+	CustomerPortal
+ |     Homepage | CSM Ingredients
+",Apache httpd | 
+org:TAIPEI MUNICIPAL CHUNG-CHENG SENIOR HIGH SCHOOL,tail,P3,TAIPEI MUNICIPAL CHUNG-CHENG SENIOR HIGH SCHOOL,org,TAIPEI MUNICIPAL CHUNG-CHENG SENIOR HIGH SCHOOL,TW,3, | key.ccsh.tp.edu.tw,Apache2 Ubuntu Default Page: It works | 301 Moved Permanently,Apache httpd
+sptrans.com.br,top3000,P2,sptrans.com.br,cert,"TIVIT TERCEIRIZAÇÃO DE PROCESSOS, SERV. E TEC. S/A",BR,3,pbe.bilheteunico.sptrans.com.br | *.sbe.sptrans.com.br,Welcome to nginx! | Error,Microsoft IIS httpd | nginx
+"org:LLC ""Nauka-Svyaz""",top3000,P2,"LLC ""Nauka-Svyaz""",org,"LLC ""Nauka-Svyaz""",RU,6,*.alfa.com.ru |  | alfa.com.ru, | Альфаком — беспроводные технологии для бизнеса | WEB | 301 Moved Permanently,Apache httpd | nginx | Dahua-based DVR
+"org:VapeLine Technology (HK) Co., Limited",top3000,P1,"VapeLine Technology (HK) Co., Limited",org,"VapeLine Technology (HK) Co., Limited",HK,41,103.38.83.x | ,Not Found | PanSou 盘搜 | 502 Bad Gateway | Welcome to nginx! | 301 Moved Permanently | 恭喜，站点创建成功！ | , | MS-SQL Server 2014 SP3 | WinRM | VNC | MS-SQL Server 2008 R2 RTMRTM | nginx
+itycom.com,tail,P3,itycom.com,cert,Microsoft Corporation,FR,1,admin.itycom.com,403 Forbidden,Apache httpd
+tokobako.id,tail,P3,tokobako.id,cert,Google LLC,ID,1,tokobako.id,TOKOBAKO - Pusat SEMBAKO NUSANTARA,Apache httpd
+webteamstorm.ru,top3000,P2,webteamstorm.ru,cert,JSC IOT,RU,1, | webteamstorm.ru,,MariaDB | Exim smtpd
+axxonconsulting.com,top3000,P2,axxonconsulting.com,cert,Manquehuenet,CL,1,*.axxonconsulting.com,,Microsoft IIS httpd
+jpn.org,top3000,P1,jpn.org,cert,SAKURA Internet Inc.,JP,629,*.sakura.ne.jp, | 千葉県の食料品スーパー｜株式会社せんどう | 株式会社イトーヨーギョー | オリーブオイル　キヨエ®｜大切な人へのギフトにも | Harada Lab. Web Page | 近畿税理士国民健康保険組合 | 株式会社iTB｜アイティーブレーン  | 食の王国“山鹿” うまかもんショップ | 株式会社ウィズ - | コンセプトボックス | さくらのレンタルサーバ | 403 Forbidden,nginx | Sendmail | 
+ip-141-94-96.eu,top3000,P2,ip-141-94-96.eu,ptr,OVH SAS,FR,8,,404 Not Found | Not Found | ,WinRM | nginx |  | VNC
+luxresorts.com,top3000,P2,luxresorts.com,cert,Central Dynamics,US,4,res.luxresorts.com | crm2.luxresorts.com |  | *.luxresorts.com,"LUX* Resorts: Beautiful Experiences, Luxury Hotels Worldwide |  | Welcome to nginx!",Apache httpd |  | Microsoft IIS httpd | nginx
+vanso.com,top3000,P2,vanso.com,cert,REXAGO Information GmbH,DE,3,*.vanso.com | ,403 Forbidden | SMS API | ,Apache httpd | OpenSSH
+org:Zone Media LLC,top3000,P2,Zone Media LLC,org,Zone Media LLC,EE,20,185-31-243-135.sslip.io | ,Not Found | Welcome to nginx! | 403 Forbidden | SmartFix | 404 Not Found | ,WinRM | nginx | 
+jobshark.ro,top3000,P2,jobshark.ro,cert,Easyhost Internal Use,RO,1, | jobshark.ro,301 Moved Permanently | JobShark,nginx
+org:Turon Media XK,top3000,P2,Turon Media XK,org,Turon Media XK,UZ,9,,index |  | Test Page for the Nginx HTTP Server on AlmaLinux | Вход · VETDRRAMAZAN | Not Found,WinRM | nginx | Hikvision IP Camera | 
+magweb.us,top3000,P2,magweb.us,cert,"OVH Hosting, Inc.",CA,1, | app.magweb.us,404 Not Found | Bad Request (400) | ,nginx | Apache httpd
+ratagolf.fi,tail,P3,ratagolf.fi,cert,Hetzner Online GmbH,FI,1,mrs.ratagolf.fi,Suomen Ratagolfliitto ry - kilpailujärjestelmä,Apache httpd
+org:TELESYSTEM SRL,top3000,P2,TELESYSTEM SRL,org,TELESYSTEM SRL,RO,22, | irc6.hopto.org,Welcome to the UnderX IRC Network | Welcome to nginx! | Not Found,Apache httpd | nginx | WinRM
+friendray.com,top3000,P2,friendray.com,cert,"Cogent Communications, LLC",US,8,friendray.com,bet365365网址_bet365官方备用网址_mobile 28365-365.com,Apache httpd
+vkjotijota.com,tail,P3,vkjotijota.com,cert,Ransom IT Infrastructure,AU,1,vkjota.com,,Apache httpd
+sivit.org,top3000,P1,sivit.org,cert,Keyyo SA,FR,13,sd4030.sivit.org | sd2361.sivit.org | sd3947.sivit.org | sd3638.sivit.org |  | sd3396.sivit.org, NERIM ADMIN PANEL : BIENVENUE SUR VOTRE SERVEUR  |  | 400 Bad Request | 401 Authorization Required | Studio W, | Pure-FTPd | Apache httpd
+moodlearners.com,tail,P3,moodlearners.com,cert,Linode,SG,2,dam.moodlearners.com,,Apache httpd
+bccn-berlin.de,tail,P3,bccn-berlin.de,ptr,Humboldt-Universitaet zu Berlin,DE,1,,Index of /,Apache httpd
+ac-turbo.net,top3000,P2,ac-turbo.net,cert,GENIUSWEER SAS,BR,5,sms.ac-turbo.net | , | sms.ac-turbo.net - SMS Gateway,nginx | 
+nrimports.com,tail,P3,nrimports.com,ptr,Hurricane Electric LLC,US,1,,"National Refrescos Imports Tamaya wine, Lauca wine, Dos Puen",Apache httpd
+ip-5-196-34.eu,top3000,P2,ip-5-196-34.eu,ptr,OVH Srl,FR,4,, | Welcome to nginx! | 403 Forbidden,nginx | Apache httpd | 
+org:Beyond Relationship Marketing GmbH,top3000,P2,Beyond Relationship Marketing GmbH,org,Beyond Relationship Marketing GmbH,NL,120,,301 Moved Permanently,Apache httpd
+org:G+B SISTEMAS E AUTOMACAO LTDA-ME,tail,P3,G+B SISTEMAS E AUTOMACAO LTDA-ME,org,G+B SISTEMAS E AUTOMACAO LTDA-ME,BR,4,,HTTP Server Test Page powered by: Rocky Linux,Apache httpd
+org:Cheeloo J. Turczyn i Wspolnicy Sp. J.,top3000,P2,Cheeloo J. Turczyn i Wspolnicy Sp. J.,org,Cheeloo J. Turczyn i Wspolnicy Sp. J.,PL,9,support | ,RoyalStarAero Distance Learning System |  | index,Fortinet FortiGate | Hikvision IP Camera | Apache httpd
+jcihosting.net,tail,P3,jcihosting.net,cert,John Companies,US,1,vh12a.jcihosting.net,69.55.235.x,Apache httpd
+hatafoods.co.jp,tail,P3,hatafoods.co.jp,http_host,Japan Network Information Center,JP,1,,秦食品株式会社,Apache httpd
+n-pri.jp,top3000,P2,n-pri.jp,cert,"Amazon.com, Inc.",JP,13,*.platform.n-pri.jp | *.n-pri.jp, | 403 Forbidden | HORIPRO Original Photobook Shop / TOPページ | Shunya Shiraishi Original Photobook Shop / TOPページ,nginx | AWS ELB
+albasoten.com,top3000,P2,albasoten.com,cert,"DigitalOcean, LLC",SG,1,albasoten.com | ,502 Bad Gateway | Redirecting to https://159.223.77.x/login, | nginx
+maxvoca.com,tail,P3,maxvoca.com,cert,SMILESERV,KR,1,*.maxvoca.com,maxvoca,Apache httpd
+org:Optimum Lightpath,top3000,P1,Optimum Lightpath,org,Optimum Lightpath,US,55,support | fortinet-subca2001 | ,Constant Emails | , | Apache httpd | Fortinet FortiGate | ciscoSystems
+org:Gold Data C.A.,top3000,P2,Gold Data C.A.,org,Gold Data C.A.,VE,14,fortinet-subca2001 | ,Not Found | ,Fortinet FortiGate | MikroTik | WinRM | 
+comfyco.com,tail,P3,comfyco.com,cert,"A2 Hosting, LLC",US,1,cpcontacts.comfyco.com,Comfyco | New York & New Jersey Furniture Store,LiteSpeed httpd
+moonwithyou.com,tail,P3,moonwithyou.com,cert,Google LLC,JP,1,www.moonwithyou.com,Keikoの月星座無料占い【ホロスコープ】,Apache httpd
+chiefscare.co.in,tail,P3,chiefscare.co.in,cert,"HIVELOCITY, Inc.",US,1,*.chiefscare.co.in,Home | 209.133.204.x,Apache httpd
+kemendikdasmen.go.id,top3000,P1,kemendikdasmen.go.id,cert,Departemen Pendidikan Nasional,ID,48, | *.kemendikdasmen.go.id | cloud-bbgtkjabar.kemendikdasmen.go.id | localhost.localdomain | panel.example.com | mutasi.sdm.kemendikdasmen.go.id | kredensialmikrosmk.kemendikdasmen.go.id,"Log in - Gistha Biro Umum | Portal Kredensial Mikro Sumber Daya Manusia Pendidikan Kejur | 
+            Tes Kemampuan Akademik - Tahun 2026
+         | 301 Moved Permanently | 
+		ownCloud		 | Seri Pela", | Apache httpd | SonicWall | nginx | ownCloud | Fortinet FortiGate | net-snmp
+ongame.fans,tail,P3,ongame.fans,cert,Materialism s.r.l.,SE,1,ongame.fans | , | phpMyAdmin, | nginx
+hazi.eus,top3000,P2,hazi.eus,cert,OVH GmbH,DE,2,iotelikadurakatea.hazi.eus | ,iQmenic | ,Apache httpd | MySQL
+ntou.edu.tw,top3000,P2,ntou.edu.tw,cert,National Taiwan Ocean University,TW,17,squall.cse.ntou.edu.tw |  | gssdata.ntou.edu.tw | *.ntou.edu.tw,"302 Found | Test Page for the Apache HTTP Server on Fedora | 高速通訊與計算實驗室 - NTOU HSCC | 301 Moved Permanently | 
+	畢業生流向暨雇主滿意度問卷調查平台
+ | Welcome to nginx! | 
+丁培毅 研究簡介及教學資源 
+", | Microsoft IIS httpd | Apache httpd | nginx
+org:PT Mora Telematika Indonesia TBK,top3000,P1,PT Mora Telematika Indonesia TBK,org,PT Mora Telematika Indonesia TBK,US,15,,,MikroTik RouterOS API Service | ciscoSystems |  | MySQL
+jino.ru,top3000,P2,jino.ru,cert,JSC RTComm.RU,RU,18, | klingspor.com.ru,, | MariaDB
+losrios.edu,top3000,P2,losrios.edu,cert,Los Rios Community College District,US,20,scc-powerbi.scc.losrios.edu | vdi-con-int2.losrios.edu | flc-sars-aw.flc.ad.losrios.edu | arc-web5-vm.arc.ad.losrios.edu | wserver-el8.flc.losrios.edu | wserver-el8.losrios.edu |  | inside-alt.losrios,VMware Horizon | IIS Windows Server | 302 Found | Not Found | ,Apache httpd | Microsoft HTTPAPI httpd | Microsoft IIS httpd | 
+toaprint.com,top3000,P2,toaprint.com,cert,"GMO Internet, Inc.",JP,1,toaprint.com | , | 株式会社トーアプリント,
+russianschool.com,tail,P3,russianschool.com,cert,Amazon Data Services Northern Virginia,US,1,*.russianschool.com,LMS,Apache httpd
+org:Piotr Bukowczyk trading as IT Systematic Group,top3000,P2,Piotr Bukowczyk trading as IT Systematic Group,org,Piotr Bukowczyk trading as IT Systematic Group,PL,5, | support, | Error 404 - Page Not Found | Drukarnia | v3 - System obsłgi drukarni offsetowych.,Fortinet FortiGate | Apache httpd | Ubiquiti AirRouter
+dn-cloud.com,tail,P3,dn-cloud.com,cert,NEOJAPAN Inc.,JP,30,*.dn-cloud.com,,Ncat http proxy | Apache httpd
+securecdnline.com,tail,P3,securecdnline.com,cert,"Kamatera, Inc.",US,1,alef-ir.securecdnline.com | ,502 Bad Gateway | 301 Moved Permanently,nginx
+dnscini.com,top3000,P2,dnscini.com,cert,Netdirekt A.S.,TR,16, | *.dnscini.com,,Exim smtpd | MySQL | MariaDB
+org:STC BAHRAIN B.S.C CLOSED,top3000,P2,STC BAHRAIN B.S.C CLOSED,org,STC BAHRAIN B.S.C CLOSED,BH,20,*.n.cdnhwc3.com | support | ,403 Forbidden | ,MS-SQL Server 2014 RTMRTM | OpenResty | Fortinet FortiGate | 
+hoster.by,top3000,P2,hoster.by,cert,Republican Unitary Telecommunication Enterprise Beltelecom,BY,26, | vh88.hoster.by | vh123.hoster.by, | 400 Bad Request,OpenSSH | 
+rnp.br,top3000,P2,rnp.br,cert,Rede Nacional de Ensino e Pesquisa,BR,13, | *.cafeexpresso.rnp.br | *.rnp.br,302 Found | 503 Service Temporarily Unavailable | Organisation Selection | 200.133.56.x Mailing Lists,Apache httpd | AWS ELB
+yukoncollege.yk.ca,tail,P3,yukoncollege.yk.ca,cert,Yukon University,CA,1,*.yukoncollege.yk.ca | ,403 - Access Denied | 301 Moved Permanently | ,nginx
+org:Srinagar Zone ( DHCP ),tail,P3,Srinagar Zone ( DHCP ),org,Srinagar Zone ( DHCP ),IN,18, | Philip Newman,Admin Panel | Not Found | , | GL.iNet GL-AX1800 Router | WinRM
+skattelecom.com,top3000,P2,skattelecom.com,cert,IP networks for SKAT-Popopvo,BG,2,ipacct.skattelecom.com,94.156.171.x IPACCT Login | 87.120.156.x IPACCT Login,nginx
+ib-becker-partner.de,top3000,P2,ib-becker-partner.de,cert,Strato GmbH,DE,3,project.ib-becker-partner.de | *.ib-becker-partner.de | transfer.ib-becker-partner.de | monitoring.ib-becker-partner.de |  | openproject.ib-becker-partner.de," | 
+			Nextcloud		 | 301 Moved Permanently | Ingenieurbüro Becker &amp; Partner | BuP Zabbix: Zabbix | Anmelden | OpenProject",nginx |  | Nextcloud
+digal.pt,tail,P3,digal.pt,cert,Vodafone Portugal - Communicacoes Pessoais S.A.,PT,1,maptracker.digal.pt,Backoffice Digal,Apache httpd
+rockwool.com,tail,P3,rockwool.com,cert,Rockwool A/S,DK,9,pdf.rockwool.com | *.rockwool.com,Server Login |  | Not Found,Microsoft HTTPAPI httpd | Citrix Netscaler | Microsoft IIS httpd
+sweetmix.com.br,top3000,P2,sweetmix.com.br,cert,ALGAR TELECOM S/A,BR,2,www.vpn.sweetmix.com.br | www.sweetmix.com.br,SweetMix | GlobalProtect Portal,Apache httpd | 
+org:Red de Servicios IP,top3000,P1,Red de Servicios IP,org,Red de Servicios IP,ES,524, | 192.168.168.x | support | fortinet-subca2001,Apache2 Ubuntu Default Page: It works | AXIS | SonicWall - Authentication | Exeon Fábrica Constantia Tobepal (Burgos) | Document Moved |  | Intelligent Router,VNC | OpenSSH | nginx |  | Apache httpd | Fortinet FortiGate | ntpd | MikroTik RouterOS API Service | SonicWall | lightt
+ihosting.cl,tail,P3,ihosting.cl,cert,iHosting Servicios Internet Ltda.,CL,4,,,
+org:G2G COM PROD ELETRO E SERV LTDA,top3000,P2,G2G COM PROD ELETRO E SERV LTDA,org,G2G COM PROD ELETRO E SERV LTDA,BR,16, | tplinkwifi.net | tplinkmodem.net,Not Found | Error! | , | MikroTik RouterOS API Service | WinRM
+netgrave.de,top3000,P2,netgrave.de,cert,OVH SAS,DE,4,netgrave.de | ,,Apache httpd
+toshin-n-sys.com,tail,P3,toshin-n-sys.com,cert,SAKURA Internet Inc.,JP,1,www.toshin-n-sys.com,403 Forbidden,Apache httpd
+org:M247 Ltd - Korea Infrastructure,tail,P3,M247 Ltd - Korea Infrastructure,org,M247 Ltd - Korea Infrastructure,JP,3,,,Jetty
+rierra-ads.com,top3000,P2,rierra-ads.com,cert,LeaseWeb Netherlands B.V.,NL,4, | *.rierra-ads.com, | 301 Moved Permanently,nginx
+hermann-wegener.de,top3000,P2,hermann-wegener.de,cert,Hetzner Online GmbH,DE,6, | idoit.hermann-wegener.de | cloud.hermann-wegener.de,"
+			Login – Nextcloud		 | 301 Moved Permanently | i-doit - Login",Apache httpd | nginx
+thaibma.or.th,top3000,P2,thaibma.or.th,cert,Internet Thailand Company Ltd.,TH,11,*.thaibma.or.th | www.irisk.thaibma.or.th | , | 301 Moved Permanently | iBond - An Intelligent Bond Solution | iRisk by ThaiBMA | Welcome to CentOS,Microsoft IIS httpd | nginx | 
+org:2054235 Alberta Ltd,tail,P3,2054235 Alberta Ltd,org,2054235 Alberta Ltd,CA,1,,BIGHUG,Apache httpd
+ax1.co,top3000,P2,ax1.co,cert,"DigitalOcean, LLC",US,10, | CloudFlare Origin Certificate,AX1 | 301 Moved Permanently,nginx
+connerprinting.com,tail,P3,connerprinting.com,cert,"Newfold Digital, Inc.",US,1,*.connerprinting.com,Conner Printing,
+ttidc.com.tr,tail,P3,ttidc.com.tr,ptr,Turk Telekomunikasyon Anonim Sirketi,TR,8,,,MS-SQL Server 2019 RTM |  | BigIP
+org:Fulnett Limited,top3000,P2,Fulnett Limited,org,Fulnett Limited,IE,59,, | Apache2 Ubuntu Default Page: It works, | ciscoSystems | Apache httpd
+maum.ai,tail,P3,maum.ai,cert,AWS Asia Pacific (Seoul) Region,KR,5,*.maum.ai | maum.ai,401 Authorization Required | 502 Bad Gateway | maum.ai platform | 301 Moved Permanently | ,nginx
+vmx.io,tail,P3,vmx.io,ntlm,EVEO S.A.,BR,3,,Not Found,WinRM
+worldcall.net.pk,top3000,P1,worldcall.net.pk,ptr,WORLDCALL TELECOM LIMITED,PK,16,support | UbiquitiRouterUI | ,TECHSOL - BulkSMS | 403 Forbidden | Reseller Portal |  | Not Found | EdgeOS,ntpd | Apache httpd |  | MS-SQL Server 2008 R2 SP3 | Fortinet FortiGate | WinRM
+cheffsolutions.com.br,tail,P3,cheffsolutions.com.br,cert,CLARANET TECHNOLOGY S.A.,BR,1,www.cheffsolutions.com.br,Document Moved,Microsoft IIS httpd
+org:Terasyst Ltd,tail,P3,Terasyst Ltd,org,Terasyst Ltd,BG,10,,,Dahua XVR1B04 |  | Hikvision IP Camera | Dahua DHI-XVR5108C-S2
+ip-144-217-158.net,tail,P3,ip-144-217-158.net,ptr,"OVH Hosting, Inc.",CA,4,,Not Found | ,Apache httpd | WinRM
+euromet.com.ua,top3000,P2,euromet.com.ua,cert,Hetzner Online GmbH,DE,1,euromet.com.ua | , | Електронний кабінет фермера, | Apache httpd
+brcliving.org,tail,P3,brcliving.org,cert,Amazon Data Services Northern Virginia,US,1, | brcliving.org,Bridgewater Retirement Community | Energy for LifeBridgewate | 404 Not Found,Apache httpd
+kyoto-u.ac.jp,top3000,P1,kyoto-u.ac.jp,cert,Kyoto University,JP,15,web1 |  | auth.iimc.kyoto-u.ac.jp, | Web Server Test | 森村吉貴のサイト | Not Found | Test Page for the HTTP Server on Red Hat Enterprise Linux,WinRM | MS-SQL Server 2016 SP2GDR for Service Pack | Apache httpd | OpenSSH
+org:PT. PARSAORAN GLOBAL DATATRANS (JTT),tail,P3,PT. PARSAORAN GLOBAL DATATRANS (JTT),org,PT. PARSAORAN GLOBAL DATATRANS (JTT),ID,9,support | ,,Hikvision IP Camera | MikroTik | Fortinet FortiGate | 
+org:GERRYS INFORMATION TECHNOLOGY PVT LTD.,top3000,P1,GERRYS INFORMATION TECHNOLOGY PVT LTD.,org,GERRYS INFORMATION TECHNOLOGY PVT LTD.,PK,15,fortinet-subca2001 | , | Not Found | webissues.genetech.pk,MikroTik RouterOS API Service | Apache httpd | WinRM |  | Fortinet FortiGate
+marinaco.com,tail,P3,marinaco.com,cert,Unified Layer,US,1,www.marinaco.com,Marina Co,Apache httpd
+acm.org,top3000,P2,acm.org,cert,Iomart Managed Services Limited,TR,3,,Home | showusyourbolt.zubeapps.com,Apache httpd
+marieclaire.com.tw,top3000,P2,marieclaire.com.tw,cert,Google LLC,US,4,*.marieclaire.com.tw | , | 美麗佳人風格學院 | 最有溫度的線上課程學習平台,nginx | 
+org:Gujarat Television Pvt.Ltd.,top3000,P2,Gujarat Television Pvt.Ltd.,org,Gujarat Television Pvt.Ltd.,IN,13,support | , | Not Found,Fortinet FortiGate | Dahua DH-IPC-HDW1431S | Hikvision IP Camera | WinRM | 
+ue.edu.pe,top3000,P2,ue.edu.pe,cert,Huawei Clouds Chile,CL,5,*.ue.edu.pe | ,Aula Virtual - Escuela Militar de Chorrillos EMCH - 2023 | ,
+yokudel.com,top3000,P2,yokudel.com,cert,"GMO Internet, Inc.",JP,1,bizap0.yokudel.com,Index of /,Apache httpd
+dms.go.th,top3000,P2,dms.go.th,cert,"CAT TELECOM, CAT Cloud Dept, 99 Chaengwatthana Rd. Lak Si, Bangkok 10210",TH,10, | *.dms.go.th,Welcome to nginx! | Project Management |  | Not Found | 301 Moved Permanently | หน้าแรก - สำนักงานเลขานุการกรม กรมการแพทย์ | หน้าแรก - กองยุทธศาสตร์และแผนงาน กรมการแพทย์,Microsoft HTTPAPI httpd |  | nginx
+org:Accelerit Technologies PTY LTD - Accelerit Technologies PTY LTD,tail,P3,Accelerit Technologies PTY LTD - Accelerit Technologies PTY LTD,org,Accelerit Technologies PTY LTD - Accelerit Technologies PTY LTD,ZA,4,192.168.1.x | ,401 Unauthorized | index,Hikvision IP Camera | Boa Web Server
+cmmg.edu.br,top3000,P2,cmmg.edu.br,cert,Company 64d3454c4gqMnp2l,BR,4, | ava.cmmg.edu.br,Acesso ao site | AVA CMMG | Redirecionar | ,MariaDB | Apache httpd
+au1.com.au,top3000,P2,au1.com.au,cert,Premises Aus Pty Ltd,AU,4,cpanel1.au1.com.au, | Default Web Site Page,Exim smtpd | Apache httpd
+org:University of Maine System,top3000,P2,University of Maine System,org,University of Maine System,US,25,encoder | graphs2old.net.maine.edu | ,Not Found | window.kv_config.title | Redirect | 401 Authorization Required,WinRM | Apache httpd | OpenResty
+blackmesh.com,tail,P3,blackmesh.com,cert,Contegix,US,1,matrixx1-rhel-as4.blackmesh.com,Apache HTTP Server Test Page powered by CentOS,Apache httpd
