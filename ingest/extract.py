@@ -5,12 +5,19 @@ Only a bounded number of batches are in flight, so memory stays flat regardless 
 The raw file is read exactly once: we keep a superset of the fields scoring needs and drop
 raw HTML / cert chains / pubkeys, which are most of the bytes.
 
-usage: python -m ingest.extract <input.zst|input.jsonl> <out_dir> [--workers 7]
+Repeat-safe for a stream of files: each output dir carries a _manifest.json keyed on the source
+(path, size, mtime), so re-running an ingested file is a no-op, and shards are written to
+<out_dir>.partial and renamed into place only when the whole file is done, so a crashed run never
+looks like a finished scan.
+
+usage: python -m ingest.extract <input.zst|input.jsonl> <out_dir> [--workers 7] [--force]
 """
 import argparse
 import io
+import json
 import os
 import re
+import shutil
 import sys
 import time
 from concurrent.futures import FIRST_COMPLETED, ProcessPoolExecutor, wait
@@ -21,6 +28,7 @@ import pyarrow.parquet as pq
 import zstandard
 
 BATCH_BYTES = 32 * 1024 * 1024
+MANIFEST = "_manifest.json"
 SAN_RE = re.compile(r"(?:\*\.)?[a-z0-9_](?:[a-z0-9_-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+", re.I)
 SAN_TOKEN_RE = re.compile(r"(?:\\x[0-9a-f]{2}|\\.|.)([^\\]*)", re.S)
 HEADERS_KEPT = ("strict-transport-security", "content-security-policy", "x-frame-options",
@@ -161,19 +169,32 @@ def batches(path):
         yield buf
 
 
+def source_id(path):
+    st = os.stat(path)
+    return {"source": os.path.abspath(path), "bytes": st.st_size, "mtime": int(st.st_mtime)}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("src")
     ap.add_argument("out_dir")
     ap.add_argument("--workers", type=int, default=max(1, (os.cpu_count() or 2) - 1))
+    ap.add_argument("--force", action="store_true", help="re-ingest even if the manifest says it is done")
     a = ap.parse_args()
-    os.makedirs(a.out_dir, exist_ok=True)
+    src, out = source_id(a.src), a.out_dir.rstrip("/")
+    man_path = os.path.join(out, MANIFEST)
+    if os.path.exists(man_path) and not a.force and json.load(open(man_path)).get("source_id") == src:
+        print(f"already ingested: {a.src} -> {out} (use --force to redo)")
+        return 0
+    tmp = out + ".partial"
+    shutil.rmtree(tmp, ignore_errors=True)
+    os.makedirs(tmp)
     t0, rows, bad, nbytes, done = time.time(), 0, 0, 0, 0
     max_inflight = a.workers * 2
     with ProcessPoolExecutor(a.workers) as ex:
         inflight = set()
         for i, chunk in enumerate(batches(a.src)):
-            inflight.add(ex.submit(work, (i, chunk, a.out_dir)))
+            inflight.add(ex.submit(work, (i, chunk, tmp)))
             if len(inflight) >= max_inflight:
                 finished, inflight = wait(inflight, return_when=FIRST_COMPLETED)
                 for fut in finished:
@@ -186,6 +207,11 @@ def main():
             r, b, n = fut.result()
             rows, bad, nbytes = rows + r, bad + b, nbytes + n
     el = time.time() - t0
+    with open(os.path.join(tmp, MANIFEST), "w") as f:
+        json.dump({"source_id": src, "rows": rows, "bad_lines": bad, "raw_bytes": nbytes,
+                   "seconds": round(el, 1), "finished_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}, f, indent=2)
+    shutil.rmtree(out, ignore_errors=True)
+    os.replace(tmp, out)  # atomic on one filesystem: the scan appears complete or not at all
     print(f"DONE rows={rows:,} bad={bad} raw={nbytes / 1e9:.2f}GB in {el:.0f}s "
           f"({nbytes / 1e6 / el:.0f} MB/s, {rows / el:,.0f} rec/s)", flush=True)
 

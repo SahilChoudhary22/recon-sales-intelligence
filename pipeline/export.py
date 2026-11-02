@@ -62,7 +62,7 @@ def main():
     rows = con.execute(f"""
         select company_id, display_name, business_org, top_org, country, score::double, tier, play,
                n_ips, n_assets, identity_source, signals, has_kev, has_eol, maturity, products,
-               round(need, 2)::double, round(urgency, 2)::double, round(fit, 2)::double, round(priority, 2)::double, org_industry, domain
+               round(need, 2)::double, round(urgency, 2)::double, round(fit, 2)::double, round(priority, 2)::double, org_industry, domain, has_new
         from '{a.build_dir}/accounts.parquet'
         where has_material order by priority desc limit {a.limit}""").fetchall()
     dom_ind = {}
@@ -72,7 +72,7 @@ def main():
                 dom_ind[r["domain"]] = r["industry"]
     accounts, keep = [], set()
     for (cid, name, borg, torg, cc, score, tier, play, n_ips, n_assets, ident, sigs, kev, eol, mat,
-         prods, need, urg, fit, prio, llm_ind, domain) in rows:
+         prods, need, urg, fit, prio, llm_ind, domain, new) in rows:
         keep.add(cid)
         llm_ind = dom_ind.get(domain) or llm_ind
         accounts.append({
@@ -80,7 +80,7 @@ def main():
             "play": play, "ips": n_ips, "assets": n_assets, "ident": ident, "signals": sigs, "kev": kev,
             "eol": eol, "maturity": mat, "products": [p for p in (prods or []) if p][:6],
             "need": need, "urgency": urg, "fit": fit, "priority": prio,
-            "industry": llm_ind or industry(domain, borg, name), "shard": shard(cid),
+            "industry": llm_ind or industry(domain, borg, name), "shard": shard(cid), "new": bool(new),
         })
     ev = con.execute(f"""select company_id, signal, ip, port, product, evidence, http_title, cert_cn
         from '{a.build_dir}/evidence.parquet'""").fetchall()

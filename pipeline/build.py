@@ -19,6 +19,7 @@ import pyarrow as pa
 from pipeline.identity import resolve
 from pipeline.signals import MATURITY, SIGNALS
 
+RETAIN_SCANS = 3  # a service absent from the last 3 scans is treated as closed
 PHANTOM_PORTS = 50  # an IP answering on more distinct ports than this in one scan is a tarpit/proxy
 SHARED_IP_DOMAINS = 5  # an IP serving this many distinct company domains is shared hosting
 HOSTER_DOMAINS = 10  # an org whose IPs carry this many distinct company domains is a hoster/ISP
@@ -53,7 +54,25 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
     con.execute(f"set temp_directory='{os.path.join(out_dir, '.duck_tmp')}'")
     funnel = {}
 
-    con.execute(f"create view raw as select * from read_parquet('{glob}')")
+    # one scan file or a stream of them: <root>/<scan-id>/*.parquet with scan ids that sort by time
+    con.execute(f"""create view scans as select *, regexp_extract(filename, '([^/]+)/[^/]+$', 1) scan
+        from read_parquet('{glob}', filename = true)""")
+    scan_ids = [r[0] for r in con.execute("select distinct scan from scans order by 1").fetchall()]
+    funnel["scans"] = len(scan_ids)
+    if len(scan_ids) == 1:
+        con.execute("create view raw as select * exclude (filename, scan), false is_new from scans")
+    else:
+        # latest observation wins per service; a service unseen in the last RETAIN_SCANS scans is
+        # treated as closed; one first seen in the newest scan is a newly exposed service
+        keep = scan_ids[-RETAIN_SCANS:]
+        latest = scan_ids[-1]
+        con.execute(f"""create table raw as
+            with first as (select ip, port, transport, min(scan) first_scan from scans group by all)
+            select s.* exclude (filename, scan), f.first_scan = '{latest}' is_new
+            from scans s join first f using (ip, port, transport)
+            where s.scan in ({",".join(f"'{k}'" for k in keep)})
+            qualify row_number() over (partition by ip, port, transport order by s.scan desc, s.ts desc) = 1""")
+        funnel["services_new_in_latest_scan"] = con.execute("select count(*) from raw where is_new").fetchone()[0]
     con.execute("""create table ip_stats as
         select ip, count(distinct port) n_ports from raw group by ip""")
     con.execute(f"""create table clean as
@@ -162,7 +181,7 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
         count(distinct company_id) companies from assets""").fetchdf().iloc[0].to_dict())
 
     # --- signals -------------------------------------------------------------------------
-    parts = [f"""select rid, company_id, ip, port, product, '{sid}' signal, '{cat}' category,
+    parts = [f"""select rid, company_id, ip, port, product, is_new, '{sid}' signal, '{cat}' category,
                     {w}::double weight, '{label.replace("'", "''")}' label, ({ev})::varchar evidence
                  from assets where company_id is not null and ({pred})"""
              for sid, cat, w, label, pred, ev in SIGNALS]
@@ -184,7 +203,8 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
     con.execute("""create table per_sig as
         select company_id, signal, any_value(label) label, any_value(category) category,
                any_value(weight) weight, count(distinct ip || ':' || port) n,
-               least(any_value(weight) * (1 + ln(count(distinct ip || ':' || port))), any_value(weight) * 2.5) pts
+               least(any_value(weight) * (1 + ln(count(distinct ip || ':' || port))), any_value(weight) * 2.5) pts,
+               bool_or(is_new) any_new
         from sig group by company_id, signal""")
     con.execute("""create table accounts as
         with a as (
@@ -206,6 +226,7 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
                    bool_or(signal in ('eol_os','eol_product')) has_eol,
                    bool_or(signal in ('cert_expired','cert_expiring')) has_cert_issue,
                    bool_or(category in ('edge','exposure','vuln','eol')) has_material,
+                   bool_or(any_new and category in ('edge','exposure','vuln','eol')) has_new,
                    list(signal order by pts desc) signals,
                    list(label order by pts desc) signal_labels,
                    max(weight) top_weight
@@ -214,7 +235,7 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
               from maturity group by company_id)
         select a.*, s.* exclude (company_id), coalesce(m.maturity, []) maturity,
                coalesce(m.maturity_labels, []) maturity_labels,
-               1 + 0.4 * has_kev::int + 0.2 * has_eol::int + 0.1 * has_cert_issue::int urgency,
+               1 + 0.4 * has_kev::int + 0.2 * has_eol::int + 0.1 * has_cert_issue::int + 0.3 * has_new::int urgency,
                (case when ident_prio is null then 0.85      -- business org only
                      when ident_prio <= 3 then 1.0          -- cert / ntlm / http host
                      when ident_prio = 4 then 0.75          -- reverse DNS

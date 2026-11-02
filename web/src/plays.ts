@@ -10,6 +10,11 @@ export const PLAYS: Play[] = [
     blurb: 'Companies only: universities, research networks and government removed (they rank high on sheer network size).',
     match: (a) => !['Education', 'Government', 'Telecom & hosting'].includes(a.industry ?? '') &&!/(universi|college|ministry|\.edu|\.ac\.|\.gov)/i.test(`${a.name} ${a.org ?? ''}`),
   },
+  {
+    id: 'new', name: 'Newly exposed',
+    blurb: 'A risky service that was not there in the previous scan: the clearest reason to call this week.',
+    match: (a) => a.new,
+  },
   { id: 'p1', name: 'Call today (P1)', blurb: 'The 500 highest-priority accounts: this week’s call list.', match: (a) => a.tier === 'P1' },
   {
     id: 'edge-kev', name: 'Firewall/VPN + KEV in estate',

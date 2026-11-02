@@ -133,7 +133,8 @@ export default function App() {
           <div data-tour="plays" className="min-w-0">
             <h2 className="mb-2 hidden px-2 text-sm text-muted lg:block">Plays</h2>
             <ul className="flex gap-1 lg:flex-col">
-              {PLAYS.map((p) => <li key={p.id} className="shrink-0">{navButton(p, playCounts[p.id])}</li>)}
+              {/* 'Newly exposed' needs two or more scans; it stays out of the way until there is something in it */}
+              {PLAYS.filter((p) => p.id !== 'new' || playCounts[p.id] > 0).map((p) => <li key={p.id} className="shrink-0">{navButton(p, playCounts[p.id])}</li>)}
             </ul>
           </div>
         </nav>
@@ -304,6 +305,7 @@ function AccountTable({ rows, meta, saved, selectedId, onSelect }: {
               </td>
               <td className="py-3 pr-4">
                 <div className="flex flex-wrap gap-1">
+                  {a.new && <span className="chip chip-act">New this scan</span>}
                   {a.signals.slice(0, 3).map((s) => <SignalChip key={s} id={s} meta={meta} />)}
                   {a.signals.length > 3 && <span className="px-1 text-xs leading-6 text-muted">{a.signals.length - 3} more</span>}
                 </div>
