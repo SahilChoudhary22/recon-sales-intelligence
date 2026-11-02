@@ -7,3 +7,7 @@ __pycache__/
 .env
 .DS_Store
 logs/
+web/public/data/
+web/dist/
+data/build/
+.claude/settings.local.json
