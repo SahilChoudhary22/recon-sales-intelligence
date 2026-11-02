@@ -1,0 +1,67 @@
+company_id,stratum,tier,display_name,identity_source,top_org,country,n_ips,certs,titles,products
+chthealthcare.com,top3000,P2,chthealthcare.com,cert,"DigitalOcean, LLC",US,1,jenkins.chthealthcare.com,,Jenkins
+org:PT Teknologi Bangsa Cerdas,top3000,P2,PT Teknologi Bangsa Cerdas,org,PT Teknologi Bangsa Cerdas,ID,31,,Object moved |  | Cuvso2World — Perfect World 1.3.6 | Not Found,MS-SQL Server 2022 RTM | WinRM |  | VNC | Apache httpd | nginx
+thu.edu.tw,top3000,P2,thu.edu.tw,cert,Taichung Changhua Nantou Regional Network,TW,6,wfiaa.thu.edu.tw | overleaf.thu.edu.tw | skyeyes.thu.edu.tw | gis.thu.edu.tw,"私立東海大學地理資訊系統 | 廢棄物燃料化產學聯盟 | 403 Forbidden | Login - HPC Overleaf Local Server, Online LaTeX Editor",Microsoft IIS httpd | Apache httpd |  | nginx
+bpcnxmcgc5xivyxyed.net,top3000,P1,bpcnxmcgc5xivyxyed.net,cert,HostPapa,US,1,www.bpcnxmcgc5xivyxyed.net | gw12 | , | Ivanti Connect Secure, | Pulse Secure
+olympiaeurope.com,top3000,P2,olympiaeurope.com,cert,Google LLC,BE,2, | *.olympiaeurope.com,"301 Moved Permanently | 404 Not Found | 
+	HOTEL BOOKING SYSTEM OLYMPIA EUROPE
+ | Olympia Viaggi Internet Booking System",Apache httpd | 
+logicielnet.com,top3000,P2,logicielnet.com,cert,OVH SAS,FR,3,mg15-http3.logicielnet.com | eg3-rv1.logicielnet.com,,Apache httpd
+cfavorita.net,top3000,P2,cfavorita.net,cert,Google LLC,US,1, | *.cfavorita.net,503 Service Unavailable | Apache2 Ubuntu Default Page: It works,Apache httpd
+srkhrm.com,top3000,P2,srkhrm.com,cert,AIS Cloud,TH,1,srkhrm.com,,nginx
+compts.cz,top3000,P2,compts.cz,cert,CD-Telematika a.s.,CZ,2,info.compts.cz,,Apache httpd
+flyd.top,top3000,P2,flyd.top,cert,"Aliyun Computing Co., LTD",CN,1,ab.platform-test.flyd.top,,nginx
+esdli.cn,top3000,P2,esdli.cn,cert,Partners Health Plan,US,4,ai.esdli.cn | ,301 Moved Permanently | Fdrama,nginx
+org:Ideastack solutions private limited,top3000,P2,Ideastack solutions private limited,org,Ideastack solutions private limited,IN,90,,ERROR: The requested URL could not be retrieved | Not Found |  | Test Page for the HTTP Server on AlmaLinux,Apache httpd | WinRM | MariaDB | Squid http proxy
+glory.ne.jp,top3000,P1,glory.ne.jp,cert,IDC Frontier Inc.,JP,12,*.glory.ne.jp | sv192168088221.glory.ne.jp |  | imap.example.com | vm203145228095, | HTTP Server Test Page powered by: Rocky Linux,Apache httpd | etcd | 
+globaldenso.com,top3000,P2,globaldenso.com,cert,Japan Network Information Center,JP,19,vpngw-o-jpgr-d8hwg7.globaldenso.com | lb-dsch00.dir.globaldenso.com | vpngw-o-jpgr-s4hxcg.globaldenso.com | vpngw-o-jpgr-a9z4w2.globaldenso.com | ald10rp001tst.sys.globaldenso.com | vpngw-o-jpgr-x8gar,"403 Forbidden | BIG-IP logout page | 421 Misdirected Request | "" + ID_VC_Welcome + """,VMware vCenter Server | Apache httpd | BigIP
+pucrs.br,top3000,P1,pucrs.br,cert,PONTIFICIA UNIVERSID CATOLICA DO RIO GRANDE DO SUL,BR,5,*.pucrs.br,UOL Edtech | 403 Forbidden | ,Connectra Check Point Web Security httpd | Apache httpd
+uch.edu.tw,top3000,P1,uch.edu.tw,cert,Ministry of Education Computer Center,TW,38,pks.uch.edu.tw | std.uch.edu.tw | www.me.uch.edu.tw | aps.uch.edu.tw | www.afl.uch.edu.tw | aps10.uch.edu.tw | clc.uch.edu.tw | igot.lib.uch.edu.tw |  | mhc.uch.edu.tw | www.eecs.uch.edu.tw,健行科大電資學院 | IIS Windows Server |  | 建構中 | 修業學分檢查 | 健行科技大學應用外語系 | 健行科技大學學生事務處 | 健行科大機械工程系 | 301 Moved Permanently,nginx | Apache httpd | Microsoft IIS httpd
+greentube.com,top3000,P2,greentube.com,cert,Greentube GmbH,AT,41,*.greentube.com | *.gtat.lan | , | Greentube CRM | GlobalProtect Portal | 403 Forbidden | 403 - Forbidden: Access is denied. | Marketing Grid, | Microsoft IIS httpd | BigIP
+nrct.go.th,top3000,P2,nrct.go.th,cert,Office of Info.Tech. Admin. for Educational Development,TH,3,*.nrct.go.th | elderdata.nrct.go.th,จริยธรรมการวิจัย วช. | 502 Bad Gateway,Apache httpd | nginx
+curriculumredesign.org,top3000,P2,curriculumredesign.org,cert,"DigitalOcean, LLC",US,1, | mathstandards.curriculumredesign.org,Modern Mathematics Standards | 301 Moved Permanently,Apache httpd
+intranet.com.mx,top3000,P2,intranet.com.mx,cert,Intranet Technology,MX,11,ServerC.local | mail.intranet.com.mx,macOS Server,Apache httpd
+centuryports.com,top3000,P2,centuryports.com,cert,Diadem Technologies Pvt. Ltd.,IN,2,rfid.centuryports.com | centuryports.com,"Century Ports | 
+",Microsoft IIS httpd | nginx
+talapk.com,top3000,P2,talapk.com,cert,"Tencent Building, Kejizhongyi Avenue",DE,1,*.talapk.com,System Error,nginx
+uni-erlangen.de,top3000,P1,uni-erlangen.de,cert,Friedrich-Alexander-Universitaet Erlangen-Nuernberg,DE,13,,301 Moved Permanently |  | 404 Not Found,Apache httpd |  | nginx
+uia.mx,top3000,P1,uia.mx,cert,"Universidad Iberoamericana, A.C.",MX,4,TIJLINWEBPORT03V |  | *.leon.uia.mx,Document Moved |  | 301 Moved Permanently,Apache httpd | Microsoft IIS httpd
+bearandbeestaging.com,top3000,P2,bearandbeestaging.com,cert,"Liquid Web, L.L.C",US,1,bearandbeestaging.com,"Home Staging in Richmond, Virginia &mdash; Bear &amp; Bee Ho",Apache httpd
+suvcoolcart.com,top3000,P2,suvcoolcart.com,cert,Binero AB,SE,1,suvcoolcart.com,Database Error,Apache httpd
+cm-20.co.uk,top3000,P2,cm-20.co.uk,cert,"DigitalOcean, LLC",NL,1,cm-20.co.uk,Index of /,Apache httpd
+configur8or.com,top3000,P1,configur8or.com,cert,IONOS SE,GB,1,www.configur8or.com | ,Not Found | IIS7 | Configur8or is the leading product configurator system from ,WinRM | Microsoft IIS httpd
+ashghal.gov.qa,top3000,P2,ashghal.gov.qa,cert,Ooredoo Q.S.C.,QA,6,*.ashghal.gov.qa | , | Request Rejected | Login, | BigIP
+11thpanzer.com,top3000,P2,11thpanzer.com,cert,Internet Vikings International AB,SE,3,11thpanzer.com,301 Moved Permanently,nginx
+miciry.hu,top3000,P2,miciry.hu,cert,"DigitalOcean, LLC",NL,1,miciry.hu,miciry | BejelentkezÃ©s,Apache httpd
+80port.com,top3000,P2,80port.com,cert,INAMES,KR,1,135s.80port.com,Apache HTTP Server Test Page powered by CentOS,Apache httpd
+nibss-plc.com.ng,top3000,P2,nibss-plc.com.ng,cert,Amazon Data Services South Africa,ZA,17,*.nibss-plc.com.ng |  | Kubernetes Ingress Controller Fake Certificate,ConsentHub | NIBSS | 404 Not Found | Developer Portal | 503 Service Temporarily Unavailable | NIBSS Reporting Portal | 301 Moved Permanently, | nginx
+sky-baby-shop.com,top3000,P2,sky-baby-shop.com,cert,Amazon Technologies Inc.,JP,1,blog.sky-baby-shop.com,Sky baby life,Apache httpd
+myssl.jp,top3000,P2,myssl.jp,cert,Japan Network Information Center,JP,2,*.myssl.jp | ,,Apache httpd
+ahlaan.co,top3000,P2,ahlaan.co,cert,Emirates Integrated Telecommunications Company PJSC (EITC-DU),AE,1,hrms.ahlaan.co, AHLAAN - Login,Microsoft IIS httpd
+nhri.edu.tw,top3000,P2,nhri.edu.tw,cert,"Miaoli County 350, Taiwan, R.O.C.",TW,9,*.nhri.edu.tw | ,Web VPN for NHRI Intranet | Apache2 Ubuntu Default Page: It works | MailGates | 403 Forbidden,Apache httpd | BigIP | Pulse Secure
+hoken-power.co.jp,top3000,P2,hoken-power.co.jp,cert,Japan Network Information Center,JP,1, | hoken-power.co.jp,保険のご相談・見直しは『保険のチカラ』にお任せください。株式会社保険のチカラ | 保険の無料相談・訪問サービス | 301 Moved Permanently,Apache httpd
+hospitalitalianorosario.com.ar,top3000,P2,hospitalitalianorosario.com.ar,cert,Transdatos,AR,1, | *.hospitalitalianorosario.com.ar,403 Forbidden,Apache httpd
+censovet.ru,top3000,P2,censovet.ru,http_host,Hostland ltd,RU,1,*.censovet.com.ru | ,Главная - Ценный Советник - Межрегиональная специализированн | ,nginx | MySQL
+exceed-r.co.jp,top3000,P2,exceed-r.co.jp,cert,SAKURA Internet Inc.,JP,1,staging.exceed-r.co.jp | exceed-r.co.jp,"ECサイト(ショッピングサイト)構築,IT 無料相談,パソコン運用支援サービスとパソコン保守サービス | Apache HTTP Server Test Page powered by CentOS",Apache httpd
+bnex.com.br,top3000,P2,bnex.com.br,cert,Amazon Data Services Northern Virginia,US,17,*.bnex.com.br,Espaço do Cliente,nginx
+autopasscorp.com,top3000,P2,autopasscorp.com,cert,Amazon Technologies Inc.,BR,13,facial.prd.votorantim.orbi.autopasscorp.com | facial-process-web.belem.orbi.autopasscorp.com | reports.api.prd.embu.orbi.autopasscorp.com | commcenter.prd.belem.orbi.autopasscorp.com | api.customer-ap,502 Bad Gateway | 301 Moved Permanently | 302 Found | 503 Service Unavailable |  | Facial Process Manager,Apache httpd | nginx | Apache Tomcat/Coyote JSP engine | 
+jostiongisto.net,top3000,P2,jostiongisto.net,cert,"HIVELOCITY, Inc.",US,1, | *.jostiongisto.net,Home | test-www.kicks.no | Home | 23.111.154.x,Apache httpd
+rooneyholdings.com,top3000,P2,rooneyholdings.com,cert,Microsoft Corporation,US,3,snipeit.rooneyholdings.com | vpn.rooneyholdings.com | ,301 Moved Permanently | Welcome to nginx! | Not Found | ,Microsoft HTTPAPI httpd | nginx | Apache httpd
+92danse.com,top3000,P2,92danse.com,cert,"Aliyun Computing Co., LTD",CN,1,child.92danse.com,温馨提示,nginx
+viltimen.com,top3000,P2,viltimen.com,cert,Starry Network Limited,NL,1,*.viltimen.com,Home | 185.170.208.x,Apache httpd
+previred.com,top3000,P2,previred.com,cert,Servicios de Administracion Previsional S.A.,CL,11,*.previred.com | ,.::BackOffice PREVIRED::. |  | Previred,nginx | BigIP | 
+asiatotal.com.br,top3000,P2,asiatotal.com.br,cert,Amazon Technologies Inc.,US,1,asiatotal.com.br,"
+            Asia Total :: Home        ",Apache httpd
+org:Pemerintah Kabupaten Jombang,top3000,P1,Pemerintah Kabupaten Jombang,org,Pemerintah Kabupaten Jombang,ID,7,,400 Bad Request | Redirecting to https://103.142.14.x/login | , | Dahua DHI-NVR4216-16P-4KS2 | MySQL
+biobox.com.ar,top3000,P2,biobox.com.ar,cert,AMX Argentina S.A.,AR,1,*.cli.biobox.com.ar | , | 301 Moved Permanently,nginx
+motorguardebay.co.uk,top3000,P1,motorguardebay.co.uk,cert,"Linode, LLC",GB,1, | images.motorguardebay.co.uk, | Index of /,Apache httpd | OpenSSH
+metova.com,top3000,P2,metova.com,cert,Amazon Technologies Inc.,US,13,cuae.metova.com | dev-api.trubuy.metova.com |  | *.skylocker.metova.com | api.dev.clear-telematics.metova.com | prod-api.trubuy.metova.com | cuae-staging.metova.com | appengine.metova.com," | Credit Union Mobile | Swagger UI | 400 The plain HTTP request was sent to HTTPS port | 503 Service Temporarily Unavailable | We're sorry, but something went wrong (500) | App Engine Mobile | 301 Mo", | AWS ELB | nginx
+space4.de,top3000,P2,space4.de,cert,Hetzner Online GmbH,DE,2,autodiscover.space4.de | space4.de, SPACE4 | Outlook,Apache httpd | Outlook Web App
+cctvbadilag2.my.id,top3000,P2,cctvbadilag2.my.id,cert,PT Biznet Gio Nusantara,ID,3,CloudFlare Origin Certificate,Management of Ant Media Server,nginx
+businessportal.gr,top3000,P2,businessportal.gr,cert,Microsoft Corporation,NL,1,*.businessportal.gr,"
+        Σύστημα ερευνών ΓΕΜΗ / ΥΜΣ
+     | Υπηρεσίες ανοικτών δεδομένων από το Ελληνικό Γενικό Εμπορικό",Apache httpd | nginx
+anhanguera.com,top3000,P1,anhanguera.com,cert,Amazon Data Services Northern Virginia,US,5,*.anhanguera.com | kroton.com.br |  | anhanguera.com,301 Moved Permanently |  | 502 Bad Gateway | Home,Apache httpd | AWS ELB | nginx
+pledgechairs.co.uk,top3000,P2,pledgechairs.co.uk,cert,Iomart Managed Services Limited,GB,1,pledgechairs.co.uk | mail.pledgechairs.co.uk,Roundcube Webmail :: Welcome to Roundcube Webmail | 403 Forbidden,nginx
+uesan.edu.pe,top3000,P1,uesan.edu.pe,cert,Huawei Clouds Chile,CL,4, | *.uesan.edu.pe,Entrar al sitio | Inicio | UNIVERSIDAD ESAN |  | Redireccionar, | nginx
+sergas.com,top3000,P2,sergas.com,cert,Amazon Data Services India,IN,1,smartlogger.sergas.com,,Apache httpd

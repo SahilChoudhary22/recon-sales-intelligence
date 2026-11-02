@@ -89,7 +89,7 @@ def main():
     for cid, sig, ip, port, prod, evid, title, cn in ev:
         if cid in keep:
             shards[shard(cid)].setdefault(cid, []).append(
-                {"s": sig, "ip": mask(ip, m), "port": port, "p": prod, "e": mask(evid, m), "t": title, "cn": cn})
+                {"s": sig, "ip": mask(ip, m), "port": port, "p": prod, "e": mask(evid, m), "t": mask(title, m), "cn": mask(cn, m)})
     os.makedirs(f"{OUT}/evidence", exist_ok=True)
     for i, s in enumerate(shards):
         with open(f"{OUT}/evidence/{i:02d}.json", "w") as f:

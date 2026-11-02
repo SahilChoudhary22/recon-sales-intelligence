@@ -1,0 +1,61 @@
+company_id,entity_type,name_ok,sellable,note
+chthealthcare.com,business,yes,yes,healthcare company domain; own Jenkins on cloud
+org:PT Teknologi Bangsa Cerdas,hosting_cloud,yes,no,IP-block owner with mixed customer servers (game server/VNC/SQL); hoster/ISP
+thu.edu.tw,education,yes,yes,Tunghai University
+bpcnxmcgc5xivyxyed.net,personal_or_junk,no,no,random-string domain; not an identifiable organisation
+olympiaeurope.com,business,yes,yes,Olympia Europe/Olympia Viaggi tour operator booking system
+logicielnet.com,hosting_cloud,yes,no,server-style hostnames (mg15-http3) on OVH; appears to be small hoster's infra domain
+cfavorita.net,business,yes,yes,Corporacion Favorita (Ecuador retail) wildcard cert
+srkhrm.com,unknown,no,no,single HRM app host; cannot identify organisation
+compts.cz,business,yes,yes,small Czech IT company domain
+flyd.top,personal_or_junk,no,no,.top domain platform-test host
+esdli.cn,personal_or_junk,no,no,drama/AI content site on odd IPs; not an org
+org:Ideastack solutions private limited,hosting_cloud,yes,no,Indian hosting/datacentre provider IP pool
+glory.ne.jp,hosting_cloud,yes,no,hoster server naming (sv192168...; vm...) on IDC Frontier
+globaldenso.com,business,yes,yes,DENSO corporate (VPN/vCenter/BIG-IP)
+pucrs.br,education,yes,yes,PUCRS university
+uch.edu.tw,education,yes,yes,Chien Hsin University of Science and Technology
+greentube.com,business,yes,yes,Greentube GmbH (Novomatic gaming)
+nrct.go.th,public_sector,yes,yes,National Research Council of Thailand
+curriculumredesign.org,education,yes,yes,Center for Curriculum Redesign (education nonprofit); tiny
+intranet.com.mx,isp_telecom,yes,no,Intranet Technology owns its IP block; local ISP/IT provider
+centuryports.com,business,yes,yes,Century Ports (India)
+talapk.com,personal_or_junk,no,no,unidentifiable site with System Error
+uni-erlangen.de,education,yes,yes,FAU Erlangen-Nuernberg (legacy domain)
+uia.mx,education,yes,yes,Universidad Iberoamericana
+bearandbeestaging.com,business,yes,yes,Bear & Bee Home Staging small business (not dev staging)
+suvcoolcart.com,personal_or_junk,no,no,broken site Database Error; no org
+cm-20.co.uk,personal_or_junk,no,no,bare Index of / on DO droplet
+configur8or.com,business,yes,yes,product configurator software vendor
+ashghal.gov.qa,public_sector,yes,yes,Qatar Public Works Authority
+11thpanzer.com,personal_or_junk,no,no,gaming clan/hobby site
+miciry.hu,unknown,no,no,unidentifiable login page
+80port.com,hosting_cloud,no,no,numbered subdomain with CentOS test page; DDNS/hosting-style domain
+nibss-plc.com.ng,business,yes,yes,Nigeria Inter-Bank Settlement System
+sky-baby-shop.com,personal_or_junk,no,no,only a personal-style blog Sky baby life
+myssl.jp,unknown,no,no,SSL service brand domain; owner unclear
+ahlaan.co,business,yes,yes,UAE company self-hosted HRMS
+nhri.edu.tw,education,yes,yes,National Health Research Institutes Taiwan
+hoken-power.co.jp,business,yes,yes,Hoken no Chikara insurance agency
+hospitalitalianorosario.com.ar,business,yes,yes,Hospital Italiano de Rosario
+censovet.ru,business,yes,yes,Tsenny Sovetnik specialised advisory organisation
+exceed-r.co.jp,business,yes,yes,Japanese IT support/EC build company
+bnex.com.br,business,yes,yes,Brazilian company client portal on AWS
+autopasscorp.com,business,yes,yes,Autopass Brazil transport ticketing
+jostiongisto.net,personal_or_junk,no,no,dev/test box hosting other sites (test-www.kicks.no)
+rooneyholdings.com,business,yes,yes,Rooney Holdings (construction holding)
+92danse.com,personal_or_junk,no,no,placeholder notice page; no identifiable org
+viltimen.com,personal_or_junk,no,no,generic Home page on cheap VPS; unidentifiable
+previred.com,business,yes,yes,Previred Chile pension contribution processor
+asiatotal.com.br,business,yes,yes,Asia Total small Brazilian business site
+org:Pemerintah Kabupaten Jombang,public_sector,yes,yes,Jombang Regency government owns IP block
+biobox.com.ar,unknown,no,no,customer-subdomain wildcard (*.cli); cannot tell what org
+motorguardebay.co.uk,business,yes,yes,Motorguard small retailer eBay image host; secondary domain
+metova.com,business,yes,yes,Metova software development firm
+space4.de,business,yes,yes,SPACE4 German company with Exchange
+cctvbadilag2.my.id,personal_or_junk,no,no,personal .my.id CCTV streaming box
+businessportal.gr,public_sector,yes,yes,Greek GEMI business registry portal
+anhanguera.com,education,yes,yes,Anhanguera Educacional (Cogna/Kroton)
+pledgechairs.co.uk,business,yes,yes,Pledge office chair manufacturer UK
+uesan.edu.pe,education,yes,yes,Universidad ESAN
+sergas.com,unknown,no,no,solar SmartLogger host; not Galician health service domain; owner unclear

@@ -8,7 +8,7 @@ export const PLAYS: Play[] = [
   {
     id: 'commercial', name: 'Commercial accounts',
     blurb: 'Companies only: universities, research networks and government removed (they rank high on sheer network size).',
-    match: (a) => a.industry !== 'Education' && a.industry !== 'Government' && !/(universi|college|ministry|\.edu|\.ac\.|\.gov)/i.test(`${a.name} ${a.org ?? ''}`),
+    match: (a) => !['Education', 'Government', 'Telecom & hosting'].includes(a.industry ?? '') &&!/(universi|college|ministry|\.edu|\.ac\.|\.gov)/i.test(`${a.name} ${a.org ?? ''}`),
   },
   { id: 'p1', name: 'Call today (P1)', blurb: 'The 500 highest-priority accounts: this week’s call list.', match: (a) => a.tier === 'P1' },
   {

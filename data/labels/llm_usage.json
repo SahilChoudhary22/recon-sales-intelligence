@@ -19,6 +19,29 @@
         0.516
       ],
       "note": "token split in/out not reported by the harness; range = all-input .. all-output. Includes agent tool/system overhead, so it overstates what the batched API path (llm_label.py) would spend."
+    },
+    {
+      "model": "claude-haiku (4 parallel Claude Code subagents, round 2: names promoted by re-ranking)",
+      "items": 1430,
+      "subagent_tokens_total": 477155,
+      "subagent_tokens_per_agent": [
+        114228,
+        123122,
+        122260,
+        117545
+      ],
+      "cost_usd_range_at_haiku_5_5_prices": [
+        0.048,
+        0.239
+      ]
     }
-  ]
+  ],
+  "in_session_total": {
+    "items": 4430,
+    "subagent_tokens": 1509166,
+    "cost_usd_range": [
+      0.151,
+      0.755
+    ]
+  }
 }

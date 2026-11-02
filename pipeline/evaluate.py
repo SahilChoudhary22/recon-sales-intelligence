@@ -20,10 +20,11 @@ INFRA = {"isp_telecom", "hosting_cloud"}
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("build_dir")
+    ap.add_argument("--set", default="", help="gold set suffix, e.g. _v2 for identity_gold_v2.csv")
     a = ap.parse_args()
     con = duckdb.connect()
-    con.execute("create view gold as select * from read_csv('data/eval/identity_gold.csv', all_varchar=true)")
-    con.execute("create view sample as select * from read_csv('data/eval/identity_sample.csv', all_varchar=true)")
+    con.execute(f"create view gold as select * from read_csv('data/eval/identity_gold{a.set}.csv', all_varchar=true)")
+    con.execute(f"create view sample as select * from read_csv('data/eval/identity_sample{a.set}.csv', all_varchar=true)")
     con.execute(f"create view acc as select * from '{a.build_dir}/accounts.parquet'")
     out = {}
 
