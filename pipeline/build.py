@@ -23,8 +23,14 @@ PHANTOM_PORTS = 50  # an IP answering on more distinct ports than this in one sc
 SHARED_IP_DOMAINS = 5  # an IP serving this many distinct company domains is shared hosting
 HOSTER_DOMAINS = 10  # an org whose IPs carry this many distinct company domains is a hoster/ISP
 PTR_ZONE_IPS = 20  # a reverse-DNS zone covering this many IPs (and few certs) is an ISP zone
+P1_ACCOUNTS, P2_ACCOUNTS = 500, 2500
+HOSTER_NAMING_IPS = 30  # ...and a domain naming this many IPs with numbered hosts is a hoster's scheme
+NUMBERED_HOST_RE = r"^(\*\.)?[a-z-]*\d{2,}[a-z0-9-]*\."
+DYNAMIC_PTR_SQL = (r"(?i)(\d{1,3}[-.x]){3}\d{1,3}|(dyn|dynamic|dsl|adsl|vdsl|pool|dhcp|cable|static|cust|"
+                   r"customer|client|ppp|pppoe|broadband|fibre|fiber|ftth|cpe|res|home|user)\d*[-.]")
+CONSUMER_RE = r"(?i)(tr-069|tr069|hikvision|dahua|webcam|ip camera|dvr|nvr|mikrotik|router|cpe|zte|huawei home|tp-link|chromecast)"
 ISP_ORG_RE = (r"(?i)(telecom|telekom|communicat|broadband|cable|internet|network|mobile|cellular|wireless|"
-              r"cloud|hosting|host|datacent|data cent|server|colo|isp\b|online|telefonica|verizon|comcast|"
+              r"cloud|hosting|host|datacent|clientes|pool\b|residen|subscriber|customers|gpon|gepon|fttx|wba\b|users\b|data cent|server|colo|isp\b|online|telefonica|verizon|comcast|"
               r"at&t|vodafone|orange|chinanet|unicom|amazon|google|microsoft|alibaba|aliyun|tencent|huawei|"
               r"ovh|hetzner|digitalocean|linode|akamai|cloudflare|incapsula|fastly|oracle|contabo|vultr|"
               r"leaseweb|static pool|dynamic|dsl|fiber|fibre|ftth|\bnet\b|backbone|transit|ix\b|peering|"
@@ -78,16 +84,19 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
     funnel["distinct_hostnames"] = len(mapped)
 
     con.execute("""create table cand_d as
-        select c.rid, c.ip, c.src, m.domain, cl.asn, cl.org
+        select c.rid, c.ip, c.src, c.h, m.domain, cl.asn, cl.org
         from cand c join hmap m using (h, src) join clean cl using (rid)
         where m.domain is not null""")
-    # data-driven infra: a domain spread over many ASNs/orgs, or a PTR zone covering many IPs, is a
-    # platform or an ISP, not a customer
+    # data-driven infra: a domain spread over many ASNs/orgs, a PTR zone covering many IPs, or a
+    # hoster's server-naming scheme (vps123.hoster.com, one numbered name per IP) is a platform or an
+    # ISP, not a customer
     con.execute(f"""create table infra_auto as
         select domain from cand_d group by domain
         having count(distinct asn) >= 8 or count(distinct org) >= 15
             or (count(distinct ip) filter (where src = 'ptr') >= {PTR_ZONE_IPS}
-                and count(distinct ip) filter (where src <> 'ptr') < 0.2 * count(distinct ip))""")
+                and count(distinct ip) filter (where src <> 'ptr') < 0.2 * count(distinct ip))
+            or (count(distinct ip) >= {HOSTER_NAMING_IPS}
+                and avg(regexp_matches(lower(h), '{NUMBERED_HOST_RE}')::int) >= 0.4)""")
     funnel["infra_domains_auto"] = con.execute("select count(*) from infra_auto").fetchone()[0]
     if domain_labels and os.path.exists(domain_labels):
         con.execute(f"""insert into infra_auto select domain from read_csv_auto('{domain_labels}')
@@ -104,17 +113,27 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
     # --- org classification (business vs ISP/hosting) ---------------------------------------
     # an org whose IPs carry many unrelated company domains is hosting them: that is the strongest
     # ISP/hoster tell in the data, far better than matching on the name
+    # ISP customer pools also give themselves away by dynamic reverse DNS and consumer gear
+    # (TR-069 home routers, cameras, MikroTik CPEs) on a large share of their IPs
     con.execute(f"""create table org_stats as
         with d as (select org, count(distinct domain) n_domains from cand_d
-                   where src <> 'ptr' and domain not in (select domain from infra_auto) group by org)
-        select r.org, count(distinct ip) n_ips, count(distinct asn) n_asn,
-               avg((cloud_provider is not null)::int) cloud_share,
+                   where src <> 'ptr' and domain not in (select domain from infra_auto) group by org),
+        ip_feat as (
+            select org, ip,
+                   bool_or(len(hostnames) > 0 and regexp_matches(hostnames[1], '{DYNAMIC_PTR_SQL}')) dyn,
+                   bool_or(regexp_matches(coalesce(product, '') || ' ' || coalesce(devicetype, '') || ' ' || module,
+                                          '{CONSUMER_RE}')) consumer,
+                   any_value(asn) asn, bool_or(cloud_provider is not null) cloud
+            from raw where org is not null group by org, ip)
+        select f.org, count(*) n_ips, count(distinct asn) n_asn, avg(cloud::int) cloud_share,
+               avg(dyn::int) dyn_share, avg(consumer::int) consumer_share,
                coalesce(any_value(d.n_domains), 0) n_domains,
-               regexp_matches(r.org, '{ISP_ORG_RE}') isp_name
-        from raw r left join d using (org) where r.org is not null group by r.org""")
+               regexp_matches(f.org, '{ISP_ORG_RE}') isp_name
+        from ip_feat f left join d using (org) group by f.org""")
     con.execute(f"""create table org_class as select org,
         case when isp_name or cloud_share > 0.2 or n_ips > 2048 or n_asn > 3
-                  or n_domains >= {HOSTER_DOMAINS} then 'isp_or_hosting'
+                  or n_domains >= {HOSTER_DOMAINS}
+                  or (n_ips >= 20 and (dyn_share >= 0.15 or consumer_share >= 0.10)) then 'isp_or_hosting'
              else 'business' end org_type, 'heuristic' org_type_source, null::varchar industry
         from org_stats""")
     if llm_labels and os.path.exists(llm_labels):
@@ -201,10 +220,17 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
     con.execute("""alter table accounts add column priority double;
         update accounts set priority = need * urgency * fit * maturity_factor
             * case when has_material then 1 else 0.3 end""")
-    con.execute("""create table accounts_out as
-        select *, round(100 * percent_rank() over (order by priority), 1) score,
-            case when percent_rank() over (order by priority) >= 0.95 then 'P1'
-                 when percent_rank() over (order by priority) >= 0.80 then 'P2' else 'P3' end tier,
+    con.execute("""alter table accounts add column material_rank bigint;
+        update accounts set material_rank = r.rk from (
+            select company_id, row_number() over (order by priority desc) rk
+            from accounts where has_material) r where accounts.company_id = r.company_id""")
+    # score: log-scaled so the top stays spread out; tiers: by rank, sized to what a sales team can
+    # actually work (P1 = this week's calls), not percentiles of a long hygiene-only tail
+    con.execute(f"""create table accounts_out as
+        select *, round(100 * ln(1 + priority) / ln(1 + max(priority) over ()), 1) score,
+            case when has_material and material_rank <= {P1_ACCOUNTS} then 'P1'
+                 when has_material and material_rank <= {P1_ACCOUNTS + P2_ACCOUNTS} then 'P2'
+                 else 'P3' end tier,
             coalesce(domain, business_org, replace(company_id, 'org:', '')) display_name,
             case when ident_prio is null then 'org' when ident_prio = 1 then 'cert'
                  when ident_prio = 2 then 'ntlm' when ident_prio = 3 then 'http_host'

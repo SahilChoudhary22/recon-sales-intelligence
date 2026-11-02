@@ -5,10 +5,10 @@ const has = (a: Account, ...ids: string[]) => ids.some((id) => a.signals.include
 // saved views = the prospecting motions a security AE actually runs
 export const PLAYS: Play[] = [
   { id: 'all', name: 'All accounts', blurb: 'Every company with a material signal, ranked.', match: () => true },
-  { id: 'p1', name: 'Call today (P1)', blurb: 'Top 5% by priority.', match: (a) => a.tier === 'P1' },
+  { id: 'p1', name: 'Call today (P1)', blurb: 'The 500 highest-priority accounts: this week’s call list.', match: (a) => a.tier === 'P1' },
   {
-    id: 'edge-kev', name: 'Firewall/VPN + exploited CVE',
-    blurb: 'Edge appliances with CISA KEV vulnerabilities, the most common ransomware entry point.',
+    id: 'edge-kev', name: 'Firewall/VPN + KEV in estate',
+    blurb: 'Exposed firewall/VPN admin plane plus CISA known-exploited CVEs in the same estate: the classic ransomware entry path.',
     match: (a) => has(a, 'edge_kev') || (has(a, 'edge_device') && a.kev),
   },
   {
