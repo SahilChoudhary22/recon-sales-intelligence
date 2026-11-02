@@ -16,6 +16,7 @@ import duckdb
 
 from pipeline.signals import MATURITY, SIGNALS
 
+IPV4 = re.compile(r"\b(\d{1,3}\.\d{1,3}\.\d{1,3})\.\d{1,3}\b")
 SHARDS = 64
 OUT = "web/public/data"
 DOMAIN_LABELS = "data/labels/domain_labels.csv"
@@ -42,6 +43,11 @@ def industry(*texts):
     return None
 
 
+def mask(v, on):
+    """203.0.113.7 -> 203.0.113.x: the public demo must not be a target list of vulnerable hosts."""
+    return IPV4.sub(r"\1.x", v) if on and isinstance(v, str) else v
+
+
 def shard(company_id):
     return int(hashlib.md5(company_id.encode()).hexdigest(), 16) % SHARDS
 
@@ -50,6 +56,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("build_dir")
     ap.add_argument("--limit", type=int, default=15000)
+    ap.add_argument("--no-mask", action="store_true", help="keep full IPs (local use only, never publish)")
     a = ap.parse_args()
     con = duckdb.connect()
     rows = con.execute(f"""
@@ -77,11 +84,12 @@ def main():
         })
     ev = con.execute(f"""select company_id, signal, ip, port, product, evidence, http_title, cert_cn
         from '{a.build_dir}/evidence.parquet'""").fetchall()
+    m = not a.no_mask
     shards = [dict() for _ in range(SHARDS)]
     for cid, sig, ip, port, prod, evid, title, cn in ev:
         if cid in keep:
             shards[shard(cid)].setdefault(cid, []).append(
-                {"s": sig, "ip": ip, "port": port, "p": prod, "e": evid, "t": title, "cn": cn})
+                {"s": sig, "ip": mask(ip, m), "port": port, "p": prod, "e": mask(evid, m), "t": title, "cn": cn})
     os.makedirs(f"{OUT}/evidence", exist_ok=True)
     for i, s in enumerate(shards):
         with open(f"{OUT}/evidence/{i:02d}.json", "w") as f:
@@ -89,6 +97,7 @@ def main():
     funnel = json.load(open(f"{a.build_dir}/funnel.json"))
     meta = {
         "generated_from": "scan 2026-11-01 (13.4M banners)",
+        "ips_masked": m,
         "funnel": funnel,
         "signals": {sid: {"label": label, "category": cat, "weight": w} for sid, cat, w, label, _, _ in SIGNALS},
         "maturity": {mid: label for mid, _, label in MATURITY},
