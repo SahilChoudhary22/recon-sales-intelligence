@@ -1,0 +1,101 @@
+company_id,entity_type,name_ok,sellable,note
+csmingredients.com,business,yes,yes,"CSM Ingredients, food ingredients maker"
+org:TAIPEI MUNICIPAL CHUNG-CHENG SENIOR HIGH SCHOOL,education,yes,yes,"Taipei public high school, own IP block"
+sptrans.com.br,public_sector,yes,yes,Sao Paulo municipal transit company
+"org:LLC ""Nauka-Svyaz""",isp_telecom,yes,no,Russian telecom operator; customer ranges
+"org:VapeLine Technology (HK) Co., Limited",hosting_cloud,yes,no,"HK VPS/hosting provider, mixed tenant sites"
+itycom.com,unknown,yes,no,only admin page on Azure; cannot identify org
+tokobako.id,business,yes,yes,Indonesian grocery wholesale shop
+webteamstorm.ru,business,yes,yes,small Russian web studio; low info
+axxonconsulting.com,business,yes,yes,Chilean SAP consulting firm
+jpn.org,hosting_cloud,no,no,Sakura shared hosting; many unrelated tenant sites
+ip-141-94-96.eu,hosting_cloud,no,no,OVH reverse-DNS server name
+luxresorts.com,business,yes,yes,LUX* Resorts hotel group
+vanso.com,business,yes,yes,Vanso mobile messaging/SMS API company
+org:Zone Media LLC,hosting_cloud,yes,no,Estonian VPS hoster; sslip tenant hosts
+jobshark.ro,business,yes,yes,Romanian job portal
+org:Turon Media XK,hosting_cloud,yes,no,"Uzbek hosting/datacenter, mixed tenants"
+magweb.us,unknown,yes,no,"bare app subdomain on OVH, no identity"
+ratagolf.fi,business,yes,yes,Finnish minigolf federation (association)
+org:TELESYSTEM SRL,isp_telecom,yes,no,Romanian ISP/hoster; customer IRC etc
+friendray.com,personal_or_junk,no,no,gambling SEO spam content
+vkjotijota.com,unknown,no,no,cert names different domain; no content
+sivit.org,hosting_cloud,no,no,hoster server-naming (sdNNNN) domain
+moodlearners.com,unknown,yes,no,single DAM subdomain; org unclear
+bccn-berlin.de,education,yes,yes,Bernstein Center Comp Neuroscience Berlin
+ac-turbo.net,unknown,yes,no,SMS gateway box; org unclear
+nrimports.com,business,yes,yes,wine importer
+ip-5-196-34.eu,hosting_cloud,no,no,OVH reverse-DNS server name
+org:Beyond Relationship Marketing GmbH,business,yes,yes,marketing company with own IP block
+org:G+B SISTEMAS E AUTOMACAO LTDA-ME,business,yes,yes,small BR automation firm; low info
+org:Cheeloo J. Turczyn i Wspolnicy Sp. J.,isp_telecom,yes,no,Polish ISP; customer devices
+jcihosting.net,hosting_cloud,yes,no,"John Companies hosting, vhost naming"
+hatafoods.co.jp,business,yes,yes,Hata Foods Co. Japan
+n-pri.jp,business,yes,yes,photobook print platform company
+albasoten.com,unknown,yes,no,DO droplet login redirect; no identity
+maxvoca.com,business,yes,yes,Korean vocab-learning service
+org:Optimum Lightpath,isp_telecom,yes,no,Altice business ISP; customer ranges
+org:Gold Data C.A.,isp_telecom,yes,no,Venezuelan ISP; customer ranges
+comfyco.com,business,yes,yes,NY/NJ furniture store
+moonwithyou.com,personal_or_junk,yes,no,personal horoscope site
+chiefscare.co.in,unknown,yes,no,generic Home page; org unclear
+kemendikdasmen.go.id,public_sector,yes,yes,Indonesian Ministry of Education
+ongame.fans,personal_or_junk,yes,no,fan/game site with phpMyAdmin
+hazi.eus,public_sector,yes,yes,"HAZI, Basque govt public foundation"
+ntou.edu.tw,education,yes,yes,National Taiwan Ocean University
+org:PT Mora Telematika Indonesia TBK,isp_telecom,yes,no,Moratelindo carrier
+jino.ru,hosting_cloud,yes,no,Russian hosting provider; tenant sites
+losrios.edu,education,yes,yes,Los Rios Community College District
+toaprint.com,business,yes,yes,Toa Print Co. Japan
+russianschool.com,education,yes,yes,Russian School of Mathematics
+org:Piotr Bukowczyk trading as IT Systematic Group,isp_telecom,yes,no,Polish small ISP; customer sites
+dn-cloud.com,business,yes,yes,NEOJAPAN desknet's cloud SaaS domain
+securecdnline.com,personal_or_junk,no,no,anonymous proxy-like domain on Kamatera
+dnscini.com,hosting_cloud,no,no,Turkish hoster server domain
+org:STC BAHRAIN B.S.C CLOSED,isp_telecom,yes,no,mobile/telecom operator
+hoster.by,hosting_cloud,yes,no,Belarus hosting provider
+rnp.br,education,yes,yes,Brazil national research & education network
+yukoncollege.yk.ca,education,yes,yes,Yukon University legacy domain
+org:Srinagar Zone ( DHCP ),isp_telecom,no,no,BSNL DHCP customer pool
+skattelecom.com,isp_telecom,yes,no,Bulgarian ISP billing portal
+ib-becker-partner.de,business,yes,yes,engineering firm with own IT stack
+digal.pt,business,yes,yes,Portuguese company backoffice
+rockwool.com,business,yes,yes,Rockwool insulation manufacturer
+sweetmix.com.br,business,yes,yes,"Brazilian food ingredients firm, own VPN"
+org:Red de Servicios IP,isp_telecom,yes,no,Spanish business ISP; many customers
+ihosting.cl,hosting_cloud,yes,no,Chilean hosting provider
+org:G2G COM PROD ELETRO E SERV LTDA,isp_telecom,yes,no,BR ISP; customer routers
+netgrave.de,unknown,yes,no,no content; likely personal
+toshin-n-sys.com,business,yes,yes,Japanese small systems company; low info
+org:M247 Ltd - Korea Infrastructure,hosting_cloud,yes,no,M247 hosting infrastructure
+rierra-ads.com,unknown,yes,no,ad-serving domain on Leaseweb; org unclear
+hermann-wegener.de,business,yes,yes,"Hermann Wegener GmbH, German firm"
+thaibma.or.th,business,yes,yes,Thai Bond Market Association
+org:2054235 Alberta Ltd,unknown,no,no,numbered company; no identity
+ax1.co,unknown,yes,no,DO + CF origin; org unclear
+connerprinting.com,business,yes,yes,Conner Printing
+ttidc.com.tr,hosting_cloud,no,no,Turk Telekom datacenter PTR
+org:Fulnett Limited,isp_telecom,yes,no,Irish ISP
+maum.ai,business,yes,yes,Korean AI company (MindsLab)
+vmx.io,unknown,no,no,NTLM domain on hoster; no identity
+worldcall.net.pk,isp_telecom,yes,no,Worldcall Telecom Pakistan
+cheffsolutions.com.br,business,yes,yes,Brazilian company site
+org:Terasyst Ltd,isp_telecom,yes,no,Bulgarian ISP; customer DVRs
+ip-144-217-158.net,hosting_cloud,no,no,OVH reverse-DNS server name
+euromet.com.ua,business,yes,yes,"Ukrainian agri company, farmer portal"
+brcliving.org,business,yes,yes,Bridgewater Retirement Community
+kyoto-u.ac.jp,education,yes,yes,Kyoto University
+org:PT. PARSAORAN GLOBAL DATATRANS (JTT),isp_telecom,yes,no,Indonesian ISP; customer devices
+org:GERRYS INFORMATION TECHNOLOGY PVT LTD.,isp_telecom,yes,no,Pakistan ISP/IT provider; customer hosts
+marinaco.com,business,yes,yes,Marina Co small business; low info
+acm.org,business,yes,yes,ACM professional society (cert on 3rd-party host)
+marieclaire.com.tw,business,yes,yes,Marie Claire Taiwan publisher
+org:Gujarat Television Pvt.Ltd.,isp_telecom,yes,no,Indian cable/broadband; customer cameras
+ue.edu.pe,education,yes,yes,Peruvian army school (EMCH)
+yokudel.com,unknown,yes,no,index-of only; org unclear
+dms.go.th,public_sector,yes,yes,Thai Department of Medical Services
+org:Accelerit Technologies PTY LTD - Accelerit Technologies PTY LTD,isp_telecom,yes,no,South African ISP; customer devices
+cmmg.edu.br,education,yes,yes,Faculdade Ciencias Medicas MG
+au1.com.au,hosting_cloud,yes,no,cPanel hosting provider
+org:University of Maine System,education,yes,yes,University of Maine System
+blackmesh.com,hosting_cloud,yes,no,BlackMesh managed hosting

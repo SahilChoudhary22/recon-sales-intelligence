@@ -148,7 +148,7 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
             case when ii.n_dom >= {SHARED_IP_DOMAINS} then null
                  when ri.domain is not null then ri.prio
                  when ii.n_dom <= 2 and ii.domain is not null then ii.prio + 10 end ident_prio,
-            oc.org_type, oc.industry org_industry,
+            oc.org_type, oc.industry org_industry, oc.org_type_source,
             coalesce(ii.n_dom, 0) >= {SHARED_IP_DOMAINS} shared_ip
         from clean cl left join rec_ident ri using (rid) left join ip_ident ii on cl.ip = ii.ip
         left join org_class oc on cl.org = oc.org""")
@@ -192,6 +192,7 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
                    any_value(domain) filter (where domain is not null) domain,
                    mode(org) filter (where org_type = 'business') business_org,
                    mode(org) top_org, mode(country) country, mode(org_industry) org_industry,
+                   bool_or(org_type_source = 'llm') org_confirmed,
                    count(distinct ip) n_ips, count(*) n_assets, min(ident_prio) ident_prio,
                    list(distinct product) filter (where product is not null)[1:12] products
             from assets where company_id is not null group by company_id),
@@ -210,7 +211,8 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
         select a.*, s.* exclude (company_id), coalesce(m.maturity, []) maturity,
                coalesce(m.maturity_labels, []) maturity_labels,
                1 + 0.4 * has_kev::int + 0.2 * has_eol::int + 0.1 * has_cert_issue::int urgency,
-               (case when ident_prio is null then 0.85      -- business org only
+               (case when ident_prio is null and org_confirmed then 0.85  -- business org, LLM-confirmed
+                     when ident_prio is null then 0.5       -- business org by heuristics only (15% precise)
                      when ident_prio <= 3 then 1.0          -- cert / ntlm / http host
                      when ident_prio = 4 then 0.75          -- reverse DNS
                      else 0.9 end)                          -- inherited from another port on the IP

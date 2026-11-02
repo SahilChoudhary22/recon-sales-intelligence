@@ -1,0 +1,11 @@
+{
+  "label_overlap": 0,
+  "label_buyer_vs_infra_accuracy": null,
+  "label_compared": 0,
+  "label_confusion": {},
+  "gold_accounts": 100,
+  "gold_in_top_tiers": 60,
+  "top_tier_precision": 0.433,
+  "unsellable_removed_from_top": 0,
+  "sellable_lost_from_top": 0
+}

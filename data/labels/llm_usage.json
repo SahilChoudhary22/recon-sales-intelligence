@@ -1,0 +1,24 @@
+{
+  "runs": [
+    {
+      "model": "claude-haiku (8 parallel Claude Code subagents, same instructions as llm_label.py)",
+      "items": 3000,
+      "subagent_tokens_total": 1032011,
+      "subagent_tokens_per_agent": [
+        127249,
+        130772,
+        128552,
+        136154,
+        118271,
+        127347,
+        137063,
+        126603
+      ],
+      "cost_usd_range_at_haiku_5_5_prices": [
+        0.103,
+        0.516
+      ],
+      "note": "token split in/out not reported by the harness; range = all-input .. all-output. Includes agent tool/system overhead, so it overstates what the batched API path (llm_label.py) would spend."
+    }
+  ]
+}

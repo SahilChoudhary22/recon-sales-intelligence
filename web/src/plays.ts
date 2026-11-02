@@ -5,6 +5,11 @@ const has = (a: Account, ...ids: string[]) => ids.some((id) => a.signals.include
 // saved views = the prospecting motions a security AE actually runs
 export const PLAYS: Play[] = [
   { id: 'all', name: 'All accounts', blurb: 'Every company with a material signal, ranked.', match: () => true },
+  {
+    id: 'commercial', name: 'Commercial accounts',
+    blurb: 'Companies only: universities, research networks and government removed (they rank high on sheer network size).',
+    match: (a) => a.industry !== 'Education' && a.industry !== 'Government' && !/(universi|college|ministry|\.edu|\.ac\.|\.gov)/i.test(`${a.name} ${a.org ?? ''}`),
+  },
   { id: 'p1', name: 'Call today (P1)', blurb: 'The 500 highest-priority accounts: this week’s call list.', match: (a) => a.tier === 'P1' },
   {
     id: 'edge-kev', name: 'Firewall/VPN + KEV in estate',

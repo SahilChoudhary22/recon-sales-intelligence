@@ -1,0 +1,376 @@
+id	kind	name	country	context
+6	domain	usp.br	BR	ip_owner=UNIVERSIDADE DE SAO PAULO; ips=339; titles=Química, Bioquímica e Biofísica Computacionais; Encurtador de URLs da Universidade de São Paulo;  IQSC Sites; Departamen
+14	org	PT. Hipernet Indodata	ID	ips=72; certs=; support; fortinet-subca2001; titles=400 Bad Request; Index of /; RouterOS router configuration page; 403 Forbidden; ; Not Found; Apache2 Ubuntu Default Page
+22	org	ON EMPRESAS S.A.C.	PE	ips=84; certs=; fortinet-subca2001; HTTPS-Self-Signed-Certificate-348c026bb5; support; FortiGate; hanab1; titles=Laravel; Apache HTTP Server Test Page powered by CentOS; ; Documentation for SAP Business One Service Layer; 404 Not Fou
+30	domain	primus.ca	CA	ip_owner=Primus Telecommunications Canada Inc.; ips=124; titles=index; ; Westgrove Clinic; Primus VWS; 403 - Forbidden: Access is denied.; Primus Canada | DSL Startup Wizard | Welcome;
+38	org	OOREDOO TUNISIE SA - OOREDOO TUNISIE SA	TN	ips=131; certs=fortinet-subca2001; ; FortiGate; webviewer; support; titles=500 Internal Server Error; syngo.via WebViewer; ; FortiGate
+46	domain	unina.it	IT	ip_owner=Universita' degli Studi di Napoli Federico II; ips=148; titles=Collaborazioni Studentesche; Authentication portal; Tecniche audioprotesiche &#8211; Tecniche audiopro; Apache2 Ubuntu D
+54	domain	websiteseguro.com	BR	ip_owner=Locaweb Serviços de Internet S/A; ips=108; titles=403 Forbidden; ; phpinfo(); 500 Internal Server Error; Hospedagem Locaweb; Acessar &lsaquo; Laquila Web &#8212; WordPres
+62	domain	us.es	ES	ip_owner=Entidad Publica Empresarial Red.es; ips=66; titles=403 Forbidden; Inicio | Departamento de CCIA de la Universidad de; Login in SWP; DxO; TEITOK corpuseha; 404 Not Found; L
+70	domain	nutc.edu.tw	TW	ip_owner=Taichung Changhua Nantou Regional Network; ips=20; titles=302 Found; proj-seq; Welcome to XAMPP; ; 詐不倒 ｜ 多平台防詐守護系統導覽; 301 Moved Permanently; Login - Storage; STEM 計畫
+78	org	Guangzhou NetEase Computer System Co., Ltd	CN	ips=301; certs=; SANGFOR; *.itfm-test.nie.netease.com; *.dev.w.163.com; *.update.netease.com; edp-rc.game.163.com; *.fp.ps.netease.com;; titles=Not Found on Accelerator; 301 Moved Permanently; 502 Bad Gateway; 404 Not Found; Apache HTTP Server Test Page powered by
+86	org	1 GRID (PTY) LTD	ZA	ips=50; certs=; zaw3-cvps01monitor.hostserv.co.za; titles=Visitor anti-robot validation; Index of /; Welcome! | demo; ; Not Found
+94	org	TIMENET SPA	IT	ips=123; certs=support; OpenWrt; ; Fireware web CA; pbx.wildix.com; server; fortinet-subca2001; titles=Authorization required; Not Found; 301 Moved Permanently; TeamSystem; NethSecurity; 403 Forbidden; 
+102	org	HEXANET SAS	FR	ips=238; certs=fortinet-subca2001; UBNT; support; ; FGT60E4Q17028100; FGT60FTK2209C9R1; UBNT-B4:FB:E4:6E:E2:F4; UBNT Router UI; UBNT-44; titles=; Grafana; EdgeOS; Error 404 - Page Not Found
+110	domain	itu.dk	DK	ip_owner=Danmarks Tekniske Universitet; ips=24; titles=HTTP Server Test Page powered by CentOS; Pycipedia; Creepy Leaks &#8211; Your mobile phone constantly ; 302 Found; Apach
+118	org	Mobifone Corporation	VN	ips=80; certs=support; ; fortinet-subca2001; sapb1-stg; titles=Welcome to nginx!; siargo-software-fe; ; Apache2 Ubuntu Default Page: It works; Not Found; 403 Forbidden
+126	domain	fiocruz.br	BR	ip_owner=FUNDACAO INSTITUTO OSWALDO CRUZ; ips=50; titles=Instituto Nacional de Saúde da Mulher, da Criança ; Coleção de Yersinia pestis; Bem-vindo(a) - Base Arch; Coleção de Vet
+134	domain	tc.edu.tw	TW	ip_owner=Taiwan Academic Network; ips=35; titles=301 Moved Permanently; TMSH Wireless Network Access; ; IIS Windows Server; macOS Server; 502 Bad Gateway; 臺中市私立嶺東高級中學
+142	org	TEKNOSOS BILISIM HIZMETLERI VE TIC. LTD. STI.	TR	ips=77; certs=localhost; ; titles=Not Found; 403 Forbidden; Admin Area; 
+150	org	ESTNOC-GLOBAL	IS	ips=58; certs=localhost.localdomain; ; 45.133.192.x; OpenSpeedTest.com; Server-12458-0a; titles=; 403 Forbidden; Apache Tomcat/8.5.53; Log In - Juniper Web Device Manager; ERROR: The requested URL could not be retrie
+158	org	University of Virginia	US	ips=52; certs=turing.somrc.virginia.edu; rancher-prod.prod-ext-k8s.rc.virginia.ed; awair.linklab.virginia.edu; id-photos.businessservi; titles=; Not Found; Web Application Firewall Block; Home page of UVa Astronomy Instrument Telemetry; STREAMin³; Welcome to our 
+166	org	Professional Link S.r.l.	IT	ips=101; certs=; Fireware web CA; pfSense-5667ec38928bb; support; fortinet-subca2001; NethServer; FGT60FTK2209DFRD; FGT60FTK24014938; titles=pfSense - Login; 403 Forbidden; ; NethServer Enterprise
+174	org	Yedinyye Resheniya LLC	BY	ips=24; certs=; u22.isp; titles=404 Not Found; МНИИ ЦЭСБИ · цифровая экономика, AI, культура, инж; 
+182	domain	dlpdomain.com	FR	ip_owner=MEDIACTIVE SAS; ips=13; titles=; 301 Moved Permanently; LE RÉVEIL MATIN &rsaquo; Se connecter; srv18.dlpdomain.com; 401 Unauthorized; phpMyAdmin; An Er
+190	org	COMCEL GUATEMALA S.A.	GT	ips=75; certs=fortinet-subca2001; FWSEFISAGT VPN Certificate; ; support; titles=; Hola Mundo en HTML; AXIS; Not Found
+198	org	Jiangsu Yihong e-commerce Co., Ltd	CN	ips=142; certs=; titles=500 - 内部服务器错误。; Not Found; 
+206	domain	poliba.it	IT	ip_owner=Politecnico di Bari; ips=21; titles=Sisinflab 00 endpoint; ; Measurement Group &#8211; Politecnico di Bari;          Survey     ; 301 Moved Permanently; Hom
+214	domain	drf.com	US	ip_owner=Telx; ips=18; titles=Log in | Daily Racing Form; HTTP Status 404 â€“ Not Found; 401 - Unauthorized: Access is denied due to invali; Daily Rac
+222	org	Cebridge Connections	US	ips=126; certs=*.googlevideo.com; fortinet-subca2001; 192.168.168.x; longrouter.vpnplus.to; ; PRO3-7FEF8EAD.crestron; support; titles=; 400 Bad Request; VPN Plus; Access Denied; Error 404 (Not Found)!!1; Moved Permanently; Not Found; SonicWall - Authenti
+230	org	Datasource AG	CH	ips=62; certs=; example.com; kvm-template.fornex.cloud; invalid2.invalid; titles=301 Moved; Not Found; ЖК LUCKY LAND | Квартири в Києві ; ; Index of /; 302 Found
+238	domain	shu.edu.tw	TW	ip_owner=imported inetnum object for MOEC; ips=20; titles=2015新版公文系統; 世新大學圖書館; 系統分流; 舍我紀念館; 世新EDM; Not Found; IIS Windows Server; ; 403 - 禁止: 拒絕存取。; 世新大學  Shih Hsin University; V
+246	domain	websupport.sk	SK	ip_owner=WebSupport s.r.o.; ips=33; titles=; Not Found
+254	org	ITS Technology Group Limited	GB	ips=131; certs=fortinet-subca2001; Vigor Router; Appliance_Certificate_ItR1SqoOxztHIeJ; ; 10.15.2.x; 192.168.168.x; titles=Sophos; Vigor Login Page; SonicWall Network Security Login; ; AXIS
+262	domain	common.com	TW	ip_owner=Chunghwa Telecom Data Communication Business Group; ips=51; titles=403 Forbidden; Not Found; 
+270	org	HelixGame	IR	ips=81; certs=; titles=; Not Found; Access forbidden!; 410 Gone; ورود به آرشیو موزیک
+278	org	Akademska mreza Republike Srbije - AMRES	RS	ips=35; certs=; titles=; Not Found; An Error Occurred: Internal Server Error; 302 Found
+286	org	M247 LTD New York Infrastructure	US	ips=159; certs=; 185-220-69-194.pmtaserver.com; titles=; Not Found
+294	org	ReadyIDC Co.,Ltd.	AU	ips=76; certs=Plesk; ; DESKTOP-V7D35SL; titles=Not Found; 301 Moved Permanently; Welcome to nginx!; ; JapVang - แพลตฟอร์มฝากขายออนไลน์
+302	domain	bcn.cat	ES	ip_owner=Institut Municipal Barcelona Innovacio i Tecnologia, O.A.; ips=24; titles=; Access forbidden!; NASIA - Ajuntament de Barcelona; 403 Forbidden; Icub | Entrar; Col·leccions del Museu | Museu de la
+310	domain	ranksitt.net	BD	ip_owner=Nationwide ISP & IPTSP; ips=18; titles=301 Moved Permanently; WEB SERVICE; Ranks DID Portal; Not Found; 
+318	domain	uanl.mx	MX	ip_owner=Universidad Autonoma de Nuevo Leon; ips=21; titles=Inicio - Facultad de Ciencias Políticas y Relacion;    Política, Globalidad y Ciudadanía      ; Object reference not set
+326	org	Joe Wheeler EMC	US	ips=39; certs=92157264-742e-3299-42a7-38bd1f7f0a7e; support; DW Spectrum; Wisenet WAVE; Fireware web CA; ; fortinet-subca2001; titles=Moved Permanently; ; 403 Forbidden
+334	org	CV Jayamiqen Konstruksi	ID	ips=18; certs=; titles=Not Found; ; Test Page for the HTTP Server on AlmaLinux
+342	org	WE DATA	EG	ips=102; certs=; fortinet-subca2001; support; 196.218.146.x; Huawei Technologies Co., Ltd; titles=WEB; 
+350	org	Long Van Soft Solution JSC	VN	ips=35; certs=; localhost; titles=Not Found; ; Home Page - My ASP.NET Application
+358	domain	ldd.go.th	TH	ip_owner=National Telecom Public Company Limited; ips=6; titles=QR Code; �ӹѡ�ҹ�Ţҹء�á�� ����Ѳ�ҷ��Թ; 302 Found; Easy Service; Under Construction; สำนักงานพัฒนาที่ดินเขต 4 - Land Developm
+366	domain	allnet.de	DE	ip_owner=Allnet Deutschland GmbH; ips=23; titles=301 Moved Permanently; ALLNET GmbH Computersysteme - Powered by Kayako He; ALLNET CE; Wilkommen - ISA; ; ALLNET GmbH -NF
+374	org	THOMAS FAMILY INVESTMENTS LIMITED	US	ips=45; certs=; FNETCORP; titles=Not Found; ; 301 Moved Permanently; Welcome to nginx!
+382	domain	doae.go.th	TH	ip_owner=United Information Highway Co.,Ltd.; ips=12; titles=สำนักงานเกษตรจังหวัดสิงห์บุรี; กองส่งเสริมโครงการพระราชดำริ การจัดการพื้นที่และวิ; e-learning.doae.go.th; สำนักงานเกษตรจ
+390	domain	ssru.ac.th	TH	ip_owner=KSC Commercial Internet Co.Ltd.; ips=18; titles=วารสารแก้วเจ้าจอมออนไลน์; คณะมนุษยศาสตร์และสังคมศาสตร์ มหาวิทยาลัยราชภัฎสวนส; SSRU; เข้าสู่ระบบนักวิจัย | RIS - SSRU; 30
+398	domain	konvergence.it	IT	ip_owner=Fastweb SpA; ips=9; titles=Koncentro; 502 Bad Gateway; Welcome to nginx!; IIS7; Apache2 Ubuntu Default Page: It works
+406	org	MacStadium, Inc.	US	ips=295; certs=localhost; mail.gfi-kerio.ddnsfree.com; ; nxos; verge-api; titles=; 401 Authorization Required
+414	org	PT. XL Axiata Tbk	ID	ips=18; certs=; a248.e.akamai.net; 112.215.6.x; titles=Invalid URL; 404 Not Found; Not Found; Apache2 Ubuntu Default Page: It works; 
+422	org	Bong Bong Bang Bang Corp	VN	ips=10; certs=; titles=Mail :: Welcome to Horde; Not Found; ; Tín Phát Auto - Mua bán xe ô tô đã qua sử dụng  
+430	org	EdgeUno	US	ips=8; certs=; titles=
+438	domain	uq.edu.au	AU	ip_owner=University of Queensland; ips=10; titles=Home &middot; Australasian Journal of Combinatoric; ; 301 Moved Permanently; 401 Authorization Required; UQ Seismologica
+446	org	West263 International Limited	HK	ips=49; certs=unknown; ; titles=; Not Found; 403 Forbidden
+454	domain	jarv.us	US	ip_owner=Linode; ips=9; titles=Emergence archive — skeletons.emr.ge; Emergence archive — sla01.slatepowered.net; Emergence archive — central.menunet.ja
+462	org	Ewebguru	IN	ips=31; certs=WMSvc-SHA2-WIN-QP9EPU7ELCU; ; titles=; Not Found
+470	domain	cgu.edu.tw	TW	ip_owner=TANet Taoyuan Regional Network; ips=19; titles=; 400 The plain HTTP request was sent to HTTPS port; 301 Moved Permanently; Citrix Gateway;   CGU長庚大學 - 諮商輔導服務E化系統 ; A
+478	domain	vodafoneidea.com	IN	ip_owner=Vodafone Essar Limited GPRS service; ips=17; titles=Application Server Error; 301 Moved Permanently; ; Test Page for the HTTP Server on Red Hat Enterpris; SAP NetWeaver App
+486	domain	mobwith.co.kr	KR	ip_owner=Korea Telecom; ips=6; titles=모비위드; ; Index of /; Redirecting to http://stgms.mobwithad.com/login; 후후애드 - whowhoAD; 404 Not Found
+494	domain	securev.net	MY	ip_owner=Yeahhost Sdn Bhd; ips=16; titles=Not Found; EPICMQTT; 
+502	domain	hoster.kz	KZ	ip_owner=TOO "Kompaniya Hoster.KZ"; ips=7; titles=; 301 Moved Permanently; Not Found; 403 Forbidden
+510	org	British Broadcasting Corporation	GB	ips=77; certs=proteus-pitching.standby.tools.bbc.co.uk; webmail.myconnect.bbc.co.uk; mcmdm.svc.bbc.co.uk; digitalarchive.tools.bbc.co.; titles=BIG-IP logout page; ; The Digital Archive has been decommissioned; 301 Moved Permanently
+518	org	Scaleblade, Ltd.	US	ips=37; certs=; titles=Not Found; 
+526	org	Washington School Information Processing Cooperative	US	ips=15; certs=; Fireware web CA; fortinet-subca2001; titles=GlobalProtect Portal; 403 Forbidden; 
+534	domain	bmp.net.id	ID	ip_owner=PT. Bumi Merbabu Permai; ips=12; titles=; RouterOS router configuration page; Welcome to XAMPP
+542	org	Kirino LLC	US	ips=53; certs=; *.cloudfront.net; titles=; 301 Moved Permanently; ERROR: The request could not be satisfied; 百度一下，你就知道; Welcome to nginx!
+550	org	Thammasat University	TH	ips=43; certs=; localhost; titles=Not Found; Blocked Connection; Under Construction
+558	org	Zenex 5ive Limited	NL	ips=11; certs=; titles=; 301 Moved Permanently; 403 Forbidden
+566	org	Everest Global Joint Stock Company	VN	ips=11; certs=; titles=302 Found; ; 301 Moved Permanently
+574	org	DONG HUNG PHU COMPANY LIMITED	VN	ips=22; certs=; localhost.localdomain; titles=React App; ; Not Found
+582	org	PT Global Port Binekatara	ID	ips=15; certs=; titles=phpMyAdmin; Welcome to nginx!; 
+590	domain	tvr.ro	RO	ip_owner=Societatea Romana de Televiziune; ips=9; titles=301 Moved Permanently; ; TVR.RO; Eroare la baza de date; TELEVIZIUNEA ROMANA; Cerbul de Aur 2020; TRANSFER.TVR
+598	domain	jino.ru	RU	ip_owner=JSC RTComm.RU; ips=18; titles=
+606	org	Umniah Lil-Hawatef Al-Mutanaqelah Co.	JO	ips=48; certs=; *.googlevideo.com; support; titles=Error 404 (Not Found)!!1; Not Found; 
+614	domain	snk.wtf	NL	ip_owner=Senko Digital LLC; ips=13; titles=; 301 Moved; HIKICOLL | SYSTEM LOCKED
+622	domain	fairyarin.org	GB	ip_owner=Iomart Managed Services Limited; ips=2; titles=Home | 109.169.85.x; Home | vc.difarma.cl
+630	org	ipnet_kar-tel Kar-Tel LLC	KZ	ips=13; certs=support; 192.168.127.x; ; My Device; titles=301 Moved Permanently; Moxa OnCell 3120-LTE-1-EU : 192.168.127.x; ; &nbsp;
+638	domain	uchicago.edu	US	ip_owner=The University of Chicago; ips=34; titles=; Bad Request (400); NoMachine; 502 Bad Gateway; Index of /
+646	domain	dbcorp.in	IN	ip_owner=Google LLC; ips=10; titles=n8n.io - Workflow Automation; My Travel Portal; 301 Moved Permanently; ;      DB || Asset   ; 403
+654	org	National Informatics Centre	IN	ips=48; certs=; floodcess.kerala.gov.in; fortinet-subca2001; titles=Invalid Connection; ; Home - e-LOTS
+662	org	HK DiamondHill DC	HK	ips=13; certs=; localhost; titles=Not Found; 403 Forbidden; ; Enchyisle | Lucky to be coming home again
+670	org	INHA UNIVERSITY	KR	ips=28; certs=WS0; DESKTOP-G39T0QT; ; titles=; LG Network Storage
+678	org	FOR UNITY LLC	AM	ips=12; certs=; titles=; Not Found
+686	domain	ulisboa.pt	PT	ip_owner=Universidade de Lisboa; ips=14; titles=; JupyterHub; HPC2025; 404 Not Found
+694	domain	dogadoserver.de	DE	ip_owner=dogado GmbH; ips=15; titles=; 301 Moved Permanently; Not Found
+702	org	PT Sin Inti Indonesia	ID	ips=7; certs=fortinet-subca2001; ; titles=; 400 Bad Request; Not Found
+710	domain	niteroi.rj.gov.br	BR	ip_owner=Microsoft Corporation; ips=5; titles=301 Moved Permanently;   Prefeitura Municipal de NiterÃ³i ; FeSaúde - Fundação Estatal de Saúde de Niterói; e-Storage
+718	domain	viettelidchcm.com	US	ip_owner=Subnet Digital LLC; ips=16; titles=; Creative Agency | Arrox - Creative Agency NextJS T; Not Found
+726	org	PT. Cybertechtonic Pratama	ID	ips=32; certs=; titles=Not Found; 
+734	org	National Technical University of Athens	GR	ips=51; certs=HPIF4F162; IPMI; ILOCZ2D3J0136; ; NPID3999A; DESKTOP-O45DTGQ; titles=; Embedded Web Server; Supermicro BMC Login; Not Found; HP LaserJet Pro M501dn&nbsp;&nbsp;&nbsp;147.102.49
+742	org	Beijing Primezone Technologies Inc.	CN	ips=21; certs=; EndEntity; titles=; Not Found
+750	domain	dreamhost.com	US	ip_owner=New Dream Network, LLC; ips=78; titles=Site not found &middot; DreamHost; n8n.io - Workflow Automation; ; 301 Moved Permanently
+758	org	Jupiter Media Joint Stock Company	VN	ips=13; certs=; titles=; Not Found; 404 Not Found
+766	domain	sellforge.net	ES	ip_owner=Addresses IP for corporate ABI clients; ips=2; titles=JEJORJA S.L.; Sellforge
+774	org	Karaganda	KZ	ips=10; certs=igorproject.hopto.org; ; titles=; Apache2 Ubuntu Default Page: It works; Not Found
+782	domain	aytoleon.es	ES	ip_owner=AYUNTAMIENTO DE LEON; ips=5; titles=Desde dentro - Web del Centro Penitenciario de Man;     Páginas -   Ayuntamiento de León  ; Grafana; Documento movi
+790	domain	neobright.net	US	ip_owner=Doylestown Communications Inc; ips=14; titles=
+798	org	Dtech Limited	BD	ips=8; certs=; localhost; titles=WEB SERVICE; ; Access forbidden!; Not Found
+806	domain	jatengprov.go.id	ID	ip_owner=DINAS KOMINFO PROV. JAWA TENGAH; ips=4; titles=phpMyAdmin; E-Penatausahaan - Jawa Tengah; ; Apache2 Debian Default Page: It works
+814	domain	egat.co.th	TH	ip_owner=Electricity Generating Authority of Thailand; ips=9; titles=404 Not Found; Redirecting to https://egat.onelogin.com/oidc/2/au; Welcome to nginx!; Document Moved; EGAT E-Procurement
+822	org	PT Abhinawa Sumberdaya Asia	ID	ips=1226; certs=; titles=Apache2 Ubuntu Default Page: It works; ; Welcome to nginx!; Not Found
+830	org	Nexera SAS	FR	ips=104; certs=FGT40FTK19000985; DRAYTEK; ; support; fortinet-subca2001; Fireware web CA; titles=; 403 Forbidden; Vigor Login Page
+838	org	HYTEL S.R.L.	IT	ips=10; certs=; UBNT-24:5A:4C:48:B7:6B; titles=Ubiquiti; 301 Moved Permanently; 
+846	domain	jkmk020.com	JP	ip_owner=SAKURA Internet Inc.; ips=4; titles=302 Found; 
+854	domain	ctbc.edu.tw	TW	ip_owner=Ministry of Education Computer Center; ips=7; titles=; 中信金融管理学院 - CTBC BUSINESS SCHOOL; 站点创建成功-phpstudy for windows
+862	domain	kylos.net.pl	PL	ip_owner=Kylos sp. z o.o.; ips=8; titles=; FreeNAS; Not Found
+870	domain	beanonetwork.com	US	ip_owner=Techie Hosting, Inc.; ips=35; titles=; Test Page for the Apache HTTP Server on Fedora
+878	org	REDES DEL OESTE S.A	AR	ips=17; certs=; titles=Not Found; 
+886	domain	008365.xyz	US	ip_owner=PEG TECH INC; ips=2; titles=Not Found; &#21220;&#31574;&#51;&#54;&#53;&#95;&#51;&#54;&#53
+894	org	idle Corporation	JP	ips=6; certs=; titles=Index of /; Not Found
+902	domain	indofil.com	IN	ip_owner=Microsoft Corporation; ips=5; titles=Indofil Industries (Netherlands) B.V.; ; SAP; Indofil - Admin Dashboard; IIS Windows Server
+910	domain	unidomain.hu	HU	ip_owner=Server Hosting; ips=3; titles=Unidomain - Error
+918	org	SOLUCIONES, ANALITICOS Y SERVICIOS TEAM	MX	ips=12; certs=; titles=; Not Found
+926	domain	a-fm.ch	NL	ip_owner=Microsoft Corporation; ips=1; titles=Index of /; Accueil | Interactive Brokers U.K. Limited
+934	domain	serbamuliagroup.co.id	US	ip_owner=Alibaba Cloud LLC; ips=6; titles=Project Management; SATE — Smart Applicant Tracking Engine; GADOin; 404 Not Found; BFC; Program Manager; 301 Moved Perma
+942	org	FOP Styopin Vyacheslav Evgenovich	US	ips=13; certs=; titles=ERROR: The requested URL could not be retrieved; 404 — Error
+950	domain	bates.edu	US	ip_owner=Bates College; ips=8; titles=; 301 Moved Permanently; 302 Found; bates-logo-web
+958	org	RICKY CTR 36 CHONG YIP ST KWUN TONG KL	HK	ips=27; certs=; 103.142.147.x; titles=403 Forbidden; ; Not Found
+966	org	MARIA LUCIANA MACHADO E CIA LTDA-ME	BR	ips=13; certs=; titles=Not Found; ; WEB SERVICE
+974	domain	njc.co.jp	JP	ip_owner=Amazon Data Services Japan; ips=8; titles=Test Page for the Apache HTTP Server on Red Hat En; AWS【ＮＪＣ】プロジェクト管理(Redmine4.1.0); ; 302 Found; 403 Forbidden; Not Foun
+982	domain	liume.icu	HK	ip_owner=STARCLOUD GLOBAL PTE. LTD.; ips=4; titles=免费最新全集在线观看
+990	domain	trf4.jus.br	BR	ip_owner=Tribunal Regional Federal da 4ª Região; ips=7; titles=; 301 Moved Permanently; Acessar &lsaquo; Intra &#8212; WordPress
+998	org	BEIJING CHANGYOU CO.,LTD	CN	ips=89; certs=*.n.cdnhwc3.com; test_need_update_cer_ECC.com; ; *.certfallback-esa.com; *.ucdl.pp.uc.cn; titles=403 Forbidden; ; Document
+1006	domain	easyname.com	AT	ip_owner=Nessus GmbH; ips=8; titles=; 403 Forbidden
+1014	domain	esan.edu.pe	CL	ip_owner=Huawei Clouds Chile; ips=10; titles=; ESAN::Carga AcadÃ©mica de profesores; Not Found; LogOn
+1022	org	WiCAM Corporation, LTD	KH	ips=12; certs=support; ; Cambium WLAN AP; fortinet-subca2001; titles=cnPilot {{modelname}}; Login Panel : ; 
+1030	org	HypeStatus Inc	US	ips=658; certs=; titles=Not Found; 
+1038	org	CHAOSHEN Limited	HK	ips=55; certs=; titles=Not Found; 
+1046	domain	orizaba.gob.mx	GB	ip_owner=Fly.io, Inc.; ips=11; titles=declaraciones patrimoniales; ; BioTime PRO
+1054	domain	vpnjantit.com	SG	ip_owner=DigitalOcean, LLC; ips=4; titles=
+1062	domain	bu.ac.th	TH	ip_owner=ADVANCED WIRELESS NETWORK COMPANY LIMITED; ips=13; titles=ยินดีต้อนรับนักศึกษาใหม่ ประจำปีการศึกษา 2568 : BU; 403 - Forbidden: Access is denied.; Request Rejected; ; สมัครเรียนมห
+1070	domain	optum.com	US	ip_owner=UnitedHealth Group Incorporated; ips=109; titles=403 Forbidden; Optum - All Your Health Needs, All in One Place; 
+1078	org	Purdue University	US	ips=26; certs=Teradek Web Server; www.rcac.purdue.edu; ; wdvwebedprpl01-01.www.purdue.edu; titles=Apache2 Ubuntu Default Page: It works; RCAC            - Home            ; Access Forbidden; ; 302 Found; 301 Moved Perm
+1086	org	MOC LAM TRADING AND SERVICES JOINT STOCK COMPANY	VN	ips=18; certs=; localhost; titles=Not Found; 
+1094	domain	max.nl	NL	ip_owner=Computel Standby BV; ips=7; titles=Home - Ploeg &amp; Oogst; Test Page for the HTTP Server on AlmaLinux; 
+1102	org	OPIQUAD S.P.A.	IT	ips=101; certs=fortinet-subca2001; support; Fireware web CA; ; titles=403 Forbidden; ; Page Redirecting
+1110	domain	combase.de	DE	ip_owner=Hetzner Online GmbH; ips=22; titles=Welcome!; 301 Moved Permanently; Index of /; 302 Found
+1118	domain	centuryply.com	IN	ip_owner=Amazon Data Services India; ips=7; titles=Century Joy - microsite from CenturyPly ; ; 301 Moved Permanently; We'll Be Back Soon;  Doors      · Phoenix Framework; 
+1126	domain	npr.org	US	ip_owner=Amazon Technologies Inc.; ips=17; titles=403 Forbidden; Nexus; NPR - Breaking News, Analysis, Music, Arts &amp; P; NPR RAD Tag Editor; 
+1134	org	THE KONZA TECHNOPOLIS DEVELOPMENT AUTHORITY - THE KONZA TECHNOPOLIS DEVELOPMENT AUTHORITY	KE	ips=41; certs=fortinet-subca2001; Publication Server; ; titles=; Not Found
+1142	org	Digital Based System Company Limited	HK	ips=19; certs=; titles=Not Found; IIS7; 
+1150	org	MYREN Infrastructure	MY	ips=5; certs=; localhost; titles=401 Unauthorized; Not Found; 
+1158	domain	your-storagebox.de	AE	ip_owner=Hetzner Online GmbH; ips=58; titles=
+1166	org	Customer IP allocation	IT	ips=15; certs=support; UBNT-78:8A:20:EC:F9:DC; ; titles=Error Login: Voiper Management Portal; ; Ubiquiti; Error 404 - Page Not Found
+1174	domain	seguranca.al.gov.br	BR	ip_owner=INST DE TECN EM INF E INF DO EST DE AL; ips=3; titles=Cei Educar; 302 Found; Gestão Estratégica;    Cronos SSP/AL  
+1182	domain	serveriai.lt	LT	ip_owner=UAB "Interneto vizija"; ips=28; titles=
+1190	domain	0635e.net	HK	ip_owner=STARCLOUD GLOBAL PTE. LTD.; ips=2; titles=&#32418;&#26447;&#21152;&#36895;&#22120;&#27704;&#; &#33655;&#20848;&#45;&#26292;&#38634;&#118;&#112;&
+1198	domain	congresojal.gob.mx	MX	ip_owner=Gestión de direccionamiento UniNet; ips=2; titles=Sindicato de Empleados al Servicio del Estado en e; Soporte T&eacute;cnico; 302 Found
+1206	domain	heifer.org	US	ip_owner=Amazon Technologies Inc.; ips=12; titles=301 Moved Permanently; ; 401 - Unauthorized: Access is denied due to invali; Redirecting to https://www.heifer.org/; Wel
+1214	domain	ac-lille.fr	FR	ip_owner=Celeste SAS; ips=56; titles=404 Not Found; 302 Found; Redirecting...; Portail de publication de résultats 2026; SOGo
+1222	org	MAY CHU MANG TECHNOLOGY JOINT STOCK COMPANY	VN	ips=16; certs=; affectionate-snyder.157-10-198-232.plesk; titles=Weset Portal; ; Not Found; Plesk Obsidian 18.0.54
+1230	domain	ipaustria.com	AT	ip_owner=IP Austria Communication GmbH; ips=4; titles=404 Not Found; ; HTTP Server Test Page powered by CentOS-WebPanel.c; 301 Moved Permanently; Outlook
+1238	org	M247 LTD Singapore Infrastructure	SG	ips=107; certs=; titles=
+1246	domain	kyivcity.gov.ua	UA	ip_owner=Microsoft Corporation; ips=2; titles=Subscribe to our Newsletters; BI
+1254	org	DilisGrup Dilis Grup EOOD	BG	ips=10; certs=; titles=Please wait, the page is opening...; ; RouterOS router configuration page
+1262	domain	tm.com.my	MY	ip_owner=TM TECHNOLOGY SERVICES SDN BHD; ips=10; titles=403 Forbidden; unifi Speedtest - Test Your Internet Speed | unifi; iStream SSLVPN - Sign-In Notification; ADOIT - Login
+1270	org	Altatech Soluções em Tecnologia  EIRELI	BR	ips=19; certs=; fortinet-subca2001; titles=Not Found; C.T.A Novos Amigos; Welcome to nginx!; 
+1278	org	Toesegaran Shabakeh Arseh Novin Ltd	IR	ips=6; certs=; titles=Not Found; 
+1286	domain	ipn.mx	MX	ip_owner=Instituto Politecnico Nacional; ips=16; titles=CyS - CIC - IPN; Lexmark MX822ade; HP LaserJet Pro MFP M521dn&nbsp;&nbsp;&nbsp;148.20; ; Object moved; aos-web2
+1294	domain	uscourts.gov	US	ip_owner=AT&T Enterprises, LLC; ips=11; titles=302 Found; Object not found!; 
+1302	org	World W3B LLC	US	ips=17; certs=web-pg41-11.trafficmanager.net; web-92pg-02.trafficmanager.net; ; web-23pg-qwrmzptxal-06.trafficmanager.ne; titles=请使用域名访问; 
+1310	org	Iunet-bnet-195	IT	ips=16; certs=green-power-SERVER-GP-CA; nicolavcloud.duckdns.org; MyHome-Bticino; titles=My Home - Identificazione; IIS7;     Nextcloud  
+1318	domain	zdf.de	DE	ip_owner=ZDF Zweites Deutsches Fernsehen; ips=17; titles=; BIG-IP logout page; Welcome to nginx!
+1326	org	Corporación Telemic C.A.	VE	ips=16; certs=; support; titles=; FTG Panels
+1334	org	ARNES	SI	ips=13; certs=; support; ce07b4ce2c2a7f2a8dac8adde637140c; titles=Not Found; 
+1342	org	SG.GS	SG	ips=12; certs=; titles=
+1350	org	BITNET	KR	ips=437; certs=; titles=
+1358	domain	de-nserver.de	DE	ip_owner=dogado GmbH; ips=27; titles=
+1366	domain	online-vm.com	UA	ip_owner=PE Skurykhin Mukola Volodumurovuch; ips=10; titles=; Softaculous Webuzo | Default Website Page
+1374	domain	coverageoneinsurance.com	US	ip_owner=Amazon.com, Inc.; ips=2; titles=Home | Coverage One Insurance; ; Login | Coverage One Insurance
+1382	domain	hostmonster.com	US	ip_owner=Unified Layer; ips=81; titles=
+1390	domain	ategroup.com	IN	ip_owner=Amazon Data Services India; ips=2; titles=301 Moved Permanently; A.T.E. Group | Textile Machinery &amp; Wastewater
+1398	domain	wakasa.jp	JP	ip_owner=Amazon Technologies Inc.; ips=5; titles=データベースエラー
+1406	domain	mailshell.net	US	ip_owner=Linode; ips=3; titles=; 404 Not Found
+1414	org	PT Mitra Awan Data	ID	ips=39; certs=; titles=Not Found; ; Welcome to nginx!
+1422	domain	tenet.od.ua	UA	ip_owner=TeNeT Networking Centre; ips=6; titles=Login; Not Found; Login - FusionPBX; 
+1430	domain	blue.net.gt	GT	ip_owner=BlueNet-BFgt-01.02; ips=12; titles=403 Forbidden; 
+1438	org	PULSECORE TECHNOLOGIES L.L.C	NL	ips=19; certs=IPMI; ; titles=; Supermicro BMC Login; Welcome to nginx!
+1446	domain	autopasscorp.com	BR	ip_owner=Amazon Technologies Inc.; ips=13; titles=502 Bad Gateway; Facial Process Manager; ; 503 Service Unavailable; 301 Moved Permanently; 302 Found
+1454	org	NOC Operation	MY	ips=11; certs=; titles=; Not Found
+1462	domain	fbx.su	RU	ip_owner=Selectel Network; ips=1; titles= Вход в систему FIBEX 
+1470	domain	milkeatomy.net	DE	ip_owner=WIIT AG; ips=1; titles=Home | vc.difarma.cl
+1478	domain	hfdogs.com	CN	ip_owner=Shanghai UCloud Information Technology Company Limited; ips=1; titles=
+1486	domain	marsholdings.com.tw	JP	ip_owner=Linode; ips=1; titles=今天我們都是火星人 We are all Martians｜申請入境VISA; 2019 TRON Creative Day「創意行動五重奏」
+1494	domain	luckywave.com.tw	TW	ip_owner=Chunghwa Telecom Data Communication Business Group; ips=1; titles=301 Moved Permanently; 503 Service Unavailable
+1502	domain	domenomania.pl	PL	ip_owner=Artnet Sp. z o.o.; ips=6; titles=
+1510	domain	acumalaka.vip	CL	ip_owner=FASTMOS CO., LIMITED; ips=5; titles=code-server login
+1518	domain	nrg.com	US	ip_owner=Amazon Data Services Northern Virginia; ips=8; titles=Apache2 Ubuntu Default Page: It works; Affiliate Portal; Citrix Gateway; Lead Portal
+1526	domain	souldargongame.com	CN	ip_owner=Tencent cloud computing (Beijing) Co., Ltd.; ips=2; titles=
+1534	domain	1-zali.com	US	ip_owner=Cogent Communications, LLC; ips=2; titles=bet36锟劫凤拷锟斤拷站
+1542	org	Infrastruktur Dakara	ID	ips=9; certs=; support; titles=
+1550	domain	ufrj.br	BR	ip_owner=Fundação Carlos Chagas Filho de Amparo a Pesquisa; ips=5; titles=Home | 192.3.197.x; 
+1558	domain	appdomain.cloud	US	ip_owner=International Business Machines Corporation; ips=2329; titles=Not Found!; Error 404: Not found; OWS; 404 Not Found; ; 301 Moved Permanently
+1566	domain	rjcorp.in	IN	ip_owner=Varun Beverages Limited; ips=4; titles=   ownCloud  ; ; truMe Dashboard
+1574	org	Enterprise Diversified, Inc	US	ips=7; certs=; titles=404 — Error
+1582	org	Angele Smith	US	ips=24; certs=; titles=ERROR: The requested URL could not be retrieved; 404 — Error
+1590	domain	servertech.com	US	ip_owner=Amazon.com, Inc.; ips=8; titles=301 Moved Permanently; Build Your Own PDU | Server Technology; ; (404) The datasheet you were looking for doesn't e; Dat
+1598	domain	f5.si	JP	ip_owner=So-net Service; ips=8; titles=わいわい | ラージボールSITE; Not Found; ナタ窓; 
+1606	domain	experience-hotel.com	FR	ip_owner=OVH SAS; ips=2; titles=; 500 Internal Server Error
+1614	domain	asoshared.com	US	ip_owner=Newfold Digital, Inc.; ips=47; titles=Home | Naked Innovation; 
+1622	org	WEB 360 TECHNOLOGY JOINT STOCK COMPANY	VN	ips=31; certs=localhost; ; titles=Not Found; 
+1630	org	IZONE LLC	AZ	ips=8; certs=fortinet-subca2001; ; titles=; Not Found
+1638	org	BlazingFast - A.S.A.S.S.U. Lda.	NL	ips=7; certs=; RVPS; titles=301 Moved Permanently; ; Not Found
+1646	domain	kreml.ru	RU	ip_owner=PJSC "Vimpelcom"; ips=3; titles=456; Колокольня Ивана Великого; 
+1654	domain	santoandre.sp.gov.br	BR	ip_owner=HOSTLOCATION LTDA; ips=3; titles=301 Moved Permanently; GLPI - Autenticação; 
+1662	org	COMUNICACIÓN CELULAR S.A. COMCEL S.A.	CO	ips=19; certs=*.flet1-1.fna.fbcdn.net; ZTE; Web Server; *.feoh9-1.fna.fbcdn.net; miclaroempresas.claro.com.co; ubuntu; *.feoh9-2.fna.f; titles=4xx Client Error; Service Unavailable; ; Login
+1670	domain	kemdikbud.go.id	ID	ip_owner=Departemen Pendidikan Nasional; ips=6; titles=Uji Tulis Berbasis Komputer - UKPPPG Calon Guru - ; Pendaftaran Calon Pegawai Negeri Sipil Kementerian; Object moved; ; 
+1678	org	INTER GROUP VIET NAM JOINT STOCK COMPANY	VN	ips=11; certs=; titles=Not Found; ; Welcome to nginx!
+1686	org	CORE INFRASTRUCTURE	GB	ips=111; certs=; Vigor Router; titles=; 400 - Bad Request
+1694	domain	gpmotorsderby.co.uk	GB	ip_owner=Heart Internet Ltd; ips=1; titles=Welcome - GP Motors Derby
+1702	domain	regione.fvg.it	IT	ip_owner=Regione Autonoma Friuli Venezia Giulia; ips=16; titles=IIS Windows Server; ; Sito non definito; Test Page for the Nginx HTTP Server on Red Hat Ent; 401 Authorization Required;
+1710	org	Webberstop India	IN	ips=10; certs=; titles=403 Forbidden; MyDeskTime — Workforce Analytics; ; Not Found
+1718	domain	breelink.com	DE	ip_owner=HIVELOCITY, Inc.; ips=2; titles=Login;                              Login                
+1726	domain	bessonseguros.com	MX	ip_owner=Alestra, S. de R.L. de C.V.; ips=2; titles=Enlace incompleto;          Portal de Agentes Besson Seguros     
+1734	org	BROSEGHINI LTDA EPP	BR	ips=13; certs=*.fvix14-1.fna.fbcdn.net; ; titles=4xx Client Error; ; Not Found
+1742	org	Beijing excellent technology Co.Ltd.	CN	ips=4; certs=; titles=Not Found; 
+1750	domain	ruraltel.net	US	ip_owner=RURAL TELEPHONE SERVICE COMPANY, INC.; ips=17; titles=301 Moved Permanently; AXIS; 
+1758	domain	yota.com.ni	NI	ip_owner=Yota De Nicaragua; ips=8; titles=Welcome to nginx!; 301 Moved Permanently; 
+1766	domain	ddnss.de	DE	ip_owner=Vodafone BW GmbH; ips=9; titles=    Login – Nextcloud  ; VDS3&nbsp;-&nbsp;Synology&nbsp;VirtualDSM; 
+1774	domain	savvy.cz	CZ	ip_owner=Savvy s.r.o.; ips=4; titles=302 Found; web.fragment.header.title | web.index.title; Test Page for the HTTP Server on AlmaLinux
+1782	domain	centroculturadigital.mx	MX	ip_owner=Uninet S.A. de C.V.; ips=1; titles=
+1790	org	ROPIR INDUSTRIES	US	ips=3; certs=; titles=; Not Found
+1798	domain	proteantech.in	US	ip_owner=Google LLC; ips=14; titles=404 Not Found; HTTP Status 404 â€“ Not Found; 502 Server Error; ; frontend;      NGCS Portal Lite    
+1806	org	NEOPHONE ARGENTINA SRL	AR	ips=10; certs=UBNT-80:2A:A8:74:8F:58; UBNT-B4:FB:E4:A6:63:C4; ; fortinet-subca2001; titles=; Error 404 - Page Not Found; Error response
+1814	domain	americana.edu.py	BR	ip_owner=Microsoft Corporation; ips=5; titles=Biblioteca Augusto Roa Bastos Koha; Page not found at /
+1822	domain	ottimo.co.jp	JP	ip_owner=ASJ Inc.; ips=1; titles=Ottimo, Inc. | オッティモはMacintosh、iPhoneおよびiPadのアプリを開; 
+1830	domain	amicho.jp	JP	ip_owner=Prox System Design Inc.; ips=1; titles=屋形船 網長 【公式サイト】 東京 浜松町 大門; 302 Found
+1838	domain	lider.srv.br	BR	ip_owner=4B Digital Ltda; ips=1; titles=Acessar o sistema - Lider
+1846	domain	titanlux.es	ES	ip_owner=PRAKTON HOSTING SL; ips=1; titles=; Pinturas y Esmaltes de Colores Titanlux
+1854	domain	e-agent.nz	AU	ip_owner=Google LLC; ips=1; titles=       e-Agent - REA Approved Provider of Online C; 301 Moved Permanently
+1862	domain	tokyo-yonsha.gr.jp	JP	ip_owner=SAKURA Internet Inc.; ips=1; titles=301 Moved Permanently; 302 Found
+1870	domain	justinstalledpanel.com	RU	ip_owner=Reg.Ru Hosting; ips=1; titles=; Authorization; Asko x Maxim Kashin Architects
+1878	domain	edison-opto.com.tw	TW	ip_owner=Data Communication Business Group,; ips=2; titles=Outlook Web App; 301 Moved Permanently
+1886	org	AIG Technologies KK	JP	ips=137; certs=; titles=
+1894	domain	ccma.cat	IE	ip_owner=Amazon Technologies Inc.; ips=9; titles=301 Moved Permanently; Outlook; 404 Not Found; 
+1902	domain	ip-51-91-73.eu	FR	ip_owner=OVH SAS; ips=4; titles=; 403 Forbidden
+1910	org	Badan Meteorologi Klimatologi dan Geofisika	ID	ips=3; certs=; MYWTLD01; titles=Not Found; Peringatan
+1918	org	Apn - Processamento de Dados e Soluçoes em Interne	BR	ips=10; certs=fortinet-subca2001; support; ; titles=
+1926	domain	nineweb.net	TH	ip_owner=Internet Thailand Company Ltd.; ips=3; titles=
+1934	domain	simplyhosting.cloud	GB	ip_owner=Team Blue Carrier Limited; ips=14; titles=Not Found; 
+1942	domain	ip-149-202-95.eu	FR	ip_owner=OVH SAS; ips=8; titles=; Not Found
+1950	org	Tokyo	JP	ips=11; certs=; titles=; Not Found
+1958	domain	ramrock.info	JP	ip_owner=NTT DoCoMo, Inc.; ips=8; titles=
+1966	domain	meiguomengke.com	US	ip_owner=Turing Group Limited; ips=37; titles=301 Moved Permanently; 403 Forbidden; ; 大&富&翁 35349.com
+1974	org	Altitude Infrastructure Exploitation SAS	FR	ips=611; certs=; fortinet-subca2001; support; titles=
+1982	domain	adver-web.com	JP	ip_owner=Japan Network Information Center; ips=1; titles=phpMyAdmin; 駅から徒歩５分圏内の便利なマンションを厳選！「エキチカ賃貸」; 301 Moved Permanently
+1990	domain	unipi.it	IT	ip_owner=Universita' di Pisa; ips=2; titles=Accesso richiesto - ict-docs; 302 Found; Bioconductor Mirror, Department of Biology, Univer
+1998	domain	net4u.net	US	ip_owner=Cologlobal; ips=2; titles=; Not Found
+2006	domain	synnet.or.jp	JP	ip_owner=KDDI CORPORATION; ips=3; titles=電子帳簿保存法 対応システム; ホームページ制作・ECサイト構築 [名古屋]　まかせてホームページPLUS - 株式会社エンジニアリ
+2014	domain	linoit.com	US	ip_owner=Amazon Technologies Inc.; ips=2; titles=; lino - Sticky and Photo Sharing for you; lino - 共享的贴纸和照片; 302 Found; lino - 付箋と写真を共有しよう!
+2022	org	Unesty Company	DE	ips=14; certs=; titles=Not Found; 
+2030	domain	c1automailsending.com	US	ip_owner=Nexeon Technologies, Inc.; ips=3; titles=Apache HTTP Server Test Page powered by CentOS; 
+2038	domain	bot.nu	TR	ip_owner=Oracle Svenska AB; ips=4; titles=; Security Registry - ACCESS DENIED
+2046	domain	northwestern.edu	US	ip_owner=Northwestern University; ips=8; titles=403 Forbidden; DisallowedHost           at /; ; Embedded Web Server
+2054	domain	frappe.cloud	IN	ip_owner=Amazon Data Services India; ips=4; titles=
+2062	org	VULA IP addresses POP 1101 for	IT	ips=5; certs=; www.dlink.com; titles=LaCie&nbsp;&#124;&nbsp;Dashboard; 
+2070	org	Dupeto space for Humlnet slow intergation 2	CZ	ips=7; certs=; Huawei Technologies Co., Ltd; titles=    Nextcloud  ; 
+2078	domain	bluechipbookkeeping.com	DE	ip_owner=Internet Utilities NA LLC; ips=2; titles=bluechipbookkeeping - Boost Your eCommerce Sales w
+2086	domain	myssl.jp	JP	ip_owner=Japan Network Information Center; ips=2; titles=
+2094	domain	axxonconsulting.com	CL	ip_owner=Manquehuenet; ips=1; titles=
+2102	domain	diakonie-duesseldorf.de	DE	ip_owner=Hetzner Online GmbH; ips=11; titles=; Stadtteilladen Flingern; BigBlueButton - Open Source Web Conferencing; 301 Moved Permanently; 502 Bad Gateway; SeQU; 5
+2110	domain	tayoreru.com	JP	ip_owner=Otsuka Corporation; ips=24; titles=; BIG-IP logout page; 403 Forbidden; 403 - Forbidden: Access is denied.; Test Page for the HTTP Server on Red Hat Enterp
+2118	domain	anuies.mx	MX	ip_owner=IP Matrix, S.A. de C.V.; ips=7; titles=ANUIES | Universidades e Instituciones de Educació; 301 Moved Permanently; EsPAZio DH; Comisión para la Colaboración en 
+2126	domain	57gogo.com	HK	ip_owner=cognetcloud INC; ips=1; titles=Not Found; 橙橙老师零基础钢琴课堂
+2134	domain	pm15nov.rs.gov.br	BR	ip_owner=COPREL TELECOM LTDA; ips=3; titles=Bin Helper - Login; Portal do Servidor
+2142	domain	link-host.net	DE	ip_owner=Hetzner Online GmbH; ips=1; titles=Welcome!; ; 301 Moved Permanently
+2150	domain	gocar.my	MY	ip_owner=IP ServerOne Solutions Sdn Bhd; ips=2; titles=301 Moved Permanently; Welcome to nginx!
+2158	domain	usc.edu.co	CO	ip_owner=Universidad Santiago de Cali; ips=4; titles= ;  The URL you requested has been blocked ; ; Test Page for the Apache HTTP Server on the Amazon; 403 Forbidden
+2166	org	Black Currant Consultant cc - Black Currant Consultant cc	HK	ips=38; certs=webberaxs31543; ; titles=; Apache HTTP Server Test Page powered by CentOS
+2174	domain	taiwanmobile.com	TW	ip_owner=TAIWANMOBILE-NET; ips=17; titles=
+2182	domain	sunucu.al	TR	ip_owner=SFCTEK Bilisim Yazilim ve Telekomunikasyon Hiz. San. ve Tic. LTD. STI.; ips=7; titles=; TurnKey PostgreSQL; Welcome to XAMPP
+2190	org	ANY DIGITAL PTE. LTD	GB	ips=61; certs=; USDTCDN; titles=400 Bad Request; 
+2198	org	Yayasan Indonesia Memberi Solusi	ID	ips=10; certs=; titles=e-Rapor SMK - Aplikasi e-Rapor Sekolah Menengah Ke; ; WEB
+2206	org	HALLAG Kommunal GmbH	AT	ips=16; certs=; fortinet-subca2001; titles=; Index of /
+2214	domain	gzdamie.com	CN	ip_owner=Beijing Volcano Engine Technology Co., Ltd.; ips=1; titles=方趣玩海战正式后台
+2222	domain	awookguado.com	US	ip_owner=OVH US LLC; ips=1; titles=Home | bridge.intesasanpaolo.com
+2230	domain	boboli.nl	NL	ip_owner=VIMEXX; ips=1; titles=; Home - The most delicious bread specialties
+2238	domain	spinabifidant.org	US	ip_owner=IONOS Inc.; ips=1; titles=Spina Bifida Association of North Texas; 
+2246	domain	dwevans.com	US	ip_owner=Liquid Web, L.L.C; ips=1; titles=Electrical Contractor - D.W. Evans Electric Inc.
+2254	domain	netgrave.de	DE	ip_owner=OVH SAS; ips=4; titles=
+2262	org	La Poste S.A.	FR	ips=82; certs=gtm.rh.extra.laposte.fr; ; selfservicegaia-acc.net.extra.laposte.fr; crl-prd.laposte.fr; rss.cybercti.net.extra.laposte.; titles=; BIG-IP logout page
+2270	org	Proitlab LLC	AM	ips=21; certs=; invalid2.invalid; titles=301 Moved; 301 Moved Permanently; Not Found; 
+2278	domain	lh.co.th	SG	ip_owner=Amazon Data Services Singapore; ips=3; titles=; บริษัท แลนด์ แอนด์ เฮ้าส์ จำกัด (มหาชน); LAND & HOUSES - Careers
+2286	domain	crowneplaza.com	SG	ip_owner=DigitalOcean, LLC; ips=11; titles=301 Moved Permanently; Crowne Plaza Vientiane l Business Luxury Hotel in ; Crowne Plaza Fiji Nadi Bay Resort &amp; Spa |
+2294	org	MOTTANET  TI  - SERVICOS  DE TECNOLOGIA DA INFO	BR	ips=19; certs=; Huawei Technologies Co., Ltd; titles=
+2302	domain	santos.sp.gov.br	BR	ip_owner=Prefeitura Municipal de Santos; ips=3; titles=Prefeitura de Santos |; Check Point SSL Network Extender
+2310	domain	orbitalsys.net	BR	ip_owner=Rede Nacional de Ensino e Pesquisa; ips=1; titles=Wordpress | Here the subtitle; 
+2318	domain	winshipway.com	US	ip_owner=Amazon.com, Inc.; ips=3; titles=
+2326	domain	hellomagazine.com	DE	ip_owner=Amazon.com, Inc.; ips=3; titles=
+2334	org	Spectra Technologies India Private Limited	IN	ips=112; certs=; titles=; Not Found
+2342	org	Zhong Shan Shi Ba Ai Yun Ji Suan Co., Limited	HK	ips=15; certs=; titles=Not Found; 
+2350	domain	fourkites.com	US	ip_owner=Amazon Technologies Inc.; ips=27; titles=; Welcome to nginx!; 404 Not Found; 403 Forbidden; The page you were looking for doesn't exist (404)
+2358	domain	astron.lk	LK	ip_owner=HIVELOCITY, Inc.; ips=2; titles=Horde :: Log in
+2366	domain	fran4symbolhost.com	FR	ip_owner=OVH SAS; ips=1; titles=Index of /
+2374	org	VINASITE VIET NAM COMPANY LIMITED	VN	ips=23; certs=; titles=; Not Found
+2382	domain	orquidea.com.br	BR	ip_owner=CLARO S.A.; ips=5; titles=  Mercanet Web ; 403 - Forbidden: Access is denied.; 301 Moved Permanently; Orquídea; DisallowedHost           at /
+2390	domain	veranopolis.rs.gov.br	BR	ip_owner=GEE SOLUÇÕES EM INFORMÁTICA LTDA; ips=1; titles=Index of /; Atendimento WhatsApp; 301 Moved Permanently
+2398	domain	kichkas.net	UA	ip_owner=Kichkas Network Ltd.; ips=2; titles=; Not Found
+2406	domain	usc.edu	US	ip_owner=Salesforce, Inc.; ips=22; titles=;  404 File Not Found 
+2414	domain	byt.mx	US	ip_owner=GoDaddy.com, LLC; ips=1; titles=; BYT | Agencia Digital Boutique
+2422	domain	zcloud.ws	US	ip_owner=Oracle Public Cloud; ips=1; titles=
+2430	domain	au1.com.au	AU	ip_owner=Premises Aus Pty Ltd; ips=4; titles=; Default Web Site Page
+2438	org	Company 64d34528IneLEpAK	GB	ips=87; certs=; titles=Not Found; Welcome to nginx!; 
+2446	domain	esigelec.fr	FR	ip_owner=Serinya Telecom SAS; ips=3; titles=Apache2 Ubuntu Default Page: It works; 
+2454	domain	ucndns.in	IN	ip_owner=UCN CABLE NETWORK PVT. LTD.; ips=19; titles=Not Found; 
+2462	domain	66095360.xyz	US	ip_owner=Sharktech; ips=3; titles=首页
+2470	org	PT. Medianusa Permana	ID	ips=4; certs=; titles=Apache2 Ubuntu Default Page: It works; 
+2478	org	VK Marketing Services	IN	ips=10; certs=; titles=Not Found; 
+2486	domain	mwri.gov.eg	EG	ip_owner=INFRA-AW; ips=3; titles=IIS Windows Server; Not Found; ; المركز الثقافى الأفريقى بأسوان &#8211; المركز الثق
+2494	org	Reasignacion UniNet	MX	ips=16; certs=; support; titles=Not Found; 
+2502	domain	smart-gps.app	KH	ip_owner=TURBOTECH Backbone VLAN, Phnom Penh; ips=3; titles=Traccar; 502 Bad Gateway
+2510	domain	otrbristol.org.uk	GB	ip_owner=Heart Internet limited; ips=1; titles=Home - OTR; 
+2518	domain	sagyogiya.com	JP	ip_owner=GMO Internet, Inc.; ips=1; titles=作業衣屋 - 現場の仕事を楽しむ人のための情報サイト
+2526	domain	bethien.dk	DK	ip_owner=One.com A/S; ips=1; titles=Bethien | Vi specialiserer os i papir; 
+2534	domain	notariato-test.it	IT	ip_owner=Netsons s.r.l.; ips=1; titles=Cassa Nazionale del Notariato - Cassa Nazionale de; 
+2542	org	LLC Skytel	GE	ips=76; certs=fortinet-subca2001; ; support; FortiGate; titles=FortiGate; 
+2550	domain	morse-japan.net	JP	ip_owner=MORSE; ips=11; titles=403 Forbidden
+2558	domain	hazi.eus	DE	ip_owner=OVH GmbH; ips=2; titles=; iQmenic
+2566	org	FOP Martyinchuk Aleksandr Vasilevich	UA	ips=7; certs=; titles=Not Found; 403 Forbidden; Index of /
+2574	domain	dnshostmaster.net	MY	ip_owner=Acme Commerce Sdn Bhd; ips=12; titles=Not Found; 
+2582	domain	rsu.ac.th	TH	ip_owner=TRUE INTERNET CO.,LTD.; ips=8; titles=IIS Windows Server; ม.รังสิต จัดพิธีประสาทปริญญา ประจำปี 2569; เรียนรู้ ค้นพบตัวตนของคุณ Open House 2026 ม.รังสิต; Ransi
+2590	org	Upperlink Limited	NG	ips=9; certs=; titles=Not Found; Laragon
+2598	domain	1techwonder.com	RO	ip_owner=NBI SIA; ips=4; titles=
+2606	org	Netsol Connect (Pvt) Limited	PK	ips=15; certs=; titles=; Not Found
+2614	domain	cht.com.tw	TW	ip_owner=Data Communication Business Group,; ips=49; titles=市內電話來話過濾; ; Hami Point官方網站 ｜中華電信紅利點數; 403 Forbidden; 市內電話來電答鈴_答鈴下載; IOT網路連線管理; LINE MOBILE
+2622	domain	mysecurewebserver.com	MY	ip_owner=NetXtreme OneSolution Sdn. Bhd; ips=6; titles=; Not Found
+2630	domain	serverprofi24.eu	FR	ip_owner=velia.net Internetdienste GmbH; ips=3; titles=Apache HTTP Server Test Page powered by CentOS; 
+2638	org	Myanmar Information Highway Limited	MM	ips=8; certs=support; ; titles=MIH Web Block; Homepage | localhost; 
+2646	domain	autodesk.com	US	ip_owner=Amazon Technologies Inc.; ips=165; titles=; 503 Service Temporarily Unavailable; 403 Forbidden
+2654	org	Dinas Komunikasi dan Informatika Pemerintah Kota Semarang	ID	ips=5; certs=; titles=MMPI | Log in; 403 Forbidden; 
+2662	org	Otecel S.A.	EC	ips=90; certs=support; ; fortinet-subca2001; IOS-Self-Signed-Certificate-83942599; FG-5KET018900132; titles=
+2670	domain	eneos.co.in	IN	ip_owner=Amazon Data Services India; ips=1; titles=301 Moved Permanently; ENEOS India: Automotive Engine Oil & Transmission 
+2678	domain	pebblehost.net	CA	ip_owner=OVH Hosting, Inc.; ips=15; titles=This server is powered by PebbleHost!
+2686	domain	brandseye.com	DE	ip_owner=Hetzner Online GmbH; ips=4; titles=301 Moved Permanently; 403 Forbidden
+2694	org	Sichuan Yihu Data Technology Co.,Ltd	HK	ips=190; certs=; unknown; titles=403 Forbidden; Not Found; 
+2702	domain	hostkey.in	NL	ip_owner=HOSTKEY B.V.; ips=10; titles=404 Not Found; n8n.io - Workflow Automation; 502 Bad Gateway; TS3 Manager; ; 401 Authorization Required
+2710	org	ECOMS Technology Trading Company Limited	VN	ips=7; certs=; titles=Not Found; 
+2718	domain	mventix.com	US	ip_owner=Evocative, Inc.; ips=3; titles=Roundcube Webmail :: Welcome to Roundcube Webmail; 301 Moved Permanently; 404 Not Found; 403 Forbidden
+2726	org	ETANET OOD	BG	ips=11; certs=; localhost; titles=; 401 Authorization Required
+2734	domain	sendamplifyhub.com	IN	ip_owner=SAFFRON SOFTWARE; ips=3; titles=Apache HTTP Server Test Page powered by CentOS; 
+2742	domain	techjays.com	US	ip_owner=Amazon Technologies Inc.; ips=2; titles=Page not found at /
+2750	org	TETA s.r.o.	CZ	ips=10; certs=; LEDE; titles=
+2758	org	Quality Service Provider BV	NL	ips=36; certs=; support; titles=301 Moved Permanently; 
+2766	domain	ip-5-196-34.eu	FR	ip_owner=OVH Srl; ips=4; titles=Welcome to nginx!; 403 Forbidden; 
+2774	domain	serverpanel.com	US	ip_owner=Shock Hosting LLC; ips=161; titles=; One moment, please...
+2782	domain	multipli.com	US	ip_owner=A2 Hosting, Inc.; ips=1; titles=; Software Vendor Financing &amp; Financing Solution
+2790	org	eFolder, Inc	US	ips=54; certs=; titles=
+2798	domain	bestel.com.mx	MX	ip_owner=Bestel Operaciones Centro; ips=4; titles=; Ookla BESTEL Guadalajara Speedtest
+2806	domain	sgasi.us	US	ip_owner=Georgia Technology Authority; ips=9; titles=Not Found
+2814	org	Comvergence Pty Ltd	AU	ips=7; certs=; support; titles=
+2822	domain	heliocorp.biz	SG	ip_owner=DigitalOcean, LLC; ips=1; titles=phpMyAdmin; 
+2830	domain	ashghal.gov.qa	QA	ip_owner=Ooredoo Q.S.C.; ips=6; titles=Request Rejected; ; Login
+2838	org	ISHAN NETSOL PVT LTD	IN	ips=11; certs=; fortinet-subca2001; titles=
+2846	domain	novacap.df.gov.br	BR	ip_owner=SECRETARIA DE ESTADO DE ECONOMIA DO DF - SEEC/DF; ips=1; titles=Welcome to XAMPP; 
+2854	domain	szlvdu.com	CN	ip_owner=Shanghai UCloud Information Technology Company Limited; ips=1; titles=301 Moved Permanently; 深圳市绿都电子有限公司-领先的电子元器件代理分销商-绿都电子代理国民技术、原相科技、合肥乾芯、中微爱
+2862	org	PT Internusa Hasta Buana	ID	ips=5; certs=; titles=400 Bad Request; Not Found
+2870	org	Cheuk Wang Wu trading as Zesty Technologies	US	ips=10; certs=; titles=Welcome to nginx!; ; Not Found
+2878	org	TRUF d.o.o.	RS	ips=15; certs=UBNT-00:27:22:0E:31:74; UBNT-FC:EC:DA:06:ED:6B; ; UBNT-F0:9F:C2:B2:FF:5C; titles=Error 404 - Page Not Found; 
+2886	domain	bradfordbroadband.com	US	ip_owner=DigitalOcean, LLC; ips=2; titles=Apache2 Ubuntu Default Page: It works; Bradford Broadband
+2894	domain	secure.hosting	AU	ip_owner=Ozhosting.com Pty Ltd; ips=7; titles=Not Found
+2902	domain	blood.ca	CA	ip_owner=Canadian Blood Services; ips=10; titles=Whole blood | Promo.Blood.ca; ; IBM Security Verify Access; IBM HTTP Server; Logon Error Message
+2910	domain	yoasobi.co.jp	JP	ip_owner=ARTERIA Networks Corporation; ips=2; titles=;          夜遊びガイド　動画配信システム    
+2918	domain	ip-37-187-88.eu	FR	ip_owner=OVH SAS; ips=4; titles=Welcome to nginx!; ; 403 Forbidden
+2926	domain	nonstick.se	FR	ip_owner=OVH Hispano; ips=2; titles=
+2934	domain	olympiaeurope.com	BE	ip_owner=Google LLC; ips=2; titles=Olympia Viaggi Internet Booking System;   HOTEL BOOKING SYSTEM OLYMPIA EUROPE ; 404 Not Found; 301 Moved Permanently
+2942	org	TELBIAL	PL	ips=2; certs=; titles=Press-Server 2
+2950	domain	hola.com	US	ip_owner=Amazon.com, Inc.; ips=12; titles=Protected Page; 301 Moved Permanently
+2958	domain	konicaminolta.com	JP	ip_owner=Amazon Data Services Japan; ips=27; titles=403 Forbidden; 502 Bad Gateway; ; Apache Tomcat/9.0.120
+2966	org	Company 681dbc108gwB1avV	GB	ips=15; certs=; support; Vigor Router; titles=IPCam Client; Vigor Login Page; 
+2974	domain	upc.edu	ES	ip_owner=Universitat Politecnica de Catalunya; ips=2; titles=Not Found; 
+2982	domain	socovesa.cl	CL	ip_owner=Ingeniería e Informática Asociada Ltda (IIA Ltda); ips=2; titles=OTEC Socovesa; 401 - Unauthorized: Access is denied due to invali
+2990	domain	vanso.com	DE	ip_owner=REXAGO Information GmbH; ips=3; titles=403 Forbidden; SMS API; 
+2998	domain	importaco.com	NL	ip_owner=NextGenWebs-NL NextGenWebs, S.L.; ips=2; titles=Plan Proa | Un viaje hacia la excelencia; 

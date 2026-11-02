@@ -1,0 +1,25 @@
+{
+  "label_overlap": 60,
+  "label_buyer_vs_infra_accuracy": 0.829,
+  "label_compared": 41,
+  "label_confusion": {
+    "gold=business / llm=business": 12,
+    "gold=business / llm=unknown": 3,
+    "gold=education / llm=education": 7,
+    "gold=hosting_cloud / llm=business": 2,
+    "gold=hosting_cloud / llm=hosting_cloud": 4,
+    "gold=hosting_cloud / llm=unknown": 5,
+    "gold=isp_telecom / llm=business": 5,
+    "gold=isp_telecom / llm=isp_telecom": 7,
+    "gold=isp_telecom / llm=unknown": 3,
+    "gold=personal_or_junk / llm=unknown": 1,
+    "gold=public_sector / llm=government": 4,
+    "gold=unknown / llm=business": 2,
+    "gold=unknown / llm=unknown": 5
+  },
+  "gold_accounts": 100,
+  "gold_in_top_tiers": 50,
+  "top_tier_precision": 0.58,
+  "unsellable_removed_from_top": 13,
+  "sellable_lost_from_top": 0
+}

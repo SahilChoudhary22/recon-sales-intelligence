@@ -104,6 +104,25 @@ def candidates(build_dir, n_orgs, n_domains):
             [{"key": d, "country": c, "context": f"ip_owner={o}; titles={(t or '')[:120]}"} for d, c, o, t in doms])
 
 
+def write_label_csvs(cache):
+    """cache: {(kind, key): label row} -> the two CSVs pipeline/build.py and export.py read."""
+    business = {"business", "government", "education"}
+    with open(f"{LABEL_DIR}/org_labels.csv", "w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["org", "org_type", "industry", "confidence"])
+        for (kind, key), r in sorted(cache.items()):
+            # only overrule the heuristic when the model is sure
+            if kind == "org" and r["confidence"] != "low" and r["org_type"] != "unknown":
+                w.writerow([key, "business" if r["org_type"] in business else "isp_or_hosting",
+                            None if r["industry"] == "Unknown" else r["industry"], r["confidence"]])
+    with open(f"{LABEL_DIR}/domain_labels.csv", "w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["domain", "org_type", "industry", "confidence"])
+        for (kind, key), r in sorted(cache.items()):
+            if kind == "domain":
+                w.writerow([key, r["org_type"], r["industry"], r["confidence"]])
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("build_dir")
@@ -140,21 +159,7 @@ def main():
     usage["total_cost_usd"] = round(sum(r["cost_usd"] for r in usage["runs"]), 4)
     json.dump(usage, open(usage_path, "w"), indent=2)
 
-    business = {"business", "government", "education"}
-    with open(f"{LABEL_DIR}/org_labels.csv", "w", newline="") as f:
-        w = csv.writer(f)
-        w.writerow(["org", "org_type", "industry", "confidence"])
-        for (kind, key), r in sorted(cache.items()):
-            # only overrule the heuristic when the model is sure
-            if kind == "org" and r["confidence"] != "low" and r["org_type"] != "unknown":
-                w.writerow([key, "business" if r["org_type"] in business else "isp_or_hosting",
-                            None if r["industry"] == "Unknown" else r["industry"], r["confidence"]])
-    with open(f"{LABEL_DIR}/domain_labels.csv", "w", newline="") as f:
-        w = csv.writer(f)
-        w.writerow(["domain", "org_type", "industry", "confidence"])
-        for (kind, key), r in sorted(cache.items()):
-            if kind == "domain":
-                w.writerow([key, r["org_type"], r["industry"], r["confidence"]])
+    write_label_csvs(cache)
     print(json.dumps(usage["runs"][-1]))
 
 

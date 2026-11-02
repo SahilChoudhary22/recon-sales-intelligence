@@ -1,0 +1,68 @@
+company_id,stratum,tier,display_name,identity_source,top_org,country,n_ips,certs,titles,products
+planejamento.rj.gov.br,top3000,P1,planejamento.rj.gov.br,cert,PRODERJ - Centro de Tecnologia da Informação do RJ,BR,4,egep.planejamento.rj.gov.br | hmlprojetos.planejamento.rj.gov.br |  | www.planejamento.rj.gov.br,Projetos RJ — Obras e investimentos do Governo do RJ | 301 Moved Permanently | EGEP RJ,nginx | Apache httpd
+domaine-alias.com,top3000,P2,domaine-alias.com,http_host,Docapost BPO SAS,FR,8, | recette.signature-en-ligne.labanquepostale.fr | declarer-un-deces-rmoa.labanquepostale.fr | declarer-un-deces.labanquepostale.fr,403 Forbidden | Formulaire de déclaration de décès | ,BigIP | Apache httpd
+shaparaksbc.ir,top3000,P2,shaparaksbc.ir,cert,Pishgaman Toseeh Ertebatat Company (Private Joint Stock),IR,1,hr.shaparaksbc.ir,کلینیک زیبایی شاپرک ,Apache httpd
+saintluc.be,top3000,P2,saintluc.be,cert,Universite Catholique de Louvain,BE,6,monvpn.saintluc.be | *.saintluc.be | vademecum.saintluc.be | ,NetScaler AAA | 404 Not Found | Citrix Gateway | 403 Forbidden | ,nginx | Citrix Netscaler
+carle.com,top3000,P2,carle.com,cert,Carle Clinic Association,US,16,student.carle.com | vpn.carle.com | vendor.carle.com | imagemover.carle.com |  | carelink.carle.com,ImageMover (Carle) | NetScaler AAA | GlobalProtect Portal | Unsupported Web Browser | IIS Windows Server,Microsoft IIS httpd |  | nginx | Citrix Netscaler
+org:I LAYER LIMITED,top3000,P1,I LAYER LIMITED,org,I LAYER LIMITED,HK,109,,301 Moved Permanently | IIS7 | Not Found | ,MS-SQL Server 2008 R2 SP2 | MS-SQL Server 2014 RTMRTM | nginx | Microsoft IIS httpd |  | VNC | MySQL | WinRM
+org:EXA COMPANY LIMITED,top3000,P2,EXA COMPANY LIMITED,org,EXA COMPANY LIMITED,VN,12,, | Not Found,nginx |  | MS-SQL Server 2012 RTMRTM | MS-SQL Server 2008 R2 RTMRTM | WinRM
+another-alice.jp,top3000,P2,another-alice.jp,cert,"GMO Internet, Inc.",JP,1, | another-alice.jp,全ユーザー参加型！物語×ソーシャルバトル Another×ALICE　-アナザー×アリス- | ,Apache httpd
+soltesz.hu,top3000,P2,soltesz.hu,cert,Magyar Telekom leased line customers,HU,1,soltesz.hu,Index of /,Apache httpd
+"org:Abaila, Koop. S.Coop.",top3000,P2,"Abaila, Koop. S.Coop.",org,"Abaila, Koop. S.Coop.",ES,3, | fortinet-subca2001, | 400 Bad Request, | Fortinet FortiGate
+sansay.com,top3000,P2,sansay.com,cert,"DigitalOcean, LLC",US,3,*.sansay.com | repo.sansay.com,Sansay - Scalable VoIP Infrastructure Software | Index of /, | Apache httpd
+ott.ca,top3000,P2,ott.ca,cert,Google LLC,CA,2, | *.ott.ca | sportsfacility.ott.ca,301 Moved Permanently | OTT Sports Facility | Scheduling and Booking Website | ,nginx
+coopersucar.com.br,top3000,P2,coopersucar.com.br,cert,"GoDaddy.com, LLC",US,1,mail.coopersucar.com.br,,Apache httpd
+elevi.net,top3000,P2,elevi.net,cert,Amazon Technologies Inc.,US,1,www.elevi.net | ,ELEVI Associates | 302 Found,Apache httpd
+bendr.software,top3000,P2,bendr.software,cert,WorldStream B.V.,NL,1,bendr.software,,nginx
+rainbear.org,top3000,P2,rainbear.org,cert,Core-Backbone GmbH,DE,2,*.rainbear.org,Home | 31.7.188.x | Home | 31.7.188.x,Apache httpd
+viviotech.net,top3000,P2,viviotech.net,ntlm,Vivio Technologies,US,7,,Not Found | IIS7,Microsoft IIS httpd | WinRM
+pxghx.top,top3000,P2,pxghx.top,cert,"Aliyun Computing Co., LTD",CN,1,www.pxghx.top | , | 登录, | Apache httpd
+lkkhpg.com,top3000,P2,lkkhpg.com,cert,Hong Kong Broadband Network Limited,HK,4,*.lkkhpg.com | , | 403 Forbidden | 301 Moved Permanently,nginx | 
+meteo.uz,top3000,P2,meteo.uz,cert,"""Uzbektelekom"" Joint Stock Company",UZ,1, | 108.meteo.uz,Login | Horiba monitor | ,nginx | 
+ip-51-222-254.net,top3000,P2,ip-51-222-254.net,ptr,"OVH Hosting, Inc.",CA,11,, | Welcome to nginx! | Not Found, | MS-SQL Server 2022 CU20 | MS-SQL Server 2022 RTM | WinRM | nginx | VNC
+bpzoliborz.pl,top3000,P2,bpzoliborz.pl,cert,LH.pl Sp. z o.o.,PL,1,*.bpzoliborz.pl | ,Witryna internetowa Biblioteki Publicznej m.st Warszawy Dzie,Apache httpd
+musei.re.it,top3000,P2,musei.re.it,cert,Netribe Cloud and Hosting Services Address Space,IT,1, | www.musei.re.it,Musei Civici di Reggio Emilia | 301 Moved Permanently,Apache httpd
+smarterbalanced.org,top3000,P2,smarterbalanced.org,cert,"Amazon.com, Inc.",US,3,*.smarterbalanced.org | smarterbalanced.org | dl.smarterbalanced.org,An Error Occurred: Bad Request | Smarter Balanced Reporting | ISAAP Tool, | nginx
+org:SPACECORE SOLUTION LTD,top3000,P2,SPACECORE SOLUTION LTD,org,SPACECORE SOLUTION LTD,DE,33, | a248.e.akamai.net | invalid2.invalid | 78-17-147-72.sslip.io, | 301 Moved | Northfield Photo Archive | Invalid URL, | nginx | VNC | AkamaiGHost
+eurobyte.ru,top3000,P2,eurobyte.ru,cert,EuroByte LLC,RU,8,isp106.eurobyte.ru | isp13.eurobyte.ru |  | isp14.eurobyte.ru | isp104.eurobyte.ru | isp109.eurobyte.ru,,MariaDB |  | Exim smtpd
+sawgrassink.com,top3000,P2,sawgrassink.com,cert,"Amazon.com, Inc.",US,16, | monitoring.my.sawgrassink.com | dealer-codes.sawgrassink.com | my.sawgrassink.com,301 Moved Permanently | Sawgrass Extended Warranty Portal | ,Apache httpd | AWS ELB
+afr-ix.com,top3000,P2,afr-ix.com,cert,AFRIX TELECOM,KE,3,afr-ix.com | *.afr-ix.com | ,Redirecting... | 301 Moved Permanently | ' + SITETITLE + ',Cisco WebVPN HTTP Config | nginx
+seetong.com,top3000,P2,seetong.com,cert,Huawei Public Cloud Service (Huawei Software Technologies Ltd.Co),CN,3,*.seetong.com | ,云管理平台-登录窗口 | ,nginx | Apache httpd
+ert.com,top3000,P2,ert.com,cert,"Cogent Communications, LLC",US,8,datainsights.dev.ert.com | *.ert.com | *.k8s.dev.ert.com | api.datainsights.ert.com | *.mdm.ert.com, | 502 Bad Gateway | Apache Tomcat/9.0.69, | nginx | Apache Tomcat | Connectra Check Point Web Security httpd
+itcglobal.com,top3000,P2,itcglobal.com,cert,"Marlink, Inc.",US,1,*.itcglobal.com | ,403 Forbidden | 302 Found,Apache httpd
+apexgrp.com.tw,top3000,P2,apexgrp.com.tw,cert,Chunghwa Telecom Data Communication Business Group,TW,1, | hr.apexgrp.com.tw,夆典科技開發股份有限公司,Apache httpd
+camaraadolfo.sp.gov.br,top3000,P2,camaraadolfo.sp.gov.br,cert,URUPESNET PROVEDOR DE INTERNET LTDA ME,BR,1,www.camaraadolfo.sp.gov.br | ,"Refer&#234;ncia de objeto n&#227;o definida para uma inst&#2 |  | 
+	CÃ¢mara Municipal de Adolfo
+",Microsoft IIS httpd | MS-SQL Server 2008 SP3
+news12.com,top3000,P2,news12.com,cert,Cablevision Systems Corp.,US,9,bxbc.news12.com | adx.news12.com | ,Test Page for the Apache HTTP Server on Red Hat Enterprise L | ,Apache httpd | Microsoft IIS httpd
+gohsphere.com,top3000,P2,gohsphere.com,cert,Apyl Inc,US,3, | web8d.gohsphere.com,Apache HTTP Server Test Page powered by CentOS |  | Parallels H-Sphere,Apache httpd | MySQL
+org:PT Asia Teknologi Solusi,top3000,P2,PT Asia Teknologi Solusi,org,PT Asia Teknologi Solusi,ID,7,fortinet-subca2001 | ,400 Bad Request | RouterOS router configuration page | ,Fortinet FortiGate | 
+morrisons.com,top3000,P1,morrisons.com,cert,Amazon Technologies Inc.,IE,15,helpmefind.morrisons.com | supplier.morrisons.com | photo.morrisons.com | *.supplier.morrisons.com, | Supplier Portal | 404 Not Found | 403, | Apache httpd | BigIP
+cswr.org,top3000,P2,cswr.org,cert,"Comcast Cable Communications, LLC",US,1,cswr.org,Center for Severe Weather Research: Home,Apache httpd
+insejupy.gob.mx,top3000,P2,insejupy.gob.mx,cert,Uninet S.A. de C.V.,MX,5, | *.insejupy.gob.mx,"400 Bad Request | 403 - Prohibido: acceso denegado. | CONSULTAS INSEJUPY |  | INSEJUPY - Instituto de Seguridad Jurídica Patrimonial de Yu | 
+        Core INSEJUPY
+    ",Apache httpd |  | Microsoft IIS httpd
+kingrecords.co.jp,top3000,P2,kingrecords.co.jp,cert,irob Ltd.,JP,2, | kingkj.kingrecords.co.jp | not-equal-me.kingrecords.co.jp,≠ME（ノットイコールミー） | 301 Moved Permanently,Apache httpd
+utaipei.edu.tw,top3000,P2,utaipei.edu.tw,cert,Ministry of Education computer Center,TW,6,*.utaipei.edu.tw |  | *.eresources.utaipei.edu.tw,Outlook |  | 403 Forbidden,MariaDB | Outlook Web App |  | nginx
+delbeneproduce.com,top3000,P2,delbeneproduce.com,cert,"AT&T Enterprises, LLC",US,4, | my.delbeneproduce.com,IIS7 | ,Microsoft IIS httpd |  | Apache httpd
+an-sat.pl,top3000,P2,an-sat.pl,ptr,PPHU AN-SAT Katarzyna Lakoma,PL,12,, | 500 Internal Server Error,Apache httpd
+redsalud.cl,top3000,P1,redsalud.cl,cert,Google LLC,US,40,*.redsalud.cl | cmx-app.redsalud.cl | api-mrs.redsalud.cl | sonar.redsalud.cl | notificaciones-mrs.redsalud.cl |  | transparencias-fila-4pi-qa.redsalud.cl | api-pago-web-ambulatorio-redsalud.redsalud.,Grafana | Portal Médico | SonarQube | 403 | Laravel | ,net-snmp | Apache httpd | SonarQube |  | Grafana (Open Source)
+c7g3kyd2oix3.net,top3000,P1,c7g3kyd2oix3.net,cert,HostPapa,US,1, | web08, | Ivanti Connect Secure, | Pulse Secure
+beyondrm.com,top3000,P1,beyondrm.com,cert,Beyond Relationship Marketing GmbH,NL,186,studio1.beyondrm.com | *.beyondrm.com |  | beyondrm.com | esquire.beyondrm.com,Beyond Relationship Marketing Ticketsystem |  | 301 Moved Permanently,Apache httpd
+loga.net.br,top3000,P2,loga.net.br,cert,Dinamica Telecomunicacoes Ltda,BR,2,homologacao.loga.net.br | hotspot.loga.net.br, | 403 Forbidden,Apache httpd
+importaco.com,top3000,P2,importaco.com,cert,"NextGenWebs-NL NextGenWebs, S.L.",NL,2,*.importaco.com | planproa.importaco.com | Plesk, | Plan Proa | Un viaje hacia la excelencia,Apache httpd | Postfix smtpd | 
+ve.nu,top3000,P2,ve.nu,ptr,DOMENY.RU LLC,RU,1,,404 Not Found,Apache httpd
+ultraviewer.net,top3000,P2,ultraviewer.net,cert,"The Constant Company, LLC",VN,7,*.ultraviewer.net,,Apache httpd
+artemisselect.ch,top3000,P2,artemisselect.ch,cert,"Nocix, LLC",US,1,artemisselect.ch,301 Moved Permanently,Apache httpd
+org:DataHata Ltd,top3000,P2,DataHata Ltd,org,DataHata Ltd,BY,16,,Grafana | , | Grafana (Open Source)
+org:Web1 Oy,top3000,P2,Web1 Oy,org,Web1 Oy,FI,34,,301 Moved Permanently | ,nginx |  | VNC
+e-kei.pl,top3000,P2,e-kei.pl,cert,Hosting Servers,PL,21,,,MySQL
+deic.dk,top3000,P2,deic.dk,cert,Danmarks Tekniske Universitet,DK,5, | de161207.deic.dk, | 301 Moved Permanently | Exam Tester,OpenSSH | Apache httpd
+yoasobi.co.jp,top3000,P2,yoasobi.co.jp,cert,ARTERIA Networks Corporation,JP,2,ed1.yoasobi.co.jp | ed2.yoasobi.co.jp | *.yoasobi.co.jp," | 
+        夜遊びガイド　動画配信システム    ",Apache httpd
+org:Waycom International SAS,top3000,P1,Waycom International SAS,org,Waycom International SAS,FR,24,support | ,OPTIMA |  | Login,"Fortinet FortiGate | Apache httpd | HUAWEI Technology Co.,Ltd | Hikvision IP Camera | ciscoSystems |  | GeoVision GeoHtt"
+icm.edu.pl,top3000,P2,icm.edu.pl,cert,University of Warsaw,PL,9,yadda.icm.edu.pl | ,302 Found | ,Apache httpd | OpenSSH
+ouhsc.edu,top3000,P2,ouhsc.edu,cert,OneNet,US,17,ou.edu | exchange.ou.edu | ouhsc.edu |  | support.ou.edu | healthdev.ou.edu | hr.ou.edu,"Not Found | 301 Moved Permanently | 
+	University of Oklahoma Harold Hamm Health Campus
+ | LISTSERV&reg; - University of Oklahoma | Document Moved | Enterprise Risk Management | Social Work | Object ", | BigIP | Microsoft IIS httpd | Microsoft HTTPAPI httpd
+nbis.net,top3000,P2,nbis.net,ptr,NBI Sistems Ltd,BG,10,,Not Found | index | ,WinRM | MikroTik RouterOS API Service | Hikvision IP Camera | 

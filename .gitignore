@@ -11,3 +11,6 @@ web/public/data/
 web/dist/
 data/build/
 .claude/settings.local.json
+
+# private notes, never commit
+*.local.md
