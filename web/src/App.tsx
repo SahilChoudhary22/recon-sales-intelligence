@@ -53,10 +53,12 @@ export default function App() {
   const [failed, setFailed] = useState(false)
   const [f, setF] = useState<Filters>(readUrl)
   const [limit, setLimit] = useState(100)
-  const set = (patch: Partial<Filters>) => setF((cur) => ({ ...cur, ...patch }))
+  const set = (patch: Partial<Filters>) => {
+    setF((cur) => ({ ...cur, ...patch }))
+    if (!('id' in patch)) setLimit(100) // a new filter starts the list from the top
+  }
 
   const load = useCallback(() => {
-    setFailed(false)
     fetch('./data/accounts.json')
       .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
       .then(setData)
@@ -64,7 +66,6 @@ export default function App() {
   }, [])
   useEffect(load, [load])
   useEffect(() => writeUrl(f), [f])
-  useEffect(() => setLimit(100), [f.play, f.q, f.country, f.industry, f.strong])
 
   const playCounts = useMemo(
     () => Object.fromEntries(PLAYS.map((p) => [p.id, data ? data.accounts.filter(p.match).length : 0])),
@@ -150,7 +151,7 @@ export default function App() {
 
           {failed ? (
             <State title="The account list did not load." body="The data file could not be fetched. Check the connection and try again.">
-              <button type="button" className="btn" onClick={load}>Try again</button>
+              <button type="button" className="btn" onClick={() => { setFailed(false); load() }}>Try again</button>
             </State>
           ) : !data ? (
             <SkeletonRows />
@@ -171,7 +172,7 @@ export default function App() {
           )}
         </main>
 
-        <Detail account={selected} meta={data} onClose={() => set({ id: null })} />
+        <Detail key={selected?.id ?? 'none'} account={selected} meta={data} onClose={() => set({ id: null })} />
       </div>
     </div>
   )
@@ -340,8 +341,6 @@ function Detail({ account: a, meta, onClose }: { account: Account | null; meta: 
 
   useEffect(() => {
     if (!a) return
-    setEv(null)
-    setEvFailed(false)
     fetch(`./data/evidence/${String(a.shard).padStart(2, '0')}.json`)
       .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
       .then((d) => setEv(d[a.id] ?? []))
@@ -375,8 +374,8 @@ function Detail({ account: a, meta, onClose }: { account: Account | null; meta: 
   const facts: [string, React.ReactNode][] = [
     ['Organisation', a.org && a.org !== a.name ? a.org : 'Same as above'],
     ['Industry', a.industry ?? 'Not known'],
-    ['Country', <span className="measured">{a.country}</span>],
-    ['Footprint', <><span className="measured">{fmt(a.assets)}</span> services on <span className="measured">{fmt(a.ips)}</span> IPs</>],
+    ['Country', <span key="cc" className="measured">{a.country}</span>],
+    ['Footprint', <span key="fp"><span className="measured">{fmt(a.assets)}</span> services on <span className="measured">{fmt(a.ips)}</span> IPs</span>],
   ]
 
   return (
