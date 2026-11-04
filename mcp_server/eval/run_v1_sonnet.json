@@ -1,0 +1,20 @@
+[
+  {"id": 1, "tool": "search_accounts", "arguments": {"template": "kev", "country": "GB", "industry": "Manufacturing", "software": "Fortinet FortiGate"}},
+  {"id": 2, "tool": "cve_exposure", "arguments": {"cve_or_name": "Citrix Bleed"}},
+  {"id": 3, "tool": "list_signal_templates", "arguments": {"product": "email"}},
+  {"id": 4, "tool": "search_accounts", "arguments": {"country": "DE", "software": "Microsoft Exchange"}},
+  {"id": 5, "tool": "search_accounts", "arguments": {"country": "US", "tier": "P1", "limit": 10}},
+  {"id": 6, "tool": "search_accounts", "arguments": {"query": "chevron.com", "limit": 5}},
+  {"id": 7, "tool": "list_signal_templates", "arguments": {}},
+  {"id": 8, "tool": "list_signal_templates", "arguments": {}},
+  {"id": 9, "tool": "cve_exposure", "arguments": {"cve_or_name": "CVE-2024-38475", "country": "FR"}},
+  {"id": 10, "tool": "list_signal_templates", "arguments": {"product": "ot"}},
+  {"id": 11, "tool": "search_accounts", "arguments": {"query": "chevron.com", "limit": 5}},
+  {"id": 12, "tool": "search_accounts", "arguments": {"query": "bbci.co.uk", "limit": 5}},
+  {"id": 13, "tool": "search_accounts", "arguments": {"template": "kev", "industry": "Education"}},
+  {"id": 14, "tool": "search_accounts", "arguments": {"industry": "Financial services", "software": "Microsoft Exchange"}},
+  {"id": 15, "tool": "cve_exposure", "arguments": {"cve_or_name": "Log4Shell"}},
+  {"id": 16, "tool": "list_signal_templates", "arguments": {}},
+  {"id": 17, "tool": "list_signal_templates", "arguments": {"product": "firewall"}},
+  {"id": 18, "tool": "search_accounts", "arguments": {"query": "Toyota", "limit": 5}}
+]

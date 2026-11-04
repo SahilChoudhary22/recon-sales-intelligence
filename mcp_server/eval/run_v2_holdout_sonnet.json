@@ -1,0 +1,14 @@
+[
+{"id":101,"tool":"search_accounts","arguments":{"template":"remote","country":"ES","industry":"Retail & e-commerce"}},
+{"id":102,"tool":"list_signal_templates","arguments":{"product":"vuln"}},
+{"id":103,"tool":"get_account","arguments":{"account_id":"toyota.com"}},
+{"id":104,"tool":"cve_exposure","arguments":{"cve_or_name":"ProxyLogon"}},
+{"id":105,"tool":"search_accounts","arguments":{"template":"edge","country":"JP"}},
+{"id":106,"tool":"make_list","arguments":{"account_ids":["bbci.co.uk","chevron.com","toyota.com"]}},
+{"id":107,"tool":"search_accounts","arguments":{"template":"ot","industry":"Energy & utilities"}},
+{"id":108,"tool":"search_accounts","arguments":{"template":"legacy","industry":"Manufacturing"}},
+{"id":109,"tool":"export_crm_tasks","arguments":{"account_ids":["toyota.com"]}},
+{"id":110,"tool":"search_accounts","arguments":{"template":"p1","country":"DE","limit":5}},
+{"id":111,"tool":"search_accounts","arguments":{"template":"kev","country":"NL","sector":"commercial"}},
+{"id":112,"tool":"search_accounts","arguments":{"template":"market","country":"GB","software":"Citrix NetScaler"}}
+]

@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "recon": {
+      "command": "uv",
+      "args": ["run", "python", "-m", "mcp_server.server"],
+      "env": { "RECON_APP_URL": "http://localhost:5173" }
+    }
+  }
+}

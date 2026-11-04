@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "request": "Find UK manufacturers running FortiGate that also have a known-exploited CVE."
+  },
+  {
+    "id": 2,
+    "request": "Which accounts are exposed to Citrix Bleed?"
+  },
+  {
+    "id": 3,
+    "request": "I sell email security. Which signal templates should I start with?"
+  },
+  {
+    "id": 4,
+    "request": "Show me German companies still running on-prem Exchange."
+  },
+  {
+    "id": 5,
+    "request": "Give me the top 10 P1 accounts in the US."
+  },
+  {
+    "id": 6,
+    "request": "Tell me everything you have on chevron.com."
+  },
+  {
+    "id": 7,
+    "request": "Which healthcare companies have RDP or databases open to the internet?"
+  },
+  {
+    "id": 8,
+    "request": "Hospitals and clinics still on end-of-life Windows servers."
+  },
+  {
+    "id": 9,
+    "request": "Which companies in France are affected by CVE-2024-38475?"
+  },
+  {
+    "id": 10,
+    "request": "Commercial companies with industrial control systems exposed online."
+  },
+  {
+    "id": 11,
+    "request": "Put chevron.com and toyota.com on a list for me."
+  },
+  {
+    "id": 12,
+    "request": "Create CRM tasks for bbci.co.uk and chevron.com so I can import them into HubSpot."
+  },
+  {
+    "id": 13,
+    "request": "Universities running software with known-exploited vulnerabilities."
+  },
+  {
+    "id": 14,
+    "request": "Banks that run Microsoft Exchange on-prem."
+  },
+  {
+    "id": 15,
+    "request": "Who is exposed to Log4Shell?"
+  },
+  {
+    "id": 16,
+    "request": "Australian companies that already invest in security but still have gaps."
+  },
+  {
+    "id": 17,
+    "request": "Exposed firewall or VPN admin panels, but only where we're sure who the company is."
+  },
+  {
+    "id": 18,
+    "request": "Look up Toyota."
+  }
+]

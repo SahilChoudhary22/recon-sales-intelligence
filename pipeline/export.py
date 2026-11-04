@@ -75,6 +75,19 @@ def mask(v, on):
     return IPV4.sub(r"\1.x", v) if on and isinstance(v, str) else v
 
 
+CATALOG = json.load(open(os.path.join(os.path.dirname(__file__), "..", "web", "src", "catalog.json")))
+PUBLIC_NAME = re.compile(r"(universi|college|ministry|municipal|\.edu|\.ac\.|\.gov|\.gob\.|\.mil\b)", re.I)
+
+
+def sector(ind, name, org):
+    """ICP sector, shared by the app and the MCP server through accounts.json."""
+    if ind == "Telecom & hosting":
+        return "infra"
+    if ind in ("Education", "Government") or PUBLIC_NAME.search(f"{name} {org or ''}"):
+        return "public"
+    return "commercial"
+
+
 def shard(company_id):
     return int(hashlib.md5(company_id.encode()).hexdigest(), 16) % SHARDS
 
@@ -109,7 +122,10 @@ def main():
             "need": need, "urgency": urg, "fit": fit, "priority": prio,
             "industry": llm_ind or industry(domain, borg, name), "shard": shard(cid), "new": bool(new),
             "software": software(prods_all, sigs),
+            "sector": None,  # set below, once the industry is final
         })
+    for acc in accounts:
+        acc["sector"] = sector(acc["industry"], acc["name"], acc["org"])
     ev = con.execute(f"""select company_id, signal, ip, port, product, evidence, http_title, cert_cn
         from '{a.build_dir}/evidence.parquet'""").fetchall()
     m = not a.no_mask

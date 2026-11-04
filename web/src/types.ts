@@ -22,6 +22,7 @@ export type Account = {
   shard: number
   new: boolean // a material exposure first seen in the latest scan (needs two or more scans)
   software: string[] // product families seen on its services (technographics)
+  sector: Sector // ICP sector, computed in pipeline/export.py
 }
 
 export type SignalMeta = { label: string; category: string; weight: number }

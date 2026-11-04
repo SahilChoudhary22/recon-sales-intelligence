@@ -40,7 +40,7 @@ const EMPTY_ICP = { q: '', country: '', industry: '', sector: '', software: '', 
 function readUrl(): Filters {
   const p = new URLSearchParams(window.location.search)
   return {
-    play: p.get('play') ?? DEFAULT_PLAY, q: p.get('q') ?? '', country: p.get('country') ?? '',
+    play: p.get('import') ? 'list' : p.get('play') ?? DEFAULT_PLAY, q: p.get('q') ?? '', country: p.get('country') ?? '',
     industry: p.get('industry') ?? '', sector: p.get('sector') ?? '', software: p.get('software') ?? '',
     strong: p.get('strong') === '1', id: p.get('account'),
   }
@@ -55,6 +55,8 @@ function writeUrl(f: Filters) {
   const qs = p.toString()
   window.history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname)
 }
+
+let IMPORT_IDS = new URLSearchParams(window.location.search).get('import')
 
 const PRODUCT_KEY = 'recon.product'
 function readProduct() {
@@ -97,6 +99,15 @@ export default function App() {
   }, [])
   useEffect(load, [load])
   useEffect(() => writeUrl(f), [f])
+  // ?import=id1,id2 (from the MCP server's make_list) adds those accounts to My list once, then opens it.
+  // The ids are read at page load (IMPORT_IDS), because writeUrl drops the parameter on first render.
+  const { saveMany } = shortlist
+  useEffect(() => {
+    if (!data || !IMPORT_IDS) return
+    const known = new Set(data.accounts.map((a) => a.id))
+    saveMany(IMPORT_IDS.split(',').filter((id) => known.has(id)))
+    IMPORT_IDS = null
+  }, [data, saveMany])
   // the CVE index (about 750 KB) loads the first time someone types in the search box
   useEffect(() => {
     if (f.q.trim().length >= 3 && !cveIndex) fetch('./data/cve/index.json').then((r) => r.json()).then(setCveIndex).catch(() => {})
