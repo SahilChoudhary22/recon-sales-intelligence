@@ -30,7 +30,9 @@ from api.workspace import STATUSES, LimitError, get_workspace
 async def lifespan(_app):
     get_workspace()  # open the app database and load RECON_USERS now: a bad config stops startup, loudly
     get_store()
-    yield
+    from mcp_server.http import mcp_app
+    async with mcp_app.router.lifespan_context(mcp_app):  # the MCP endpoint's session manager
+        yield
 
 
 app = FastAPI(title="Recon API", version="1.0", lifespan=lifespan, docs_url="/api/docs", openapi_url="/api/openapi.json",
@@ -344,3 +346,12 @@ def delete_search(search_id: str, request: Request):
 def save_profile(data: dict, request: Request):
     get_workspace().save_profile(ws(request), data)
     return {"ok": True}
+
+
+async def application(scope, receive, send):
+    """What uvicorn serves: /mcp goes to the MCP server over HTTP (bearer token), everything else to
+    the API above. Lifespan events go to the API, whose lifespan also starts the MCP endpoint."""
+    if scope["type"] == "http" and (scope["path"] == "/mcp" or scope["path"].startswith("/mcp/")):
+        from mcp_server.http import app as mcp_http
+        return await mcp_http(scope, receive, send)
+    return await app(scope, receive, send)

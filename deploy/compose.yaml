@@ -38,6 +38,12 @@ services:
     environment:
       RECON_USERS: ${RECON_USERS:?set RECON_USERS in .env}
       RECON_DB: /data/app/recon.db
+      # the MCP endpoint at /mcp: its bearer token, whose lists it works on, the host it answers to,
+      # and where its links point
+      RECON_MCP_TOKEN: ${RECON_MCP_TOKEN:?set RECON_MCP_TOKEN in .env}
+      RECON_USER: ${RECON_USER:-firmable}
+      RECON_MCP_HOSTS: ${RECON_PUBLIC_HOST:?set RECON_PUBLIC_HOST in .env}
+      RECON_APP_URL: https://${RECON_PUBLIC_HOST}
       # DuckDB can spill to /tmp; keep it bounded on a shared host
       DUCKDB_MEMORY_LIMIT: 1GB
     mem_limit: 1536m

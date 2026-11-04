@@ -288,7 +288,14 @@ unchanged). What changes for a full stream of files and many users, and when, is
 ## MCP server
 
 Ten deterministic tools over the same query layer and app database as the API (IP-masked). The
-assistant handles the language; nothing runs a model or costs per call on Recon's side.
+assistant handles the language; nothing runs a model or costs per call on Recon's side. The hosted app
+serves it at `/mcp`, so a client connects with no setup (the host and token come with the submission):
+
+```bash
+claude mcp add --transport http recon https://<host>/mcp --header "Authorization: Bearer <token>"
+```
+
+A list Claude builds is the same list the user opens in the app.
 
 | Tool | Returns |
 | --- | --- |

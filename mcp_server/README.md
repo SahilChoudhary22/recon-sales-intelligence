@@ -20,9 +20,20 @@ hallucinate, and the app and the assistant always agree.
 
 Templates, products and sectors come from `web/src/catalog.json`, the same file the app reads.
 
+Two ways to connect:
+
 ```bash
+# the hosted app: nothing to install (the host and token come with the submission)
+claude mcp add --transport http recon https://<host>/mcp --header "Authorization: Bearer <token>"
+
+# or locally, with the serving store built
 uv run python -m mcp_server.server          # stdio
 ```
+
+The hosted endpoint is the same server over MCP's streamable HTTP transport, served by the API
+process at `/mcp` ([`http.py`](http.py)): stateless JSON calls, a bearer token checked in constant
+time, an allow-list of host names, and its own rate limit at nginx. Its tools work on the same user's
+lists as the app, so a list Claude builds shows up when that user signs in.
 
 The repo ships a `.mcp.json` for MCP clients that read project config. `RECON_SERVE` points at a
 serving store (default `data/serve/current`), `RECON_DB` at the app database, `RECON_USER` names whose
