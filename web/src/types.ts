@@ -21,6 +21,7 @@ export type Account = {
   industry: string | null
   shard: number
   new: boolean // a material exposure first seen in the latest scan (needs two or more scans)
+  software: string[] // product families seen on its services (technographics)
 }
 
 export type SignalMeta = { label: string; category: string; weight: number }

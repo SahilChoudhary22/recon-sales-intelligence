@@ -10,12 +10,12 @@ export const STEPS: Step[] = [
   {
     target: 'plays',
     title: 'Pick a play',
-    body: 'Each play is a prospecting motion: exposed firewalls with exploited CVEs, on-prem Exchange, legacy Windows. Commercial accounts drops universities and government.',
+    body: 'Each play is a prospecting motion: exposed firewalls with exploited CVEs, on-prem Exchange, legacy Windows. You start in Commercial accounts; universities and government have their own view.',
   },
   {
     target: 'filters',
     title: 'Narrow it to your patch',
-    body: 'Filter by country or industry, or keep only accounts whose identity is strong (the company named itself in its own certificate).',
+    body: 'Filter by country, industry or the software they run (FortiGate, Exchange, SQL Server…), or keep only accounts whose identity is strong.',
   },
   {
     target: 'table',

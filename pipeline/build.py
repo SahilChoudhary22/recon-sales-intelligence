@@ -218,7 +218,8 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
                    coalesce(min(ident_prio) in (4, 14), true) weak_identity,
                    bool_or(org_type_source = 'llm' and org_industry in ('Education', 'Government')) owns_its_ips,
                    count(distinct ip) n_ips, count(*) n_assets, min(ident_prio) ident_prio,
-                   list(distinct product) filter (where product is not null)[1:12] products
+                   list(distinct product) filter (where product is not null)[1:12] products,
+                   list(distinct coalesce(fortinet_device, product)) filter (where coalesce(fortinet_device, product) is not null) products_all
             from assets where company_id is not null group by company_id),
         s as (
             select company_id, sum(pts) need,

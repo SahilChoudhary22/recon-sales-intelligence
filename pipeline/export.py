@@ -35,6 +35,33 @@ INDUSTRY_RULES = [
 ]
 
 
+# raw product strings -> the families a seller filters by ("Fortinet FortiGate-60F" -> "Fortinet FortiGate"),
+# like a technographics filter; first match wins, order is display order
+SOFTWARE_FAMILIES = [
+    ("Fortinet FortiGate", r"forti"), ("Citrix NetScaler", r"netscaler|citrix"), ("F5 BIG-IP", r"big-?ip"),
+    ("SonicWall", r"sonicwall"), ("Check Point", r"check ?point|connectra"), ("Cisco", r"cisco"),
+    ("Palo Alto", r"palo alto|globalprotect|pan-os"), ("Ivanti / Pulse Secure", r"pulse secure|ivanti"),
+    ("MikroTik", r"mikrotik"), ("DrayTek", r"draytek"), ("Ubiquiti", r"ubiquiti"),
+    ("Microsoft Exchange", r"exchange|outlook web app"), ("Microsoft IIS", r"\biis\b"),
+    ("Microsoft SQL Server", r"ms-sql|sql server"), ("Windows remote access (RDP, WinRM)", r"winrm|remote desktop|\brdp\b"),
+    ("VNC", r"\bvnc\b"), ("OpenSSH", r"openssh"), ("Apache httpd", r"apache httpd"),
+    ("Apache Tomcat", r"tomcat|coyote"), ("nginx", r"nginx|openresty"), ("LiteSpeed", r"litespeed"),
+    ("cPanel / WHM", r"cpanel|\bwhm\b"), ("MySQL / MariaDB", r"mysql|mariadb"), ("PostgreSQL", r"postgres"),
+    ("MongoDB", r"mongo"), ("Redis", r"redis"), ("Elasticsearch", r"elastic"), ("MinIO", r"minio"),
+    ("Kubernetes", r"kubernetes"), ("Jenkins", r"jenkins"), ("Grafana", r"grafana"), ("n8n", r"\bn8n\b"),
+    ("Nextcloud", r"nextcloud"), ("Mail server (Exim, Postfix)", r"exim|postfix"),
+    ("IP cameras (Hikvision, Dahua)", r"hikvision|dahua"),
+]
+_FAMILY_RE = [(name, re.compile(rx, re.I)) for name, rx in SOFTWARE_FAMILIES]
+
+
+def software(products, signals):
+    seen = {name for p in products or [] for name, rx in _FAMILY_RE if rx.search(p)}
+    if "exchange_onprem" in (signals or []):
+        seen.add("Microsoft Exchange")
+    return [name for name, _ in SOFTWARE_FAMILIES if name in seen]
+
+
 def industry(*texts):
     blob = " ".join(t for t in texts if t).lower()
     for name, rx in INDUSTRY_RULES:
@@ -62,7 +89,7 @@ def main():
     rows = con.execute(f"""
         select company_id, display_name, business_org, top_org, country, score::double, tier, play,
                n_ips, n_assets, identity_source, signals, has_kev, has_eol, maturity, products,
-               round(need, 2)::double, round(urgency, 2)::double, round(fit, 2)::double, round(priority, 2)::double, org_industry, domain, has_new
+               round(need, 2)::double, round(urgency, 2)::double, round(fit, 2)::double, round(priority, 2)::double, org_industry, domain, has_new, products_all
         from '{a.build_dir}/accounts.parquet'
         where has_material order by priority desc limit {a.limit}""").fetchall()
     dom_ind = {}
@@ -72,7 +99,7 @@ def main():
                 dom_ind[r["domain"]] = r["industry"]
     accounts, keep = [], set()
     for (cid, name, borg, torg, cc, score, tier, play, n_ips, n_assets, ident, sigs, kev, eol, mat,
-         prods, need, urg, fit, prio, llm_ind, domain, new) in rows:
+         prods, need, urg, fit, prio, llm_ind, domain, new, prods_all) in rows:
         keep.add(cid)
         llm_ind = dom_ind.get(domain) or llm_ind
         accounts.append({
@@ -81,6 +108,7 @@ def main():
             "eol": eol, "maturity": mat, "products": [p for p in (prods or []) if p][:6],
             "need": need, "urgency": urg, "fit": fit, "priority": prio,
             "industry": llm_ind or industry(domain, borg, name), "shard": shard(cid), "new": bool(new),
+            "software": software(prods_all, sigs),
         })
     ev = con.execute(f"""select company_id, signal, ip, port, product, evidence, http_title, cert_cn
         from '{a.build_dir}/evidence.parquet'""").fetchall()

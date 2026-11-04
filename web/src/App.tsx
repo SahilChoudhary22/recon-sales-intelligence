@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { Account, Dataset, Evidence, Play } from './types'
-import { PLAYS } from './plays'
+import { DEFAULT_PLAY, PLAYS } from './plays'
 import { talkTrack } from './talkTrack'
 import { APP_NAME, PRODUCT_LINE } from './brand'
 import { STATUSES, statusLabel, useShortlist, type Saved, type Status } from './shortlist'
@@ -30,22 +30,23 @@ const SHORT: Record<string, string> = {
   weak_tls: 'TLS 1.0/1.1', self_signed_web: 'Self-signed certificate',
 }
 
-type Filters = { play: string; q: string; country: string; industry: string; strong: boolean; id: string | null }
+type Filters = { play: string; q: string; country: string; industry: string; software: string; strong: boolean; id: string | null }
 
 function readUrl(): Filters {
   const p = new URLSearchParams(window.location.search)
   return {
-    play: p.get('play') ?? 'all', q: p.get('q') ?? '', country: p.get('country') ?? '',
-    industry: p.get('industry') ?? '', strong: p.get('strong') === '1', id: p.get('account'),
+    play: p.get('play') ?? DEFAULT_PLAY, q: p.get('q') ?? '', country: p.get('country') ?? '',
+    industry: p.get('industry') ?? '', software: p.get('software') ?? '', strong: p.get('strong') === '1', id: p.get('account'),
   }
 }
 
 function writeUrl(f: Filters) {
   const p = new URLSearchParams()
-  if (f.play !== 'all') p.set('play', f.play)
+  if (f.play !== DEFAULT_PLAY) p.set('play', f.play)
   if (f.q) p.set('q', f.q)
   if (f.country) p.set('country', f.country)
   if (f.industry) p.set('industry', f.industry)
+  if (f.software) p.set('software', f.software)
   if (f.strong) p.set('strong', '1')
   if (f.id) p.set('account', f.id)
   const qs = p.toString()
@@ -78,13 +79,14 @@ export default function App() {
     [data],
   )
   const options = useMemo(() => {
-    const c = new Map<string, number>(), i = new Map<string, number>()
+    const c = new Map<string, number>(), i = new Map<string, number>(), sw = new Map<string, number>()
     data?.accounts.forEach((a) => {
       if (a.country) c.set(a.country, (c.get(a.country) ?? 0) + 1)
       if (a.industry) i.set(a.industry, (i.get(a.industry) ?? 0) + 1)
+      a.software.forEach((x) => sw.set(x, (sw.get(x) ?? 0) + 1))
     })
     const sort = (m: Map<string, number>) => [...m.entries()].sort((a, b) => b[1] - a[1])
-    return { countries: sort(c), industries: sort(i) }
+    return { countries: sort(c), industries: sort(i), software: sort(sw) }
   }, [data])
 
   const myList: Play = {
@@ -101,12 +103,13 @@ export default function App() {
         play.match(a) &&
         (!f.country || a.country === f.country) &&
         (!f.industry || a.industry === f.industry) &&
+        (!f.software || a.software.includes(f.software)) &&
         (!f.strong || IDENT[a.ident].strong) &&
         (!needle || a.name.toLowerCase().includes(needle) || (a.org ?? '').toLowerCase().includes(needle)),
     )
-  }, [data, play, f.q, f.country, f.industry, f.strong])
+  }, [data, play, f.q, f.country, f.industry, f.software, f.strong])
   const selected = useMemo(() => data?.accounts.find((a) => a.id === f.id) ?? null, [data, f.id])
-  const filtered = f.q || f.country || f.industry || f.strong
+  const filtered = f.q || f.country || f.industry || f.software || f.strong
   const nSaved = Object.keys(shortlist.list).length
 
   const navButton = (p: Play, count: number) => {
@@ -154,6 +157,8 @@ export default function App() {
               options={options.countries.map(([c, n]) => [c, `${c} (${fmt(n)})`])} />
             <Select id="industry" label="Industry" value={f.industry} onChange={(v) => set({ industry: v })} all="All industries"
               options={options.industries.map(([c, n]) => [c, `${c} (${fmt(n)})`])} />
+            <Select id="software" label="Software seen" value={f.software} onChange={(v) => set({ software: v })} all="All software"
+              options={options.software.map(([c, n]) => [c, `${c} (${fmt(n)})`])} />
             <label className="flex min-h-9 items-center gap-2 px-1 text-sm text-ink-2">
               <input type="checkbox" checked={f.strong} onChange={(e) => set({ strong: e.target.checked })} className="size-4 accent-[var(--color-accent)]" />
               Strong identity only
@@ -177,7 +182,7 @@ export default function App() {
               </State>
             ) : !rows.length ? (
               <State title="No accounts match these filters." body={`The ${play.name.toLowerCase()} view has ${fmt(play.id === 'list' ? nSaved : playCounts[play.id])} accounts before filtering.`}>
-                {filtered && <button type="button" className="btn" onClick={() => set({ q: '', country: '', industry: '', strong: false })}>Clear filters</button>}
+                {filtered && <button type="button" className="btn" onClick={() => set({ q: '', country: '', industry: '', software: '', strong: false })}>Clear filters</button>}
               </State>
             ) : (
               <>
@@ -525,10 +530,10 @@ function Detail({ account: a, meta, shortlist, onClose }: {
             </section>
           )}
 
-          {a.products.length > 0 && (
+          {(a.software.length > 0 || a.products.length > 0) && (
             <section aria-labelledby="tech">
               <h3 id="tech" className="mb-2 text-lg text-ink">Software seen</h3>
-              <p className="text-sm text-ink-2">{a.products.join(', ')}</p>
+              <p className="text-sm text-ink-2">{(a.software.length ? a.software : a.products).join(', ')}</p>
             </section>
           )}
         </div>

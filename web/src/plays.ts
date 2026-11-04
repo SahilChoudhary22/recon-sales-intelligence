@@ -1,15 +1,26 @@
 import type { Account, Play } from './types'
 
 const has = (a: Account, ...ids: string[]) => ids.some((id) => a.signals.includes(id))
+const PUBLIC_NAME = /(universi|college|ministry|municipal|\.edu|\.ac\.|\.gov|\.gob\.|\.mil\b)/i
+const isCommercial = (a: Account) =>
+  !['Education', 'Government', 'Telecom & hosting'].includes(a.industry ?? '') && !PUBLIC_NAME.test(`${a.name} ${a.org ?? ''}`)
+
+// the view a seller lands on: the segment most security vendors sell to
+export const DEFAULT_PLAY = 'commercial'
 
 // saved views = the prospecting motions a security AE actually runs
 export const PLAYS: Play[] = [
-  { id: 'all', name: 'All accounts', blurb: 'Every company with a material signal, ranked.', match: () => true },
   {
     id: 'commercial', name: 'Commercial accounts',
-    blurb: 'Companies only: universities, research networks and government removed (they rank high on sheer network size).',
-    match: (a) => !['Education', 'Government', 'Telecom & hosting'].includes(a.industry ?? '') &&!/(universi|college|ministry|\.edu|\.ac\.|\.gov)/i.test(`${a.name} ${a.org ?? ''}`),
+    blurb: 'Companies only, the usual security buyer. Universities, government, telecoms and hosters have their own views.',
+    match: isCommercial,
   },
+  {
+    id: 'public', name: 'Public sector & education',
+    blurb: 'Universities, research networks, ministries and municipalities. They rank high on sheer network size and buy through their own procurement.',
+    match: (a) => !isCommercial(a) && a.industry !== 'Telecom & hosting',
+  },
+  { id: 'all', name: 'All accounts', blurb: 'Every company with a material signal, ranked, across every segment.', match: () => true },
   {
     id: 'new', name: 'Newly exposed',
     blurb: 'A risky service that was not there in the previous scan: the clearest reason to call this week.',
