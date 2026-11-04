@@ -5,6 +5,7 @@ import { talkTrack } from './talkTrack'
 import { APP_NAME, PRODUCT_LINE } from './brand'
 import { STATUSES, statusLabel, useShortlist, type Saved, type Status } from './shortlist'
 import { Tour } from './Tour'
+import { LogoMark } from './Logo'
 import { guideSeen } from './tourSteps'
 
 const fmt = (n: number) => n.toLocaleString('en-US')
@@ -214,7 +215,8 @@ function Header({ data, onGuide }: { data: Dataset | null; onGuide: () => void }
     <header className="border-b border-rule bg-paper-2" data-tour="funnel">
       <div className="mx-auto max-w-[112rem] px-4 pt-4 pb-5 sm:px-6">
         <div className="mb-4 flex items-center justify-between gap-4">
-          <p className="flex items-baseline gap-2.5">
+          <p className="flex items-center gap-2.5">
+            <LogoMark className="size-7 text-ink" />
             <span className="text-xl font-medium leading-none text-ink">{APP_NAME}</span>
             <span className="text-sm text-muted">{PRODUCT_LINE}</span>
           </p>
