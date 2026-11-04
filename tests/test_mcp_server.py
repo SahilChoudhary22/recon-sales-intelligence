@@ -63,7 +63,7 @@ def test_lists_the_tools(client):
 
 def test_search_matches_the_app_filters(client):
     r = client.call("search_accounts", template="exchange", sector="commercial", limit=5)
-    assert r["total"] == 722 and r["view_in_app"].endswith("play=exchange&sector=commercial")
+    assert r["total"] == 719 and r["view_in_app"].endswith("play=exchange&sector=commercial")
     assert all(a["sector"] == "Commercial" for a in r["accounts"])
 
 

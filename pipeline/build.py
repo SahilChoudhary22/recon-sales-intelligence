@@ -17,8 +17,8 @@ import duckdb
 import pyarrow as pa
 
 from pipeline.identity import resolve
-from pipeline.signals import (CPE_NAMES, CVE_REQUIRES, EOL_BRANCHES, MATURITY, OS_EOL, OS_RELEASE,
-                              PATCHED_IN_PLACE, SIGNALS, frozen_sql)
+from pipeline.signals import (CPE_NAMES, CVE_REQUIRES, DISTRO_PACKAGED, EOL_BRANCHES, MATURITY, OS_EOL, OS_RELEASE,
+                              PATCHED_IN_PLACE, SIGNALS, VISIBLE_TEXT, frozen_sql, version_visible_sql)
 
 # Retention and "new" go by observation time, not by file: a delivered file is a few hours of an
 # ongoing crawl (this one covers 21:13 to 02:06), not a full re-scan of the internet.
@@ -113,7 +113,8 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
     names = " ".join(f"when '{k}' then '{v}'" for k, v in CPE_NAMES.items())
     con.execute(f"""create table vuln_ok as
         with u as (
-            select c.rid, c.product, c.version, c.module, c.patched_in_place, v, kv.vtok,
+            select c.rid, c.product, c.version, c.module, c.patched_in_place, v, kv.vtok, c.exchange_build,
+                   {VISIBLE_TEXT.replace("version", "c.version").replace("http_server", "c.http_server").replace("http_headers", "c.http_headers").replace("banner", "c.banner")} visible,
                    coalesce(c.http_server, '') || ' ' || coalesce(c.os, '') platform,
                    -- the products the service names with a version number, from its CPEs
                    list_transform(list_filter(c.cpe23, lambda x: regexp_matches(split_part(x, ':', 6), '[0-9]')),
@@ -123,20 +124,26 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
                        and not regexp_matches(split_part(x, ':', 6), '[0-9]'))) n_unversioned_apps
             from clean c, unnest(c.vulns) t(v) left join kev_vendor kv on kv.cve = v.cve
             where v.kev or coalesce(v.epss, 0) >= 0.1 or coalesce(v.cvss, 0) >= 9),
+        -- the versioned products whose version shows their patch level: not a version RHEL freezes, not
+        -- software a distro build patches in place, not IIS (Windows Update)
+        t as (
+            select *, list_filter(cpe_v, lambda x: {version_visible_sql('x.prod', 'x.ver')} and not {frozen_sql('x.prod', 'x.ver')}
+                and not (patched_in_place and list_contains({DISTRO_PACKAGED!r}, x.prod))
+                and x.prod <> 'internet_information_services') cpe_t
+            from u),
         m as (
             select *, case
-                -- a KEV CVE: its vendor among the versioned products (php ~ "PHP Group")
-                when vtok is not null then list_filter(cpe_v, lambda x: x.vend = vtok
+                -- a KEV CVE: its vendor among those products (php ~ "PHP Group")
+                when vtok is not null then list_filter(cpe_t, lambda x: x.vend = vtok
                     or (len(x.vend) >= 3 and (starts_with(vtok, x.vend) or starts_with(x.vend, vtok))))[1]
                 -- any other CVE: the service names exactly one versioned product, so it's that one's
-                when len(cpe_v) = 1 and n_unversioned_apps = 0 then cpe_v[1] end hit
-            from u)
+                when len(cpe_v) = 1 and n_unversioned_apps = 0 then cpe_t[1] end hit
+            from t)
         select rid, list({{'cve': v.cve, 'cvss': v.cvss, 'epss': v.epss, 'kev': v.kev, 'verified': v.verified,
             'seen': case when v.verified or hit.ver = version then concat_ws(' ', coalesce(product, module), version)
                          else (case hit.prod {names} else replace(hit.prod, '_', ' ') end) || ' ' || hit.ver end}}) vulns_ok
         from m
-        where (v.verified or (not patched_in_place and hit is not null
-                              and not {frozen_sql('hit.prod', 'hit.ver')}))
+        where (v.verified or hit is not null)
           and not ({" or ".join(f"(v.cve = '{c}' and platform not ilike '%{x}%')" if kind == "platform" else
                                 f"(v.cve = '{c}' and hit is not null and not starts_with(hit.ver, '{x}'))"
                                 for c, kind, x in CVE_REQUIRES)})
@@ -144,12 +151,12 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
     # the oldest end-of-life component a service names with a version (pipeline/signals.py EOL_BRANCHES)
     eol_cases = " ".join(f"when cv = '{c}' and regexp_matches(ver, '{rx}') then date '{d}'" for c, rx, _, d in EOL_BRANCHES)
     con.execute(f"""create table eol_sw as
-        select rid, arg_min(name, d) eol_sw, min(d) eol_sw_date from (
+        select rid, arg_min(name, d::varchar || ':' || name) eol_sw, min(d) eol_sw_date from (
             select rid, (case prod {names} else replace(prod, '_', ' ') end) || ' ' || ver name, case {eol_cases} end d
             from (select rid, split_part(x, ':', 4) || ':' || split_part(x, ':', 5) cv, split_part(x, ':', 5) prod,
-                         split_part(x, ':', 6) ver
+                         split_part(x, ':', 6) ver, exchange_build, {VISIBLE_TEXT} visible
                   from clean, unnest(cpe23) t(x))
-            where not {frozen_sql('prod', 'ver')})
+            where not {frozen_sql('prod', 'ver')} and {version_visible_sql('prod', 'ver')})
         where d is not null group by rid""")
     funnel.update(con.execute("""select count(*) cve_matches_notable,
         count(*) filter (where v.verified) cve_matches_verified,
@@ -276,7 +283,8 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
                    'group', 'bank', 'hospital', 'school', 'city', 'state', 'government', 'ministry', 'telecom', 'network',
                    'networks', 'services', 'technology', 'international', 'global', 'company', 'corporation', 'limited',
                    'systems', 'software', 'data', 'digital', 'cloud', 'online', 'media', 'center', 'centre', 'research')))
-        select org, arg_max(domain, n) domain from m group by org""")
+        -- ties broken by name, so a rebuild picks the same domain
+        select org, arg_max(domain, lpad(n::varchar, 12, '0') || ':' || domain) domain from m group by org""")
     funnel["org_accounts_merged"] = con.execute("""select count(distinct a.org) from assets a join org_home h using (org)
         where a.company_id = 'org:' || a.org""").fetchone()[0]
     con.execute("""update assets set company_id = h.domain from org_home h
@@ -324,8 +332,8 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
         with a as (
             select company_id,
                    any_value(domain) filter (where domain is not null) domain,
-                   mode(org) filter (where org_type = 'business') business_org,
-                   mode(org) top_org, mode(country) country, mode(org_industry) org_industry,
+                   mode(org order by org) filter (where org_type = 'business') business_org,
+                   mode(org order by org) top_org, mode(country order by country) country, mode(org_industry order by org_industry) org_industry,
                    bool_or(org_type_source = 'llm') org_confirmed,
                    -- measured on two blind samples: IP-owner / reverse-DNS identities are 0-15% sellable,
                    -- except universities and governments, which really do own their address blocks
@@ -367,10 +375,20 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
         update accounts set priority = need * urgency * fit * maturity_factor
             * case when has_material then 1 else 0.3 end
             * case when weak_identity and not owns_its_ips then 0.3 else 1 end""")
+    # A domain the LLM labeller couldn't place (unknown, low confidence) stays searchable but doesn't
+    # reach P1/P2: across three blind samples those accounts were 34% sellable (27/80) against 84% for
+    # ones it labelled a business, government or school. Same idea as the IP-owner rule above.
+    con.execute("alter table accounts add column unrecognised boolean default false")
+    if domain_labels and os.path.exists(domain_labels):
+        con.execute(f"""update accounts set unrecognised = true from read_csv_auto('{domain_labels}') l
+            where l.domain = accounts.domain and accounts.company_id = accounts.domain
+              and l.org_type = 'unknown' and l.confidence = 'low'""")
+    funnel["unrecognised_domains"] = con.execute(
+        "select count(*) from accounts where unrecognised and has_material").fetchone()[0]
     con.execute("""alter table accounts add column material_rank bigint;
         update accounts set material_rank = r.rk from (
-            select company_id, row_number() over (order by priority desc) rk
-            from accounts where has_material) r where accounts.company_id = r.company_id""")
+            select company_id, row_number() over (order by priority desc, company_id) rk
+            from accounts where has_material and not unrecognised) r where accounts.company_id = r.company_id""")
     # score: log-scaled so the top stays spread out; tiers: by rank, sized to what a sales team can
     # actually work (P1 = this week's calls), not percentiles of a long hygiene-only tail
     con.execute(f"""create table accounts_out as
@@ -391,8 +409,8 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
     con.execute(f"copy accounts_out to '{out_dir}/accounts.parquet' (format parquet, compression zstd)")
     con.execute(f"""copy (
         select s.company_id, s.signal, s.label, s.category, s.weight, s.ip, s.port, s.product, s.evidence,
-               a.org, a.country, a.cert_cn, a.http_title, a.module
-        from (select *, row_number() over (partition by company_id order by weight desc, ip) rn from sig) s
+               a.org, a.country, a.cert_cn, a.http_title, a.module, a.ts  -- ts: which record (one IP:port can carry several sites)
+        from (select *, row_number() over (partition by company_id order by weight desc, ip, port, signal) rn from sig) s
         join assets a using (rid) where s.rn <= 60
     ) to '{out_dir}/evidence.parquet' (format parquet, compression zstd)""")
     con.execute(f"""copy (select org, org_type, org_type_source, n_ips, n_asn, cloud_share

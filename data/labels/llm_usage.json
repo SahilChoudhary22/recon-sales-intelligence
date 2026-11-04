@@ -34,6 +34,51 @@
         0.048,
         0.239
       ]
+    },
+    {
+      "model": "claude-haiku (4 parallel Claude Code subagents, round 3: names promoted by the claims rebuild)",
+      "items": 1539,
+      "subagent_tokens_total": 528278,
+      "subagent_tokens_per_agent": [
+        161172,
+        131615,
+        115095,
+        120396
+      ],
+      "cost_usd_range_at_haiku_5_5_prices": [
+        0.053,
+        0.264
+      ],
+      "note": "same instructions as llm_label.py (which now also names shared-hosting hostnames and junk sites); token split in/out not reported by the harness"
+    },
+    {
+      "model": "claude-haiku (3 parallel Claude Code subagents, round 4: names promoted once unrecognised domains left P1/P2)",
+      "items": 1014,
+      "subagent_tokens_total": 372857,
+      "subagent_tokens_per_agent": [
+        121346,
+        125583,
+        125928
+      ],
+      "cost_usd_range_at_haiku_5_5_prices": [
+        0.037,
+        0.186
+      ],
+      "note": "same instructions as round 3; token split in/out not reported by the harness"
+    },
+    {
+      "model": "claude-haiku (2 parallel Claude Code subagents, round 5: names promoted by round 4)",
+      "items": 345,
+      "subagent_tokens_total": 159657,
+      "subagent_tokens_per_agent": [
+        80594,
+        79063
+      ],
+      "cost_usd_range_at_haiku_5_5_prices": [
+        0.016,
+        0.08
+      ],
+      "note": "same instructions as round 3; 91 top-tier names left unlabeled after this round"
     }
   ],
   "in_session_total": {

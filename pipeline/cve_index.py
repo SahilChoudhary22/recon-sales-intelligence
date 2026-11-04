@@ -67,7 +67,7 @@ def build(con, build_dir, out, kev_path=KEV_PATH):
             from '{build_dir}/asset_cves.parquet' c)
         select v.cve, any_value(v.cvss), max(v.epss), bool_or(v.kev), x.company_id,
                count(*) n, list(distinct x.ip || ':' || x.port)[1:{EXAMPLES_PER_COMPANY}] svc,
-               mode(x.product) product, bool_or(x.is_new) is_new,
+               mode(x.product order by x.product) product, bool_or(x.is_new) is_new,
                any_value(ac.display_name), any_value(ac.country), any_value(ac.score)::double,
                any_value(ac.tier), any_value(ac.identity_source)
         from x join '{build_dir}/accounts.parquet' ac using (company_id)

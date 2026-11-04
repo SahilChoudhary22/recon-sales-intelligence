@@ -1,0 +1,848 @@
+[
+ {
+  "case": "c001",
+  "name": "bvaonline.com",
+  "identity_source": "http_host",
+  "network_owner": "Microsoft Corporation",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "SharePoint 2016 — CVE-2024-38094, CVE-2025-49704, CVE-2025-53770",
+    "service": "13.107.136.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Microsoft IIS httpd",
+     "version": null,
+     "server_header": null,
+     "page_title": null,
+     "os": "Windows",
+     "tags": [
+      "cloud"
+     ],
+     "banner": "HTTP/1.1 400 Bad Request\r\nTransfer-Encoding: chunked\r\nX-MSEdge-Ref: 08o/magAAAADZOLGaiV/xR7dIie1zOQwgU0pDMjExMDUxMjAzMDI5AEVkZ2U=\r\nDate: Sun, 01 Nov 2026 01:03:45 GMT\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c002",
+  "name": "ssl-certificate-required.com",
+  "identity_source": "cert",
+  "network_owner": "Korea Telecom",
+  "country": "KR",
+  "ips": 3,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 5.5.30, support ended December 2018",
+    "service": "112.175.14.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Microsoft IIS httpd",
+     "version": "5.0",
+     "server_header": "Microsoft-IIS/5.0",
+     "page_title": "[403] Forbidden Error",
+     "os": "Linux 3.x",
+     "tags": [
+      "self-signed",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 403 Forbidden\r\nDate: Sun, 01 Nov 2026 01:53:21 GMT\r\nServer: Microsoft-IIS/5.0\r\nX-Powered-By: PHP/5.5.30\r\nContent-Length: 499\r\nConnection: close\r\nContent-Type: text/html\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c003",
+  "name": "petrolcard.hu",
+  "identity_source": "cert",
+  "network_owner": "ACE Telecom Kft",
+  "country": "HU",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 8.0.0 — CVE-2026-109618, CVE-2026-109619",
+    "service": "77.111.115.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Microsoft IIS httpd",
+     "version": "10.0",
+     "server_header": "Microsoft-IIS/10.0",
+     "page_title": null,
+     "os": "Windows",
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 401 Unauthorized\r\nCache-Control: no-store, no-cache, must-revalidate\r\nPragma: no-cache\r\nContent-Type: text/html; charset=utf-8\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nLast-Modified: Sun, 01 Nov 2026 01:17:22 GMT\r\nServer: Microsoft-IIS/10.0\r\nX-Powered-By: PHP/8.0.0\r\nSet-Cookie: PHPSESSID=do"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c004",
+  "name": "sound-und-design.com",
+  "identity_source": "http_host",
+  "network_owner": "IONOS SE",
+  "country": "DE",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "WordPress 4.8.25 — CVE-2026-87902",
+    "service": "82.165.77.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Apache httpd",
+     "version": "2.2.15",
+     "server_header": "Apache/2.2.15 (CentOS)",
+     "page_title": "Sound und Design Ochsenfurt",
+     "os": "Linux 3.x",
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:06:55 GMT\r\nServer: Apache/2.2.15 (CentOS)\r\nX-Powered-By: PHP/5.3.3\r\nSet-Cookie: PHPSESSID=vt7jir75shjtldo552q708ump4; path=/\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nCache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0\r\nPragma: no-c"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c005",
+  "name": "careerhelp.org.za",
+  "identity_source": "cert",
+  "network_owner": "State Information Technology Agency SOC Ltd - State Information Technology Agency SOC Ltd",
+  "country": "ZA",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "drupal 7.56 — CVE-2018-7600, CVE-2018-7602, CVE-2020-13671",
+    "service": "164.151.131.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.4.6",
+     "server_header": "Apache/2.4.6 (CentOS) OpenSSL/1.0.2k-fips",
+     "page_title": "Welcome to Khetha | Make the right choice. Decide your future",
+     "os": null,
+     "tags": [],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:46:35 GMT\r\nServer: Apache/2.4.6 (CentOS) OpenSSL/1.0.2k-fips\r\nExpires: Sun, 19 Nov 1978 05:00:00 GMT\r\nCache-Control: no-cache, must-revalidate\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: SameOrigin\r\nContent-Language: en\r\nX-UA-Compatible: IE=edge\r\nTra"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c006",
+  "name": "toronto.edu",
+  "identity_source": "cert",
+  "network_owner": "University of Toronto",
+  "country": "CA",
+  "ips": 78,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "drupal 7.33 — CVE-2018-7600, CVE-2018-7602, CVE-2020-13671",
+    "service": "128.100.216.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Apache httpd",
+     "version": "2.4.17",
+     "server_header": "Apache/2.4.17 (Fedora) PHP/5.6.15",
+     "page_title": "Fields Institute for Research in Mathematical Sciences",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:26:46 GMT\r\nServer: Apache/2.4.17 (Fedora) PHP/5.6.15\r\nX-Powered-By: PHP/5.6.15\r\nX-Drupal-Cache: HIT\r\nEtag: \"1793495923-0\"\r\nContent-Language: en\r\nLink: <http://128.100.216.x/>; rel=\"canonical\",<http://128.100.216.x/>; rel=\"shortlink\"\r\nCache-Control: public"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c007",
+  "name": "nef.com.tr",
+  "identity_source": "cert",
+  "network_owner": "ICT BULUT BILISIM A.S.",
+  "country": "TR",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.4.13 — CVE-2026-109618, CVE-2026-109619",
+    "service": "185.201.215.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Microsoft IIS httpd",
+     "version": "10.0",
+     "server_header": "Microsoft-IIS/10.0",
+     "page_title": "IIS Windows Server",
+     "os": "Windows 7 or 8",
+     "tags": [],
+     "banner": "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nLast-Modified: Thu, 30 May 2019 14:56:51 GMT\r\nAccept-Ranges: bytes\r\nETag: \"3cfd9e9f716d51:0\"\r\nServer: Microsoft-IIS/10.0\r\nX-Powered-By: ASP.NET\r\nDate: Sun, 01 Nov 2026 01:08:44 GMT\r\nContent-Length: 703\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c008",
+  "name": "biquge123.com",
+  "identity_source": "cert",
+  "network_owner": "PEG TECH INC",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 5.2.17 — CVE-2012-1823",
+    "service": "107.148.199.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Microsoft IIS httpd",
+     "version": "8.5",
+     "server_header": "Microsoft-IIS/8.5",
+     "page_title": "笔趣阁手机阅读_无弹窗书友最值得收藏的网络小说阅读网",
+     "os": "Windows 7 or 8",
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=gbk\r\nServer: Microsoft-IIS/8.5\r\nX-Powered-By: PHP/5.2.17\r\nX-Powered-By: ASP.NET\r\nDate: Sun, 01 Nov 2026 01:13:15 GMT\r\nContent-Length: 14321\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c009",
+  "name": "imsglobal.com",
+  "identity_source": "ntlm",
+  "network_owner": "IQVIA Holdings Inc",
+  "country": "IE",
+  "ips": 2,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "SharePoint 2016 — CVE-2024-38094, CVE-2025-49704, CVE-2025-53770",
+    "service": "162.44.119.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Microsoft IIS httpd",
+     "version": "10.0",
+     "server_header": "Microsoft-IIS/10.0",
+     "page_title": null,
+     "os": "Windows 11 (build 10.0.26100)",
+     "tags": [],
+     "banner": "HTTP/1.1 401 Unauthorized\r\nContent-Type: text/plain; charset=utf-8\r\nServer: Microsoft-IIS/10.0\r\nSPRequestDuration: 61\r\nSPIisLatency: 4\r\nWWW-Authenticate: NTLM\r\nX-Powered-By: ASP.NET\r\nMicrosoftSharePointTeamServices: 16.0.0.20326\r\nX-Content-Type-Options: nosniff\r\nX-MS-InvokeApp: 1; RequireReadOnly\r\nD"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c010",
+  "name": "oban.vn",
+  "identity_source": "cert",
+  "network_owner": "Inet software one member company limited",
+  "country": "VN",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "WordPress 6.2 — CVE-2026-87902",
+    "service": "103.75.187.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": "1.14.0",
+     "server_header": "nginx/1.14.0 (Ubuntu)",
+     "page_title": "SonOban",
+     "os": "Ubuntu",
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx/1.14.0 (Ubuntu)\r\nDate: Sun, 01 Nov 2026 01:25:24 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nX-Powered-By: PHP/8.0.28\r\nX-UA-Compatible: IE=edge\r\nLink: <https://oban.vn/wp-json/>; rel=\"https://api.w.org/\"\r\nLink: <http"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c011",
+  "name": "orbitalsys.net",
+  "identity_source": "cert",
+  "network_owner": "Rede Nacional de Ensino e Pesquisa",
+  "country": "BR",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "WordPress 2.8 — CVE-2026-87902",
+    "service": "200.137.89.x:9308",
+    "scan": {
+     "module": "auto",
+     "product": null,
+     "version": null,
+     "server_header": "Apache/2.2.22 (Ubuntu)",
+     "page_title": "Wordpress | Here the subtitle",
+     "os": null,
+     "tags": [],
+     "banner": "HTTP/1.1 200 OK\r\nServer: Werkzeug/3.1.3 Python/3.12.13\r\nDate: Sun, 01 Nov 2026 01:12:52 GMT\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 6639\r\nServer: Apache/2.2.22 (Ubuntu)\r\nConnection: close\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c012",
+  "name": "ccmindustria.com.br",
+  "identity_source": "cert",
+  "network_owner": "ALGAR TELECOM S/A",
+  "country": "BR",
+  "ips": 3,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.4.26 — CVE-2026-109618, CVE-2026-109619",
+    "service": "189.22.118.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Microsoft IIS httpd",
+     "version": "10.0",
+     "server_header": "Microsoft-IIS/10.0",
+     "page_title": null,
+     "os": "Windows",
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nCache-Control: no-store, no-cache, must-revalidate\r\nPragma: no-cache\r\nContent-Type: text/html; charset=ISO-8859-1\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nServer: Microsoft-IIS/10.0\r\nX-Powered-By: PHP/7.4.26\r\nSet-Cookie: PHPSESSID=bgno9tffconjkun00t9aqjba6u; path=/\r\nDate: Sun, 01 No"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c013",
+  "name": "insiel.it",
+  "identity_source": "cert",
+  "network_owner": "Insiel- Informatica per il sistema degli enti locali S.p.A",
+  "country": "IT",
+  "ips": 5,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "SharePoint 2016 — CVE-2024-38094, CVE-2025-49704, CVE-2025-53770",
+    "service": "193.43.173.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Microsoft IIS httpd",
+     "version": "10.0",
+     "server_header": "Microsoft-IIS/10.0",
+     "page_title": null,
+     "os": "Windows",
+     "tags": [],
+     "banner": "HTTP/1.1 401 Unauthorized\r\nContent-Type: text/plain; charset=utf-8\r\nServer: Microsoft-IIS/10.0\r\nX-SharePointHealthScore: 0\r\nSPRequestGuid: b06e4aa2-0f27-10c9-d1c5-fe2c3f4042a7\r\nrequest-id: b06e4aa2-0f27-10c9-d1c5-fe2c3f4042a7\r\nWWW-Authenticate: NTLM\r\nX-Powered-By: ASP.NET\r\nMicrosoftSharePointTeamSer"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c014",
+  "name": "ulisboa.pt",
+  "identity_source": "cert",
+  "network_owner": "Universidade de Lisboa",
+  "country": "PT",
+  "ips": 14,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "WordPress 6.6.3 — CVE-2026-87902",
+    "service": "193.136.128.x:443",
+    "scan": {
+     "module": "https",
+     "product": null,
+     "version": null,
+     "server_header": "Apache/2.4.68 (Debian)",
+     "page_title": "EG 3DOR 2016 - Home",
+     "os": null,
+     "tags": [],
+     "banner": "HTTP/1.1 200 OK\r\ndate: Sun, 01 Nov 2026 00:57:26 GMT\r\nserver: Apache/2.4.68 (Debian)\r\nlast-modified: Sun, 08 May 2016 08:53:01 GMT\r\netag: \"4014-53250d1bab540\"\r\naccept-ranges: bytes\r\ncontent-length: 16404\r\nvary: Accept-Encoding\r\ncontent-type: text/html\r\nset-cookie: BACKENDID=backend_LsxMc_omega03|aua"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c015",
+  "name": "djair.co.kr",
+  "identity_source": "cert",
+  "network_owner": "Korea Telecom",
+  "country": "KR",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 5.3.0 — CVE-2012-1823",
+    "service": "59.25.178.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Microsoft IIS httpd",
+     "version": "7.5",
+     "server_header": "Microsoft-IIS/7.5",
+     "page_title": null,
+     "os": "Windows 7 or 8",
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nServer: Microsoft-IIS/7.5\r\nX-Powered-By: PHP/5.3.0\r\nX-Powered-By: ASP.NET\r\nDate: Sun, 01 Nov 2026 01:47:30 GMT\r\nContent-Length: 41\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c016",
+  "name": "wellnessinja.com",
+  "identity_source": "cert",
+  "network_owner": "Amazon Technologies Inc.",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "drupal 9 — CVE-2020-13671, CVE-2026-9082",
+    "service": "18.118.199.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.4.29",
+     "server_header": "Apache/2.4.29 (Ubuntu)",
+     "page_title": "Home | Wellness in Jamaica | TLN ",
+     "os": null,
+     "tags": [
+      "cloud"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 00:35:04 GMT\r\nServer: Apache/2.4.29 (Ubuntu)\r\nCache-Control: must-revalidate, no-cache, private\r\nX-Drupal-Dynamic-Cache: UNCACHEABLE\r\nLink: <https://18.118.199.x/home>; rel=\"canonical\", <https://18.118.199.x/node/1>; rel=\"shortlink\"\r\nX-UA-Compatible: IE=ed"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c017",
+  "name": "pascalmues.de",
+  "identity_source": "cert",
+  "network_owner": "Strato GmbH",
+  "country": "DE",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 8.0.7 — CVE-2026-109618, CVE-2026-109619",
+    "service": "85.215.81.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Microsoft IIS httpd",
+     "version": "10.0",
+     "server_header": "Microsoft-IIS/10.0",
+     "page_title": null,
+     "os": "Windows 7 or 8",
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 302 Found\r\nContent-Type: text/html; charset=UTF-8\r\nLocation: https://pascalmues.de/cv\r\nServer: Microsoft-IIS/10.0\r\nX-Powered-By: PHP/8.0.7\r\nDate: Sun, 01 Nov 2026 01:06:20 GMT\r\nContent-Length: 0\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c018",
+  "name": "searchtec.net",
+  "identity_source": "cert",
+  "network_owner": "Microsoft Corporation",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "WordPress 4.8 — CVE-2026-87902",
+    "service": "20.106.131.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Microsoft IIS httpd",
+     "version": "10.0",
+     "server_header": "Microsoft-IIS/10.0",
+     "page_title": "SearchTec - Login",
+     "os": "Windows 7 or 8",
+     "tags": [
+      "cloud"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nLast-Modified: Wed, 26 Mar 2025 18:53:34 GMT\r\nAccept-Ranges: bytes\r\nETag: \"d2bb060809edb1:0\"\r\nServer: Microsoft-IIS/10.0\r\nX-Powered-By: ASP.NET\r\nDate: Sun, 01 Nov 2026 01:29:36 GMT\r\nContent-Length: 28776\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c019",
+  "name": "vudumobile.net",
+  "identity_source": "cert",
+  "network_owner": "Amazon Data Services Canada",
+  "country": "CA",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.4.13, support ended November 2022",
+    "service": "3.97.109.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Microsoft IIS httpd",
+     "version": "10.0",
+     "server_header": "Microsoft-IIS/10.0",
+     "page_title": null,
+     "os": "Windows",
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=UTF-8\r\nServer: Microsoft-IIS/10.0\r\nX-Powered-By: PHP/7.4.13\r\nX-Powered-By: ASP.NET\r\nDate: Sun, 01 Nov 2026 01:29:16 GMT\r\nContent-Length: 11\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c020",
+  "name": "sharepoint.de",
+  "identity_source": "cert",
+  "network_owner": "Microsoft Corporation",
+  "country": "DE",
+  "ips": 5,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "SharePoint 2016 — CVE-2024-38094, CVE-2025-49704, CVE-2025-53770",
+    "service": "52.105.137.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Microsoft IIS httpd",
+     "version": "10.0",
+     "server_header": "Microsoft-IIS/10.0",
+     "page_title": null,
+     "os": "Windows",
+     "tags": [],
+     "banner": "HTTP/1.1 403 Forbidden\r\nServer: Microsoft-IIS/10.0\r\nIsOCDI: -1\r\nX-DataBoundary: EU\r\nX-1DSCollectorUrl: https://eu-mobile.events.data.microsoft.com/OneCollector/1.0/\r\nX-AriaCollectorURL: https://eu-mobile.events.data.microsoft.com/Collector/3.0/\r\nSPRequestGuid: c26d4aa2-b025-8000-e91f-e7ad0e093c25\r\nr"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c021",
+  "name": "jscfp.or.jp",
+  "identity_source": "http_host",
+  "network_owner": "SAKURA Internet Inc.",
+  "country": "JP",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "WordPress 3.3.1 — CVE-2026-87902",
+    "service": "59.106.171.x:80",
+    "scan": {
+     "module": "http",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": "一般社団法人全国ファイナンシャルプランナー相談協会 | 相談の専門家による相談の普及と相談を専門とするファイナンシャルプランナーの相互支援",
+     "os": "FreeBSD 9.x",
+     "tags": [],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:42:41 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nX-Pingback: http://jscfp.or.jp/wp/xmlrpc.php\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c022",
+  "name": "wpcp.org",
+  "identity_source": "cert",
+  "network_owner": "Illinois Century Network",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.3.8 — CVE-2026-109618, CVE-2026-109619",
+    "service": "209.175.47.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Microsoft IIS httpd",
+     "version": "10.0",
+     "server_header": "Microsoft-IIS/10.0",
+     "page_title": "Walter Payton College Prep - Selenium Enrichment Program",
+     "os": "Windows 7 or 8",
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nCache-Control: no-store, no-cache, must-revalidate\r\nPragma: no-cache\r\nContent-Type: text/html; charset=UTF-8\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nServer: Microsoft-IIS/10.0\r\nX-Powered-By: PHP/7.3.8\r\nSet-Cookie: PHPSESSID=mbm4pb34bo961uaijhrijcfadb; path=/\r\nX-Powered-By: ASP.NET\r"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c023",
+  "name": "srlavoro.it",
+  "identity_source": "cert",
+  "network_owner": "Telecom Italia S.p.A.",
+  "country": "IT",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.2.14, support ended November 2020",
+    "service": "2.118.31.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.4.37",
+     "server_header": "Apache/2.4.37 (Win64) OpenSSL/1.1.1a PHP/7.2.14",
+     "page_title": "Lavora con noi - San Raffale",
+     "os": "Windows 7 or 8",
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:38:04 GMT\r\nServer: Apache/2.4.37 (Win64) OpenSSL/1.1.1a PHP/7.2.14\r\nX-Powered-By: PHP/7.2.14\r\nLink: <https://www.srlavoro.it/wp-json/>; rel=\"https://api.w.org/\"\r\nLink: <https://www.srlavoro.it/>; rel=shortlink\r\nTransfer-Encoding: chunked\r\nContent-Type: text"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c024",
+  "name": "e-hokuei.net",
+  "identity_source": "cert",
+  "network_owner": "TOKAI Communications Corporation",
+  "country": "JP",
+  "ips": 4,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "End-of-life software version",
+    "evidence": "OpenSSL 1.0.2q, support ended December 2019",
+    "service": "42.125.237.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.4.37",
+     "server_header": "Apache/2.4.37 (Win64) OpenSSL/1.0.2q",
+     "page_title": "HokueiCho_Library_Transfer",
+     "os": null,
+     "tags": [],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:30:31 GMT\r\nServer: Apache/2.4.37 (Win64) OpenSSL/1.0.2q\r\nLast-Modified: Mon, 21 Feb 2022 01:58:36 GMT\r\nETag: \"169-5d87d92076b9d\"\r\nAccept-Ranges: bytes\r\nContent-Length: 361\r\nContent-Type: text/html\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c025",
+  "name": "choicelitho.com",
+  "identity_source": "cert",
+  "network_owner": "GoDaddy.com, LLC",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.3.17, support ended December 2021",
+    "service": "198.12.225.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Microsoft IIS httpd",
+     "version": "10.0",
+     "server_header": "Microsoft-IIS/10.0",
+     "page_title": "Login - Internal.Choicelitho.com",
+     "os": "Windows 7 or 8",
+     "tags": [],
+     "banner": "HTTP/1.1 200 OK\r\nCache-Control: private\r\nContent-Type: text/html; charset=utf-8\r\nServer: Microsoft-IIS/10.0\r\nX-AspNetMvc-Version: 5.2\r\nX-AspNet-Version: 4.0.30319\r\nX-Powered-By: ASP.NET\r\nAccess-Control-Allow-Origin: *\r\nDate: Sun, 01 Nov 2026 01:09:59 GMT\r\nContent-Length: 6069\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c026",
+  "name": "utpl.edu.ec",
+  "identity_source": "cert",
+  "network_owner": "Universidad Tecnica Particular de Loja",
+  "country": "EC",
+  "ips": 20,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "SharePoint 2013 — CVE-2014-1761, CVE-2015-1641, CVE-2017-11826",
+    "service": "200.0.31.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Microsoft IIS httpd",
+     "version": "8.5",
+     "server_header": "Microsoft-IIS/8.5",
+     "page_title": null,
+     "os": "Windows 7 or 8",
+     "tags": [],
+     "banner": "HTTP/1.1 401 Unauthorized\r\nContent-Type: text/plain; charset=utf-8\r\nServer: Microsoft-IIS/8.5\r\nX-SharePointHealthScore: 0\r\nSPRequestGuid: 4e6f4aa2-961f-50fb-5674-13772c855b73\r\nrequest-id: 4e6f4aa2-961f-50fb-5674-13772c855b73\r\nWWW-Authenticate: NTLM\r\nX-Powered-By: ASP.NET\r\nMicrosoftSharePointTeamServ"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c027",
+  "name": "alachuacounty.us",
+  "identity_source": "cert",
+  "network_owner": "Alachua County BOCC",
+  "country": "US",
+  "ips": 26,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "SharePoint 2010 — CVE-2012-2539, CVE-2014-1761, CVE-2015-1641",
+    "service": "216.194.149.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Microsoft IIS httpd",
+     "version": "8.5",
+     "server_header": "Microsoft-IIS/8.5",
+     "page_title": null,
+     "os": "Windows",
+     "tags": [],
+     "banner": "HTTP/1.1 401 Unauthorized\r\nServer: Microsoft-IIS/8.5\r\nSPRequestGuid: a5d24307-47c0-4460-bbcb-4feedcf38f22\r\nWWW-Authenticate: NTLM\r\nX-Powered-By: ASP.NET\r\nMicrosoftSharePointTeamServices: 14.0.0.7241\r\nX-MS-InvokeApp: 1; RequireReadOnly\r\nDate: Sun, 01 Nov 2026 01:48:05 GMT\r\nContent-Length: 0\r\nSet-Cook"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c028",
+  "name": "doae.go.th",
+  "identity_source": "cert",
+  "network_owner": "United Information Highway Co.,Ltd.",
+  "country": "TH",
+  "ips": 12,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "WordPress 6.8.3 — CVE-2026-60137, CVE-2026-87902",
+    "service": "43.249.58.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": "1.24.0",
+     "server_header": "nginx/1.24.0 (Ubuntu)",
+     "page_title": "สำนักงานเกษตรจังหวัดกระบี่ &#8211; Krabi Provincial Agricultural Extension Office.",
+     "os": "Windows XP",
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 01 Nov 2026 01:06:57 GMT\r\nLink: <https://krabi.doae.go.th/wp-json/>; rel=\"https://api.w.org/\"\r\nLink: <https://krabi.doae.go.th/wp-json/wp/v2/pages/28>; rel=\"alternate\"; title=\"JSON\"; type=\"application/json\"\r\nLink: <https://krabi.doa"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c029",
+  "name": "dcbib.dk",
+  "identity_source": "cert",
+  "network_owner": "Stadtwerke Flensburg GmbH",
+  "country": "DE",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "drupal 7 — CVE-2020-13671",
+    "service": "31.209.188.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.4.29",
+     "server_header": "Apache/2.4.29 (Ubuntu)",
+     "page_title": "Oplev Sydslesvig | Vi gør Danmark lidt større ...",
+     "os": null,
+     "tags": [],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:19:25 GMT\r\nServer: Apache/2.4.29 (Ubuntu)\r\nStrict-Transport-Security: max-age=15552000; includeSubDomains\r\nX-Content-Type-Options: nosniff\r\nX-Drupal-Cache: HIT\r\nEtag: \"1793437848-0\"\r\nContent-Language: da\r\nX-Frame-Options: SAMEORIGIN\r\nX-Generator: Drupal 7 ("
+    }
+   }
+  ]
+ },
+ {
+  "case": "c030",
+  "name": "eexample.com",
+  "identity_source": "cert",
+  "network_owner": "Charter Communications LLC",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.3.8 — CVE-2026-109618, CVE-2026-109619",
+    "service": "96.38.240.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Microsoft IIS httpd",
+     "version": "10.0",
+     "server_header": "Microsoft-IIS/10.0",
+     "page_title": "eExample.com",
+     "os": "Windows",
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=UTF-8\r\nServer: Microsoft-IIS/10.0\r\nX-Powered-By: PHP/7.3.8\r\nSet-Cookie: refer=%2Findex.php%7C%7C10%2F31%2F2026+9%3A10%3A17+PM%7C%7C; expires=Wed, 04-Nov-2026 01:10:17 GMT; Max-Age=259200; path=/\r\nStrict-Transport-Security: max-age=0; includeSubDomain"
+    }
+   }
+  ]
+ }
+]

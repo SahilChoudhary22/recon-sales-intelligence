@@ -112,3 +112,45 @@ def test_a_cve_needs_what_the_version_cannot_show(tmp_path):
     acc, _ = run(tmp_path, [web(product="Apache httpd", version="2.2.11", vulns=KEV_APACHE,
                                 cpe23=["cpe:2.3:a:apache:http_server:2.2.11"], http={"server": "Apache/2.2.11 (Unix)"})])
     assert "kev_cve" not in acc["acme-test.co.uk"]
+
+
+def test_a_distro_or_iis_patches_its_own_software_not_the_applications_on_it(tmp_path):
+    # Exchange on IIS: Exchange's build number moves with every update, IIS's doesn't
+    proxyshell = {"CVE-2021-34473": {"cvss": 9.8, "epss": 0.97, "kev": True, "verified": False}}
+    acc, ev = run(tmp_path, [web(product="Outlook Web App", vulns=proxyshell, http={"server": "Microsoft-IIS/10.0"},
+                                 microsoft_exchange={"name": "Exchange Server 2016 CU19"},
+                                 cpe23=["cpe:2.3:a:microsoft:internet_information_services:10.0",
+                                        "cpe:2.3:a:microsoft:outlook_web_access:15.1.2242"])])
+    assert "kev_cve" in acc["acme-test.co.uk"]
+    # WordPress on Ubuntu's Apache: Ubuntu patches Apache, not WordPress
+    wp = {"CVE-2026-87902": {"cvss": 9.8, "epss": 0.9, "kev": True, "verified": False}}
+    page = '<meta name="generator" content="WordPress 6.7.1" />'
+    acc, ev = run(tmp_path / "wp", [web(product="Apache httpd", version="2.4.58", vulns=wp, http={"server": "Apache/2.4.58 (Ubuntu)"},
+                                        data=page, cpe23=["cpe:2.3:a:apache:http_server:2.4.58", "cpe:2.3:a:wordpress:wordpress:6.7.1"])])
+    assert ev["kev_cve"].startswith("WordPress 6.7.1 — CVE-2026-87902")
+
+
+def test_a_claim_needs_the_version_in_the_record(tmp_path):
+    # the scanner inferred WordPress 6.7.1 from content the record doesn't keep: nothing to show a buyer
+    wp = {"CVE-2026-87902": {"cvss": 9.8, "epss": 0.9, "kev": True, "verified": False}}
+    acc, _ = run(tmp_path, [web(product="nginx", vulns=wp, http={"server": "nginx"}, data="HTTP/1.1 200 OK",
+                                cpe23=["cpe:2.3:a:f5:nginx", "cpe:2.3:a:wordpress:wordpress:6.7.1"])])
+    assert "kev_cve" not in acc["acme-test.co.uk"]
+    # a release name isn't a version: "Drupal 7" says nothing about the patch level
+    drupal = {"CVE-2018-7600": {"cvss": 9.8, "epss": 0.97, "kev": True, "verified": False}}
+    acc, _ = run(tmp_path / "drupal", [web(product="Apache httpd", vulns=drupal, data="X-Generator: Drupal 7",
+                                           cpe23=["cpe:2.3:a:drupal:drupal:7"])])
+    assert "kev_cve" not in acc["acme-test.co.uk"]
+
+
+def test_a_domain_the_labeller_could_not_place_stays_out_of_the_top_tiers(tmp_path):
+    # an open database is material, so the account is ranked; unrecognised, it stays searchable in P3
+    rows = [web(), banner(27017, "mongodb", "2026-11-01T10:02:00", mongodb={"databases": []}, data="MongoDB Server Information")]
+    write_scan(tmp_path / "scans", "scan-2026-11-01", rows)
+    labels = tmp_path / "domain_labels.csv"
+    labels.write_text("domain,org_type,industry,confidence\nacme-test.co.uk,unknown,Unknown,low\n")
+    build(f"{tmp_path}/scans/*/*.parquet", f"{tmp_path}/out", domain_labels=str(labels))
+    tier = duckdb.sql(f"select tier from '{tmp_path}/out/accounts.parquet' where company_id = 'acme-test.co.uk'").fetchall()
+    assert tier == [("P3",)]
+    build(f"{tmp_path}/scans/*/*.parquet", f"{tmp_path}/out2")
+    assert duckdb.sql(f"select tier from '{tmp_path}/out2/accounts.parquet' where company_id = 'acme-test.co.uk'").fetchall() == [("P1",)]

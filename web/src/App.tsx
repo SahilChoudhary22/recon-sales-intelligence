@@ -586,8 +586,8 @@ function CveResults({ result, selectedId, lists, onOpen, onFamily }: {
                   )}
                   <p className="mt-2 text-sm text-ink-2">
                     {c.inScan ? (
-                      <>Matched by software version on <span className="measured text-ink">{fmt(c.companies)}</span> companies in the {scanDate} scan
-                        {c.seenProduct ? <>, mostly on {c.seenProduct}</> : null}. That is a version match, not proof the hole is open.</>
+                      <>Matched by software version on <span className="measured text-ink">{fmt(c.companies)}</span> {c.companies === 1 ? 'company' : 'companies'} in the {scanDate} scan
+                        {c.seenProduct ? <>, {c.companies === 1 ? 'on' : 'mostly on'} {c.seenProduct}</> : null}. That is a version match, not proof the hole is open.</>
                     ) : (
                       <>Not matched in the {scanDate} scan{c.vendor ? <>. CISA lists it for {c.vendor} {c.product}</> : null}.</>
                     )}

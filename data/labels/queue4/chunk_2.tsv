@@ -1,0 +1,339 @@
+id	kind	name	country	context
+2	domain	tekklik.com	TR	ip_owner=Sirketimiz, veri merkezi hizmeti kapsaminda sunucu barindirma hizmeti saglamaktadir.; ips=1; titles=Tekklik Bulut ve Internet Hizmetleri; 
+5	domain	stcruz.com.br	BR	ip_owner=Private Customer; ips=5; titles=; 302 Found
+8	domain	getridewithrex.com	AE	ip_owner=Hetzner Online GmbH; ips=1; titles=Ride With Rex Launch Countdown
+11	domain	canon.co.jp	JP	ip_owner=Japan Network Information Center; ips=4; titles=; BIG-IP logout page
+14	domain	supercp.com	US	ip_owner=A2 Hosting, Inc.; ips=172; titles=One moment, please...; 
+17	domain	tennet.eu	DE	ip_owner=Arvato Systems GmbH; ips=3; titles=BIG-IP logout page; GlobalProtect Portal
+20	domain	tmwcloud.com	US	ip_owner=Microsoft Corporation; ips=8; titles=NetScaler AAA
+23	domain	armada.it	IT	ip_owner=hosting services; ips=2; titles=
+26	domain	wp49mailcatcher.co.za	ZA	ip_owner=Host Africa (Pty) Ltd - Host Africa (Pty) Ltd; ips=1; titles= 404 Not Found ; 
+29	domain	ndic.gov.ng	NG	ip_owner=Inq. Digital Nigeria - Inq. Digital Nigeria; ips=1; titles=; Outlook
+32	domain	51rumo.com	CN	ip_owner=Aliyun Computing Co., LTD; ips=2; titles=招运天下; 
+35	domain	hepsiburada.com	TR	ip_owner=D-Market Elektronik Hizmetler Tic. A.S.; ips=27; titles=; GlobalProtect Portal
+38	domain	arkansas.gov	US	ip_owner=State of Arkansas; ips=17; titles=403 - Forbidden: Access is denied.; Request Rejected; PaperCut Login for West Fork Public Schools; ;   ADE Commissioner
+41	domain	namebox.ro	RO	ip_owner=Namebox SRL; ips=11; titles=One moment, please...; 
+44	domain	hpicloud.net	US	ip_owner=Amazon.com, Inc.; ips=13; titles=500 Internal Server Error; 503 Service Temporarily Unavailable; 
+47	domain	skybr.digital	BR	ip_owner=Amazon Technologies Inc.; ips=3; titles=; 502 Bad Gateway
+50	domain	sanluis.gob.ar	AR	ip_owner=Level 3 Parent, LLC; ips=3; titles=; Welcome to nginx!; 301 Moved Permanently
+53	domain	ip-135-125-2.eu	FR	ip_owner=OVH SAS; ips=5; titles=; 403 Forbidden
+56	domain	565broomesoho.com	US	ip_owner=Linode; ips=1; titles=Index of /
+59	domain	wireland.org	PL	ip_owner=P4 Sp. z o.o.; ips=1; titles=Index of /
+62	domain	nutrahelix.com	IN	ip_owner=Mumbai IP Address Pool; ips=1; titles=Buy Gluten Free Pasta Spaghetti and Noodles - Nutr; 
+65	domain	kunlungem.com	US	ip_owner=Alibaba Cloud LLC; ips=2; titles=403 Forbidden
+68	domain	atea.com	DK	ip_owner=Atea A/S; ips=18; titles=UiPath; IIS Windows Server
+71	domain	axtria.com	US	ip_owner=Amazon.com, Inc.; ips=4; titles=301 Moved Permanently; Dagster; Grafana; 502 Bad Gateway
+74	domain	carlington.com.tw	TW	ip_owner=Chunghwa Telecom Data Communication Business Group; ips=4; titles=WebAdmin
+77	domain	24livehost.com	GB	ip_owner=Hostopia Australia Web Pty Ltd; ips=6; titles=Not Found; Document Moved
+80	domain	tgclab.com	KR	ip_owner=Amazon.com, Inc.; ips=2; titles=Page not found at /
+83	domain	tees.ne.jp	JP	ip_owner=TOYOHASHI CABLE NETWORK INC.; ips=5; titles=
+86	domain	ukim.mk	MK	ip_owner=FACULTY OF COMPUTER SCIENCE AND ENGINEERING; ips=3; titles=Not Found; 
+89	domain	tiscali.cz	CZ	ip_owner=NETHOST s.r.o.; ips=1; titles=301 Moved Permanently; 
+92	domain	fmgizmo.com	IN	ip_owner=Amazon Data Services India; ips=1; titles=301 Moved Permanently; DF@Realtime
+95	domain	luxuratrade.com	SG	ip_owner=Amazon Technologies Inc.; ips=1; titles= Login | Luxura Ecommerce ; Redirecting...
+98	domain	zjspoint.com	CN	ip_owner=Aliyun Computing Co., LTD; ips=1; titles=Welcome to nginx!
+101	domain	artemistechnologies.co.uk	IE	ip_owner=Amazon Data Services Ireland Limited; ips=1; titles=Redirecting...; 307 Temporary Redirect
+104	domain	osaka-soda.co.jp	JP	ip_owner=DAISO CO.,LTD.; ips=1; titles=IIS Windows Server
+107	domain	camdensuperiorclerk.com	US	ip_owner=TDS TELECOM; ips=1; titles=Under Construction; Document Moved
+110	domain	earningcards.com	US	ip_owner=Amazon Technologies Inc.; ips=1; titles=Welcome to Deskera!; Welcome to nginx!
+113	domain	murata.com	JP	ip_owner=Amazon Data Services Japan; ips=9; titles=403 Forbidden; GlobalProtect Portal
+116	domain	web24.net.au	AU	ip_owner=Hostopia Australia Web Pty Ltd; ips=7; titles=; Default Parallels Plesk Page; Domain Default page
+119	domain	cachezone.net	US	ip_owner=M247 Miami Infrastructure; ips=6; titles=ERROR: The requested URL could not be retrieved
+122	domain	nextsls.com	CN	ip_owner=Aliyun Computing Co., LTD; ips=2; titles=
+125	domain	thaihispeed.com	TH	ip_owner=Proen Internet, Internet Service Provider, Bangkok, Thailand; ips=2; titles=
+128	domain	huayiyunxinxi.com	CN	ip_owner=Tencent cloud computing (Beijing) Co., Ltd.; ips=2; titles=301 Moved Permanently
+131	org	Register.com, Inc	US	ips=503; certs=; *.networksolutionsemail.com; titles=; Webmail Login
+134	domain	gsu.edu	US	ip_owner=Georgia State University; ips=11; titles=HTTP Status 404 â€“ Not Found; 
+137	domain	bauernenergie.com	DE	ip_owner=Deutsche Telekom AG; ips=1; titles=    Anmelden – Bauernenergie  
+140	domain	sc.qa	QA	ip_owner=Ooredoo Q.S.C.; ips=4; titles=403 Forbidden; Object moved; Not Found
+143	domain	uphost.pro	PL	ip_owner=Artnet Sp. z o.o.; ips=2; titles=
+146	domain	hunterindustries.com	US	ip_owner=Amazon.com, Inc.; ips=11; titles=Object moved; Streamlit;      Centralus | Welcome   
+149	domain	cologlobal.com	US	ip_owner=Cologlobal; ips=3; titles=
+152	domain	7artisan.net	SE	ip_owner=Miss Hosting AB; ips=2; titles=Index of /
+155	domain	abocom.com.tw	TW	ip_owner=CHTD, Chunghwa Telecom Co.,Ltd.; ips=2; titles=
+158	domain	premiumwebserver.com	US	ip_owner=WebNX, Inc.; ips=4; titles=; Not Found; Plesk Obsidian 18.0.56
+161	domain	seshaasai.com	IN	ip_owner=BHARTI-AIRTEL; ips=2; titles=Outlook; 
+164	domain	accuwebhosting.com	US	ip_owner=Handy Networks, LLC; ips=4; titles=Not Found; One moment, please...; 
+167	domain	dolphinenergy.com	QA	ip_owner=Ooredoo Q.S.C.; ips=2; titles=    Home   ; NetScaler AAA
+170	domain	hsl.org.br	BR	ip_owner=F5 Anycast 1; ips=6; titles=403 - Forbidden: Access is denied.; ; Not Found; FORMULÁRIO DE CONTRIBUIÇÃO
+173	domain	kuhmoyhtio.fi	FI	ip_owner=Kaisanet Oy; ips=1; titles=Kuhmo Oy Secure Connect
+176	domain	evault.com	CA	ip_owner=Centrilogic, Inc.; ips=1; titles=Ivanti Connect Secure
+179	domain	peac-int.org	CH	ip_owner=AlpineDC SA; ips=1; titles=Perennial Experiences Amity Club International
+182	domain	gestgra.com	ES	ip_owner=Neotel 2000 S.L; ips=1; titles=Página no encontrada
+185	domain	howardpropertyservices.com	GB	ip_owner=Fasthosts Internet Limited; ips=1; titles=Home - Howard Property Services
+188	domain	jl.gov.cn	CN	ip_owner=China Mobile Communications Group Co., Ltd; ips=1; titles=
+191	domain	giochiuniti.it	IT	ip_owner=NAS DHCP Pool Como; ips=1; titles=
+194	domain	sigetplus.com.br	US	ip_owner=Amazon Technologies Inc.; ips=1; titles=Concilia
+197	domain	ktranews.co.kr	KR	ip_owner=Korea Telecom; ips=1; titles=KTRA 한국담배판매인회중앙회
+200	domain	sejavista.com.br	US	ip_owner=Amazon Technologies Inc.; ips=1; titles=Vista - Gestão de Licitações
+203	domain	concentrichealthcare.com	US	ip_owner=DigitalOcean, LLC; ips=1; titles=Healthcare Staffing Agency | Concentric Healthcare
+206	domain	mrsrafting.com	US	ip_owner=IT7 Networks Inc; ips=1; titles=
+209	domain	gobarefoot.in	IN	ip_owner=Amazon Data Services India; ips=1; titles=GoBarefoot | Social Sector | Network | NGO Jobs | 
+212	domain	cindt.org	US	ip_owner=M247 Ltd New York; ips=1; titles=跳转中...
+215	domain	catanduva.sp.gov.br	BR	ip_owner=SKYNEW ASSIS.TÉCN. EM INFORM.LTDA EPP; ips=1; titles=S.M.I.T.
+218	domain	tcljd.com	CN	ip_owner=Aliyun Computing Co., LTD; ips=1; titles=Grafana
+221	domain	ksas.co.kr	KR	ip_owner=SK Broadband Co Ltd; ips=1; titles=회사소개 - KSA SOLUTION
+224	domain	technisky.co.za	ZA	ip_owner=AFRIHOST SP (PTY) LTD; ips=1; titles=Univention Portal
+227	domain	primadonnacollection.com	IT	ip_owner=Retelit Digital Services S.p.A.; ips=1; titles=Logon Error Message
+230	domain	raise.com	US	ip_owner=Amazon Technologies Inc.; ips=1; titles=
+233	domain	d3api.com	JP	ip_owner=GMO Internet, Inc.; ips=1; titles=403 Forbidden
+236	domain	banko.com.ph	US	ip_owner=Alibaba Cloud LLC; ips=2; titles=301 Moved Permanently; BPI Direct BanKo/ADPS
+239	domain	scaleup.cloud	DE	ip_owner=ScaleUp Technologies GmbH & Co. KG; ips=22; titles=
+242	domain	stepstone.com	BE	ip_owner=Proximus NV; ips=3; titles=
+245	domain	lyminhtextile.com.vn	VN	ip_owner=Vietnam Posts and Telecommunications Group; ips=1; titles=Vigor Login Page
+248	domain	xdraconis.com	SG	ip_owner=Alibaba Cloud (Singapore) Private Limited; ips=3; titles=
+251	domain	boicingcorporate.net	US	ip_owner=Newfold Digital, Inc.; ips=3; titles=Not Found
+254	domain	izmocars.com	IE	ip_owner=Amazon Technologies Inc.; ips=14; titles=OpenVPN UI | Log in; Zimbra Web Client Sign In; 301 Moved Permanently; Elastic
+257	domain	grupodtg.com	CL	ip_owner=Oracle Corporation; ips=2; titles=Barre3 - Carro de Compras
+260	domain	blusardegna.info	GB	ip_owner=MEVSPACE sp. z o.o.; ips=2; titles=404 — Error
+263	domain	frontea.jp	JP	ip_owner=SAKURA Internet Inc.; ips=2; titles=名古屋市中区の株式会社フロンテア
+266	domain	preflight.com.au	AU	ip_owner=Servers Australia Pty Ltd; ips=2; titles=Training@EdConnect: Log in to the site - EdConnect
+269	domain	skywalkgames.com	KR	ip_owner=Amazon Data Services Northern Virginia; ips=2; titles=Welcome to nginx!
+272	domain	securitysigns.com	US	ip_owner=Google LLC; ips=2; titles=
+275	domain	linkedge.jp	JP	ip_owner=SAKURA Internet Inc.; ips=2; titles=メンテナンスモード
+278	domain	hunterprell.com	US	ip_owner=CloudAccess.net, LLC; ips=2; titles=
+281	domain	routine-control.net	JP	ip_owner=SAKURA Internet Inc.; ips=2; titles=r.c.o.
+284	domain	aham.com.my	MY	ip_owner=TT DOTCOM SDN BHD; ips=5; titles=Error; Object moved; AHAM Survey Portal; 500 - Internal server error.
+287	domain	salesianinordest.it	IT	ip_owner=Fastweb SpA; ips=3; titles=Salesiani Don Bosco | Italia Nord Est; 403 Forbidden
+290	domain	ip-162-19-126.eu	FR	ip_owner=OVH SAS; ips=8; titles=
+293	domain	nykredit.dk	DK	ip_owner=JN DATA A/S; ips=6; titles=NetScaler AAA; Error 503--Service Unavailable; 
+296	domain	coloradosos.gov	US	ip_owner=The Governor's Office of Information Technology; ips=2; titles=GlobalProtect Portal; Citrix Gateway
+299	domain	us.lt	LT	ip_owner=UAB "Interneto vizija"; ips=6; titles=
+302	domain	customis.com	US	ip_owner=Microsoft Corporation; ips=1; titles=
+305	domain	sccddyxrmyy.cn	CN	ip_owner=CHINANET Sichuan province network; ips=1; titles=; 健康管理（体检）中心
+308	domain	avalon-rpg.com	US	ip_owner=Google LLC; ips=1; titles=301 Moved Permanently; 
+311	domain	synchroweb.com	MY	ip_owner=Google LLC; ips=3; titles=RouterOS router configuration page
+314	domain	jngo.net	US	ip_owner=Amazon Technologies Inc.; ips=2; titles=JangoMail
+317	domain	upc.com.tw	TW	ip_owner=Data Communication Business Group,; ips=3; titles=Outlook; BIG-IP logout page
+320	domain	phpmcs.com	US	ip_owner=CenturyLink Communications, LLC; ips=5; titles=GlobalProtect Portal; Physician Health Partners Web Client; 
+323	domain	benerdy.net	US	ip_owner=DigitalOcean, LLC; ips=1; titles=Welcome to my website!; 301 Moved Permanently
+326	domain	zhaorangxin.com	CN	ip_owner=Tencent Cloud Computing (Beijing) Co., Ltd; ips=1; titles=&#x4E3B;&#x9875; - WebApplication2; Not Found
+329	domain	abansys.com	ES	ip_owner=Abansys & Hostytec, S.L.; ips=5; titles=
+332	domain	amadeus.net	DE	ip_owner=Amadeus GmbH; ips=61; titles=NetScaler Gateway; 
+335	domain	uip.com	IE	ip_owner=Amazon.com, Inc.; ips=2; titles=Document Moved; UIP : United International Pictures; 
+338	domain	vevida.net	NL	ip_owner=Vevida bv; ips=2; titles=; One moment, please...
+341	domain	tier.net	US	ip_owner=Tier.Net Technologies LLC; ips=6; titles=
+344	domain	ascopiave.it	IT	ip_owner=HERABIT S.p.A.; ips=5; titles=
+347	domain	frontiernet.net	US	ip_owner=Verizon Business; ips=8; titles=GlobalProtect Portal; Frontier Speed Test | Test Upload and Download Wi-; 301 Moved Permanently
+350	domain	elcorteingles.es	ES	ip_owner=El Corte Ingles S.A.; ips=12; titles=BIG-IP logout page; 404 Not Found
+353	domain	arena.ne.jp	JP	ip_owner=Server Hosting Service (NTTPCCommunications,Inc.); ips=7; titles=401 Authorization Required; 
+356	domain	muqiuxm.com.cn	CN	ip_owner=Aliyun Computing Co.LTD; ips=1; titles=
+359	domain	gaylewashburn.com	US	ip_owner=HostPapa; ips=1; titles=Gayle Washburn - A Downwardly Mobile Baby Boomer
+362	domain	ab-lingua.net	DE	ip_owner=IONOS SE; ips=1; titles=AB LINGUA &#8211; Übersetzungen deutsch-polnisch /
+365	domain	krysium.com	GB	ip_owner=Heart Internet limited; ips=1; titles=Krysium Advisors | International debt recovery and
+368	domain	lunaworks.co.jp	JP	ip_owner=SAKURA Internet Inc.; ips=1; titles=
+371	domain	retail-capital-advisors.com	DE	ip_owner=IONOS SE; ips=1; titles=Monteurzimmer im Martaviertel; Tekton Holzpflaster
+374	domain	hector-guedes.de	DE	ip_owner=IONOS SE; ips=1; titles=Héctor Guedes &#8211; Just another WordPress site
+377	domain	arms-tax.com	JP	ip_owner=DCI-JP; ips=1; titles=HOME | 税理士法人アーマス
+380	domain	kurashito.co.jp	JP	ip_owner=SAKURA Internet Inc.; ips=1; titles=仙台のおしゃれな賃貸マンション・アパートなら【KURASHITO（クラシト）】
+383	domain	yaotoufa.com	CN	ip_owner=Tencent cloud computing (Beijing) Co., Ltd.; ips=1; titles=要投发产品人日志 | 微信公众号：yaotoufa -
+386	domain	yingkaijian.com	US	ip_owner=YottaSrc; ips=1; titles=
+389	domain	enterprisesecuritymag.com	US	ip_owner=Amazon Technologies Inc.; ips=1; titles=Latest  News & Insights | Enterprise Security Maga
+392	domain	arka.limited	CA	ip_owner=OVH Hosting, Inc.; ips=1; titles=ARKA LIMITED
+395	domain	sonalika.com	IN	ip_owner=Shyam Spectra Pvt Ltd; ips=1; titles=Welcome Screen
+398	domain	minatohome.co.jp	JP	ip_owner=GMO Internet, Inc.; ips=1; titles=神戸市兵庫区湊川の不動産会社有限会社ミナトホーム
+401	domain	unlockdatacareers.org	US	ip_owner=Steadfast; ips=1; titles=Unlocking Data Careers | Free Data Training in Alb
+404	domain	open-isc.co.jp	JP	ip_owner=GMO pepabo. Inc.; ips=1; titles=
+407	domain	ascensoresvertirod.com	CA	ip_owner=GloboTech Communications; ips=1; titles=         Ascensoresvertirod.com    
+410	domain	construccionesrodenas.com	ES	ip_owner=arsys.es; ips=1; titles=Reformas y Construcciones Ródenas S.L. | Onda (Cas
+413	domain	hatinohekagaku.co.jp	JP	ip_owner=Business Service Corporation; ips=1; titles=株式会社八戸科学｜青森｜理化学機器の総合商社
+416	domain	ljccorp.net	US	ip_owner=Eonix Corporation; ips=1; titles=中国·永乐高030net(股份)有限公司-官方网站
+419	domain	yinmengyuan.com	CN	ip_owner=Aliyun Computing Co., LTD; ips=1; titles=3D打印服务_3D打印创造云平台 - 印梦园
+422	domain	cifons.com	JP	ip_owner=SAKURA Internet Inc.; ips=1; titles=サイフォンス株式会社　-CIFONS CORPORATION-
+425	domain	proactive-management-consulting.com.au	AU	ip_owner=Dreamscape Networks PTY LTD; ips=1; titles=
+428	domain	shribalajioverseas.in	US	ip_owner=Hostinger International Limited; ips=1; titles=Shri Balaji Overseas | Shri Balaji Overseas
+431	domain	kd-plan.de	DE	ip_owner=IONOS SE; ips=1; titles=
+434	domain	fulpcpa.com	US	ip_owner=Newfold Digital, Inc.; ips=1; titles=Walter Fulp III CPA, PA - serving our community fo
+437	domain	1-800-mrhandyman.com	US	ip_owner=Windstream Communications LLC; ips=1; titles=404 — Error
+440	domain	canastariccione.com	DE	ip_owner=OVH GmbH; ips=1; titles=Ristorante Canasta a Riccione con proposte culinar
+443	domain	westcorooter.com	US	ip_owner=GoDaddy.com, LLC; ips=1; titles=Professional Plumbing Sewer &amp; Drain Repair Com
+446	domain	pperfect.com	ZA	ip_owner=Vox Telecom Ltd; ips=1; titles=
+449	domain	fastchangeframes.com	US	ip_owner=IONOS Inc.; ips=1; titles=Fast Change Frames | Alpina Manufacturing
+452	domain	icscarrier.com	DE	ip_owner=ConnectingBytes GmbH; ips=1; titles=     Log In | ICS - A Smart TelePhony Platform    
+455	domain	bankofworlds.com	US	ip_owner=Hosteons Pte. Ltd.; ips=1; titles=Bankofworlds.com
+458	domain	huntfamilydentalcare.com	US	ip_owner=IONOS Inc.; ips=1; titles=Brandon Dentist Adam C. Hunt | Dr. Hunt Family Den
+461	domain	after-phase.com	JP	ip_owner=SAKURA Internet Inc.; ips=1; titles=アフターフェイズ株式会社
+464	domain	outa.co.za	ZA	ip_owner=Rackzar  (Pty) Ltd - Rackzar  (Pty) Ltd; ips=1; titles=Sign in - Matomo
+467	domain	becker-malerbetrieb.de	DE	ip_owner=IONOS SE; ips=1; titles=Malerbetrieb Becker &#8211; Maler | Lackierer | Sa
+470	domain	heidelberger-kulturbrauerei.de	DE	ip_owner=IONOS SE; ips=1; titles=Kulturbrauerei Heidelberg Brauhaus, Restaurant &am
+473	domain	excalon.com	DE	ip_owner=IONOS SE; ips=1; titles=Excalon Ltd | Infrastructure for Tomorrow
+476	domain	hazyrealm.net	US	ip_owner=Pine Hosting; ips=1; titles=Home &bull; Hazy Realm
+479	domain	setagaya-fudousan.com	JP	ip_owner=GMO Pepabo, Inc.; ips=1; titles=世田谷の不動産売却なら「Studio Danke (スタジオダンケ)」
+482	domain	enami-dc.com	JP	ip_owner=SAKURA Internet Inc.; ips=1; titles=東淀川区•JR淡路駅すぐ/30年以上続く歯医者は江並歯科
+485	domain	broesele.de	DE	ip_owner=IONOS SE; ips=1; titles=www.broesele.de &#8211; Broesele PR und Werbeagent
+488	domain	wxnas.cc	CN	ip_owner=Tencent Cloud Computing (Beijing) Co., Ltd; ips=1; titles=
+491	domain	4handyman.com	US	ip_owner=VegasNAP, LLC; ips=1; titles=4handyman.com
+494	domain	ikongps.com	US	ip_owner=Amazon.com, Inc.; ips=1; titles=
+497	domain	renspec-repairs.co.uk	US	ip_owner=CloudAccess.net, LLC; ips=1; titles=Home
+500	domain	zen-yu.co.jp	JP	ip_owner=OPTAGE Inc.; ips=1; titles=Roundcube Webmail :: Welcome to Roundcube Webmail
+503	domain	msjekyll.com	US	ip_owner=HostPapa; ips=1; titles=Aroma of Love Online Shop
+506	domain	kenchoji.com	JP	ip_owner=Future Spirits Co.,Ltd.; ips=1; titles=Horde :: Log in
+509	domain	solsim.cloud	US	ip_owner=Amazon Technologies Inc.; ips=1; titles=GRUPO ING MILLENIUM
+512	domain	sumaizu.net	JP	ip_owner=Future Spirits Co.,Ltd.; ips=1; titles=
+515	domain	protec24.ne.jp	JP	ip_owner=MEDIAWARS co.,ltd.; ips=1; titles=株式会社プロテック24
+518	domain	risingdigital.com	US	ip_owner=Cox Communications Inc.; ips=1; titles=Home - Rising Digital Corporation
+521	domain	air-fit.co.uk	GB	ip_owner=VeloxServ Communications Ltd; ips=1; titles=site
+524	domain	rosso-hair.net	JP	ip_owner=GMO Internet, Inc.; ips=1; titles=
+527	domain	baalspizza.com	US	ip_owner=ReliableSite.Net LLC; ips=1; titles=Baalspizza.com
+530	domain	ameon.co.uk	DE	ip_owner=IONOS SE; ips=1; titles=
+533	domain	rapid.ch	CH	ip_owner=MvA Internet Services GmbH; ips=1; titles=Rapid. Macht&#039;s einfach. | Rapid Technic AG
+536	domain	party-tpt.com	JP	ip_owner=SAKURA Internet Inc.; ips=1; titles=東京タワー前の宴会場・会議・セミナー会場｜港区 The Place of Tokyo
+539	domain	psia-rm.org	US	ip_owner=GoDaddy.com, LLC; ips=1; titles=Site under maintenance | PSIA-RM Membership Portal; Database Error
+542	domain	nth-solutions.com	US	ip_owner=GoDaddy.com, LLC; ips=1; titles=
+545	domain	junsendo.com	JP	ip_owner=GMO Internet, Inc.; ips=1; titles=Redirecting to https://www.junsendo.com/
+548	domain	mausachopmenh.com	US	ip_owner=Interserver, Inc; ips=1; titles=         Mausachopmenh.com    
+551	domain	landwirtschaft-koerner.de	DE	ip_owner=IONOS SE; ips=1; titles=Gallery
+554	domain	adwsprayers.com	US	ip_owner=Newfold Digital, Inc.; ips=1; titles=ADW Turf Sprayers | Turf Sprayer Manufacture for t
+557	domain	dr-ladik.de	DE	ip_owner=IONOS SE; ips=1; titles=Start - Dr. med. Tristan Ladik - Privatpraxis für 
+560	domain	ramonribera.cat	DE	ip_owner=IONOS SE; ips=1; titles=Pintores - Ramón Ribera
+563	domain	arilu.com.br	BR	ip_owner=R4 Informática Ltda; ips=1; titles=Arilu | Página Inicial
+566	domain	emma.in.ua	UA	ip_owner=ipv4 assignment for Bigline; ips=1; titles=Результати
+569	domain	onebouldering.jp	JP	ip_owner=SAKURA Internet Inc.; ips=1; titles=
+572	domain	miurakankobus.co.jp	JP	ip_owner=SAKURA Internet Inc.; ips=1; titles=貸切バス&マイクロバス【神奈川県｜横須賀・横浜・葉山・逗子・鎌倉】三浦観光バス
+575	domain	pmsignsinc.com	US	ip_owner=Southwest Cyberport, Inc.; ips=1; titles=P&amp;M Signs
+578	domain	nextstage-inc.com	JP	ip_owner=SAKURA Internet Inc.; ips=1; titles=クレジットカード現金化の優良店の特徴をチェック！これがあれば優良店認定してもOK？ - クレジットカ
+581	domain	cactusatelier.cl	US	ip_owner=Linode; ips=1; titles=Cactus Atelier &#8211; Papelería
+584	domain	a-e-c.co.jp	JP	ip_owner=RIDE Co.,Ltd.; ips=1; titles=Roundcube Webmail :: Welcome to Roundcube Webmail
+587	domain	energykinetics.com	US	ip_owner=Rackspace Hosting; ips=1; titles=    Dealers  ; 
+590	domain	bacorp1.com	US	ip_owner=InMotion Hosting, Inc.; ips=1; titles=New Home Builder in LBI | Construction Company in 
+593	domain	moonlightingproteins.org	US	ip_owner=Amazon Technologies Inc.; ips=1; titles=MoonProt &#8211; A Database for Moonlighting Prote
+596	domain	larson-electronics.com	US	ip_owner=Liquid Web, L.L.C; ips=1; titles=Active Collab
+599	domain	acs-drevers.de	DE	ip_owner=IONOS SE; ips=1; titles=Blog über Gabionen und Gartendekoration
+602	domain	zimmerland-click.co.il	FR	ip_owner=OVH SAS; ips=1; titles=   צימר קליק  
+605	domain	motortrendltd.co.uk	DE	ip_owner=IONOS SE; ips=1; titles=Used Cars Great Missenden, Buckinghamshire | Motor
+608	domain	classyhost.com	US	ip_owner=Interserver, Inc; ips=1; titles=AntiqueSale.net
+611	domain	talentplan.com	US	ip_owner=Newfold Digital, Inc.; ips=1; titles=Home - talentplan.com
+614	domain	sip-terminator.com	CA	ip_owner=OVH Hosting, Inc.; ips=1; titles=Roundcube Webmail :: Welcome to Roundcube Webmail
+617	domain	gifthat.net	JP	ip_owner=GMO Pepabo, Inc.; ips=1; titles=Gifthat - 千葉県最大級ブランドCAP取扱い&amp;NEW ERA正規店 gifthat（
+620	domain	enigmaesl.com	DE	ip_owner=IONOS SE; ips=1; titles=Air Conditioning Services in Reading &#8211; Enigm
+623	domain	homedepo.biz	JP	ip_owner=SAKURA Internet Inc.; ips=1; titles=施主支給業界No.1！最大80％OFFの日本最安施主支給専門店ホーム・デポ
+626	domain	goryochemical.com	JP	ip_owner=SAKURA Internet Inc.; ips=1; titles=五稜化薬株式会社
+629	domain	deliveree.io	US	ip_owner=Mojohost; ips=1; titles=Delieree &#8211; Emails Go Far. You Start Free.
+632	domain	acemsa.es	ES	ip_owner=acens Technologies, S.L.; ips=1; titles=Acemsa - Pagina de login
+635	domain	sun-eco.jp	JP	ip_owner=SAKURA Internet Inc.; ips=1; titles=幸栄建設株式会社
+638	domain	vwdknotarissen.nl	NL	ip_owner=Bas Smit trading as Zylon; ips=1; titles=Van Weeghel Doppenberg Kamps Notarissen | VWDK Not
+641	domain	maqssolution.live	FR	ip_owner=velia.net Internetdienste GmbH; ips=1; titles=Welcome Screen
+644	domain	assemblytechniques.com	GB	ip_owner=Fasthosts Internet Limited; ips=1; titles=Roundcube Webmail :: Welcome to Roundcube Webmail
+647	domain	purepostexpress.com	HK	ip_owner=Alibaba Cloud LLC; ips=1; titles=PP速运官网
+650	domain	cleanroomdepot.com	US	ip_owner=IONOS Inc.; ips=1; titles=Modular Hard Wall and Soft Wall Cleanrooms | Clean
+653	domain	100hyakunen.com	JP	ip_owner=GMO Pepabo, Inc.; ips=1; titles=吉祥寺「百年」古本の買取と販売
+656	domain	mymotioncalendar.com	US	ip_owner=Amazon.com, Inc.; ips=1; titles=
+659	domain	khsbicycles.com	US	ip_owner=IONOS Inc.; ips=1; titles=KHS Bicycles Store &#8211; Find yourself&#8230;on 
+662	domain	nienhof.de	DE	ip_owner=IONOS SE; ips=1; titles=Magdeburger Stadtmission; Startseite - Hovawarte vom Eichwaldsgrund
+665	domain	rtsolutions.it	DE	ip_owner=Contabo GmbH; ips=1; titles=
+668	domain	likesolutions.com.br	US	ip_owner=DigitalOcean, LLC; ips=1; titles=LIKE SOLUTIONS
+671	domain	goofyfootsurfschool.com	US	ip_owner=InMotion Hosting, Inc.; ips=1; titles=Goofy Foot Surf School &#8211; Welcome to Goofy Fo
+674	domain	tenryuji.com	JP	ip_owner=Future Spirits Co.,Ltd.; ips=1; titles=Horde :: Log in
+677	domain	kgjatoke.fashion	US	ip_owner=WholeSale Internet, Inc.; ips=1; titles=【公式】日本直販プレミア｜人気商品ランキング公開中
+680	domain	if-shop.com	HK	ip_owner=Alibaba Cloud LLC; ips=1; titles=ink cup of pad printer,ceramic ring,Tungsten carbi
+683	domain	chip66.com	CN	ip_owner=Aliyun Computing Co., LTD; ips=1; titles=用户登录 - 询价管理系统
+686	domain	gospelofgiving.com	US	ip_owner=InfoQuest Technologies, Inc.; ips=1; titles=Madam C. J. Walker’s Gospel of Giving - My CMS
+689	domain	donq.co.jp	JP	ip_owner=SAKURA Internet Inc.; ips=1; titles=トップページ - ドンク - DONQ -
+692	domain	ic-oita.com	JP	ip_owner=GMO Internet, Inc.; ips=1; titles=
+695	domain	tibo.com	DE	ip_owner=Kai Mueller GmbH; ips=1; titles=Tieflochbohrmaschinen | TIBO Tiefbohrtechnik GmbH
+698	domain	rws-verlag.de	DE	ip_owner=IONOS SE; ips=1; titles=
+701	domain	pferdepension-lang.de	DE	ip_owner=IONOS SE; ips=1; titles=Pferdepension Lang
+704	domain	stewartspawn.com	US	ip_owner=Eonix Corporation; ips=1; titles=中国·198net银河集团(股份)有限公司-Official Website
+707	domain	zazzfreebies.com	US	ip_owner=HostPapa; ips=1; titles=10.ZazzFreebies - Just One Credit to Complete - $1
+710	domain	gemeinsam-fuer-luenen.de	DE	ip_owner=IONOS SE; ips=1; titles=Jacek Jonczyk
+713	domain	croz.net	DE	ip_owner=DigitalOcean, LLC; ips=1; titles=zabbix-ext: Zabbix
+716	domain	cientifiques.cat	ES	ip_owner=Entidad Publica Empresarial Red.es; ips=1; titles=cientifiques.cat | Web d&#039;FCRI
+719	domain	oshinolamps.co.jp	JP	ip_owner=SAKURA Internet Inc.; ips=1; titles=       株式会社押野電気製作所｜Oshino Lamps Ltd. | 押野電気製作所    
+722	domain	wiserrecoveryjewelry.com	US	ip_owner=InMotion Hosting, Inc.; ips=1; titles=Welcome to Wiser Recovery Jewelry - Wiser Recovery
+725	domain	irodorinet.jp	JP	ip_owner=Value Core Inc.; ips=1; titles=ログイン
+728	domain	mitsumi-sensui.co.jp	JP	ip_owner=SAKURA Internet Inc.; ips=1; titles=株式会社ミツミ | 株式会社ミツミは、安全で快適な暮らしを海中から支えています
+731	domain	tindustrial.de	DE	ip_owner=IONOS SE; ips=1; titles=Tindustrial
+734	domain	pocket-link.com	US	ip_owner=Amazon Technologies Inc.; ips=1; titles=
+737	domain	digitalvox.es	ES	ip_owner=arsys.es; ips=1; titles=
+740	domain	day50communications.com	US	ip_owner=InMotion Hosting, Inc.; ips=1; titles=
+743	domain	dwarfgiraffe.com	US	ip_owner=IONOS Inc.; ips=1; titles=Dwarf Giraffe Athletic League
+746	domain	posten-boerse.de	DE	ip_owner=IONOS SE; ips=1; titles=Herbie H. Hart: Solo, Duo, Trio, Quartett Performa
+749	domain	gr-miyuka.com	JP	ip_owner=GMO DigiRock, Inc.; ips=1; titles=湯河原温泉 民宿 旅館 源泉掛け流し｜美湯香 
+752	domain	albert-alt-gmbh.de	DE	ip_owner=IONOS SE; ips=1; titles=
+755	domain	svsurveying.co.uk	GB	ip_owner=Cloud Platform; ips=1; titles=SV Surveying LTD - Topographic Land &amp; Measured
+758	domain	gregoire.fr	DE	ip_owner=DigitalOcean, LLC; ips=1; titles=Grégoire : machines à vendanger et pour la récolte
+761	domain	globusmaritime.gr	DE	ip_owner=Hetzner Online GmbH; ips=1; titles=Welcome to Globus Maritime Limited
+764	domain	arteliagroup.vn	VN	ip_owner=SUPER ONLINE DATA JOINT STOCK COMPANY; ips=1; titles=Home - Artelia Vietnam
+767	domain	chiji-h5.com	CN	ip_owner=Aliyun Computing Co., LTD; ips=1; titles=
+770	domain	beadsandpieces.com	US	ip_owner=velia.net; ips=1; titles=Natural Beads for Jewelry making and crafts. Excel
+773	domain	japanpile.co.jp	JP	ip_owner=DIX Co., Ltd.; ips=1; titles=ジャパンパイル株式会社
+776	domain	minimal-japan.com	JP	ip_owner=Amazon Technologies Inc.; ips=1; titles=【倒産・未入金リスクを回避】小口保証の Minimal（ミニマル)
+779	domain	albourgaya.com	MY	ip_owner=VPSMALAYSIA.COM.MY; ips=1; titles=Albourgaya.com; 
+782	domain	stavcentr-gagarina.ru	RU	ip_owner=EuroByte LLC; ips=1; titles=КЦРТДиЮ
+785	domain	worcmedals.com	GB	ip_owner=Krystal Hosting Ltd; ips=1; titles=Home Page | Worcestershire Medal Service Ltd 
+788	domain	pansku.com	PA	ip_owner=Cyber Cast International, S.A.; ips=1; titles=Pansku.com
+791	domain	mazeikiuligonine.lt	LT	ip_owner=PBAS hosting system LAN; ips=1; titles=
+794	domain	mandsbureau.com	US	ip_owner=Amazon Technologies Inc.; ips=1; titles=Test Page for the Apache HTTP Server on the Amazon
+797	domain	arielschrag.com	NL	ip_owner=HostPapa; ips=1; titles=Ariel Schrag
+800	domain	jacksonlifts.com	GB	ip_owner=UKFAST ANS ACADEMY LIMITED; ips=1; titles=Lift Company | Lifts, Escalators &amp; Cradles | J
+803	domain	lobesquare.com	JP	ip_owner=SRS SAKURA Internet Inc.; ips=1; titles=株式会社ロブスクエア | スチール製・ステンレスの階段・手すりの専門のロブスクエア
+806	domain	mgm.on.ca	CA	ip_owner=Peer 1 Hosting Toronto; ips=1; titles=
+809	domain	americancollegesports.com	CA	ip_owner=Leaseweb Canada Inc.; ips=1; titles=Americancollegesports.com
+812	domain	fujikizai.jp	JP	ip_owner=SRS SAKURA Internet Inc.; ips=1; titles=不二機材株式会社(FUJI-KIZAI) &#8211; Official Website of F
+815	domain	hargreavesasia.com	HK	ip_owner=Amazon.com, Inc.; ips=1; titles=Not Found
+818	domain	exh365.com	US	ip_owner=Interserver, Inc; ips=1; titles=
+821	domain	jilldecoy.com	JP	ip_owner=GMO Internet, Inc.; ips=1; titles=JiLL-Decoy association &rsaquo; JiLL-Decoy associa
+824	domain	newhomemedia.net	US	ip_owner=Unified Layer; ips=1; titles=One-Stop Sign Company Serving VA, MD &amp; DC | Ne
+827	domain	sgcloudhosting.cloud	SG	ip_owner=Web Hosting Operation; ips=4; titles=
+830	domain	dnshostserver.in	IN	ip_owner=Tier 4 Cloud Services; ips=4; titles=
+833	domain	airswift.com	IE	ip_owner=Microsoft Corporation; ips=3; titles=AIRSWIFT-ZABBIX-SERVER-VM-PROD: Zabbix
+836	domain	gpiusa.com	US	ip_owner=Amazon Technologies Inc.; ips=4; titles=Citrix Gateway
+839	domain	makfasteners.com	IE	ip_owner=Digiweb Ltd.; ips=1; titles=302 Found; MAK Virtual Office
+842	domain	globalsase.com	DE	ip_owner=NOVA TECHNOLOGY DEVELOPMENT LIMITED; ips=4; titles=; FortiGate
+845	domain	testworks.ai	KR	ip_owner=AWS Asia Pacific (Seoul) Region; ips=1; titles=
+848	domain	grimaldifranchising.it	US	ip_owner=Google LLC; ips=1; titles=Grimaldi Immobiliare - La casa giusta, in modo fac
+851	domain	citytax.com	US	ip_owner=Google LLC; ips=1; titles=City Tax | Tax Resolution &amp; Accounting
+854	domain	rebellion.net	GB	ip_owner=Amazon Technologies Inc.; ips=1; titles=Redirecting to http://18.133.25.x/login/start
+857	domain	cloud.com	US	ip_owner=Microsoft Corporation; ips=28; titles=Citrix DnsApi; XenMobile - Console - Logon
+860	domain	intertech.com.tr	TR	ip_owner=Denizbank A.S.; ips=3; titles=GlobalProtect Portal; 
+863	domain	f2c4aae6.com	US	ip_owner=BrainStorm Network Inc.; ips=1; titles=Silver Ledger
+866	domain	freehost.com	UA	ip_owner=Freehost UA; ips=1; titles=
+869	domain	aiinformatics.com	DE	ip_owner=Applied International Informatics GmbH; ips=5; titles=; NetScaler AAA
+872	domain	usermd.net	PL	ip_owner=ATM S.A.; ips=3; titles=
+875	domain	ebm.com.pk	US	ip_owner=Unified Layer; ips=3; titles=
+878	org	ZheJiang FengLi Electromechanical Co.Ltd	CN	ips=1; certs=; titles=
+881	domain	escritoriovirtual.shop	US	ip_owner=Internet Utilities NA LLC; ips=6; titles=IIS Windows Server; Not Found
+884	domain	bridgehill.com.au	AU	ip_owner=CTI SOLUTIONS; ips=3; titles=VPN Portal
+887	domain	tizoo.com	CH	ip_owner=TiZoo Sarl; ips=9; titles=
+890	domain	kanagawa-u.ac.jp	JP	ip_owner=Japan Network Information Center; ips=2; titles=地球宇宙情報研究室
+893	domain	melia.com	MX	ip_owner=H4Y Technologies LLC; ips=2; titles=Subwaynet.org
+896	domain	iaecc.re.kr	KR	ip_owner=Korea Telecom; ips=2; titles=:: SPAMOUT V9 ::
+899	domain	akk-tv.com	DE	ip_owner=Hetzner Online GmbH; ips=2; titles=AKK Broadcast - Dein Partner für Medien- &amp; Liv
+902	domain	anexia-it.com	DE	ip_owner=Anexia Cloud Solutions GmbH; ips=4; titles=403 Forbidden; 
+905	domain	iaus.ac.rs	RS	ip_owner=Akademska mreza Republike Srbije - AMRES; ips=2; titles=Not Found
+908	domain	cdi-hq.com	US	ip_owner=Comcast Cable Communications, LLC; ips=2; titles=Home - cdi_hq; 301 Moved Permanently; 
+911	domain	phdns15.es	ES	ip_owner=Soluciones web on line s.l.; ips=5; titles=; ProfesionalHosting
+914	domain	sunvending.co.th	TH	ip_owner=United Information Highway Co.,Ltd.; ips=3; titles=
+917	domain	kunlunca.com	CN	ip_owner=CHINANET Hunan province network; ips=2; titles=403 Forbidden
+920	domain	mnsi.net	CA	ip_owner=Managed Network Systems Inc.; ips=4; titles=
+923	domain	icue-medien.de	DE	ip_owner=IP-Projects GmbH & Co. KG; ips=5; titles=
+926	domain	vaisala.io	US	ip_owner=Amazon Data Services Northern Virginia; ips=10; titles=301 Moved Permanently; Index of /
+929	domain	gobaz.ir	IR	ip_owner=IP Master Group LLC FZ; ips=1; titles=308 Permanent Redirect; Harbor
+932	domain	ipcservices.net	US	ip_owner=MailChimp; ips=2; titles=
+935	domain	rnova.com.br	US	ip_owner=HostGator.com LLC; ips=2; titles=
+938	domain	alexandreia.com	DE	ip_owner=Hetzner Online GmbH; ips=2; titles=; Index of /
+941	domain	server275.com	US	ip_owner=SureSupport LLC; ips=2; titles=
+944	domain	mitac.com.tw	US	ip_owner=SureSupport LLC; ips=2; titles=
+947	domain	solbyte.cloud	ES	ip_owner=Soluciones web on line s.l.; ips=2; titles=
+950	domain	selmi.com.br	US	ip_owner=Unified Layer; ips=2; titles=
+953	domain	gu.se	SE	ip_owner=Goteborgs universitet; ips=14; titles=Label Studio
+956	domain	ips-master.tech	ES	ip_owner=XFERA Moviles S.A.; ips=2; titles=502 Bad Gateway; 
+959	domain	mustangcat.com	US	ip_owner=Optimum; ips=2; titles=Object moved; Not Found; ; Document Moved;   Mustang CAT SmartTrak 
+962	domain	yinuoinfo.com	CN	ip_owner=Aliyun Computing Co., LTD; ips=2; titles=; 404 Not Found
+965	domain	blackbuck.com	IN	ip_owner=Amazon Data Services India; ips=7; titles=Page Redirecting; 301 Moved Permanently
+968	domain	butlins.com	GB	ip_owner=Microsoft Corporation; ips=4; titles=Welcome to the Butlin's Owners Portal
+971	domain	cyberfuel.com	CR	ip_owner=Server Lodge S.A.; ips=6; titles=
+974	domain	commercebank.com	US	ip_owner=AT&T Enterprises, LLC; ips=16; titles=403 - Forbidden: Access is denied.; NetScaler AAA
+977	domain	swm.de	DE	ip_owner=SWM Services GmbH; ips=14; titles=Service unavailable - Seite nicht verfügbar; Citrix Gateway
+980	domain	houseofthaller.com	US	ip_owner=AT&T Enterprises, LLC; ips=2; titles=
+983	domain	appsplatform.us	US	ip_owner=Microsoft Corporation; ips=2; titles=
+986	domain	bps.bm	BM	ip_owner=LinkBermuda LTD; ips=2; titles=Outlook
+989	domain	synflex.com	DE	ip_owner=q.beyond AG; ips=2; titles=Outlook
+992	domain	cardenalcisneros.es	FR	ip_owner=OVH SAS; ips=2; titles=; 400 Bad Request; CUCC S&oacute;crates - Centro Universitario Carden
+995	domain	daniellegal.net	DE	ip_owner=IONOS SE; ips=1; titles=Site is undergoing maintenance; Reiseblog Die Reiselautsprecher; Immobilien- und Baurecht - Aktuelle Informationen 
+998	domain	silverbarrel.com	US	ip_owner=RimuHosting; ips=1; titles=
+1001	domain	vprohub.com	US	ip_owner=Amazon Technologies Inc.; ips=1; titles=
+1004	domain	dashi-corp-mos.biz	JP	ip_owner=Amazon Technologies Inc.; ips=1; titles=   ログイン 
+1007	domain	nps-hannover.de	DE	ip_owner=Strato GmbH; ips=1; titles=NPS Hannover - Fulfillment für Online Shops
+1010	domain	lifegraph.com	JP	ip_owner=GMO pepabo. Inc.; ips=1; titles=LIFEGRAPH
+1013	domain	cassanotariato.it	IT	ip_owner=Netsons s.r.l.; ips=1; titles=Cassa Nazionale del Notariato - Cassa Nazionale de

@@ -21,10 +21,11 @@ NOISE_CVES = "['CVE-2023-44487', 'CVE-2020-11023', 'CVE-2020-11022', 'CVE-2019-1
 # server whose page used PHP or WordPress, version unknown.
 #
 # Patched in place: distro packages (Ubuntu, Debian, RHEL and rebuilds backport fixes without changing
-# the version) and IIS (patched by Windows Update). Their version says nothing about a CVE.
+# the version) and IIS (patched by Windows Update). Their version says nothing about their CVEs; an
+# application on top of them (WordPress, Exchange) still has its own version.
 # ("Apache/2.4.58 ()" with empty parentheses is Amazon Linux's build)
 DISTRO_RE = (r"(?i)(ubuntu|debian|centos|red ?hat|rhel|\.el[5-9]|\bel[5-9]\b|amzn|amazon linux|almalinux|"
-             r"rocky|fedora|suse|raspbian|freebsd|/[0-9.]+ \(\))")
+             r"rocky|fedora|suse|raspbian|freebsd|deb[0-9]+u[0-9]|/[0-9.]+ \(\))")
 # Versions the distributions ship and patch in place. Servers often hide the OS from the header
 # (Apache's ServerTokens, and Debian's nginx never names Debian), so a bare "nginx/1.22.1" is Debian 12's
 # package as often as not, and RHEL's OpenSSH says "7.4" where upstream says "7.4p1". Treated as
@@ -36,15 +37,32 @@ DISTRO_VERSIONS = {
     "OpenSSH": ["5.3", "6.6.1", "7.4", "8.0", "8.7"],  # RHEL's: no "p1"
 }
 UPSTREAM_BUILD_RE = r"\((Unix|Win32|Win64)\)"
-# coalesce: a service with no version must read as "not patched in place", not NULL (which drops it from
-# every rule that asks)
+# A distro build (coalesce: a service with no version reads as "not a distro build", not NULL, which
+# would drop it from every rule that asks)
 PATCHED_IN_PLACE = (
     "coalesce(regexp_matches(concat_ws(' ', http_server, version, os, array_to_string(cpe23, ' '), "
     f"cast(http_headers['x-powered-by'] as varchar)), '{DISTRO_RE}') "
     "or ((" + " or ".join(f"(product = '{p}' and list_contains({v!r}, version))" for p, v in DISTRO_VERSIONS.items())
     + f") and not regexp_matches(coalesce(http_server, ''), '{UPSTREAM_BUILD_RE}')) "
-    "or coalesce(product ilike '%IIS%', false) "
-    "or list_contains(list_transform(cpe23, lambda c: split_part(c, ':', 5)), 'internet_information_services'), false)")
+    ", false)")
+# what a distro build patches in place: the server software it packages, not an application on top
+# (WordPress, Exchange, Jenkins carry their own versions). CPE product names.
+DISTRO_PACKAGED = ["http_server", "nginx", "openssh", "php", "openssl", "lighttpd", "squid", "bind", "exim",
+                   "dnsmasq", "ntp", "mysql", "mariadb", "postgresql", "proftpd", "vsftpd", "samba", "postfix",
+                   "dovecot", "tomcat", "perl", "python", "mod_ssl", "mod_perl", "mod_wsgi"]
+# IIS is patched by Windows Update without changing its version: its own CVEs can't be read from it
+
+# A CVE or end-of-life claim needs its product's version in the record a seller can show: a full version
+# (with a dot, not a release name like "SharePoint 2016" or "Drupal 7") that appears in the version
+# field, server header, X-Powered-By or banner. The scanner also infers versions from content we don't
+# keep, and those failed a blind review two times in three. Exchange's build is its own field.
+VISIBLE_TEXT = ("concat_ws(' ', version, http_server, cast(http_headers['x-powered-by'] as varchar), banner)")
+
+
+def version_visible_sql(prod, ver, text="visible"):
+    """SQL: the CPE (prod, ver) is a full version that the record itself shows."""
+    return (f"(({ver} like '%.%' and regexp_matches({text}, '(^|[^0-9.])' || regexp_escape({ver}) || '([^0-9]|$)')) "
+            f"or ({prod} in ('outlook_web_access', 'exchange_server') and exchange_build is not null))")
 
 # An operating system past end of support, read from the package versions each release ships (a
 # banner rarely names the OS, but Apache 2.4.29 on Ubuntu is 18.04 and IIS 8.5 is Server 2012 R2).
@@ -110,11 +128,43 @@ EOL_BRANCHES = [
     ("apache:tomcat", r"^8\.5\.", "Tomcat 8.5", "2024-03-31"),
     ("openssl:openssl", r"^(0\.|1\.0\.)", "OpenSSL 1.0 or older", "2019-12-31"),
     ("openssl:openssl", r"^1\.1\.", "OpenSSL 1.1", "2023-09-11"),
+    # nginx.org supports only the current stable and mainline lines: a stable line ends when the next one
+    # ships (each April), a mainline when the stable after it does. Distro builds are excluded above.
+    ("f5:nginx", r"^(0\.|1\.[0-9]\.)", "nginx 1.9 or older", "2016-04-26"),
+    ("f5:nginx", r"^1\.1[01]\.", "nginx 1.10/1.11", "2017-04-12"),
+    ("f5:nginx", r"^1\.1[23]\.", "nginx 1.12/1.13", "2018-04-17"),
+    ("f5:nginx", r"^1\.1[45]\.", "nginx 1.14/1.15", "2019-04-23"),
+    ("f5:nginx", r"^1\.1[67]\.", "nginx 1.16/1.17", "2020-04-21"),
+    ("f5:nginx", r"^1\.1[89]\.", "nginx 1.18/1.19", "2021-04-20"),
+    ("f5:nginx", r"^1\.2[01]\.", "nginx 1.20/1.21", "2022-05-24"),
+    ("f5:nginx", r"^1\.2[23]\.", "nginx 1.22/1.23", "2023-04-11"),
+    ("f5:nginx", r"^1\.2[45]\.", "nginx 1.24/1.25", "2024-04-23"),
+    ("f5:nginx", r"^1\.2[67]\.", "nginx 1.26/1.27", "2025-04-23"),
+    ("mysql:mysql", r"^(3|4|5\.[0-5])\.", "MySQL 5.5 or older", "2018-12-31"),
+    ("mysql:mysql", r"^5\.6\.", "MySQL 5.6", "2021-02-28"),
+    ("mysql:mysql", r"^5\.7\.", "MySQL 5.7", "2023-10-31"),
+    ("mysql:mysql", r"^8\.0\.", "MySQL 8.0", "2026-04-30"),
+    ("oracle:mysql", r"^(3|4|5\.[0-5])\.", "MySQL 5.5 or older", "2018-12-31"),
+    ("oracle:mysql", r"^5\.6\.", "MySQL 5.6", "2021-02-28"),
+    ("oracle:mysql", r"^5\.7\.", "MySQL 5.7", "2023-10-31"),
+    ("oracle:mysql", r"^8\.0\.", "MySQL 8.0", "2026-04-30"),
+    ("mariadb:mariadb", r"^(5\.|10\.[01]\.)", "MariaDB 10.1 or older", "2020-10-17"),
+    ("mariadb:mariadb", r"^10\.2\.", "MariaDB 10.2", "2022-05-23"),
+    ("mariadb:mariadb", r"^10\.3\.", "MariaDB 10.3", "2023-05-25"),
+    ("mariadb:mariadb", r"^10\.4\.", "MariaDB 10.4", "2024-06-18"),
+    ("mariadb:mariadb", r"^10\.5\.", "MariaDB 10.5", "2025-06-24"),
+    ("mariadb:mariadb", r"^10\.6\.", "MariaDB 10.6", "2026-07-06"),
 ]
+# MariaDB's CPEs come under two vendor names
+EOL_BRANCHES += [("mariadb_project:mariadb", rx, n, d) for c, rx, n, d in EOL_BRANCHES if c == "mariadb:mariadb"]
 
 CPE_NAMES = {"http_server": "Apache httpd", "php": "PHP", "wordpress": "WordPress", "openssh": "OpenSSH",
              "internet_information_services": "IIS", "exchange_server": "Exchange", "fortios": "FortiOS",
-             "tomcat": "Tomcat", "openssl": "OpenSSL", "jenkins": "Jenkins", "confluence": "Confluence", "sharepoint_server": "SharePoint"}
+             "tomcat": "Tomcat", "openssl": "OpenSSL", "jenkins": "Jenkins", "confluence": "Confluence", "sharepoint_server": "SharePoint",
+             "outlook_web_access": "Exchange (OWA)", "drupal": "Drupal", "joomla": "Joomla", "magento": "Magento",
+             "jira": "Jira", "gitlab": "GitLab", "moodle": "Moodle", "mediawiki": "MediaWiki", "exim": "Exim",
+             "squid": "Squid", "bind": "BIND", "lighttpd": "lighttpd", "jetty": "Jetty", "mysql": "MySQL",
+             "mariadb": "MariaDB"}
 
 KEV = f"list_filter(vulns_ok, lambda v: v.kev and not list_contains({NOISE_CVES}, v.cve))"
 HIGH_EPSS = f"list_filter(vulns_ok, lambda v: coalesce(v.epss, 0) >= 0.5 and not list_contains({NOISE_CVES}, v.cve))"

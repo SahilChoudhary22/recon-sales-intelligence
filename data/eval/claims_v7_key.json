@@ -1,0 +1,302 @@
+{
+ "c001": {
+  "build": "after",
+  "company_id": "slicktext.com",
+  "tier": "P2"
+ },
+ "c002": {
+  "build": "after",
+  "company_id": "nurulfikri.ac.id",
+  "tier": "P2"
+ },
+ "c003": {
+  "build": "after",
+  "company_id": "registrar-servers.com",
+  "tier": "P2"
+ },
+ "c004": {
+  "build": "after",
+  "company_id": "shigoto-hyoukasarenai.com",
+  "tier": "P2"
+ },
+ "c005": {
+  "build": "after",
+  "company_id": "globalislamibankbd.com",
+  "tier": "P1"
+ },
+ "c006": {
+  "build": "after",
+  "company_id": "ajmanresa.cat",
+  "tier": "P2"
+ },
+ "c007": {
+  "build": "after",
+  "company_id": "americanlease.com",
+  "tier": "P2"
+ },
+ "c008": {
+  "build": "after",
+  "company_id": "usacd.com",
+  "tier": "P2"
+ },
+ "c009": {
+  "build": "after",
+  "company_id": "otter.pl",
+  "tier": "P2"
+ },
+ "c010": {
+  "build": "after",
+  "company_id": "kiitos-jp.com",
+  "tier": "P2"
+ },
+ "c011": {
+  "build": "after",
+  "company_id": "danielskillings.com",
+  "tier": "P1"
+ },
+ "c012": {
+  "build": "after",
+  "company_id": "org:Ministry of Public Health, Thailand",
+  "tier": "P1"
+ },
+ "c013": {
+  "build": "after",
+  "company_id": "yb876.com",
+  "tier": "P2"
+ },
+ "c014": {
+  "build": "after",
+  "company_id": "eurecom.fr",
+  "tier": "P2"
+ },
+ "c015": {
+  "build": "after",
+  "company_id": "pargo.com.ua",
+  "tier": "P2"
+ },
+ "c016": {
+  "build": "after",
+  "company_id": "836technologies.com",
+  "tier": "P2"
+ },
+ "c017": {
+  "build": "after",
+  "company_id": "intergr.de",
+  "tier": "P2"
+ },
+ "c018": {
+  "build": "after",
+  "company_id": "duffytool.com",
+  "tier": "P1"
+ },
+ "c019": {
+  "build": "after",
+  "company_id": "org:Xizhimengwai Street, Xicheng District, Beijing, China.",
+  "tier": "P2"
+ },
+ "c020": {
+  "build": "after",
+  "company_id": "sdwybz.com",
+  "tier": "P2"
+ },
+ "c021": {
+  "build": "after",
+  "company_id": "tomodata.com",
+  "tier": "P2"
+ },
+ "c022": {
+  "build": "after",
+  "company_id": "solusi247.com",
+  "tier": "P1"
+ },
+ "c023": {
+  "build": "after",
+  "company_id": "magnwall.com",
+  "tier": "P2"
+ },
+ "c024": {
+  "build": "after",
+  "company_id": "fision.com",
+  "tier": "P2"
+ },
+ "c025": {
+  "build": "after",
+  "company_id": "2010media.com",
+  "tier": "P1"
+ },
+ "c026": {
+  "build": "after",
+  "company_id": "misd.net",
+  "tier": "P2"
+ },
+ "c027": {
+  "build": "after",
+  "company_id": "railway.co.th",
+  "tier": "P2"
+ },
+ "c028": {
+  "build": "after",
+  "company_id": "rkhansi.site",
+  "tier": "P2"
+ },
+ "c029": {
+  "build": "after",
+  "company_id": "egyco.com",
+  "tier": "P2"
+ },
+ "c030": {
+  "build": "after",
+  "company_id": "infinityassurance.com",
+  "tier": "P2"
+ },
+ "c031": {
+  "build": "after",
+  "company_id": "fuhrung.com",
+  "tier": "P2"
+ },
+ "c032": {
+  "build": "after",
+  "company_id": "factopro.net",
+  "tier": "P2"
+ },
+ "c033": {
+  "build": "after",
+  "company_id": "mot.go.th",
+  "tier": "P2"
+ },
+ "c034": {
+  "build": "after",
+  "company_id": "kalenmall.com",
+  "tier": "P2"
+ },
+ "c035": {
+  "build": "after",
+  "company_id": "trenddigest.net",
+  "tier": "P2"
+ },
+ "c036": {
+  "build": "after",
+  "company_id": "wkbmgl.top",
+  "tier": "P2"
+ },
+ "c037": {
+  "build": "after",
+  "company_id": "remodelpartners.co.jp",
+  "tier": "P2"
+ },
+ "c038": {
+  "build": "after",
+  "company_id": "chevron.com",
+  "tier": "P1"
+ },
+ "c039": {
+  "build": "after",
+  "company_id": "mof.go.th",
+  "tier": "P1"
+ },
+ "c040": {
+  "build": "after",
+  "company_id": "vipbrain.cn",
+  "tier": "P1"
+ },
+ "c041": {
+  "build": "after",
+  "company_id": "great-show.kz",
+  "tier": "P2"
+ },
+ "c042": {
+  "build": "after",
+  "company_id": "mwa.co.th",
+  "tier": "P2"
+ },
+ "c043": {
+  "build": "after",
+  "company_id": "san-ai-cv.co.jp",
+  "tier": "P2"
+ },
+ "c044": {
+  "build": "after",
+  "company_id": "poispot.com",
+  "tier": "P2"
+ },
+ "c045": {
+  "build": "after",
+  "company_id": "kaza.cz",
+  "tier": "P2"
+ },
+ "c046": {
+  "build": "after",
+  "company_id": "sending-lifted.com",
+  "tier": "P2"
+ },
+ "c047": {
+  "build": "after",
+  "company_id": "adman.cloud",
+  "tier": "P2"
+ },
+ "c048": {
+  "build": "after",
+  "company_id": "kmexchange.com",
+  "tier": "P2"
+ },
+ "c049": {
+  "build": "after",
+  "company_id": "expedia.com",
+  "tier": "P2"
+ },
+ "c050": {
+  "build": "after",
+  "company_id": "centralpec.com",
+  "tier": "P2"
+ },
+ "c051": {
+  "build": "after",
+  "company_id": "6480.cn",
+  "tier": "P2"
+ },
+ "c052": {
+  "build": "after",
+  "company_id": "ucv.ro",
+  "tier": "P2"
+ },
+ "c053": {
+  "build": "after",
+  "company_id": "sbt-region.ru",
+  "tier": "P2"
+ },
+ "c054": {
+  "build": "after",
+  "company_id": "decorgel.pt",
+  "tier": "P2"
+ },
+ "c055": {
+  "build": "after",
+  "company_id": "shentouservices.com",
+  "tier": "P2"
+ },
+ "c056": {
+  "build": "after",
+  "company_id": "beisencorp.com",
+  "tier": "P2"
+ },
+ "c057": {
+  "build": "after",
+  "company_id": "multipli.com",
+  "tier": "P2"
+ },
+ "c058": {
+  "build": "after",
+  "company_id": "springsteendressage.com",
+  "tier": "P2"
+ },
+ "c059": {
+  "build": "after",
+  "company_id": "r1softlicenses.com",
+  "tier": "P2"
+ },
+ "c060": {
+  "build": "after",
+  "company_id": "raftulcujocuri.ro",
+  "tier": "P2"
+ }
+}

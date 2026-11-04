@@ -1,0 +1,182 @@
+{
+ "c001": {
+  "build": "after",
+  "company_id": "bvaonline.com",
+  "tier": "P2",
+  "signal": "kev_cve"
+ },
+ "c002": {
+  "build": "after",
+  "company_id": "ssl-certificate-required.com",
+  "tier": "P2",
+  "signal": "eol_product"
+ },
+ "c003": {
+  "build": "after",
+  "company_id": "petrolcard.hu",
+  "tier": "P2",
+  "signal": "kev_cve"
+ },
+ "c004": {
+  "build": "after",
+  "company_id": "sound-und-design.com",
+  "tier": "P2",
+  "signal": "kev_cve"
+ },
+ "c005": {
+  "build": "after",
+  "company_id": "careerhelp.org.za",
+  "tier": "P2",
+  "signal": "kev_cve"
+ },
+ "c006": {
+  "build": "after",
+  "company_id": "toronto.edu",
+  "tier": "P1",
+  "signal": "kev_cve"
+ },
+ "c007": {
+  "build": "after",
+  "company_id": "nef.com.tr",
+  "tier": "P2",
+  "signal": "kev_cve"
+ },
+ "c008": {
+  "build": "after",
+  "company_id": "biquge123.com",
+  "tier": "P2",
+  "signal": "kev_cve"
+ },
+ "c009": {
+  "build": "after",
+  "company_id": "imsglobal.com",
+  "tier": "P2",
+  "signal": "kev_cve"
+ },
+ "c010": {
+  "build": "after",
+  "company_id": "oban.vn",
+  "tier": "P2",
+  "signal": "kev_cve"
+ },
+ "c011": {
+  "build": "after",
+  "company_id": "orbitalsys.net",
+  "tier": "P1",
+  "signal": "kev_cve"
+ },
+ "c012": {
+  "build": "after",
+  "company_id": "ccmindustria.com.br",
+  "tier": "P1",
+  "signal": "kev_cve"
+ },
+ "c013": {
+  "build": "after",
+  "company_id": "insiel.it",
+  "tier": "P2",
+  "signal": "kev_cve"
+ },
+ "c014": {
+  "build": "after",
+  "company_id": "ulisboa.pt",
+  "tier": "P1",
+  "signal": "kev_cve"
+ },
+ "c015": {
+  "build": "after",
+  "company_id": "djair.co.kr",
+  "tier": "P2",
+  "signal": "kev_cve"
+ },
+ "c016": {
+  "build": "after",
+  "company_id": "wellnessinja.com",
+  "tier": "P2",
+  "signal": "kev_cve"
+ },
+ "c017": {
+  "build": "after",
+  "company_id": "pascalmues.de",
+  "tier": "P2",
+  "signal": "kev_cve"
+ },
+ "c018": {
+  "build": "after",
+  "company_id": "searchtec.net",
+  "tier": "P2",
+  "signal": "kev_cve"
+ },
+ "c019": {
+  "build": "after",
+  "company_id": "vudumobile.net",
+  "tier": "P2",
+  "signal": "eol_product"
+ },
+ "c020": {
+  "build": "after",
+  "company_id": "sharepoint.de",
+  "tier": "P1",
+  "signal": "kev_cve"
+ },
+ "c021": {
+  "build": "after",
+  "company_id": "jscfp.or.jp",
+  "tier": "P2",
+  "signal": "kev_cve"
+ },
+ "c022": {
+  "build": "after",
+  "company_id": "wpcp.org",
+  "tier": "P2",
+  "signal": "kev_cve"
+ },
+ "c023": {
+  "build": "after",
+  "company_id": "srlavoro.it",
+  "tier": "P2",
+  "signal": "eol_product"
+ },
+ "c024": {
+  "build": "after",
+  "company_id": "e-hokuei.net",
+  "tier": "P2",
+  "signal": "eol_product"
+ },
+ "c025": {
+  "build": "after",
+  "company_id": "choicelitho.com",
+  "tier": "P2",
+  "signal": "eol_product"
+ },
+ "c026": {
+  "build": "after",
+  "company_id": "utpl.edu.ec",
+  "tier": "P1",
+  "signal": "kev_cve"
+ },
+ "c027": {
+  "build": "after",
+  "company_id": "alachuacounty.us",
+  "tier": "P1",
+  "signal": "kev_cve"
+ },
+ "c028": {
+  "build": "after",
+  "company_id": "doae.go.th",
+  "tier": "P1",
+  "signal": "kev_cve"
+ },
+ "c029": {
+  "build": "after",
+  "company_id": "dcbib.dk",
+  "tier": "P2",
+  "signal": "kev_cve"
+ },
+ "c030": {
+  "build": "after",
+  "company_id": "eexample.com",
+  "tier": "P2",
+  "signal": "kev_cve"
+ }
+}

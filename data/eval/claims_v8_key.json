@@ -1,0 +1,303 @@
+{
+ "c001": {
+  "build": "after",
+  "company_id": "seinankizai.work",
+  "tier": "P2"
+ },
+ "c002": {
+  "build": "after",
+  "company_id": "northsidemontessori.nsw.edu.au",
+  "tier": "P2"
+ },
+ "c003": {
+  "build": "after",
+  "company_id": "pttplc.com",
+  "tier": "P2"
+ },
+ "c004": {
+  "build": "after",
+  "company_id": "sas.goog",
+  "tier": "P2"
+ },
+ "c005": {
+  "build": "after",
+  "company_id": "gates.travel",
+  "tier": "P2"
+ },
+ "c006": {
+  "build": "after",
+  "company_id": "aim-net.co.jp",
+  "tier": "P2"
+ },
+ "c007": {
+  "build": "after",
+  "company_id": "alsonmedia.com",
+  "tier": "P1"
+ },
+ "c008": {
+  "build": "after",
+  "company_id": "uam.mx",
+  "tier": "P1"
+ },
+ "c009": {
+  "build": "after",
+  "company_id": "org:NhanHoa Software Company",
+  "tier": "P2"
+ },
+ "c010": {
+  "build": "after",
+  "company_id": "keelingsofdonabate.ie",
+  "tier": "P2"
+ },
+ "c011": {
+  "build": "after",
+  "company_id": "croz.net",
+  "tier": "P2"
+ },
+ "c012": {
+  "build": "after",
+  "company_id": "org:Air Advantage LLC",
+  "tier": "P2"
+ },
+ "c013": {
+  "build": "after",
+  "company_id": "wiserrecoveryjewelry.com",
+  "tier": "P2"
+ },
+ "c014": {
+  "build": "after",
+  "company_id": "esigelec.fr",
+  "tier": "P2"
+ },
+ "c015": {
+  "build": "after",
+  "company_id": "org:TECNOLOGIA EN ELECTRONICA E INFORMATICA SOCIEDAD ANONIMA (T.E.I.S.A)",
+  "tier": "P1"
+ },
+ "c016": {
+  "build": "after",
+  "company_id": "a2stel.com",
+  "tier": "P2"
+ },
+ "c017": {
+  "build": "after",
+  "company_id": "ines.ro",
+  "tier": "P2"
+ },
+ "c018": {
+  "build": "after",
+  "company_id": "dolphinenergy.com",
+  "tier": "P2"
+ },
+ "c019": {
+  "build": "after",
+  "company_id": "org:Long Van System Solution JSC",
+  "tier": "P1"
+ },
+ "c020": {
+  "build": "after",
+  "company_id": "rodekruis.be",
+  "tier": "P2"
+ },
+ "c021": {
+  "build": "after",
+  "company_id": "taviller.com.tr",
+  "tier": "P1"
+ },
+ "c022": {
+  "build": "after",
+  "company_id": "sgasi.us",
+  "tier": "P1"
+ },
+ "c023": {
+  "build": "after",
+  "company_id": "liv-ex.com",
+  "tier": "P1"
+ },
+ "c024": {
+  "build": "after",
+  "company_id": "feiradesantana.ba.gov.br",
+  "tier": "P2"
+ },
+ "c025": {
+  "build": "after",
+  "company_id": "3dgence.com",
+  "tier": "P2"
+ },
+ "c026": {
+  "build": "after",
+  "company_id": "medisy.id",
+  "tier": "P1"
+ },
+ "c027": {
+  "build": "after",
+  "company_id": "progress-ltd.co.jp",
+  "tier": "P1"
+ },
+ "c028": {
+  "build": "after",
+  "company_id": "quins.co.uk",
+  "tier": "P2"
+ },
+ "c029": {
+  "build": "after",
+  "company_id": "ecessa.com",
+  "tier": "P2"
+ },
+ "c030": {
+  "build": "after",
+  "company_id": "iebebe.cn",
+  "tier": "P2"
+ },
+ "c031": {
+  "build": "after",
+  "company_id": "foergarchitektur.de",
+  "tier": "P2"
+ },
+ "c032": {
+  "build": "after",
+  "company_id": "evercare.ng",
+  "tier": "P2"
+ },
+ "c033": {
+  "build": "after",
+  "company_id": "miurakankobus.co.jp",
+  "tier": "P2"
+ },
+ "c034": {
+  "build": "after",
+  "company_id": "junsendo.com",
+  "tier": "P2"
+ },
+ "c035": {
+  "build": "after",
+  "company_id": "teknosos.com.tr",
+  "tier": "P1",
+  "renamed_from": "teknosos.com"
+ },
+ "c036": {
+  "build": "after",
+  "company_id": "vomvehnemoorland.de",
+  "tier": "P2"
+ },
+ "c037": {
+  "build": "after",
+  "company_id": "puchipont.com",
+  "tier": "P2"
+ },
+ "c038": {
+  "build": "after",
+  "company_id": "ccsbk.com",
+  "tier": "P2"
+ },
+ "c039": {
+  "build": "after",
+  "company_id": "mia.net",
+  "tier": "P2"
+ },
+ "c040": {
+  "build": "after",
+  "company_id": "universidadlumen.com.mx",
+  "tier": "P2"
+ },
+ "c041": {
+  "build": "after",
+  "company_id": "godwitaccounting.com",
+  "tier": "P2"
+ },
+ "c042": {
+  "build": "after",
+  "company_id": "moonlightingproteins.org",
+  "tier": "P2"
+ },
+ "c043": {
+  "build": "after",
+  "company_id": "regione.toscana.it",
+  "tier": "P1"
+ },
+ "c044": {
+  "build": "after",
+  "company_id": "paramix.co.jp",
+  "tier": "P2"
+ },
+ "c045": {
+  "build": "after",
+  "company_id": "kame.vn",
+  "tier": "P2"
+ },
+ "c046": {
+  "build": "after",
+  "company_id": "s-pluck.net",
+  "tier": "P2"
+ },
+ "c047": {
+  "build": "after",
+  "company_id": "adfabric.com.ua",
+  "tier": "P2"
+ },
+ "c048": {
+  "build": "after",
+  "company_id": "kigmbh.net",
+  "tier": "P2"
+ },
+ "c049": {
+  "build": "after",
+  "company_id": "estacioneidigital.com.br",
+  "tier": "P2"
+ },
+ "c050": {
+  "build": "after",
+  "company_id": "carm.es",
+  "tier": "P1"
+ },
+ "c051": {
+  "build": "after",
+  "company_id": "a-toms.co.jp",
+  "tier": "P2"
+ },
+ "c052": {
+  "build": "after",
+  "company_id": "topglove.com",
+  "tier": "P2"
+ },
+ "c053": {
+  "build": "after",
+  "company_id": "richiruizmartinez.es",
+  "tier": "P2"
+ },
+ "c054": {
+  "build": "after",
+  "company_id": "daihen-robot.com",
+  "tier": "P2"
+ },
+ "c055": {
+  "build": "after",
+  "company_id": "sapiranga.rs.gov.br",
+  "tier": "P1"
+ },
+ "c056": {
+  "build": "after",
+  "company_id": "bas.bg",
+  "tier": "P1"
+ },
+ "c057": {
+  "build": "after",
+  "company_id": "moka-hair.com",
+  "tier": "P2"
+ },
+ "c058": {
+  "build": "after",
+  "company_id": "shop-kishimoto.com",
+  "tier": "P2"
+ },
+ "c059": {
+  "build": "after",
+  "company_id": "probiker.ec",
+  "tier": "P2"
+ },
+ "c060": {
+  "build": "after",
+  "company_id": "professionistisurichiesta.it",
+  "tier": "P2"
+ }
+}

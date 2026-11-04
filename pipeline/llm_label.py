@@ -45,8 +45,10 @@ class Labels(BaseModel):
 SYSTEM = """You label entities seen in internet scan data for a B2B cybersecurity sales team.
 For each item decide:
 - org_type: isp_telecom (sells connectivity: ISPs, carriers, mobile operators, cable), hosting_cloud
-  (sells servers/hosting/CDN/VPS/colocation), business (any other company that would be a security
-  software buyer), government, education, or unknown when the name gives no real clue.
+  (sells servers/hosting/CDN/VPS/colocation, including shared-hosting server hostnames and control
+  panels), business (any other company that would be a security software buyer), government,
+  education, or unknown when the name gives no real clue (also personal sites, random-string
+  domains, spam/gambling junk).
 - industry: the buyer's industry. Telecom & hosting for isp_telecom/hosting_cloud.
 Judge from the name, country and the hostnames/page titles given. Do not guess from vague names:
 use unknown/Unknown with low confidence instead. Return exactly one label per input id."""

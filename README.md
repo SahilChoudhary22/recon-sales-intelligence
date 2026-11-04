@@ -72,7 +72,7 @@ seller sends is generated: the outreach is the evidence.
 <table>
   <tr>
     <td width="50%"><img src="docs/images/profile.jpg" alt="The ideal customer profile as one sentence, with a country picker showing account counts" /><br /><sub><b>Ideal customer profile.</b> One sentence in the page; every choice shows what it would give.</sub></td>
-    <td width="50%"><img src="docs/images/signal-template.jpg" alt="A signal template for exposed firewall and VPN admin interfaces with its pitch, worked example and targeting" /><br /><sub><b>Signal template.</b> One buying trigger, the pitch, a real worked example and recommended targeting.</sub></td>
+    <td width="50%"><img src="docs/images/signal-template.jpg" alt="A signal template for exposed firewall and VPN appliances with its pitch, worked example and targeting" /><br /><sub><b>Signal template.</b> One buying trigger, the pitch, a real worked example and recommended targeting.</sub></td>
   </tr>
   <tr>
     <td><img src="docs/images/filters.jpg" alt="The estate size filter open with small and mid-size ticked and a count on each option" /><br /><sub><b>Multi-select filters.</b> OR within a filter, AND across, a count on every option.</sub></td>
@@ -181,7 +181,7 @@ What the file hides, and what Recon does about it:
   marks Ubuntu 24.04's supported nginx and misses CentOS 7. Its "industrial controller" on port 3001 is
   a web page 70% of the time, and 29% of its MySQL servers refused the connection. Taken at face value,
   44% of the claims behind the top tiers didn't hold up for a blind reviewer; Recon now keeps a claim
-  only when the record shows it, and a blind reviewer rejects 7% (below).
+  only when the record shows it, and a blind reviewer rejects 6% (below).
 - **Two "known-exploited" CVEs are noise.** HTTP/2 Rapid Reset is matched on nearly every nginx, and
   the jQuery CVEs come from a script on the page, not the server. Counted, they make "KEV" meaningless.
 - **The owner on record is usually the ISP.** The WHOIS organisation and reverse DNS name the carrier
@@ -204,7 +204,7 @@ What the file hides, and what Recon does about it:
 - **Security maturity changes the pitch, not the rank.** A WAF, a security.txt or post-quantum TLS
   marks a buyer with a team: a consolidation conversation, not a first purchase.
 
-The result: 909k services tied to 295k companies, and 36,554 companies with a material risk signal.
+The result: 907k services tied to 295k companies, and 39,190 companies with a material risk signal.
 Every signal, threshold and rule is in [docs/technical-notes.md](docs/technical-notes.md).
 
 ## Results
@@ -222,26 +222,30 @@ influenced any tuning.
 | Final build (deterministic identity), same holdout | 61% (36/59) |
 
 Then the claims themselves: does the scan evidence support what Recon tells a seller about each
-account? Two blind reviewers judged every risk claim against the raw scan fields behind it (product,
-version, server header, banner), on random P1/P2 accounts from the build before the fix and after it,
-shuffled together so they couldn't tell which was which, and then on a fresh holdout:
+account? Blind reviewers judged every risk claim against the raw scan record behind it (product,
+version, server header, banner), first on random P1/P2 accounts from the build before the fix and after
+it, shuffled together so they couldn't tell which was which, then on fresh holdouts as the fixes went in:
 
 | Build | Claims rejected | Claims confirmed | Accounts sellable |
 | --- | --- | --- | --- |
 | Before: the scanner's verdicts taken at face value | 44% (59/135) | 46% | 60% (36/60) |
-| After the fixes, same blind comparison | 21% (21/102) | 59% | 65% (39/60) |
-| Final build, fresh holdout of 60 | **7% (8/119)** | **64%** | **73% (44/60)** |
+| After the first fixes, same blind comparison | 21% (21/102) | 59% | 65% (39/60) |
+| + claims need the version in the record; labels for newly ranked names; domains the labeller can't place stay out of P1/P2 | | | |
+| **Final build, fresh holdout of 60** | **6% (8/131)** | **71%** | **72% (43/60)** |
 
-The rest are "unclear", mostly (29 of 35) two PHP CVEs CISA added on 26 October 2026, after the
-reviewers' knowledge, so they couldn't check the affected versions. The remaining rejections are a long
-tail: an Exim or nginx version a distro also ships, two CVEs that need a configuration the banner
-doesn't show. Files: [`data/eval/claims_v4_*`, `claims_v5_*`](data/eval/).
+The rest are "unclear": all 30 are two PHP CVEs CISA added on 26 October 2026, after the reviewers'
+knowledge, and CISA's catalogue doesn't give their affected versions, so those rest on the scanner's
+version data. The 8 rejections are a long tail (a camera product imitating an Apache header, a
+PHPMailer CVE listed under PHP, a NetScaler cookie in front of a web app, an empty reply on a DVR port).
+Every step, including the intermediate holdouts and the one change that made things worse and was
+reverted, is in [docs/technical-notes.md](docs/technical-notes.md#8-how-it-was-measured); the samples
+and verdicts are in [`data/eval/`](data/eval/).
 
 With 60 accounts the margin is about ±12 points, so the gain is real and the middle step indicative.
 Each sample pointed at the next fix: the first showed that IP-owner identities were 15% sellable, the
 second that labels alone didn't fix them except for universities and governments. The remaining errors
 are single-IP personal sites. The LLM agreed with the blind reviewer on carrier versus business 83 to
-87% of the time, at a cost of about $0.15 to $0.75 for 4,430 names with Claude Haiku.
+87% of the time, at a cost of about $0.26 to $1.28 for 7,328 names with Claude Haiku.
 
 The MCP server was tested the same way: given only the tool schemas, does an assistant make the right
 first call for a salesperson's request? The first run exposed two description problems; the revised
@@ -280,8 +284,8 @@ CVE search returns exactly the companies a direct query over the build finds (fo
   to a security engineer, who will check. So a CVE needs its product seen with a version that isn't a
   distro package patched in place, end of life is read from the OS release and the component that's
   actually old, a port needs a reply in its protocol, and the evidence names the product the CVE
-  belongs to. That cut the companies with a material signal from 83,934 to 36,554, and claims the blind
-  reviewer rejected from 44% to 7%.
+  belongs to. That cut the companies with a material signal from 83,934 to 39,190, and claims the blind
+  reviewer rejected from 44% to 6%.
 - **Measured on blind, fresh holdouts.** Each change was judged on a sample that hadn't influenced any
   tuning, labelled by a reviewer who never saw the pipeline (the tables above).
 - **Tiers sized to sales capacity.** P1 is 500 accounts, what a team can call in a week, not a
@@ -307,7 +311,7 @@ CVE search returns exactly the companies a direct query over the build finds (fo
 The data grows with every file, so nothing the app or an assistant reads is sized by the market:
 
 - **A read API** ([`api/`](api/)) answers every list, count and badge with DuckDB over a versioned,
-  IP-masked Parquet store. The browser holds one page at a time, and all 36,554 risky companies are
+  IP-masked Parquet store. The browser holds one page at a time, and all 39,190 risky companies are
   served.
 - **A count cube** answers the template counts and the profile badges. It grows with the number of
   country × sector × industry × size combinations, not with accounts.
@@ -392,9 +396,9 @@ An AI-native loop, with checks at the points where a model's confidence can't be
 - **Enrichment by domain:** firmographics for real company size, verified contacts, IP-to-company
   data for the estates on ISP lines, certificate transparency for subsidiaries, SPF and DMARC for
   email security sellers.
-- **Single-IP precision:** after the claims fixes, one-IP accounts are 65% sellable against 74% for
-  larger estates (two blind samples, 120 accounts); firmographics by domain would separate a small
-  business from a hobby site.
+- **Identity precision:** 72% of top-tier accounts are real, correctly named organisations (final
+  holdout). Most of the rest are small sites on shared hosting and junk domains the labeller took for
+  businesses; firmographics by domain would separate a small business from a hobby site.
 - **Vulnerability data instead of hand tables:** the distro package versions, end-of-life dates and
   CVE preconditions are short curated lists; distro security trackers and OSV would cover every
   package and say which fixes a backported version already has.

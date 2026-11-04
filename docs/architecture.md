@@ -46,9 +46,9 @@ flowchart TD
   identity --> attributed["917k services, 298k companies"]
   attributed --> signals["<b>Find risk signals</b><br/>22 per service, pipeline/signals.py"]
   signals --> score["<b>Score each company</b><br/>need × urgency × fit, tiers P1 / P2 / P3"]
-  score --> risky["36,554 companies with real risk"]
+  score --> risky["39,190 companies with real risk"]
   risky --> export["<b>Export</b><br/>pipeline/export.py<br/>masks IPs to /24, adds peer ranks,<br/>template flags, the count cube"]
-  risky --> cveidx["<b>CVE hits</b><br/>pipeline/cve_index.py<br/>905 CVEs, 45,993 company matches"]
+  risky --> cveidx["<b>CVE hits</b><br/>pipeline/cve_index.py<br/>854 CVEs, 42,105 company matches"]
   kev[("CISA KEV v2026.11.03")] --> cveidx
   export --> published[("<b>Serving store</b><br/>data/serve/&lt;build&gt;, 45 MB")]
   cveidx --> published
@@ -229,7 +229,7 @@ distribution. Median of 15 runs on a MacBook Air with 8 GB RAM:
 - **Batch and serving run on separate machines.** Measured while a re-export ran on the same laptop,
   the 100× live paths took 0.3 to 1.5 s, five to ten times slower.
 - **The served table grows with companies, not banners.** Raw records grow with every file, billions
-  a year; the served table is one row per company with real risk. 13.4M banners give 36,554 of them,
+  a year; the served table is one row per company with real risk. 13.4M banners give 39,190 of them,
   and there are a few hundred million companies in the world at most, so the read side meets millions
   long before billions. The billions stay in the batch layer, as Parquet and SQL.
 

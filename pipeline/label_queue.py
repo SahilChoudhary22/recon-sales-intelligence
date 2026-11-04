@@ -42,7 +42,7 @@ def main():
         if (kind, key) in cache:
             continue
         ctx = f"ips={n}; certs={certs}; titles={titles}" if kind == "org" else f"ip_owner={org}; ips={n}; titles={titles}"
-        ctx = IPV4.sub(r"\1.x", ctx).replace("\t", " ").replace("\n", " ")
+        ctx = IPV4.sub(r"\1.x", ctx).replace("\t", " ").replace("\r", " ").replace("\n", " ")
         items.append({"kind": kind, "key": key, "country": cc, "context": ctx})
     os.makedirs(a.queue_dir, exist_ok=True)
     for c in range(a.chunks):
