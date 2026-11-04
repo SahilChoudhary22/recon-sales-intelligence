@@ -30,5 +30,7 @@ rsync -az web/src/catalog.json "$HOST:$DIR/web/src/"
 # ship the build folder first, then move the pointer: the API never sees a half-copied build
 rsync -az "data/serve/$BUILD/" "$HOST:$DIR/serve/$BUILD/"
 ssh "$HOST" "cd $DIR/serve && ln -sfn $BUILD current.new && mv -T current.new current"
-rsync -az deploy/compose.yaml deploy/compose.tailscale.yaml deploy/tailscale-serve.json deploy/nginx.conf deploy/api.Dockerfile "$HOST:$DIR/"
-ssh "$HOST" "cd $DIR && test -f .env && docker compose -f compose.yaml -f compose.tailscale.yaml up -d --build && docker compose -f compose.yaml -f compose.tailscale.yaml ps"
+rsync -az deploy/compose.yaml deploy/compose.tailscale.yaml deploy/compose.ngrok.yaml deploy/tailscale-serve.json deploy/nginx.conf deploy/api.Dockerfile "$HOST:$DIR/"
+# the public URL is the ngrok static domain; the Tailscale sidecar keeps the app on the tailnet
+FILES="-f compose.yaml -f compose.tailscale.yaml -f compose.ngrok.yaml"
+ssh "$HOST" "cd $DIR && test -f .env && docker compose $FILES up -d --build && docker compose $FILES ps"

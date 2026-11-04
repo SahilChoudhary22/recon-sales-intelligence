@@ -1,6 +1,7 @@
-# Publish the site on the internet through Tailscale Funnel as its own tailnet node
-# (https://<TS_HOSTNAME>.<tailnet>.ts.net), same pattern as HighEval on this host.
-# Needs TS_AUTHKEY in .env (a Tailscale auth key) and Funnel allowed for the node by the tailnet policy.
+# Put the site on the tailnet as its own node (https://<TS_HOSTNAME>.<tailnet>.ts.net), for private
+# access and administration. The public URL is the ngrok static domain (compose.ngrok.yaml): from a
+# home connection Funnel could only reach this node through distant relays, which was too slow.
+# Needs TS_AUTHKEY in .env (a Tailscale auth key).
 services:
   tailscale:
     image: tailscale/tailscale:v1.102.4

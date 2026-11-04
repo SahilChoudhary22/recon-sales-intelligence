@@ -245,7 +245,8 @@ uv run pytest -q
 uv run python -m api.bench --scales 1,10,100               # query latency over synthetic 10x and 100x stores
 ```
 
-Deploy (nginx for the app, the API container, Tailscale Funnel sidecar, see `deploy/`): `deploy/push.sh bluedragon`
+Deploy (nginx for the app, the API container, an ngrok connector for the public URL and a Tailscale
+sidecar for private access, see `deploy/`): `deploy/push.sh bluedragon`
 (needs `TS_AUTHKEY` in the host's `.env`; refuses to ship a store that isn't IP-masked, and copies a
 build before moving the host's `current` pointer to it).
 

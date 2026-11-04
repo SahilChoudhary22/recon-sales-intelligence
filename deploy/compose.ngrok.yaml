@@ -1,0 +1,19 @@
+# Publish the site on the internet through an ngrok static domain. The agent makes one outbound
+# connection to ngrok's nearest edge, so nothing is opened on the router and visitors don't detour
+# through a relay abroad. Needs NGROK_AUTHTOKEN and NGROK_DOMAIN (the account's free static domain,
+# e.g. something.ngrok-free.app) in .env. Set RECON_PUBLIC_HOST to the same domain.
+#   docker compose -f compose.yaml -f compose.tailscale.yaml -f compose.ngrok.yaml up -d
+services:
+  ngrok:
+    image: ngrok/ngrok:3.39.12-alpine
+    restart: unless-stopped
+    command: ["http", "--url=${NGROK_DOMAIN:?set NGROK_DOMAIN in .env}", "--log=stdout", "--log-format=logfmt", "web:8080"]
+    environment:
+      NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN:?set NGROK_AUTHTOKEN in .env}
+    # not read-only: the image's entrypoint writes its auth config next to its built-in config at start
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    depends_on:
+      - web
