@@ -216,9 +216,12 @@ function Header({ data, onGuide }: { data: Dataset | null; onGuide: () => void }
       <div className="mx-auto max-w-[112rem] px-4 pt-4 pb-5 sm:px-6">
         <div className="mb-4 flex items-center justify-between gap-4">
           <p className="flex items-center gap-2.5">
-            <LogoMark className="size-7 text-ink" />
-            <span className="text-xl font-medium leading-none text-ink">{APP_NAME}</span>
-            <span className="text-sm text-muted">{PRODUCT_LINE}</span>
+            <LogoMark className="size-7 shrink-0 text-ink" />
+            {/* the two names share a baseline; the mark centres on the pair */}
+            <span className="flex items-baseline gap-2.5">
+              <span className="text-xl font-medium leading-none text-ink">{APP_NAME}</span>
+              <span className="text-sm leading-none text-muted">{PRODUCT_LINE}</span>
+            </span>
           </p>
           <button type="button" className="btn" onClick={onGuide}>How it works</button>
         </div>
