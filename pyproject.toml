@@ -1,7 +1,7 @@
 [project]
-name = "salesint"
+name = "recon-sales-intelligence"
 version = "0.1.0"
-description = "Add your description here"
+description = "Cybersecurity sales intelligence from internet scan data: which companies need security help now, and why"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
