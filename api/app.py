@@ -50,6 +50,10 @@ class SearchBody(Filters):
     limit: int = Field(100, ge=1, le=500)
 
 
+class IdsBody(Filters):
+    limit: int = Field(5000, ge=1, le=5000)
+
+
 class FacetBody(Filters):
     dims: list[str] = list(FACETS)
 
@@ -76,6 +80,12 @@ def meta():
 def search(b: SearchBody):
     """Accounts matching the filters, ranked by priority, one page at a time."""
     return get_store().search(b.query(), b.offset, b.limit)
+
+
+@app.post("/api/ids")
+def ids(b: IdsBody):
+    """The ids of the top matches (up to 5,000), ranked: what "add all to a list" adds."""
+    return get_store().ids(b.query(), b.limit)
 
 
 @app.post("/api/counts")

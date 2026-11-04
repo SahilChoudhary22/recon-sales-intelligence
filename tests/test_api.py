@@ -109,3 +109,10 @@ def test_first_ranked_carries_over_by_id(tmp_path):
     assert got == {"a.com": "20261101T000000", "c.com": "20261103T000000"}
     # no previous build (or --rebaseline): everything starts now
     assert first_ranked_sql("", "20261103T000000") == "'20261103T000000'" and first_ranked_join("") == ""
+
+
+def test_ids_are_the_ranked_top_of_the_search(s):
+    q = Query.make(template="edge", country=["GB", "IE"])
+    r = s.ids(q, cap=50)
+    assert r["total"] == live_count(s, q) and len(r["ids"]) == min(50, r["total"])
+    assert r["ids"] == [a["id"] for a in s._search(q, 0, 50)["accounts"]]

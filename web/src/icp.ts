@@ -34,11 +34,7 @@ function read(): { icp: Icp; seen: boolean } {
   try {
     const raw = localStorage.getItem(KEY)
     if (!raw) return { icp: EMPTY, seen: false }
-    const v = JSON.parse(raw)
-    // profiles saved with one size and one persona
-    const sizes = v.sizes ?? (v.size ? [v.size] : [])
-    const personas = v.personas ?? (v.persona ? [v.persona] : ['ciso'])
-    return { icp: { ...EMPTY, ...v, sizes, personas }, seen: true }
+    return { icp: { ...EMPTY, ...JSON.parse(raw) }, seen: true }
   } catch {
     return { icp: EMPTY, seen: true } // storage blocked: don't ask on every visit
   }

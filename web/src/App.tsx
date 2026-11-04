@@ -119,6 +119,24 @@ export default function App() {
   const page = useApi(`search:${qKey}`, (s) => api.search(query, 0, 100, s))
   const [more, setMore] = useState<Account[]>([])
   const [loadingMore, setLoadingMore] = useState(false)
+  // rows picked for "add to a list"; a new search starts with nothing picked
+  const [pick, setPick] = useState<{ key: string; ids: Set<string> }>({ key: '', ids: new Set() })
+  const picked = pick.key === qKey ? pick.ids : new Set<string>()
+  const onPick = (ids: string[], on: boolean) => {
+    const next = new Set(picked)
+    ids.forEach((id) => (on ? next.add(id) : next.delete(id)))
+    setPick({ key: qKey, ids: next })
+  }
+  const [notice, setNotice] = useState('')
+  const addAndSay = (ids: string[], listId: string, listName: string) => {
+    lists.add(ids, listId)
+    setNotice(`Added ${fmt(ids.length)} ${ids.length === 1 ? 'account' : 'accounts'} to ${listName}.`)
+  }
+  useEffect(() => {
+    if (!notice) return
+    const t = setTimeout(() => setNotice(''), 5000)
+    return () => clearTimeout(t)
+  }, [notice])
   const rows = useMemo(() => [...(page.data?.accounts ?? []), ...more], [page.data, more])
   const total = page.data?.total ?? 0
   const showMore = () => {
@@ -256,7 +274,8 @@ export default function App() {
           {showIcp && data && <IcpCard initial={{ ...profile, product }} first={!profileSeen} ping={icpPing} onSave={saveIcp} onClose={closeIcp} />}
 
           {openSearch ? (
-            <SavedSearchBanner s={openSearch} build={build} onlyNew={f.onlyNew} listed={lists.listed}
+            <SavedSearchBanner s={openSearch} build={build} onlyNew={f.onlyNew} listed={lists.listed} lists={lists}
+              onAddNew={(ids, l, name) => { addAndSay(ids, l, name); saved.markRun(openSearch.id, build) }}
               onOnlyNew={(v) => set({ onlyNew: v })} onRun={() => { saved.markRun(openSearch.id, build); set({ onlyNew: false }) }}
               onSchedule={(v) => saved.setSchedule(openSearch.id, v)}
               onDelete={() => { saved.remove(openSearch.id); set({ search: null, onlyNew: false }) }} />
@@ -320,9 +339,23 @@ export default function App() {
                   Personalise with your ICP
                 </button>
               ))}
+              {notice && <span role="status" className="text-sm text-ink">{notice}</span>}
               <div className="ml-auto flex flex-wrap items-center gap-2">
+                {!cveMode && picked.size > 0 && (
+                  <>
+                    <button type="button" className="text-sm text-muted underline underline-offset-4 hover:text-ink" onClick={() => setPick({ key: qKey, ids: new Set() })}>
+                      Clear {fmt(picked.size)} selected
+                    </button>
+                    <ListPicker lists={lists} primary label={`Add ${fmt(picked.size)} to a list`}
+                      onPick={(l, name) => { addAndSay([...picked], l, name); setPick({ key: qKey, ids: new Set() }) }} />
+                  </>
+                )}
+                {!cveMode && picked.size === 0 && total > 0 && (
+                  <ListPicker lists={lists} label={total > 5000 ? 'Add top 5,000 to a list' : `Add all ${fmt(total)} to a list`}
+                    onPick={(l, name) => api.ids(query).then((r) => addAndSay(r.ids, l, name))} />
+                )}
                 {naming ? (
-                  <SegmentForm onCancel={() => setNaming(false)}
+                  <SaveSearchForm onCancel={() => setNaming(false)}
                     onSave={(name) => { const id = saved.add(name, filterSet, profileQ, build); setNaming(false); set({ search: id, onlyNew: false }) }}
                     suggestion={[play.name, ...f.sector.map(sectorName), ...f.country, ...f.software].filter(Boolean).slice(0, 4).join(', ')} />
                 ) : (
@@ -362,7 +395,7 @@ export default function App() {
             ) : (
               <>
                 <div className={page.loading ? 'opacity-60 transition-opacity' : ''} aria-busy={page.loading}>
-                  <AccountTable rows={rows} meta={data} lists={lists} selectedId={f.id} onSelect={(id) => set({ id })} />
+                  <AccountTable rows={rows} meta={data} lists={lists} selectedId={f.id} onSelect={(id) => set({ id })} picked={picked} onPick={onPick} />
                   <AccountList rows={rows} meta={data} lists={lists} onSelect={(id) => set({ id })} />
                 </div>
                 {total > rows.length && (
@@ -397,8 +430,9 @@ function SavedSearchItem({ s, on, listed, onOpen }: { s: SavedSearch; on: boolea
   )
 }
 
-function SavedSearchBanner({ s, build, onlyNew, listed, onOnlyNew, onRun, onSchedule, onDelete }: {
-  s: SavedSearch; build: string; onlyNew: boolean; listed: string[]
+function SavedSearchBanner({ s, build, onlyNew, listed, lists, onAddNew, onOnlyNew, onRun, onSchedule, onDelete }: {
+  s: SavedSearch; build: string; onlyNew: boolean; listed: string[]; lists: Lists
+  onAddNew: (ids: string[], listId: string, name: string) => void
   onOnlyNew: (v: boolean) => void; onRun: () => void; onSchedule: (v: Schedule) => void; onDelete: () => void
 }) {
   const fresh = { ...toApi(s.filters), ...s.profile, template: s.filters.play, exclude_ids: listed, since_build: s.lastRun ?? '' }
@@ -420,6 +454,8 @@ function SavedSearchBanner({ s, build, onlyNew, listed, onOnlyNew, onRun, onSche
             </select>
             <Chevron />
           </span>
+          {!!n && <ListPicker lists={lists} primary label={`Add ${fmt(n)} new to a list`}
+            onPick={(l, name) => api.ids(fresh).then((r) => onAddNew(r.ids, l, name))} />}
           <button type="button" className="btn" onClick={onRun} disabled={upToDate && !n}>Mark as reviewed</button>
           <button type="button" className="text-muted underline underline-offset-4 hover:text-ink" onClick={onDelete}>Delete</button>
         </div>
@@ -603,13 +639,13 @@ function Chevron() {
   )
 }
 
-function SegmentForm({ suggestion, onSave, onCancel }: { suggestion: string; onSave: (name: string) => void; onCancel: () => void }) {
+function SaveSearchForm({ suggestion, onSave, onCancel }: { suggestion: string; onSave: (name: string) => void; onCancel: () => void }) {
   const [name, setName] = useState(suggestion)
   return (
     <form className="flex items-center gap-2" onSubmit={(e) => { e.preventDefault(); if (name.trim()) onSave(name) }}>
-      <label className="sr-only" htmlFor="segment-name">Segment name</label>
-      <input id="segment-name" autoFocus value={name} onChange={(e) => setName(e.target.value)} maxLength={60}
-        className="field w-64" placeholder="Name this segment" />
+      <label className="sr-only" htmlFor="search-name">Search name</label>
+      <input id="search-name" autoFocus value={name} onChange={(e) => setName(e.target.value)} maxLength={60}
+        className="field w-64" placeholder="Name this search" />
       <button type="submit" className="btn btn-primary" disabled={!name.trim()}>Save</button>
       <button type="button" className="btn" onClick={onCancel}>Cancel</button>
     </form>
@@ -708,14 +744,20 @@ function Tier({ tier }: { tier: Account['tier'] }) {
   return <span className="chip border-transparent text-muted">P3</span>
 }
 
-function AccountTable({ rows, meta, lists, selectedId, onSelect }: {
+function AccountTable({ rows, meta, lists, selectedId, onSelect, picked, onPick }: {
   rows: Account[]; meta: Meta; lists: Lists; selectedId: string | null; onSelect: (id: string) => void
+  picked: Set<string>; onPick: (ids: string[], on: boolean) => void
 }) {
+  const allOn = rows.length > 0 && rows.every((a) => picked.has(a.id))
   return (
     <div className="hidden overflow-x-auto md:block">
     <table className="w-full min-w-[46rem] border-collapse text-md">
       <thead>
         <tr className="border-b border-rule-2 text-left text-sm text-muted">
+          <th scope="col" className="w-8 py-2 pr-2">
+            <input type="checkbox" aria-label="Select every account on this page" checked={allOn}
+              onChange={(e) => onPick(rows.map((a) => a.id), e.target.checked)} className="size-4 accent-[var(--color-accent)]" />
+          </th>
           <th scope="col" className="whitespace-nowrap py-2 pr-4 font-medium">Priority</th>
           <th scope="col" className="py-2 pr-4 font-medium">Account</th>
           <th scope="col" className="py-2 pr-4 font-medium">Why now</th>
@@ -731,6 +773,10 @@ function AccountTable({ rows, meta, lists, selectedId, onSelect }: {
           return (
             <tr key={a.id} onClick={() => onSelect(a.id)}
               className={`cursor-pointer border-b border-rule align-top transition-colors duration-[var(--dur-micro)] ${on ? 'bg-accent-soft' : 'hover:bg-paper-2'}`}>
+              <td className="py-3 pr-2" onClick={(e) => e.stopPropagation()}>
+                <input type="checkbox" aria-label={`Select ${a.name}`} checked={picked.has(a.id)}
+                  onChange={(e) => onPick([a.id], e.target.checked)} className="size-4 accent-[var(--color-accent)]" />
+              </td>
               <td className="py-3 pr-4">
                 <div className="flex items-center gap-2"><Tier tier={a.tier} /><span className="measured text-sm text-ink">{a.score.toFixed(0)}</span></div>
               </td>
@@ -989,7 +1035,7 @@ function InLists({ id, lists }: { id: string; lists: Lists }) {
 }
 
 // pick a list to add to, or make a new one
-function ListPicker({ lists, label, onPick, primary = false }: { lists: Lists; label: string; onPick: (listId: string) => void; primary?: boolean }) {
+function ListPicker({ lists, label, onPick, primary = false }: { lists: Lists; label: string; onPick: (listId: string, name: string) => void; primary?: boolean }) {
   const [open, setOpen] = useState(false)
   const [name, setName] = useState('')
   const box = useRef<HTMLSpanElement>(null)
@@ -999,7 +1045,7 @@ function ListPicker({ lists, label, onPick, primary = false }: { lists: Lists; l
     document.addEventListener('mousedown', away)
     return () => document.removeEventListener('mousedown', away)
   }, [open])
-  const pick = (id: string) => { onPick(id); setOpen(false) }
+  const pick = (id: string, name: string) => { onPick(id, name); setOpen(false); setName('') }
   return (
     <span ref={box} className="relative inline-flex">
       <button type="button" className={`btn ${primary ? 'btn-primary' : ''}`} aria-expanded={open} onClick={() => setOpen(!open)}>{label}</button>
@@ -1008,13 +1054,13 @@ function ListPicker({ lists, label, onPick, primary = false }: { lists: Lists; l
           <ul className="max-h-60 overflow-y-auto">
             {lists.lists.map((l) => (
               <li key={l.id}>
-                <button type="button" className="flex min-h-8 w-full items-center justify-between rounded-[var(--radius-ctl)] px-2 text-left text-sm text-ink-2 hover:bg-paper-2" onClick={() => pick(l.id)}>
+                <button type="button" className="flex min-h-8 w-full items-center justify-between rounded-[var(--radius-ctl)] px-2 text-left text-sm text-ink-2 hover:bg-paper-2" onClick={() => pick(l.id, l.name)}>
                   <span className="truncate">{l.name}</span><span className="measured text-xs text-muted">{fmt(lists.idsIn(l.id).length)}</span>
                 </button>
               </li>
             ))}
           </ul>
-          <form className="mt-1 flex gap-1 border-t border-rule pt-2" onSubmit={(e) => { e.preventDefault(); if (name.trim()) pick(lists.create(name)) }}>
+          <form className="mt-1 flex gap-1 border-t border-rule pt-2" onSubmit={(e) => { e.preventDefault(); if (name.trim()) pick(lists.create(name), name.trim()) }}>
             <label className="sr-only" htmlFor="picker-new">New list name</label>
             <input id="picker-new" value={name} onChange={(e) => setName(e.target.value)} maxLength={50} placeholder="New list" className="field min-w-0 flex-1" />
             <button type="submit" className="btn" disabled={!name.trim()}>Add</button>

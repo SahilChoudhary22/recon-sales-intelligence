@@ -22,9 +22,9 @@ export const NO_FILTERS = { q: '', country: [], industry: [], sector: [], softwa
 
 const arr = (v: unknown): string[] => (Array.isArray(v) ? v.map(String) : typeof v === 'string' && v ? [v] : [])
 
-/** From anything saved before (single-value segments, old lists) to the current shape. */
+/** A filter set from storage or a link, with every field present and every filter a list. */
 export function normalise(x: Partial<Record<keyof FilterSet, unknown>>): FilterSet {
-  const play = typeof x.play === 'string' ? (x.play === 'list' ? 'list:mine' : x.play) : DEFAULT_PLAY
+  const play = typeof x.play === 'string' ? x.play : DEFAULT_PLAY
   return {
     play, q: typeof x.q === 'string' ? x.q : '', strong: !!x.strong, hideListed: !!x.hideListed,
     country: arr(x.country), industry: arr(x.industry), sector: arr(x.sector), software: arr(x.software), size: arr(x.size),
@@ -35,7 +35,7 @@ export function readUrl(): ViewState {
   const p = new URLSearchParams(window.location.search)
   const list = (k: string) => (p.get(k) ? p.get(k)!.split(',').filter(Boolean) : [])
   return {
-    play: p.get('import') ? 'list:mine' : p.get('play') === 'list' ? 'list:mine' : p.get('play') ?? DEFAULT_PLAY,
+    play: p.get('import') ? 'list:mine' : p.get('play') ?? DEFAULT_PLAY,
     q: p.get('q') ?? '', country: list('country'), industry: list('industry'), sector: list('sector'),
     software: list('software'), size: list('size'), strong: p.get('strong') === '1', hideListed: p.get('new') === '1',
     id: p.get('account'), search: p.get('search'), onlyNew: p.get('since') === '1',

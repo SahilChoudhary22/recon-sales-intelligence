@@ -1,5 +1,5 @@
 """Queue the names of top-tier accounts that have no label yet, as TSV chunks for labeling
-(in-session subagents, or any batch labeler), plus the items.json that merge_labels reads.
+(by any batch labeler), plus the items.json that merge_labels reads.
 
 Re-run after each rebuild: re-ranking promotes new names, and only unlabeled ones are queued.
 

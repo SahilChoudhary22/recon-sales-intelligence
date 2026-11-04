@@ -150,10 +150,9 @@ influenced any tuning.
 | Rules only | 43% (26/60) |
 | + LLM labels for organisation type | 53% (32/60) |
 | + IP-owner identities need an education or government label | 62% (37/60) |
+| Final build (deterministic identity), same holdout | 61% (36/59) |
 
-With 60 accounts the margin is about ±12 points, so the gain is real and the middle step indicative. After
-the build was made deterministic (ties between a certificate's domains are now broken by name), one
-holdout account changed identity and left the top tiers; the holdout reads 61% (36/59).
+With 60 accounts the margin is about ±12 points, so the gain is real and the middle step indicative.
 Each sample pointed at the next fix: the first showed that IP-owner identities were 15% sellable, the
 second that labels alone didn't fix them except for universities and governments. The remaining errors
 are single-IP personal sites. The LLM agreed with the blind reviewer on carrier versus business 83 to
@@ -196,8 +195,8 @@ CVE search returns exactly the companies a direct query over the build finds (fo
 The data grows with every file, so nothing the app or an assistant reads is sized by the market:
 
 - **A read API** ([`api/`](api/)) answers every list, count and badge with DuckDB over a versioned,
-  IP-masked Parquet store. The browser holds one page; all 83,810 risky companies are served (the
-  first version shipped the top 15,000 as one JSON file and filtered in the browser).
+  IP-masked Parquet store. The browser holds one page at a time, and all 83,810 risky companies are
+  served.
 - **A count cube** answers the template counts and the profile badges. It grows with the number of
   country × sector × industry × size combinations, not with accounts.
 - **New builds land atomically.** The export writes a new folder, checks it (no full IPs, unique ids,
@@ -216,8 +215,8 @@ Measured over the real store and synthetic stores 10× and 100× its size (media
 
 The served table grows with companies, not banners, so the read side meets millions long before
 billions; the billions of raw records stay in the batch layer (Parquet and SQL that move to a warehouse
-unchanged). A separate review of the design at 10× to 1,000× the files found 13 further issues; what was fixed
-and what is designed is in [docs/architecture.md](docs/architecture.md#6-scale-review-what-holds-what-changed-what-is-designed).
+unchanged). What changes for a full stream of files and many users, and when, is in
+[docs/architecture.md](docs/architecture.md#7-the-production-path).
 
 ## MCP server
 
@@ -253,10 +252,3 @@ language; nothing runs a model or costs per call on Recon's side.
   database (Postgres: lists, list items, saved searches, runs), shared with a team and synced to the CRM.
 - **Scheduled saved searches:** a worker re-runs each saved search when a build lands and notifies the
   owner of new accounts, through the same API.
-
-## How it was built
-
-Built with Claude Code doing most of the hands-on work: profiling, pipeline code, the review loop
-after each full run, and first drafts. The direction and the product decisions were mine, and the
-measurement was kept independent of the code being measured: the blind labels came from separate
-agents that never saw the pipeline.

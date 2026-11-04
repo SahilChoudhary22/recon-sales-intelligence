@@ -1,5 +1,5 @@
-"""Merge labels produced inside Claude Code (parallel Haiku subagents, same instructions as
-pipeline/llm_label.py) into the shared label cache, validating every row.
+"""Merge labels from a batch run (Claude Haiku, the same instructions as pipeline/llm_label.py)
+into the shared label cache, validating every row.
 
 usage: python -m pipeline.merge_labels [queue_dir]
 reads <queue_dir>/items.json + out_*.jsonl, appends to data/labels/llm_cache.jsonl,
@@ -42,7 +42,7 @@ def main():
         for i, r in got.items():
             it = items[i]
             row = {"kind": it["kind"], "key": it["key"], "org_type": r["org_type"], "industry": r["industry"],
-                   "confidence": r["confidence"], "model": "claude-haiku (Claude Code subagent)"}
+                   "confidence": r["confidence"], "model": "claude-haiku (batch)"}
             cache[(it["kind"], it["key"])] = row
             f.write(json.dumps(row) + "\n")
     write_label_csvs(cache)

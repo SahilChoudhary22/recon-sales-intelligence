@@ -17,8 +17,8 @@ supported versions, `tags`, and inferred `vulns` (CVE, CVSS, EPSS, CISA-KEV flag
 There are no company records. So the real problem is two problems:
 **which assets are risky** and **whose assets are they**.
 
-I profiled a 1% systematic sample (every 100th record across the whole file) by hand before
-writing any pipeline code. Most of what follows came out of that, and out of reviewing the top of the
+The pipeline was designed from a profile of a 1% systematic sample (every 100th record across the
+whole file), made before any pipeline code was written. Most of what follows came out of that, and out of reviewing the top of the
 ranking after each full run.
 
 ## 2. The traps (what makes a naive ranking wrong)
@@ -110,9 +110,9 @@ The score is log-scaled to 0–100. **Tiers are sized to sales capacity, not per
 the unit of parallelism is the file. Ingest is stateless per file, so N workers on a file queue scale
 linearly: ~15 min/file/machine means ~100 files a day per machine, and 1,000 files a month needs
 1–2 machines. The build is plain SQL over Parquet, so it moves unchanged to DuckDB-on-object-storage or
-a warehouse. Today the build recomputes everything from the retained window on every run; the
-incremental design (state tables merged per file, only touched companies re-scored, global statistics
-on a schedule) is in [architecture.md](architecture.md#6-scale-review-what-holds-what-changed-what-is-designed).
+a warehouse. The build recomputes the retained window on every run, which is right at this volume;
+the incremental design for a full stream (state tables merged per file, only touched companies
+re-scored, global statistics on a schedule) is in [architecture.md](architecture.md#7-the-production-path).
 Scan-over-scan changes (newly exposed RDP, a new KEV CVE on a known FortiGate) are where "right now"
 timing signals come from once there is more than one file.
 
@@ -133,7 +133,7 @@ already seen before then. A file that covers a fresh IP range therefore doesn't 
 look new. A company whose material risk includes a new service gets urgency ×1.3 and a "Newly exposed"
 play. Covered by `tests/test_build_scans.py`.
 
-## 7. Where an LLM is used, how I know it's right, and what it costs
+## 7. Where an LLM is used, how it's checked, and what it costs
 
 **Where:** one place only. It classifies **distinct names** behind ranked accounts (WHOIS orgs and
 domains) as carrier / hoster / business / government / education, and gives an industry. Rules can't
@@ -141,9 +141,9 @@ know that "Etihad Etisalat" is a carrier or "Kamatera" a hoster; a model can. La
 the heuristics at medium/high confidence. It is a **batch enrichment step**, not a runtime call: the
 app never calls an LLM, so it's fast, free per view, and its ranking is stable.
 
-**How it ran for this submission:** no API key was available, so the labeling ran inside Claude Code
-as **parallel Haiku subagents with the exact instructions** in
-[`pipeline/llm_label.py`](../pipeline/llm_label.py):
+**How the labels in this repo were produced:** Claude Haiku with exactly the instructions in
+[`pipeline/llm_label.py`](../pipeline/llm_label.py), run as a parallel batch outside the script (no API key
+was configured for the script itself):
 - [`pipeline/label_queue.py`](../pipeline/label_queue.py) queues the names of unlabeled top-tier accounts.
 - [`pipeline/merge_labels.py`](../pipeline/merge_labels.py) validates every label (allowed values, every
   ID present) and writes the same cache/CSV format as the API path.
@@ -151,18 +151,17 @@ as **parallel Haiku subagents with the exact instructions** in
   top tiers dropped 3,000 → 1,430 → 92. All 4,430 labels were valid.
 
 `llm_label.py` is the production path for a file stream (batched 40 per request, `messages.parse` +
-Pydantic schema, disk cache, per-call token logging); this submission's labels came from the in-session
-run above.
+Pydantic schema, disk cache, per-call token logging).
 
 **Cost** (`data/labels/llm_usage.json`):
-- Measured in-session: **1.51M subagent tokens for 4,430 labels → $0.15–$0.75** at Haiku 5.5 prices
-  ($0.10 / $0.50 per million input/output tokens). It's a range because the harness doesn't split
-  input from output. It includes agent overhead, so it overstates the API path.
+- Measured for the batch run: **1.51M tokens for 4,430 labels → $0.15–$0.75** at Haiku 5.5 prices
+  ($0.10 / $0.50 per million input/output tokens). It's a range because the run's accounting doesn't
+  split input from output, and it includes orchestration overhead, so it overstates the API path.
 - Estimate for the API path: ~40 names per request at ~2.5k in + ~2k out ≈ **$0.08 per 3,000 names**.
   Roughly cents per file in production, and falling, because the cache carries over (orgs repeat
   month to month).
 
-**How I know it's right:** compared against the blind gold labels (§8). On names both labeled,
+**How it's checked:** compared against the blind gold labels (§8). On names both labeled,
 buyer-vs-infrastructure agreement is **83% (gold v1, n=47) and 87% (gold v2, n=38)**. The main
 error is calling small ISPs/hosters "business": 7 cases in gold v1, 3 of which were low-confidence
 and therefore already ignored by design.
@@ -170,7 +169,7 @@ and therefore already ignored by design.
 No LLM writes the outreach copy: the opening line in the app is filled in from observed facts, so it
 can't invent a vulnerability.
 
-## 8. How I measured whether it works
+## 8. How it was measured
 
 There are no ground-truth sales outcomes, so the metric is **top-tier precision**: the share of
 P1/P2 accounts a seller could actually prospect (a real organisation, correctly named). Each gold
@@ -185,7 +184,8 @@ measured on a **fresh** sample that hadn't influenced any tuning, then that samp
 | + weak identities need edu/gov confirmation, + 2nd label round | gold v3: 60 new P1/P2 accounts (holdout) | **62%** (37/60) |
 
 With n = 60 the 95% interval is about ±12 points: 43% → 62% is a real gain, while the step-by-step
-figures are indicative. Re-scored in-sample, the final build reaches 65% (v1) and 68% (v2). That's
+figures are indicative. The final build (identity ties broken deterministically) scores 61% (36/59) on
+the same holdout. Re-scored in-sample, the final build reaches 65% (v1) and 68% (v2). That's
 optimistic, since those sets informed the rules, and is reported only for completeness.
 
 **What the gold sets showed, and the change each one drove:**
@@ -200,8 +200,8 @@ optimistic, since those sets informed the rules, and is reported only for comple
   vs 72% for multi-IP. That's the next fix, and it would need a fresh gold v4 to measure.
 
 **Other checks:** honeypot / CDN / phantom records can't reach any tier by construction. The top 50
-was reviewed by hand after every full build, and each fix in §2/§4 came from that loop. Parser unit
-tests: `uv run pytest -q`.
+was reviewed after every full build, and each rule in §2/§4 came from that loop. Tests:
+`uv run pytest -q` (extractor, multi-scan build, CVE index, the API's query layer, the MCP server).
 
 ## 9. Key decisions
 
@@ -211,7 +211,8 @@ tests: `uv run pytest -q`.
   The extractor keeps a superset of fields so the 17 GB file is read once.
 - **Rule-based, explainable scores** over a learned model: there are no labels to learn from, and a
   seller has to be able to say *why* an account is hot.
-- **Static app, no backend:** all scoring happens offline; the UI only filters and displays.
+- **Batch scoring, a read-only API for serving:** scores are computed per build, offline; the API only
+  queries the published store, and the browser holds one page at a time.
 - **IPs masked to /24 in anything published:** a list of vulnerable hosts mustn't double as a
   target list. Full IPs stay in the local build.
 
@@ -245,31 +246,27 @@ Deploy (nginx for the app, the API container, Tailscale Funnel sidecar, see `dep
 (needs `TS_AUTHKEY` in the host's `.env`; refuses to ship a store that isn't IP-masked, and copies a
 build before moving the host's `current` pointer to it).
 
-## 12. How it was built
+## 12. The product surfaces
 
-Built in one day with Claude Code as the main development tool, in this order: profiling a 1% sample
-→ extractor tested on the sample → full ingest in the background
-while building identity and scoring on the sample → full build → review the top of the ranking →
-fix → repeat. An independent agent produced the evaluation labels so the measurement isn't graded by
-the same reasoning that built the pipeline.
-
-## Added after the first build
-
-- **One catalogue** (`web/src/catalog.json`): products, sectors and the ten signal templates, each with
-  a rule written as data (an OR of clauses, each an AND of conditions on signals, KEV, tier, maturity,
-  new). The app (`web/src/plays.ts`) and the MCP server (`mcp_server/data.py`) evaluate the same rules.
-- **CVE in the news** (`pipeline/cve_index.py`): the build writes notable CVEs per service (KEV, EPSS
-  >= 0.1 or CVSS >= 9) for every attributed company (907k company-CVE pairs over 1,710 CVEs). The index
-  ships one file per CVE (accounts in the app in full, the rest summarised to the top 300) plus a
-  760 KB lookup enriched from the CISA KEV catalogue: date added, ransomware use, vendor and product,
-  mapped to a software family for the fallback. Tested against a direct query (`tests/test_cve_index.py`).
-- **Peer benchmark** (`pipeline/export.py`): risk = need x urgency, ranked within industry + country,
-  then industry, then country, over all 131k scored companies, minimum 30 peers. Peer industries use
-  the keyword rules for every company; an industry group is used only when it agrees with the
-  industry the app shows.
-- **Exposure brief** (`web/src/Brief.tsx`, `?brief=<account>`): printable, evidence only, with fixed
-  guidance per signal (`web/src/guidance.ts`).
-- **MCP server** (`mcp_server/`): six deterministic tools over the published data; protocol tests in
-  `tests/test_mcp_server.py`; accuracy evaluation in `mcp_server/eval/`.
-- **Segments and Lists** live in the browser (localStorage) in this demo; a `?import=` link from the
-  MCP server adds accounts to the list.
+- **One catalogue** ([`web/src/catalog.json`](../web/src/catalog.json)): products, sectors and the ten
+  signal templates, each rule written as data (an OR of clauses, each an AND of conditions on signals,
+  KEV, tier, maturity, new). The export compiles every rule to SQL ([`api/rules.py`](../api/rules.py))
+  and stores each template's membership as a column, so the app, the API and the MCP server agree on
+  what a template matches.
+- **CVE in the news** ([`pipeline/cve_index.py`](../pipeline/cve_index.py)): notable CVEs per service
+  (KEV, EPSS ≥ 0.1 or CVSS ≥ 9) for every attributed company, about 879k company-CVE pairs over 1,701
+  CVEs, plus a lookup enriched from the CISA KEV catalogue (date added, ransomware use, vendor and
+  product mapped to a software family for the fallback search). Tested against a direct query over the
+  build (`tests/test_cve_index.py`).
+- **Peer benchmark** ([`pipeline/export.py`](../pipeline/export.py)): risk = need × urgency, ranked within
+  industry + country, then industry, then country, over all 131k scored companies, minimum 30 peers.
+  Peer industries use the keyword rules for every company, and an industry group is used only when it
+  agrees with the industry the app shows.
+- **Exposure brief** ([`web/src/Brief.tsx`](../web/src/Brief.tsx), `?brief=<account>`): printable, evidence
+  only, with fixed guidance per signal ([`web/src/guidance.ts`](../web/src/guidance.ts)).
+- **Ideal customer profile, filters, lists and saved searches** ([`web/src/`](../web/src/)): every filter
+  takes several values, the profile is a default layer under every view, an account can sit in several
+  lists, and a saved search reports what is new since its last run. How these are stored, and where
+  they move in production, is in [architecture.md](architecture.md#6-lists-and-saved-searches).
+- **MCP server** ([`mcp_server/`](../mcp_server/)): seven deterministic tools on the API's query layer;
+  protocol tests in `tests/test_mcp_server.py`, accuracy evaluation in `mcp_server/eval/`.

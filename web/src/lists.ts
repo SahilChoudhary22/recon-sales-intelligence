@@ -16,16 +16,13 @@ export type Entry = { status: Status; added: string; lists: string[] }
 type State = { lists: List[]; entries: Record<string, Entry> }
 
 export const statusLabel = (s: Status) => STATUSES.find(([k]) => k === s)?.[1] ?? s
-const KEY = 'recon.lists.v2'
+const KEY = 'recon.lists.v1'
 const DEFAULT: List = { id: 'mine', name: 'My list', created: '2026-11-01T00:00:00.000Z' }
 
 function read(): State {
   try {
     const raw = localStorage.getItem(KEY)
-    if (raw) return JSON.parse(raw)
-    // the single list from before becomes "My list"
-    const old = JSON.parse(localStorage.getItem('recon.list.v1') ?? '{}') as Record<string, { status: Status; added: string }>
-    return { lists: [DEFAULT], entries: Object.fromEntries(Object.entries(old).map(([id, e]) => [id, { ...e, lists: ['mine'] }])) }
+    return raw ? JSON.parse(raw) : { lists: [DEFAULT], entries: {} }
   } catch {
     return { lists: [DEFAULT], entries: {} }
   }

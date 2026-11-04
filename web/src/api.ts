@@ -24,6 +24,7 @@ async function call<T>(path: string, body?: unknown, signal?: AbortSignal): Prom
 export const api = {
   meta: () => call<Meta>('meta'),
   search: (f: ApiFilters, offset = 0, limit = 100, s?: AbortSignal) => call<Page>('search', { ...f, offset, limit }, s),
+  ids: (f: ApiFilters, limit = 5000) => call<{ total: number; ids: string[] }>('ids', { ...f, limit }),
   counts: (f: ApiFilters, s?: AbortSignal) => call<Record<string, number>>('counts', f, s),
   facets: (f: ApiFilters, dims?: string[], s?: AbortSignal) => call<Facets>('facets', dims ? { ...f, dims } : f, s),
   account: (id: string) => call<Account>(`accounts/${encodeURIComponent(id)}`),

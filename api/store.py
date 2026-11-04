@@ -164,11 +164,18 @@ class Store:
     def _search(self, q: Query, offset=0, limit=100):
         w, p = where(q)
         total = self._cur().execute(f"select count(*) from accounts where {w}", p).fetchone()[0]
-        # DuckDB's top-N keeps only offset + limit rows while scanning; measured, relying on the
-        # file's priority order instead was no faster (api/bench.py), so the order is explicit
+        # DuckDB's top-N keeps only offset + limit rows while scanning
         rows = self._rows(f"select {ACCOUNT_COLS} from accounts where {w} order by priority desc, id "
                           f"limit {int(limit)} offset {int(offset)}", p)
         return {"total": total, "offset": offset, "accounts": rows}
+
+    def ids(self, q: Query, cap=5000):
+        """The ids of the top matches, for adding a whole search to a list."""
+        w, p = where(q)
+        total = self._cur().execute(f"select count(*) from accounts where {w}", p).fetchone()[0]
+        ids = [r[0] for r in self._cur().execute(
+            f"select id from accounts where {w} order by priority desc, id limit {int(cap)}", p).fetchall()]
+        return {"total": total, "ids": ids}
 
     def account(self, account_id):
         # a copy sorted by id: the lookup reads only the row group whose id range can hold it

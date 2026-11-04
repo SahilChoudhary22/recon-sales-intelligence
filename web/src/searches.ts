@@ -22,10 +22,7 @@ const KEY = 'recon.searches.v1'
 function read(): SavedSearch[] {
   try {
     const raw = localStorage.getItem(KEY)
-    if (raw) return JSON.parse(raw)
-    // segments saved before become saved searches
-    const old = JSON.parse(localStorage.getItem('recon.segments.v1') ?? '[]') as { id: string; name: string; filters: Record<string, unknown>; created: string }[]
-    return old.map((s) => ({ id: s.id, name: s.name, filters: normalise(s.filters), profile: {}, created: s.created, lastRun: null, lastRunAt: null, schedule: 'daily' }))
+    return raw ? (JSON.parse(raw) as SavedSearch[]).map((s) => ({ ...s, filters: normalise(s.filters) })) : []
   } catch {
     return []
   }

@@ -1,8 +1,9 @@
 # Recon MCP server
 
 Prospect from Claude, Cursor or any MCP client. The assistant handles the language; these tools are
-deterministic and read Recon's published, IP-masked data, so there is no model on Recon's side, no
-per-call cost, and nothing for Recon to hallucinate.
+deterministic queries over Recon's IP-masked serving store, through the same query layer as the read
+API (`api/store.py`), so there is no model on Recon's side, no per-call cost, nothing for Recon to
+hallucinate, and the app and the assistant always agree.
 
 | Tool | What it does |
 |---|---|
@@ -20,8 +21,8 @@ Templates, products and sectors come from `web/src/catalog.json`, the same file 
 uv run python -m mcp_server.server          # stdio
 ```
 
-This repo ships a `.mcp.json`, so Claude Code offers the server when you open the project. Point it at
-the hosted app with `RECON_DATA=https://<app>/data` and `RECON_APP_URL=https://<app>`.
+The repo ships a `.mcp.json` for MCP clients that read project config. `RECON_SERVE` points at a
+serving store (default `data/serve/current`) and `RECON_APP_URL` at the app the links should open.
 
 **Evaluation** (`mcp_server/eval/`): 18 sales requests with accepted answers. A model sees only the
 tool schemas (`tools.json`) and the requests (`prompts.json`), writes the first call it would make, and
