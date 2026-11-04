@@ -11,6 +11,8 @@ import { LogoMark } from './Logo'
 import { Brief } from './Brief'
 import { peerLine } from './peer'
 import { guideSeen } from './tourSteps'
+import { IcpPanel } from './IcpPanel'
+import { PERSONAS, describeIcp, icpIsEmpty, inIcp, useIcp, type Icp, type Persona } from './icp'
 
 const fmt = (n: number) => n.toLocaleString('en-US')
 const CRITICAL_WEIGHT = 8
@@ -81,6 +83,15 @@ export default function App() {
   const shortlist = useShortlist()
   const segs = useSegments()
   const [cveIndex, setCveIndex] = useState<CveIndex | null>(null)
+  // the ideal customer profile: asked once on a first visit, then a default layer under every view
+  const { icp: profile, seen: profileSeen, save: saveProfile } = useIcp()
+  const [editingIcp, setEditingIcp] = useState(false)
+  const showIcp = editingIcp || (!profileSeen && !BRIEF_ID)
+  const closeIcp = useCallback(() => {
+    if (!profileSeen) saveProfile({ ...profile, active: false }) // skipped: don't ask again
+    setEditingIcp(false)
+  }, [profileSeen, profile, saveProfile])
+  const inProfile = useCallback((a: Account) => inIcp(profile, a), [profile])
   const set = (patch: Partial<Filters>) => {
     setF((cur) => ({ ...cur, ...patch }))
     if (!('id' in patch)) setLimit(100) // a new filter starts the list from the top
@@ -118,8 +129,8 @@ export default function App() {
   const cveIds = useMemo(() => parseCves(f.q, cveIndex), [f.q, cveIndex])
 
   const counts = useMemo(
-    () => Object.fromEntries([MARKET, ...TEMPLATES].map((p) => [p.id, data ? data.accounts.filter(p.match).length : 0])),
-    [data],
+    () => Object.fromEntries([MARKET, ...TEMPLATES].map((p) => [p.id, data ? data.accounts.filter((a) => p.match(a) && inProfile(a)).length : 0])),
+    [data, inProfile],
   )
   const options = useMemo(() => {
     const c = new Map<string, number>(), i = new Map<string, number>(), sw = new Map<string, number>()
@@ -146,14 +157,16 @@ export default function App() {
     (!f.sector || sectorOf(a) === f.sector) &&
     (!f.software || a.software.includes(f.software)) &&
     (!f.strong || IDENT[a.ident].strong), [f.country, f.industry, f.sector, f.software, f.strong])
+  // the profile narrows every view except My list: an account you saved stays visible
+  const fit = useCallback((a: Account) => icp(a) && inProfile(a), [icp, inProfile])
   const rows = useMemo(() => {
     if (!data) return []
     const needle = f.q.trim().toLowerCase()
     return data.accounts.filter(
-      (a) => play.match(a) && icp(a) &&
+      (a) => play.match(a) && (play.id === 'list' ? icp(a) : fit(a)) &&
         (!needle || a.name.toLowerCase().includes(needle) || (a.org ?? '').toLowerCase().includes(needle)),
     )
-  }, [data, play, f.q, icp])
+  }, [data, play, f.q, icp, fit])
   const selected = useMemo(() => data?.accounts.find((a) => a.id === f.id) ?? null, [data, f.id])
   const filtered = !!(f.q || f.country || f.industry || f.sector || f.software || f.strong)
   const nSaved = Object.keys(shortlist.list).length
@@ -175,6 +188,15 @@ export default function App() {
     )
   }
   const current = { play: f.play, q: f.q, country: f.country, industry: f.industry, sector: f.sector, software: f.software, strong: f.strong }
+  const profileSet = !icpIsEmpty(profile)
+  const profileOn = profile.active && profileSet
+  const sectorName = (s: string) => SECTORS.find(([k]) => k === s)?.[1] ?? s
+  const saveIcp = (p: Icp) => {
+    saveProfile(p)
+    setProduct(p.product)
+    setEditingIcp(false)
+    setLimit(100)
+  }
 
   if (BRIEF_ID) {
     const acc = data?.accounts.find((x) => x.id === BRIEF_ID)
@@ -183,7 +205,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen">
-      <Header data={data} onGuide={() => setGuide(true)} />
+      <Header data={data} onGuide={() => setGuide(true)} onIcp={() => setEditingIcp(true)} icpOn={profileOn} />
       <div className="mx-auto max-w-[112rem] lg:grid lg:grid-cols-[16rem_minmax(0,1fr)] 2xl:grid-cols-[16rem_minmax(0,1fr)_minmax(0,34rem)]">
         <nav aria-label="Views" className="flex gap-4 overflow-x-auto border-b border-rule px-4 py-3 lg:block lg:overflow-visible lg:border-b-0 lg:border-r lg:px-3 lg:py-5">
           <div data-tour="mylist" className="shrink-0 lg:mb-5">
@@ -243,7 +265,8 @@ export default function App() {
             </div>
           ) : isTemplate && data ? (
             <TemplateCard t={play} meta={data} product={product}
-              example={data.accounts.find((a) => play.match(a) && inTargeting(play, a)) ?? null}
+              example={data.accounts.find((a) => play.match(a) && inTargeting(play, a) && inProfile(a))
+                ?? data.accounts.find((a) => play.match(a) && inTargeting(play, a)) ?? null}
               onCustomize={() => set({ ...EMPTY_ICP, ...(play.targeting ?? {}) })}
               onOpen={(id) => set({ id })} />
           ) : (
@@ -273,6 +296,18 @@ export default function App() {
             <div className="mt-2 flex flex-wrap items-center gap-3">
               {!cveIds.length && <span className="text-sm text-muted"><span className="measured text-ink">{fmt(rows.length)}</span> {rows.length === 1 ? 'account' : 'accounts'}</span>}
               {filtered && <button type="button" className="text-sm text-muted underline underline-offset-4 hover:text-ink" onClick={() => set(EMPTY_ICP)}>Clear filters</button>}
+              {profileSet && play.id !== 'list' && (
+                <span className="flex flex-wrap items-center gap-x-2 text-sm text-muted">
+                  {profileOn
+                    ? <span className="chip max-w-[32rem] truncate" title={`Your ICP: ${describeIcp(profile, sectorName)}`}>Your ICP: {describeIcp(profile, sectorName)}</span>
+                    : <span>Your ICP is off</span>}
+                  <button type="button" className="underline underline-offset-4 hover:text-ink" onClick={() => setEditingIcp(true)}>Edit</button>
+                  <button type="button" className="underline underline-offset-4 hover:text-ink"
+                    onClick={() => { saveProfile({ ...profile, active: !profile.active }); setLimit(100) }}>
+                    {profileOn ? 'Turn off' : 'Turn on'}
+                  </button>
+                </span>
+              )}
               <div className="ml-auto flex flex-wrap items-center gap-2">
                 {naming ? (
                   <SegmentForm onCancel={() => setNaming(false)} onSave={(name) => { segs.add(name, current); setNaming(false) }}
@@ -287,7 +322,7 @@ export default function App() {
 
           <div data-tour="table">
             {data && cveIndex && cveIds.length > 0 ? (
-              <CveResults ids={cveIds} index={cveIndex} data={data} icp={icp} selectedId={f.id} shortlist={shortlist}
+              <CveResults ids={cveIds} index={cveIndex} data={data} icp={fit} selectedId={f.id} shortlist={shortlist}
                 onOpen={(id) => set({ id })} onFamily={(fam) => set({ q: '', software: fam })} />
             ) : data && looksLikeCve(f.q) && !cveIndex ? (
               <SkeletonRows />
@@ -302,8 +337,9 @@ export default function App() {
                 <button type="button" className="btn" onClick={() => set({ play: 'p1' })}>Browse the P1 accounts</button>
               </State>
             ) : !rows.length ? (
-              <State title="No accounts match these filters." body={`${play.name} has ${fmt(play.id === 'list' ? nSaved : counts[play.id] ?? 0)} accounts before filtering.`}>
+              <State title="No accounts match these filters." body={`${play.name} has ${fmt(play.id === 'list' ? nSaved : counts[play.id] ?? 0)} accounts${profileOn && play.id !== 'list' ? ' in your ICP' : ''} before filtering.`}>
                 {filtered && <button type="button" className="btn" onClick={() => set(EMPTY_ICP)}>Clear filters</button>}
+                {!filtered && profileOn && <button type="button" className="btn" onClick={() => setEditingIcp(true)}>Edit your ICP</button>}
               </State>
             ) : (
               <>
@@ -319,9 +355,10 @@ export default function App() {
           </div>
         </main>
 
-        <Detail key={selected?.id ?? 'none'} account={selected} meta={data} shortlist={shortlist} highlight={cveIds} onClose={() => set({ id: null })} />
+        <Detail key={selected?.id ?? 'none'} account={selected} meta={data} shortlist={shortlist} highlight={cveIds} persona={profile.persona} onClose={() => set({ id: null })} />
       </div>
-      {guide && data && <Tour onClose={() => setGuide(false)} />}
+      {showIcp && data && <IcpPanel initial={{ ...profile, product }} accounts={data.accounts} first={!profileSeen} onSave={saveIcp} onClose={closeIcp} />}
+      {guide && data && !showIcp && <Tour onClose={() => setGuide(false)} />}
     </div>
   )
 }
@@ -547,7 +584,7 @@ function TemplateCard({ t, meta, product, example, onCustomize, onOpen }: {
 
 const compact = new Intl.NumberFormat('en-US', { notation: 'compact', maximumSignificantDigits: 3 })
 
-function Header({ data, onGuide }: { data: Dataset | null; onGuide: () => void }) {
+function Header({ data, onGuide, onIcp, icpOn }: { data: Dataset | null; onGuide: () => void; onIcp: () => void; icpOn: boolean }) {
   const f = data?.funnel as Record<string, number> | undefined
   return (
     <header className="border-b border-rule bg-paper-2" data-tour="funnel">
@@ -569,6 +606,9 @@ function Header({ data, onGuide }: { data: Dataset | null; onGuide: () => void }
               <span className="measured text-ink-2">{compact.format(f.raw_records)}</span> scan records
             </p>
           )}
+          <button type="button" className="btn" onClick={onIcp} aria-label={icpOn ? 'Your ICP (on)' : 'Your ICP'}>
+            Your ICP{icpOn && <span aria-hidden="true" className="size-1.5 rounded-full bg-accent" />}
+          </button>
           <button type="button" className="btn" onClick={onGuide}>How it works</button>
         </div>
       </div>
@@ -706,8 +746,8 @@ function State({ title, body, children }: { title: string; body: string; childre
   )
 }
 
-function Detail({ account: a, meta, shortlist, highlight, onClose }: {
-  account: Account | null; meta: Dataset | null; shortlist: ReturnType<typeof useShortlist>; highlight: string[]; onClose: () => void
+function Detail({ account: a, meta, shortlist, highlight, persona, onClose }: {
+  account: Account | null; meta: Dataset | null; shortlist: ReturnType<typeof useShortlist>; highlight: string[]; persona: Persona; onClose: () => void
 }) {
   const [ev, setEv] = useState<Evidence[] | null>(null)
   const [evFailed, setEvFailed] = useState(false)
@@ -815,7 +855,7 @@ function Detail({ account: a, meta, shortlist, highlight, onClose }: {
             <p className="mt-2 text-xs text-muted">Built only from what the scan observed; nothing is generated.</p>
           </section>
 
-          <WhoToContact account={a} />
+          <WhoToContact account={a} persona={persona} />
 
           <section aria-labelledby="evidence">
             <h3 id="evidence" className="mb-3 text-lg text-ink">Evidence</h3>
@@ -902,13 +942,14 @@ function ListControl({ id, shortlist }: { id: string; shortlist: ReturnType<type
   )
 }
 
-function WhoToContact({ account: a }: { account: Account }) {
+function WhoToContact({ account: a, persona }: { account: Account; persona: Persona }) {
   const isDomain = !a.id.startsWith('org:')
   // a domain account is searched by its brand ("chevron" for chevron.com); an IP-owner account by its registered name
   const company = isDomain ? a.name.split('.')[0] : a.org ?? a.name
-  const roles = '(CISO OR "head of security" OR "IT director" OR "IT manager")'
+  // the roles come from "who you usually reach out to" in your ICP
+  const [, who, roles] = PERSONAS.find(([k]) => k === persona) ?? PERSONAS[0]
   const links: [string, string][] = [
-    ['Security and IT leads on LinkedIn', `https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(`${company} ${roles}`)}`],
+    [`${who} on LinkedIn`, `https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(`${company} ${roles}`)}`],
     ['Same search through Google', `https://www.google.com/search?q=${encodeURIComponent(`site:linkedin.com/in "${company}" ${roles}`)}`],
   ]
   if (isDomain) links.push(['Company website', `https://${a.name}`])

@@ -45,6 +45,9 @@ sends is generated: the outreach is the evidence.
 - **Market signals and signal templates.** The whole ranked market, or a ready-to-run search built
   around one buying trigger (exposed firewalls with exploited CVEs, on-prem Exchange, legacy Windows,
   OT exposure). **What you sell** puts the templates for your product first.
+- **Your ideal customer profile.** Asked once on a first visit: what you sell, where, to whom and
+  who you call, with a live count of matching accounts. It narrows every view and count, the CVE
+  search included, sets the roles in the contact searches, and can be edited or switched off.
 - **ICP filters and segments.** Sector, country, industry and the software they run, saved as
   segments to rerun each week.
 - **CVE in the news.** Search a CVE id or a name such as "Citrix Bleed" and see which accounts run
