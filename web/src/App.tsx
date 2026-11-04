@@ -8,6 +8,8 @@ import { APP_NAME, PRODUCT_LINE } from './brand'
 import { STATUSES, statusLabel, useShortlist, type Saved, type Status } from './shortlist'
 import { Tour } from './Tour'
 import { LogoMark } from './Logo'
+import { Brief } from './Brief'
+import { peerLine } from './peer'
 import { guideSeen } from './tourSteps'
 
 const fmt = (n: number) => n.toLocaleString('en-US')
@@ -57,6 +59,7 @@ function writeUrl(f: Filters) {
 }
 
 let IMPORT_IDS = new URLSearchParams(window.location.search).get('import')
+const BRIEF_ID = new URLSearchParams(window.location.search).get('brief')
 
 const PRODUCT_KEY = 'recon.product'
 function readProduct() {
@@ -98,7 +101,7 @@ export default function App() {
       .catch(() => setFailed(true))
   }, [])
   useEffect(load, [load])
-  useEffect(() => writeUrl(f), [f])
+  useEffect(() => { if (!BRIEF_ID) writeUrl(f) }, [f]) // the brief keeps its own ?brief= URL so it can be shared
   // ?import=id1,id2 (from the MCP server's make_list) adds those accounts to My list once, then opens it.
   // The ids are read at page load (IMPORT_IDS), because writeUrl drops the parameter on first render.
   const { saveMany } = shortlist
@@ -172,6 +175,11 @@ export default function App() {
     )
   }
   const current = { play: f.play, q: f.q, country: f.country, industry: f.industry, sector: f.sector, software: f.software, strong: f.strong }
+
+  if (BRIEF_ID) {
+    const acc = data?.accounts.find((x) => x.id === BRIEF_ID)
+    return data && acc ? <Brief a={acc} meta={data} /> : <p className="p-10 text-sm text-muted">{data ? 'No such account.' : 'Loading…'}</p>
+  }
 
   return (
     <div className="min-h-screen">
@@ -767,7 +775,10 @@ function Detail({ account: a, meta, shortlist, highlight, onClose }: {
             <h2 ref={heading} tabIndex={-1} className="truncate text-2xl text-ink outline-none">{a.name}</h2>
             <p className="mt-0.5 text-sm text-muted">Identified by: {IDENT[a.ident].label}</p>
           </div>
-          <button type="button" onClick={onClose} className="btn shrink-0">Close</button>
+          <div className="flex shrink-0 gap-2">
+            <a href={`./?brief=${encodeURIComponent(a.id)}`} target="_blank" rel="noopener" className="btn">Exposure brief</a>
+            <button type="button" onClick={onClose} className="btn">Close</button>
+          </div>
         </div>
         <ListControl id={a.id} shortlist={shortlist} />
 
@@ -777,6 +788,7 @@ function Detail({ account: a, meta, shortlist, highlight, onClose }: {
               <span className="measured text-reading leading-none tracking-[-0.04em] text-ink">{a.score.toFixed(0)}</span>
               <div className="pb-1"><Tier tier={a.tier} /><p className="mt-1 text-sm text-muted">score out of 100</p></div>
             </div>
+            {a.peer && <p className="mt-3 text-md text-ink">{peerLine(a)}.</p>}
             <p className="measured mt-3 text-sm text-ink-2">
               need {a.need.toFixed(1)} × urgency {a.urgency.toFixed(2)} × fit {a.fit.toFixed(2)}
             </p>

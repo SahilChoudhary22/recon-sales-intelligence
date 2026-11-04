@@ -95,6 +95,9 @@ def summary(a):
         "why_now": [signal_label(s) for s in a["signals"][:4]],
         "software_seen": a["software"][:6], "ips": a["ips"], "services": a["assets"],
         "newly_exposed": a["new"], "app_link": account_link(a["id"]),
+        "peer_benchmark": (f"#{a['peer']['rank']} of {a['peer']['n']} {a['peer']['group']} by external exposure"
+                           if a.get("peer") else None),
+        "exposure_brief": f"{APP_URL}/?brief={urllib.parse.quote(a['id'])}",
     }
 
 

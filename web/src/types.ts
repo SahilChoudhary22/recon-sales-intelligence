@@ -23,6 +23,7 @@ export type Account = {
   new: boolean // a material exposure first seen in the latest scan (needs two or more scans)
   software: string[] // product families seen on its services (technographics)
   sector: Sector // ICP sector, computed in pipeline/export.py
+  peer: { rank: number; n: number; pct: number; group: string } | null // risk rank among similar companies
 }
 
 export type SignalMeta = { label: string; category: string; weight: number }

@@ -88,6 +88,49 @@ def sector(ind, name, org):
     return "commercial"
 
 
+PEER_MIN = 30
+COUNTRY_NAMES = {"US": "the US", "GB": "the UK", "DE": "Germany", "FR": "France", "JP": "Japan", "CN": "China", "IN": "India",
+                 "NL": "the Netherlands", "BR": "Brazil", "SG": "Singapore", "AU": "Australia", "IT": "Italy", "CA": "Canada",
+                 "KR": "South Korea", "IE": "Ireland", "HK": "Hong Kong", "ID": "Indonesia", "TW": "Taiwan", "ES": "Spain",
+                 "PL": "Poland", "TH": "Thailand", "FI": "Finland", "VN": "Vietnam", "SE": "Sweden", "RU": "Russia",
+                 "AR": "Argentina", "CZ": "Czechia", "MX": "Mexico", "CH": "Switzerland", "TR": "Turkey"}
+
+
+def add_peer_benchmarks(con, build_dir, accounts):
+    """Peer benchmark: an account's risk (need x urgency, fit left out) ranked among companies like it,
+    over every scored company in the scan, not just the exported top. Peer industries use the keyword
+    rules, applied the same way to every company, so the pool is not skewed towards top accounts that
+    got LLM labels; an industry group is used only when that rule agrees with the industry the app shows.
+    Most specific group with at least PEER_MIN peers wins: industry + country, then industry, then country."""
+    import bisect
+    pool = con.execute(f"""select company_id, display_name, business_org, domain, country, need * urgency
+                           from '{build_dir}/accounts.parquet'""").fetchall()
+    groups, rule_ind, risk_of = {}, {}, {}
+    for cid, name, borg, dom, cc, risk in pool:
+        ind = industry(dom, borg, name)
+        rule_ind[cid], risk_of[cid] = ind, risk
+        keys = [(None, cc)] + ([(ind, cc), (ind, None)] if ind else [])
+        for key in keys:
+            groups.setdefault(key, []).append(risk)
+    for v in groups.values():
+        v.sort()
+    for acc in accounts:
+        ind = acc["industry"] if rule_ind.get(acc["id"]) == acc["industry"] else None
+        cc, r = acc["country"], risk_of[acc["id"]]
+        acc["peer"] = None
+        for key in ([(ind, cc), (ind, None)] if ind else []) + [(None, cc)]:
+            risks = groups.get(key, [])
+            n = len(risks)
+            if n - 1 < PEER_MIN:
+                continue
+            rank = n - bisect.bisect_right(risks, r) + 1  # 1 = most exposed in the group
+            noun = f"{key[0].lower()} organisations" if key[0] else "companies"
+            where = f" in {COUNTRY_NAMES.get(key[1], key[1])}" if key[1] else " in this scan"
+            acc["peer"] = {"rank": rank, "n": n, "pct": round(100 * bisect.bisect_left(risks, r) / (n - 1)),
+                           "group": f"{noun}{where}"}
+            break
+
+
 def shard(company_id):
     return int(hashlib.md5(company_id.encode()).hexdigest(), 16) % SHARDS
 
@@ -126,6 +169,7 @@ def main():
         })
     for acc in accounts:
         acc["sector"] = sector(acc["industry"], acc["name"], acc["org"])
+    add_peer_benchmarks(con, a.build_dir, accounts)
     ev = con.execute(f"""select company_id, signal, ip, port, product, evidence, http_title, cert_cn
         from '{a.build_dir}/evidence.parquet'""").fetchall()
     m = not a.no_mask
