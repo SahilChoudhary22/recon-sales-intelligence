@@ -19,7 +19,10 @@ import pyarrow as pa
 from pipeline.identity import resolve
 from pipeline.signals import MATURITY, SIGNALS
 
-RETAIN_SCANS = 3  # a service absent from the last 3 scans is treated as closed
+# Retention and "new" go by observation time, not by file: a delivered file is a few hours of an
+# ongoing crawl (this one covers 21:13 to 02:06), not a full re-scan of the internet.
+RETAIN_DAYS = 30  # a service not observed in the last 30 days is treated as closed
+NEW_DAYS = 7  # a service first observed in the last 7 days, on an IP already seen before then, is new
 PHANTOM_PORTS = 50  # an IP answering on more distinct ports than this in one scan is a tarpit/proxy
 SHARED_IP_DOMAINS = 5  # an IP serving this many distinct company domains is shared hosting
 HOSTER_DOMAINS = 10  # an org whose IPs carry this many distinct company domains is a hoster/ISP
@@ -55,23 +58,28 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
     funnel = {}
 
     # one scan file or a stream of them: <root>/<scan-id>/*.parquet with scan ids that sort by time
-    con.execute(f"""create view scans as select *, regexp_extract(filename, '([^/]+)/[^/]+$', 1) scan
-        from read_parquet('{glob}', filename = true)""")
+    # union_by_name: scans written before a field was added still read (the missing column is null)
+    con.execute(f"""create view scans as select *, regexp_extract(filename, '([^/]+)/[^/]+$', 1) scan,
+        try_cast(ts as timestamp) seen from read_parquet('{glob}', filename = true, union_by_name = true)""")
     scan_ids = [r[0] for r in con.execute("select distinct scan from scans order by 1").fetchall()]
     funnel["scans"] = len(scan_ids)
+    lo, hi = con.execute("select min(seen), max(seen) from scans").fetchone()
+    funnel["observed_from"], funnel["observed_to"] = str(lo)[:19], str(hi)[:19]
     if len(scan_ids) == 1:
-        con.execute("create view raw as select * exclude (filename, scan), false is_new from scans")
+        con.execute("create view raw as select * exclude (filename, scan, seen), false is_new from scans")
     else:
-        # latest observation wins per service; a service unseen in the last RETAIN_SCANS scans is
-        # treated as closed; one first seen in the newest scan is a newly exposed service
-        keep = scan_ids[-RETAIN_SCANS:]
-        latest = scan_ids[-1]
+        # latest observation wins per service, and only the last RETAIN_DAYS count. A service is new
+        # when first observed in the last NEW_DAYS on an IP the crawl had already seen before then, so a
+        # file covering a different IP range doesn't make everything in it look new.
         con.execute(f"""create table raw as
-            with first as (select ip, port, transport, min(scan) first_scan from scans group by all)
-            select s.* exclude (filename, scan), f.first_scan = '{latest}' is_new
-            from scans s join first f using (ip, port, transport)
-            where s.scan in ({",".join(f"'{k}'" for k in keep)})
-            qualify row_number() over (partition by ip, port, transport order by s.scan desc, s.ts desc) = 1""")
+            with svc as (select ip, port, transport, min(seen) first_seen from scans group by all),
+                 ipf as (select ip, min(seen) ip_first from scans group by ip)
+            select s.* exclude (filename, scan, seen),
+                   f.first_seen >= timestamp '{hi}' - interval {NEW_DAYS} day
+                   and i.ip_first < timestamp '{hi}' - interval {NEW_DAYS} day is_new
+            from scans s join svc f using (ip, port, transport) join ipf i using (ip)
+            where s.seen >= timestamp '{hi}' - interval {RETAIN_DAYS} day
+            qualify row_number() over (partition by ip, port, transport order by s.seen desc) = 1""")
         funnel["services_new_in_latest_scan"] = con.execute("select count(*) from raw where is_new").fetchone()[0]
     con.execute("""create table ip_stats as
         select ip, count(distinct port) n_ports from raw group by ip""")
@@ -122,11 +130,11 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
             where org_type in ('isp_telecom', 'hosting_cloud') and confidence <> 'low'""")
 
     con.execute("""create table rec_ident as
-        select rid, ip, arg_min(domain, prio) domain, min(prio) prio from (
+        select rid, ip, arg_min(domain, prio::varchar || ':' || domain) domain, min(prio) prio from (
             select *, case src when 'cert' then 1 when 'ntlm' then 2 when 'http_host' then 3 else 4 end prio
             from cand_d where domain not in (select domain from infra_auto)) group by rid, ip""")
     con.execute("""create table ip_ident as
-        select ip, count(distinct domain) n_dom, arg_min(domain, prio) domain, min(prio) prio
+        select ip, count(distinct domain) n_dom, arg_min(domain, prio::varchar || ':' || domain) domain, min(prio) prio
         from rec_ident group by ip""")
 
     # --- org classification (business vs ISP/hosting) ---------------------------------------

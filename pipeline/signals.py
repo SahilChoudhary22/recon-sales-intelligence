@@ -80,7 +80,7 @@ SIGNALS = [
      "cert_expired", "coalesce(cert_cn, '') || ' expired ' || coalesce(cert_expires, '')"),
     ("cert_expiring", "hygiene", 2.0, "TLS certificate expires within 30 days",
      "not coalesce(cert_expired, false) and cert_expires is not null "
-     "and try_strptime(cert_expires, '%Y%m%d%H%M%SZ') < timestamp '2026-12-01'",
+     "and try_strptime(cert_expires, '%Y%m%d%H%M%SZ') < try_cast(ts as timestamp) + interval 30 day",  # relative to when it was seen
      "coalesce(cert_cn, '') || ' expires ' || cert_expires"),
     ("weak_tls", "hygiene", 1.5, "Still accepts TLS 1.0/1.1 or SSL",
      "list_has_any(tls_versions, ['TLSv1','TLSv1.1','SSLv3','SSLv2'])",

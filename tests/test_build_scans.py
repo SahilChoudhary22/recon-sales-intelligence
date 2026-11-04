@@ -46,3 +46,18 @@ def test_single_scan_has_nothing_new(tmp_path):
                                                     ssl={"cert": {"subject": {"CN": "acme-test.co.uk"}}})])
     funnel = build(f"{tmp_path}/*/*.parquet", f"{tmp_path}/out")
     assert funnel["scans"] == 1 and "services_new_in_latest_scan" not in funnel
+
+
+def test_a_file_covering_new_ip_ranges_is_not_all_new(tmp_path):
+    """A file is a few hours of an ongoing crawl. An IP the crawl never saw before is not a newly
+    exposed service; a new port on an IP it already knew is. Old observations age out by time."""
+    known = dict(ssl={"cert": {"subject": {"CN": "www.acme-test.co.uk"}, "issuer": {"CN": "CA"}}})
+    write_scan(tmp_path, "scan-2026-08-01", [banner(22, "ssh", "2026-08-01T10:00:00", **known)])  # > 30 days old
+    write_scan(tmp_path, "scan-2026-10-20", [banner(443, "https", "2026-10-20T10:00:00", **known)])
+    write_scan(tmp_path, "scan-2026-11-01", [
+        banner(3389, "rdp", "2026-11-01T10:05:00"),                      # new port on a known IP: new
+        banner(3389, "rdp", "2026-11-01T10:06:00", ip_str="203.0.113.9", org="Other Co Ltd"),  # IP never crawled before: not new
+    ])
+    funnel = build(f"{tmp_path}/*/*.parquet", f"{tmp_path}/out")
+    assert funnel["services_new_in_latest_scan"] == 1
+    assert funnel["raw_records"] == 3  # the August SSH observation aged out
