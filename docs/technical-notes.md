@@ -59,23 +59,44 @@ Counts are companies, full file:
 
 | Signal | Companies | Why it means "call now" |
 |---|---|---|
-| Firewall/VPN appliance reachable (FortiGate, NetScaler, SonicWall, Ivanti/Pulse, Palo Alto, BIG-IP admin…) | 7,640 | The #1 ransomware initial-access vector |
+| Firewall/VPN appliance reachable (FortiGate, NetScaler, SonicWall, Ivanti/Pulse, Palo Alto, pfSense, BIG-IP admin…) | 7,792 | The #1 ransomware initial-access vector |
 | Edge appliance on a version **with** a KEV CVE | 18 | The above, already known-exploited |
 | On-prem Exchange / OWA | 798 | ProxyShell-class surface; cloud-email pitch |
 | RDP / VNC / Telnet / X11 answering, no refusal | 898 | Direct remote access |
+| Windows Remote Management (WinRM, 5985/5986) | 10,913 | PowerShell remoting: password spraying and lateral movement |
 | Database answering, no refusal (MS-SQL, MySQL, Oracle, Redis, Mongo…) | 2,677 | Data exposure |
 | SMB / open directories (an iSCSI target only when it lists its targets) | 1,070 | Data exposure, lateral movement |
 | OT / medical / POS devices (scanner's `ics`/`medical` tag or an industrial product; non-cloud) | 185 | Compliance-driven buyer |
+| Management console or interface (SNMP, LDAP, Kubernetes, Docker; consoles named by their page title: MinIO, n8n, Portainer, phpMyAdmin, Proxmox…; decoy pages excluded) | 6,355 | The admin plane on the internet |
+| Debug output (Django debug mode, Python tracebacks, Laravel, Werkzeug, phpinfo; not plain framework error pages) | 199 | Versions, paths and sometimes secrets |
 | Self-hosted AI app or MCP server (LiteLLM, Ollama, Dify, Flowise, MCP) | 169 | New attack surface: leaked keys, data and agent tools |
-| Evidence of a breach (ransomed database, remote-access trojan, cryptominer; red-team tools excluded) | 2 | Already compromised: an incident-response call |
+| Evidence of a breach (a ransom note in a database, a defaced page, a remote-access trojan, a cryptominer; red-team tools excluded) | 9 | Already compromised: an incident-response call |
 | Version affected by a KEV CVE (attributable matches only, the CVE's own product; noise CVEs excluded) | 3,966 | Known exploited in the wild |
 | Version with an EPSS ≥ 0.5 CVE (not export-grade TLS ciphers, Logjam and FREAK: that's weak TLS) | 2,460 | Likely to be exploited soon |
 | End-of-life OS (NTLM, IIS version, distro release) / EOL component (PHP, Apache, nginx, MySQL, MariaDB, Tomcat, OpenSSL; not distro builds) | 9,945 / 8,279 | Unpatchable |
-| NTLM leaks an internal AD domain | 2,522 | Recon handed to attackers |
-| Expired / expiring certs, TLS 1.0/1.1, self-signed | many | Hygiene: points to a thin or absent security team |
+| NTLM leaks an internal AD domain | 2,846 | Recon handed to attackers |
+| Expired / expiring certs, TLS 1.0/1.1, self-signed, weak certificate keys or signatures, default server pages | many | Hygiene: points to a thin or absent security team |
 
 **Maturity signals** (WAF, security.txt, post-quantum TLS, HSTS) don't hide an account. They
-change the pitch from "first security purchase" to "consolidation / coverage gaps" (6,891 accounts).
+change the pitch from "first security purchase" to "consolidation / coverage gaps". Signing in
+through Okta or Entra ID counts as one.
+
+### Signals from the rest of the record
+
+The first ingest kept the fields the planned signals needed and dropped the page HTML, the
+certificate's key and the database listings, which are most of the 18 GB. A later pass measured what
+those parts hold (one streaming read of all 13.4M records, then a 1-in-50 profile and a blind read of
+200 random pages). Kept records: 128k WinRM services, the second most common product, which no signal
+covered; 471 pages with real debug output; 15.6k certificates signed with SHA-1 or MD5 and 7.2k with
+RSA keys under 2048 bits; 4k redirects naming a site the record doesn't; and very little breach
+evidence (8 databases holding a ransom note, 12 defaced pages, 2 cryptominer scripts). It also found
+60k pages stuffed with every product's name to fool scanners, and that the scanner's 80k
+"remote-access trojan" probe hits are ordinary services or empty replies. Ingest now reads these into
+a few small fields (page markers and a short excerpt around each, the redirect target, the key and
+signature, ransom-note database names), so nothing else of the HTML is kept. Two rules were tightened
+after reading the excerpts: "hacked by" counts only when the page itself was changed (its title, a
+heading, a script rewriting it, injected pages in the site's menu), not in a news story, and a
+framework's plain error page (Spring's "Whitelabel", an ASP.NET 404) isn't debug output.
 
 ## 4. How a company is identified
 
@@ -99,7 +120,7 @@ change the pitch from "first security purchase" to "consolidation / coverage gap
    it's a university or government that owns its IPs; a domain the labeller couldn't place, unknown with low confidence (43/141); a domain it
    labelled a hoster or an ISP (1/14). Domains it labelled a business were 81% sellable (170/211).
 
-Result: 907k assets attributed to 295k companies; **38,099 companies with a material risk signal**.
+Result: 907k assets attributed to 295k companies; **45,646 companies with a material risk signal**.
 
 ## 5. Scoring
 
@@ -140,7 +161,7 @@ whether a change to the rules helped.
 |---|---|
 | Ingest 118 GB raw → 1.2 GB Parquet (100× smaller) | **882 s, 134 MB/s, 15k records/s**, flat memory |
 | Full build (13.4M rows → scored accounts) | ~3.5 min |
-| Export to the serving store (38,099 accounts, evidence, CVE hits, count cube) | ~10 s |
+| Export to the serving store (45,646 accounts, evidence, CVE hits, count cube) | ~10 s |
 
 **Volume in production (hundreds to thousands of files a month):** a zstd frame can't be split, so
 the unit of parallelism is the file. Ingest is stateless per file, so N workers on a file queue scale
@@ -246,7 +267,7 @@ figures are indicative. The final build (identity ties broken deterministically)
 the same holdout. Re-scored on today's final build, the gold accounts it still puts in P1/P2 (23, 22
 and 20 of them) are 96%, 91% and 95% sellable: the later rules mostly moved out the unsellable ones.
 That's in-sample and optimistic, since those sets informed the rules, so the headline figure is the
-fresh claims holdout below (v10).
+fresh claims holdout below (v11).
 
 **Claims, not just accounts.** The gold sets above measure whether an account is a real, correctly
 named organisation. They don't measure whether what Recon says about it is true, and that was the
@@ -265,7 +286,9 @@ judged each claim supported, unsupported or unclear; [`pipeline/evaluate_claims.
 | claims v7: 60 new | + claims need the version in the record | 4% (5/118) | 72% | 24% | 60% (36/60) |
 | claims v8: 60 new (holdout) | + label rounds 3–5, unrecognised domains out of P1/P2 | 6% (8/131) | 71% | 23% | 72% (43/60) |
 | claims v9: 60 new (holdout) | + CISA product (not vendor), CVEs per product, IP owners and hosters out of P1/P2, tier-first order | 4% (5/116) | 74% | 22% | 80% (48/60) |
-| **claims v10: 60 new (holdout)** | **final: + Logjam/FREAK as weak TLS, ntpd patch levels, camera ports need a reply** | **6% (6/109)** | **66%** | **28%** | **77% (46/60)** |
+| claims v10: 60 new (holdout) | + Logjam/FREAK as weak TLS, ntpd patch levels, camera ports need a reply | 6% (6/109) | 66% | 28% | 77% (46/60) |
+| **claims v11: 60 new (holdout)** | **final: + signals from the page, certificate and database details (below), redirects name the site** | **2% (2/119)** | **90%** | **8%** | **90% (54/60)** |
+| claims v12: 69 accounts with the new signals, any tier | the new signals only, stratified (up to 12 accounts each) | 3% (2/79) | 90% | 8% | 32% (22/69) |
 
 What each step showed and what it changed:
 - **v4** (before vs. after, blind to which) drove Amazon Linux and RHEL's frozen PHP/OpenSSL versions,
@@ -315,6 +338,18 @@ What each step showed and what it changed:
   in the banner, iSCSI needs listed targets, Debian and Ubuntu's Exim and nginx versions are distro
   builds, nginx's CVE-2017-7529 is fixed in 1.12.1); on the final build those five claims are no longer
   made, which is in-sample and so not a new rate.
+
+- **v11** is the holdout on the build that added the signals in "Signals from the rest of the record"
+  below. Its 2 rejections: BIND 9.8.4 on a RHEL-style package (fixes backported) and CVE-2021-38163,
+  which affects SAP NetWeaver AS Java, on an ABAP server. Sellable rose from 77% to 90% (54/60); with 60
+  accounts the margin is about ±10 points, so read it as "no worse, probably better", not as +13.
+- **v12** reviewed only the new claims, stratified so rare ones are seen: WinRM 16/16, default pages
+  15/15, debug output 12/12, weak certificate crypto 12/12 supported. The doubts were in older rules: an
+  LDAP or SNMPv3 reply called a management interface (1 rejected, 4 unclear), a Redis server the scanner
+  tags "compromised" with nothing in the reply to show it (rejected), and one defacement found only as a
+  menu link (unclear). Accounts carrying the new signals are 32% sellable: WinRM, default pages and weak
+  certificates sit on hosters and ISP customers as much as on companies, which is why the identity rules,
+  not the signals, decide P1/P2.
 
 The two PHP2Shell CVEs (CVE-2026-109618/109619, added by CISA on 2026-10-26) are 29 of v10's 31
 "unclear": newer than the reviewers' knowledge. CISA's catalogue gives no affected versions, so they're
@@ -407,7 +442,7 @@ build before moving the host's `current` pointer to it).
   product mapped to a software family for the fallback search). Tested against a direct query over the
   build (`tests/test_cve_index.py`).
 - **Peer benchmark** ([`pipeline/export.py`](../pipeline/export.py)): risk = need × urgency, ranked within
-  industry + country, then industry, then country, over all 94,375 scored companies, minimum 30 peers.
+  industry + country, then industry, then country, over all 104,744 scored companies, minimum 30 peers.
   Peer industries use the keyword rules for every company, and an industry group is used only when it
   agrees with the industry the app shows.
 - **Exposure brief** ([`web/src/Brief.tsx`](../web/src/Brief.tsx), `?brief=<account>`): printable, evidence

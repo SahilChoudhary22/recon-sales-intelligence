@@ -35,9 +35,9 @@ Recon reads internet scan data and tells a security seller which companies to ca
 each company it shows what's exposed, where, and why it matters, and it never invents a finding: every
 line a seller can send comes from something the scan actually saw.
 
-From one file of 13.4M scan records, Recon finds 38,099 companies with real security problems. Blind
-reviewers rejected 6% of the claims it makes about them, against 44% when the scanner's own labels
-are taken at face value, and 77% of its top accounts are real, correctly named companies.
+From one file of 13.4M scan records, Recon finds 45,646 companies with real security problems. Blind
+reviewers rejected 2% of the claims it makes about them, against 44% when the scanner's own labels
+are taken at face value, and 90% of its top accounts are real, correctly named companies.
 
 **Built with:** Python 3.12, FastAPI and DuckDB for the pipeline and the API; React 19 and TypeScript
 (Vite, on the Node.js 22 toolchain) for the app; SQLite for users' lists; the MCP Python SDK; Claude
@@ -171,17 +171,19 @@ a reply in the protocol.*
 | | Claims a blind reviewer rejected | Top accounts that are real, named companies |
 | --- | --- | --- |
 | Taking the scanner's labels at face value | 44% | 60% |
-| Recon | 6% | 77% |
+| Recon | 2% | 90% |
 
 [How this was measured →](docs/technical-notes.md#8-how-it-was-measured)
 
 **4. What's left says "call now".** Once the noise and the guesses are gone, the findings that predict
 an incident are clear, and they became Recon's signal categories, in order of urgency:
 
-- **Breach:** ransomed databases, trojans and cryptominers, i.e. already compromised.
+- **Breach:** ransomed databases (a "READ_ME_TO_RECOVER" database), defaced sites, trojans and
+  cryptominers, i.e. already compromised.
 - **Edge:** firewalls and VPNs reachable from the internet, the most common way ransomware gets in,
   and worse on a known-exploited version.
-- **Exposure:** remote desktop, databases, file shares, industrial devices, and 175 self-hosted AI
+- **Exposure:** remote desktop and Windows remote management (WinRM), databases, file shares,
+  management consoles, debug pages left on, industrial devices, and 175 self-hosted AI
   apps and MCP servers open to anyone (169 companies).
 - **Vulnerability and end of life:** software that's exploitable or past support.
 - **Hygiene:** expired certificates and old TLS. These never rank an account on their own; they show a
@@ -190,7 +192,7 @@ an incident are clear, and they became Recon's signal categories, in order of ur
 Each category maps to a buying trigger, and each trigger became a template a seller can start from:
 "firewall with exploited CVEs", "on-prem Exchange", "legacy Windows".
 
-38,099 companies in the file have a material risk signal. Every rule and threshold is in
+45,646 companies in the file have a material risk signal. Every rule and threshold is in
 [docs/technical-notes.md](docs/technical-notes.md).
 
 ## Results
@@ -216,16 +218,16 @@ identity labeller while the identity rules were built, then the claims reviewers
 | + LLM labels for organisation type | 53% (32/60) | identity labeller |
 | + IP-owner identities need an education or government label | 62% (37/60) | identity labeller |
 | Taking the scanner's labels at face value | 60% (36/60) | claims reviewers |
-| **Recon, final build (fresh sample)** | **77% (46/60)** | claims reviewers |
+| **Recon, final build (fresh sample)** | **90% (54/60)** | claims reviewers |
 
 Then, is what Recon says about them true? Each risk claim was judged against the raw record behind it:
 
 | | Claims rejected | Claims confirmed |
 | --- | --- | --- |
 | Taking the scanner's labels at face value | 44% (59/135) | 46% |
-| **Recon, final build (fresh sample)** | **6% (6/109)** | **66%** |
+| **Recon, final build (fresh sample)** | **2% (2/119)** | **90%** |
 
-The rest are "unclear", and 29 of those 31 are the two PHP2Shell CVEs (CISA, 26 October 2026): newer
+The rest are "unclear", and 8 of those 10 are the two PHP2Shell CVEs (CISA, 26 October 2026): newer
 than the reviewers' knowledge, so they can't judge them. Each version shown is below PHP's fixed
 release for its branch, and the evidence line says so ("PHP 8.3.26 — … (fixed in 8.3.36)"). With 60
 accounts the margin is about ±12 points. The LLM labels agreed with the blind
@@ -269,7 +271,7 @@ with `get_account("toyota.com")`, which works). [Every run →](mcp_server/eval/
   batch, so nothing calls a model when a page loads.
 - **A claim needs the record behind it.** A seller repeats what Recon says to a security engineer, who
   will check. Taken at face value, the scanner's labels make 83,934 companies look at risk; checked
-  against the record, 38,099 are, and blind reviewers reject 6% of the claims instead of 44%.
+  against the record, 45,646 are, and blind reviewers reject 2% of the claims instead of 44%.
 - **P1 is sized to what a team can call.** 500 accounts a week, not a percentile that grows with the
   market.
 - **Evidence instead of generated outreach.** The opening line and the brief are filled from findings,
@@ -296,13 +298,13 @@ raw data reaches billions of records. Every list, count and badge comes from one
 versioned Parquet store, and the counts the app asks for most come from a pre-aggregated cube.
 Measured on the real store and on synthetic ones 10× and 100× its size (median ms, one laptop):
 
-| Query | 38,099 accounts | 380,990 | 3,809,900 |
+| Query | 45,646 accounts | 456,460 | 4,564,600 |
 | --- | --- | --- | --- |
-| Template counts and profile badges (cube) | 0.8 / 3.3 | 0.8 / 3.3 | 0.8 / 3.3 |
-| Ranked page, template + profile | 6.4 | 22 | 50 |
-| Toolbar badges | 3.7 | 8.5 | 52 |
-| Name search | 8.2 | 19 | 74 |
-| Account, evidence | 2.9, 1.7 | 3.9, 1.8 | 18, 9.7 |
+| Template counts and profile badges (cube) | 0.8 / 3.2 | 0.8 / 3.3 | 0.8 / 3.2 |
+| Ranked page, template + profile | 6.3 | 25 | 59 |
+| Toolbar badges | 3.7 | 9.8 | 57 |
+| Name search | 7.8 | 32 | 95 |
+| Account, evidence | 2.9, 1.6 | 3.7, 1.9 | 21, 11 |
 
 What changes for a full stream of files and many users, and when, is in
 [docs/architecture.md](docs/architecture.md#7-the-production-path), including how I'd trace every

@@ -1,0 +1,939 @@
+[
+ {
+  "case": "c001",
+  "entity_type": "hosting_cloud",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Cloud VM provider; novalocal OpenStack instances.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Microsoft-HTTPAPI/2.0 404 on 5985 is the WinRM listener. NTLM info confirms."
+   },
+   {
+    "verdict": "supported",
+    "reason": "Page text shows Django DEBUG = True."
+   },
+   {
+    "verdict": "supported",
+    "reason": "Stock nginx welcome page served."
+   }
+  ]
+ },
+ {
+  "case": "c002",
+  "entity_type": "isp_telecom",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "ISP cable modems, not an org.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Cert key RSA 1024 with SHA-1 signature."
+   }
+  ]
+ },
+ {
+  "case": "c003",
+  "entity_type": "hosting_cloud",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Hosting PTR domain on Exabytes.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "MinIO Console login exposed on 9001."
+   },
+   {
+    "verdict": "supported",
+    "reason": "Microsoft-HTTPAPI/2.0 404 on 5985 is the WinRM listener."
+   }
+  ]
+ },
+ {
+  "case": "c004",
+  "entity_type": "isp_telecom",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Carrier netblock owner, not the service operator.",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "LDAP refuses without bind; not a management interface."
+   }
+  ]
+ },
+ {
+  "case": "c005",
+  "entity_type": "hosting_cloud",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Generic OVH reverse DNS name.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Microsoft-HTTPAPI/2.0 404 on 5985 is the WinRM listener."
+   },
+   {
+    "verdict": "supported",
+    "reason": "Stock nginx welcome page served."
+   }
+  ]
+ },
+ {
+  "case": "c006",
+  "entity_type": "isp_telecom",
+  "name_ok": "unknown",
+  "sellable": "no",
+  "note": "Small UK ISP/IT provider; routers likely customers'.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "DrayTek Vigor login page exposed on 4433."
+   }
+  ]
+ },
+ {
+  "case": "c007",
+  "entity_type": "hosting_cloud",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Generic OVH reverse DNS name.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Stock nginx welcome page served."
+   }
+  ]
+ },
+ {
+  "case": "c008",
+  "entity_type": "education",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Chinese Academy of Sciences institute domain from cert.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Default nginx welcome page on openresty."
+   }
+  ]
+ },
+ {
+  "case": "c009",
+  "entity_type": "isp_telecom",
+  "name_ok": "unknown",
+  "sellable": "no",
+  "note": "Albanian TV/ISP; device likely customer equipment.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Certificate signed with SHA-1."
+   }
+  ]
+ },
+ {
+  "case": "c010",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Windmoeller & Hoelscher, German machinery maker; own firewall.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Check Point VPN cert uses RSA 1024."
+   }
+  ]
+ },
+ {
+  "case": "c011",
+  "entity_type": "unknown",
+  "name_ok": "unknown",
+  "sellable": "no",
+  "note": "NTLM domain name of small Iranian site; unclear operator.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "AD LDAP rootDSE exposed; directory, not clearly management."
+   },
+   {
+    "verdict": "supported",
+    "reason": "Microsoft-HTTPAPI/2.0 404 on 5985 is the WinRM listener."
+   }
+  ]
+ },
+ {
+  "case": "c012",
+  "entity_type": "business",
+  "name_ok": "unknown",
+  "sellable": "no",
+  "note": "Obscure .zone domain on AWS; owner unclear.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Django traceback with settings shown in page."
+   }
+  ]
+ },
+ {
+  "case": "c013",
+  "entity_type": "isp_telecom",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Small Argentine ISP.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "RouterOS API answers on 8728."
+   }
+  ]
+ },
+ {
+  "case": "c014",
+  "entity_type": "isp_telecom",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "NZ routing provider.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "SNMPv3 engine discovery only; auth still required."
+   }
+  ]
+ },
+ {
+  "case": "c015",
+  "entity_type": "hosting_cloud",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Indonesian hosting provider PTR.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "RouterOS API answers on 8728."
+   },
+   {
+    "verdict": "supported",
+    "reason": "Microsoft-HTTPAPI/2.0 404 on 5985 is the WinRM listener."
+   },
+   {
+    "verdict": "supported",
+    "reason": "Default IIS start page."
+   }
+  ]
+ },
+ {
+  "case": "c016",
+  "entity_type": "personal_or_junk",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Odd PTR domain on hosting network.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Stock nginx welcome page served."
+   }
+  ]
+ },
+ {
+  "case": "c017",
+  "entity_type": "personal_or_junk",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Small German personal/hobby site.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Injected 'Hacked by CoupDeGrace' page in site navigation."
+   }
+  ]
+ },
+ {
+  "case": "c018",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Polish merchandiser job information site.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Injected 'Hacked by CoupDeGrace' page in menu."
+   }
+  ]
+ },
+ {
+  "case": "c019",
+  "entity_type": "unknown",
+  "name_ok": "unknown",
+  "sellable": "no",
+  "note": "Numeric-prefixed hosted domain; likely shared hosting tenant.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Microsoft-HTTPAPI/2.0 404 on 5985 is the WinRM listener."
+   }
+  ]
+ },
+ {
+  "case": "c020",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Czech audiovisual installation studio site.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Coinhive miner script embedded in page."
+   }
+  ]
+ },
+ {
+  "case": "c021",
+  "entity_type": "isp_telecom",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Brazilian ISP.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "SNMPv3 net-snmp engine discovery only; auth required."
+   }
+  ]
+ },
+ {
+  "case": "c022",
+  "entity_type": "personal_or_junk",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Raspberry Pi host on sax.de dynamic/hobby domain.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Stock nginx welcome page served."
+   }
+  ]
+ },
+ {
+  "case": "c023",
+  "entity_type": "hosting_cloud",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Hosting platform domain; actual site is a repair centre.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Script sets title 'hacked by' and blacks out page."
+   }
+  ]
+ },
+ {
+  "case": "c024",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Turkish watch company Saat ve Saat.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Default IIS start page on 8090."
+   }
+  ]
+ },
+ {
+  "case": "c025",
+  "entity_type": "unknown",
+  "name_ok": "unknown",
+  "sellable": "no",
+  "note": "PTR domain on HiNet; operator unclear.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "OpenLDAP rootDSE readable; not clearly a management interface."
+   }
+  ]
+ },
+ {
+  "case": "c026",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Beverage company; cert matches domain.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Default IIS start page on 443."
+   }
+  ]
+ },
+ {
+  "case": "c027",
+  "entity_type": "hosting_cloud",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Generic OVH reverse DNS name.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Page text shows Django DEBUG = True."
+   }
+  ]
+ },
+ {
+  "case": "c028",
+  "entity_type": "unknown",
+  "name_ok": "unknown",
+  "sellable": "no",
+  "note": "Obscure domain on Tencent Cloud; owner unclear.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Django traceback exposed in response page."
+   }
+  ]
+ },
+ {
+  "case": "c029",
+  "entity_type": "hosting_cloud",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Hosting company netblock.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "MinIO Console exposed on 9001."
+   },
+   {
+    "verdict": "supported",
+    "reason": "Microsoft-HTTPAPI/2.0 404 on 5985 is the WinRM listener."
+   }
+  ]
+ },
+ {
+  "case": "c030",
+  "entity_type": "isp_telecom",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Brazilian access provider.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Microsoft-HTTPAPI/2.0 404 on 5985 is the WinRM listener."
+   }
+  ]
+ },
+ {
+  "case": "c031",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Small company site; WordPress compromised.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Injected 'Hacked by Panataran' page in menu."
+   }
+  ]
+ },
+ {
+  "case": "c032",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Harrassowitz, German book distributor; own firewall.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Check Point VPN cert uses RSA 1024."
+   }
+  ]
+ },
+ {
+  "case": "c033",
+  "entity_type": "hosting_cloud",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Generic OVH reverse DNS name.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Microsoft-HTTPAPI/2.0 404 on 5985 is the WinRM listener."
+   }
+  ]
+ },
+ {
+  "case": "c034",
+  "entity_type": "isp_telecom",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Brazilian ISP/support provider.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Stock nginx welcome page served."
+   }
+  ]
+ },
+ {
+  "case": "c035",
+  "entity_type": "public_sector",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Deaf services organisation site; defaced.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Page text shows 'hack3d by gh05t' defacement."
+   }
+  ]
+ },
+ {
+  "case": "c036",
+  "entity_type": "unknown",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "PTR on Videotron residential; sirix.ca weakly tied",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Cert record shows RSA 1024 with SHA-1"
+   }
+  ]
+ },
+ {
+  "case": "c037",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Small Indian software firm on DigitalOcean",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Django traceback shown in page text"
+   }
+  ]
+ },
+ {
+  "case": "c038",
+  "entity_type": "hosting_cloud",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Turkish hosting provider PTR; customer server",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "WinRM NTLM info returned on 5985"
+   }
+  ]
+ },
+ {
+  "case": "c039",
+  "entity_type": "unknown",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "PTR on NetCologne; device cert, attribution weak",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Certificate key is RSA 1024"
+   }
+  ]
+ },
+ {
+  "case": "c040",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Techjays software company API servers",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Page shows Django DEBUG = True"
+   }
+  ]
+ },
+ {
+  "case": "c041",
+  "entity_type": "personal_or_junk",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Generic OVH PTR, no organisation",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Database named READ__ME_TO_RECOVER_YOUR_DATA"
+   }
+  ]
+ },
+ {
+  "case": "c042",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Ark Power, Indian company dev server",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Django traceback shown in page text"
+   }
+  ]
+ },
+ {
+  "case": "c043",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Chinese manufacturer owning its IP block",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "Redis info shows no ransom keys or compromise indicators"
+   }
+  ]
+ },
+ {
+  "case": "c044",
+  "entity_type": "hosting_cloud",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "vargonen.net appears hosting/Plesk provider, multiple tenants",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "MinIO Console login exposed"
+   },
+   {
+    "verdict": "supported",
+    "reason": "WinRM NTLM info returned"
+   }
+  ]
+ },
+ {
+  "case": "c045",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Loyal.ink startup on AWS",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Django traceback shown in page text"
+   }
+  ]
+ },
+ {
+  "case": "c046",
+  "entity_type": "isp_telecom",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "FPT Telecom IP; mmg.vn link weak",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Cert signed with SHA-1"
+   }
+  ]
+ },
+ {
+  "case": "c047",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Brazilian firm PTR on Telefonica line",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Exposed AD LDAP, but not a management interface per se"
+   }
+  ]
+ },
+ {
+  "case": "c048",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Chinese industrial group owning IP block",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "IIS default page title on 18088"
+   }
+  ]
+ },
+ {
+  "case": "c049",
+  "entity_type": "hosting_cloud",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Windows cloud hosting name on hoster",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "WinRM NTLM info returned"
+   }
+  ]
+ },
+ {
+  "case": "c050",
+  "entity_type": "isp_telecom",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Brazilian communications ISP",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "WinRM NTLM info returned"
+   }
+  ]
+ },
+ {
+  "case": "c051",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Kudo startup on AWS",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Django traceback shown in page text"
+   }
+  ]
+ },
+ {
+  "case": "c052",
+  "entity_type": "unknown",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Hostname redirect only; owner unclear on hoster",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Stock nginx welcome page, 615 bytes"
+   }
+  ]
+ },
+ {
+  "case": "c053",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Matchpoint GPS Indian company",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Page shows Django DEBUG = True"
+   }
+  ]
+ },
+ {
+  "case": "c054",
+  "entity_type": "isp_telecom",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "French ISP (FAI) Proximit",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Firewall cert signed with SHA-1"
+   }
+  ]
+ },
+ {
+  "case": "c055",
+  "entity_type": "personal_or_junk",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Small hobby association on government network",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "RSA 1024 key with SHA-1"
+   }
+  ]
+ },
+ {
+  "case": "c056",
+  "entity_type": "unknown",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "PTR on OVH Singapore; vdosb.com unclear",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "WinRM NTLM info returned"
+   }
+  ]
+ },
+ {
+  "case": "c057",
+  "entity_type": "isp_telecom",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Indonesian small ISP likely",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "RouterOS API responded on 8728"
+   }
+  ]
+ },
+ {
+  "case": "c058",
+  "entity_type": "personal_or_junk",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Generic OVH PTR, no organisation",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Backup manager with RSA 1024 key"
+   }
+  ]
+ },
+ {
+  "case": "c059",
+  "entity_type": "education",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "National University of Kaohsiung",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Apache Ubuntu default page served"
+   }
+  ]
+ },
+ {
+  "case": "c060",
+  "entity_type": "hosting_cloud",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "REG.RU hosting container names",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "SMTPS cert RSA 1024"
+   }
+  ]
+ },
+ {
+  "case": "c061",
+  "entity_type": "isp_telecom",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Indonesian ISP CepatNet",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "MikroTik SNMP readable from internet"
+   },
+   {
+    "verdict": "supported",
+    "reason": "WinRM NTLM info returned"
+   }
+  ]
+ },
+ {
+  "case": "c062",
+  "entity_type": "personal_or_junk",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Gambling spam site on Cogent HK",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "'hacked by' only in a link title, possibly spam page"
+   }
+  ]
+ },
+ {
+  "case": "c063",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Cogita AI company test server",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Page shows Django DEBUG = True"
+   }
+  ]
+ },
+ {
+  "case": "c064",
+  "entity_type": "hosting_cloud",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Hoster server naming, not an organisation",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Apache Debian default page served"
+   }
+  ]
+ },
+ {
+  "case": "c065",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Turkish software firm Adocore",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "IIS default page served"
+   }
+  ]
+ },
+ {
+  "case": "c066",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Korean saju app company",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Django traceback shown in page text"
+   }
+  ]
+ },
+ {
+  "case": "c067",
+  "entity_type": "isp_telecom",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Japanese ISP PTR; customer host",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "WinRM NTLM info returned"
+   }
+  ]
+ },
+ {
+  "case": "c068",
+  "entity_type": "hosting_cloud",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Web agency/hosting nameserver on Combell",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "SMTP cert RSA 1024 SHA-1"
+   }
+  ]
+ },
+ {
+  "case": "c069",
+  "entity_type": "personal_or_junk",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Generic OVH PTR, no organisation",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "n8n workflow UI exposed"
+   }
+  ]
+ }
+]

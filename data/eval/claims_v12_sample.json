@@ -1,0 +1,2497 @@
+[
+ {
+  "case": "c001",
+  "name": "Ningbo Nanbiantuoluo Information Technology Co.,Ltd.",
+  "identity_source": "org",
+  "network_owner": "Ningbo Nanbiantuoluo Information Technology Co.,Ltd.",
+  "country": "CN",
+  "ips": 17,
+  "certificate_names": [
+   "cvm-3jkpiyh2ai225.novalocal"
+  ],
+  "page_titles": [
+   "Not Found",
+   "Page not found at /",
+   "登录 - 图片上传工具",
+   "Apache HTTP Server Test Page powered by CentOS",
+   "Welcome to nginx!"
+  ],
+  "claims": [
+   {
+    "claim": "Windows Remote Management (WinRM) open to the internet",
+    "evidence": "WinRM on port 5985",
+    "service": "103.152.170.x:5985",
+    "scan": {
+     "module": "http-simple-new",
+     "product": "WinRM",
+     "version": null,
+     "server_header": "Microsoft-HTTPAPI/2.0",
+     "page_title": "Not Found",
+     "os": "Windows Server 2012 R2 (build 6.3.9600)",
+     "tags": [
+      "eol-os"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=us-ascii\r\nServer: Microsoft-HTTPAPI/2.0\r\nDate: Sun, 01 Nov 2026 01:02:05 GMT\r\nConnection: close\r\nContent-Length: 315\r\n\r\n\nWinRM NTLM Info:\n  OS: Windows Server 2012 R2\n  OS Build: 6.3.9600\n  Target Name: CVM-3PA2Y252EI2\n  NetBIOS Domain Name: CVM-3PA2Y252EI2\n  NetBIOS Computer Name: CVM-3PA2Y252EI2\n  DNS Domain Name: cvm-3pa2y252ei2\n  FQDN: cvm-3pa2y252ei2\n"
+    }
+   },
+   {
+    "claim": "Debug output exposed (stack trace, debug mode, phpinfo)",
+    "evidence": "Django debug page on port 8092",
+    "service": "103.152.171.x:8092",
+    "scan": {
+     "module": "auto",
+     "product": "nginx",
+     "version": "1.14.1",
+     "server_header": "nginx/1.14.1",
+     "page_title": "Page not found at /",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nServer: nginx/1.14.1\r\nDate: Sun, 01 Nov 2026 01:09:52 GMT\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 2411\r\nConnection: keep-alive\r\nX-Frame-Options: DENY\r\nX-Content-Type-Options: nosniff\r\nReferrer-Policy: same-origin\r\nCross-Origin-Opener-Policy: same-origin\r\n\r\n",
+     "page_text_excerpt": "</div> <div id=\"explanation\"> <p> You’re seeing this error because you have <code>DEBUG = True</code> in your Django settings file. Change that to <code>False</code>, and Django will display a standard 404 page. </p> </div> </body> </ht"
+    }
+   },
+   {
+    "claim": "Default web server page left in place",
+    "evidence": "Welcome to nginx! on port 80",
+    "service": "103.153.37.x:80",
+    "scan": {
+     "module": "http",
+     "product": "nginx",
+     "version": "1.22.1",
+     "server_header": "nginx/1.22.1",
+     "page_title": "Welcome to nginx!",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx/1.22.1\r\nDate: Sun, 01 Nov 2026 01:06:56 GMT\r\nContent-Type: text/html\r\nContent-Length: 615\r\nLast-Modified: Wed, 21 Oct 2026 13:20:41 GMT\r\nConnection: keep-alive\r\nETag: \"6ad8bc29-267\"\r\nAccept-Ranges: bytes\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c002",
+  "name": "PE-TDPERX3-LACNIC",
+  "identity_source": "org",
+  "network_owner": "PE-TDPERX3-LACNIC",
+  "country": "PE",
+  "ips": 9,
+  "certificate_names": [
+   "support",
+   "C8:B4:22:49:5E:69"
+  ],
+  "page_titles": [
+   "Cable Modem"
+  ],
+  "claims": [
+   {
+    "claim": "Certificate with a weak key or signature (RSA under 2048 bits, SHA-1/MD5)",
+    "evidence": "C8:B4:22:49:5E:69 — RSA 1024-bit key",
+    "service": "190.232.56.x:443",
+    "scan": {
+     "module": "https",
+     "product": null,
+     "version": null,
+     "server_header": null,
+     "page_title": "Cable Modem",
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nContent-type: text/html\r\nExpires: Thu, 3 Oct 1968 12:00:00 GMT\r\nConnection: close\r\nPragma: no-cache\r\nCache-Control: no-store, no-cache, must-revalidate\r\nContent-Length: 9565\r\n\r\n",
+     "certificate_cn": "C8:B4:22:49:5E:69",
+     "certificate_key": "rsa 1024",
+     "certificate_signature": "sha1WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c003",
+  "name": "mchosting.org",
+  "identity_source": "ptr",
+  "network_owner": "Exa Bytes Network Sdn.Bhd.",
+  "country": "MY",
+  "ips": 3,
+  "certificate_names": [],
+  "page_titles": [
+   "Not Found",
+   "MinIO Console"
+  ],
+  "claims": [
+   {
+    "claim": "Infrastructure management interface exposed",
+    "evidence": "MinIO Server on port 9001",
+    "service": "137.59.109.x:9001",
+    "scan": {
+     "module": "https-simple-new",
+     "product": "MinIO Server",
+     "version": null,
+     "server_header": "MinIO Console",
+     "page_title": "MinIO Console",
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nAccept-Ranges: bytes\r\nContent-Length: 1310\r\nContent-Security-Policy: default-src 'self' 'unsafe-eval' 'unsafe-inline';\r\nContent-Type: text/html\r\nLast-Modified: Sun, 01 Nov 2026 01:39:49 GMT\r\nReferrer-Policy: strict-origin-when-cross-origin\r\nServer: MinIO Console\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Xss-Protection: 1; mode=block\r\nDate: Sun, 01 Nov 2026 01:39:49 GMT\r\nConnection: close\r\n\r\n"
+    }
+   },
+   {
+    "claim": "Windows Remote Management (WinRM) open to the internet",
+    "evidence": "WinRM on port 5985",
+    "service": "110.4.42.x:5985",
+    "scan": {
+     "module": "http-simple-new",
+     "product": "WinRM",
+     "version": null,
+     "server_header": "Microsoft-HTTPAPI/2.0",
+     "page_title": "Not Found",
+     "os": "Windows Server 2022 (build 10.0.20348)",
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=us-ascii\r\nServer: Microsoft-HTTPAPI/2.0\r\nDate: Sun, 01 Nov 2026 01:16:02 GMT\r\nConnection: close\r\nContent-Length: 315\r\n\r\n\nWinRM NTLM Info:\n  OS: Windows Server 2022\n  OS Build: 10.0.20348\n  Target Name: SCGFITTERSSERVE\n  NetBIOS Domain Name: SCGFITTERSSERVE\n  NetBIOS Computer Name: SCGFITTERSSERVE\n  DNS Domain Name: SCGFittersServer\n  FQDN: SCGFittersServer\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c004",
+  "name": "ImpSat Argentina",
+  "identity_source": "org",
+  "network_owner": "ImpSat Argentina",
+  "country": "AR",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Infrastructure management interface exposed",
+    "evidence": "ldap-tcp on port 389",
+    "service": "64.76.123.x:389",
+    "scan": {
+     "module": "ldap-tcp",
+     "product": null,
+     "version": null,
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "LDAP:\n  ErrorMessage: BIND required\n  ResultCode: operationsError"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c005",
+  "name": "ip-148-113-15.net",
+  "identity_source": "ptr",
+  "network_owner": "OVHTECH R&D (INDIA) PRIVATE LIMITED",
+  "country": "IN",
+  "ips": 4,
+  "certificate_names": [],
+  "page_titles": [
+   "Welcome to nginx!",
+   "Not Found"
+  ],
+  "claims": [
+   {
+    "claim": "Windows Remote Management (WinRM) open to the internet",
+    "evidence": "WinRM on port 5985",
+    "service": "148.113.15.x:5985",
+    "scan": {
+     "module": "http-simple-new",
+     "product": "WinRM",
+     "version": null,
+     "server_header": "Microsoft-HTTPAPI/2.0",
+     "page_title": "Not Found",
+     "os": "Windows Server 2022 (build 10.0.20348)",
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=us-ascii\r\nServer: Microsoft-HTTPAPI/2.0\r\nDate: Sun, 01 Nov 2026 01:09:41 GMT\r\nConnection: close\r\nContent-Length: 315\r\n\r\n\nWinRM NTLM Info:\n  OS: Windows Server 2022\n  OS Build: 10.0.20348\n  Target Name: WIN-UU2ICOSNUD6\n  NetBIOS Domain Name: WIN-UU2ICOSNUD6\n  NetBIOS Computer Name: WIN-UU2ICOSNUD6\n  DNS Domain Name: WIN-UU2ICOSNUD6\n  FQDN: WIN-UU2ICOSNUD6\n"
+    }
+   },
+   {
+    "claim": "Default web server page left in place",
+    "evidence": "Welcome to nginx! on port 80",
+    "service": "148.113.15.x:80",
+    "scan": {
+     "module": "http",
+     "product": "nginx",
+     "version": "1.18.0",
+     "server_header": "nginx/1.18.0 (Ubuntu)",
+     "page_title": "Welcome to nginx!",
+     "os": "Ubuntu",
+     "tags": [
+      "eol-product"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx/1.18.0 (Ubuntu)\r\nDate: Sun, 01 Nov 2026 01:15:02 GMT\r\nContent-Type: text/html\r\nContent-Length: 612\r\nLast-Modified: Thu, 15 Oct 2026 05:33:34 GMT\r\nConnection: keep-alive\r\nETag: \"6ad065ae-264\"\r\nAccept-Ranges: bytes\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c006",
+  "name": "BNW TECHNOLOGY LTD",
+  "identity_source": "org",
+  "network_owner": "BNW TECHNOLOGY LTD",
+  "country": "GB",
+  "ips": 22,
+  "certificate_names": [
+   "Vigor Router"
+  ],
+  "page_titles": [
+   "",
+   "Vigor Login Page"
+  ],
+  "claims": [
+   {
+    "claim": "Infrastructure management interface exposed",
+    "evidence": "DrayTek Vigor2763 Series on port 4433",
+    "service": "185.93.5.x:4433",
+    "scan": {
+     "module": "https-simple-new",
+     "product": "DrayTek Vigor2763 Series",
+     "version": "4.4.2_BT",
+     "server_header": "Server",
+     "page_title": "Vigor Login Page",
+     "os": null,
+     "tags": [
+      "self-signed"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nContent-Security-Policy: default-src 'self' 'unsafe-inline';frame-ancestors 'self';form-action 'self';script-src 'self' 'nonce-draytek' 'unsafe-eval';img-src *;connect-src 'self' *.draytek.com.tw\r\nContent-Type: text/html\r\nX-Content-Type-Options: nosniff\r\nX-XSS-Protection: 1; mode=block\r\nX-Frame-Options: SAMEORIGIN\r\nCache-Control: no-cache, no-store, must-revalidate\r\nExpires: -1\r\nPragma: no-cache\r\nStrict-Transport-Security: max-age=31536000; includeSubdomains\r\nContent-Length: 8665\r\nDate: Sun",
+     "certificate_cn": "Vigor Router",
+     "certificate_key": "rsa 2048",
+     "certificate_signature": "sha256WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c007",
+  "name": "ip-51-79-214.net",
+  "identity_source": "ptr",
+  "network_owner": "OVH Singapore PTE. LTD",
+  "country": "SG",
+  "ips": 9,
+  "certificate_names": [],
+  "page_titles": [
+   "Welcome to nginx!"
+  ],
+  "claims": [
+   {
+    "claim": "Default web server page left in place",
+    "evidence": "Welcome to nginx! on port 80",
+    "service": "51.79.214.x:80",
+    "scan": {
+     "module": "http",
+     "product": "nginx",
+     "version": "1.18.0",
+     "server_header": "nginx/1.18.0 (Ubuntu)",
+     "page_title": "Welcome to nginx!",
+     "os": "Ubuntu",
+     "tags": [
+      "eol-product"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx/1.18.0 (Ubuntu)\r\nDate: Sun, 01 Nov 2026 01:16:37 GMT\r\nContent-Type: text/html\r\nContent-Length: 612\r\nLast-Modified: Mon, 05 Oct 2026 11:12:54 GMT\r\nConnection: keep-alive\r\nETag: \"6ac38636-264\"\r\nAccept-Ranges: bytes\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c008",
+  "name": "sinanogd.ac.cn",
+  "identity_source": "cert",
+  "network_owner": "CHINANET Guangdong Province Network",
+  "country": "CN",
+  "ips": 1,
+  "certificate_names": [
+   "10.6.100.x"
+  ],
+  "page_titles": [
+   "Welcome to nginx!"
+  ],
+  "claims": [
+   {
+    "claim": "Default web server page left in place",
+    "evidence": "Welcome to nginx! on port 8018",
+    "service": "61.145.74.x:8018",
+    "scan": {
+     "module": "auto",
+     "product": null,
+     "version": null,
+     "server_header": "openresty",
+     "page_title": "Welcome to nginx!",
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nServer: openresty\r\nDate: Sun, 01 Nov 2026 01:32:23 GMT\r\nContent-Type: text/html\r\nContent-Length: 615\r\nLast-Modified: Wed, 06 Dec 2023 02:26:48 GMT\r\nConnection: keep-alive\r\nETag: \"656fdbe8-267\"\r\nCross-Origin-Resource-Policy: same-origin\r\nCross-Origin-Embedder-Policy: require-corp\r\nPermissions-Policy: accelerometer=(),ambient-light-sensor=(),attribution-reporting=(),autoplay=(),bluetooth=(),browsing-topics=(),camera=(),compute-pressure=(),display-capture=(),document-domain=(),encrypted-media=",
+     "certificate_cn": "10.6.100.x",
+     "certificate_key": "rsa 4096",
+     "certificate_signature": "sha256WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c009",
+  "name": "MyTv-Alb SH.P.K.",
+  "identity_source": "org",
+  "network_owner": "MyTv-Alb SH.P.K.",
+  "country": "AL",
+  "ips": 3,
+  "certificate_names": [
+   "mx10-15-246-59"
+  ],
+  "page_titles": [
+   "",
+   " Error 401: Unauthorized access"
+  ],
+  "claims": [
+   {
+    "claim": "Certificate with a weak key or signature (RSA under 2048 bits, SHA-1/MD5)",
+    "evidence": "mx10-15-246-59 — sha1WithRSAEncryption",
+    "service": "193.163.187.x:9001",
+    "scan": {
+     "module": "https-simple-new",
+     "product": null,
+     "version": null,
+     "server_header": "mxhttpd/2.19-MX Apr  5 2016",
+     "page_title": " Error 401: Unauthorized access",
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 401 Unauthorized\r\nServer: mxhttpd/2.19-MX Apr  5 2016\r\nContent-type: text/html\r\nDate: Sun, 01 Nov 2026 01:48:52 GMT\r\nLast-modified: Sun, 01 Nov 2026 01:48:52 GMT\r\nAccept-Ranges: bytes\r\nConnection: close\r\nContent-length: 6919\r\nWWW-Authenticate: Basic realm=\"MOBOTIX Camera User\"\r\n\r\n",
+     "certificate_cn": "mx10-15-246-59",
+     "certificate_key": "rsa 2048",
+     "certificate_signature": "sha1WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c010",
+  "name": "Windmoeller & Hoelscher KG",
+  "identity_source": "org",
+  "network_owner": "Windmoeller & Hoelscher KG",
+  "country": "DE",
+  "ips": 1,
+  "certificate_names": [
+   "FW-WuH-Cluster VPN Certificate"
+  ],
+  "page_titles": [
+   " 404 File Not Found "
+  ],
+  "claims": [
+   {
+    "claim": "Certificate with a weak key or signature (RSA under 2048 bits, SHA-1/MD5)",
+    "evidence": "FW-WuH-Cluster VPN Certificate — RSA 1024-bit key",
+    "service": "193.25.208.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Check Point SVN foundation httpd",
+     "version": null,
+     "server_header": "Check Point SVN foundation",
+     "page_title": " 404 File Not Found ",
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.0 404 Not Found\r\nDate: Sun, 01 Nov 2026 01:25:42 GMT\r\nServer: Check Point SVN foundation\r\nContent-Type: text/html\r\nX-UA-Compatible: IE=EmulateIE7\r\nConnection: close\r\nX-Frame-Options: SAMEORIGIN\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nLast-Modified: Wed, 16 Nov 2022 11:18:27 GMT\r\nContent-Length: 204\r\n\r\n",
+     "certificate_cn": "FW-WuH-Cluster VPN Certificate",
+     "certificate_key": "rsa 1024",
+     "certificate_signature": "sha256WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c011",
+  "name": "vrpro24.ir",
+  "identity_source": "ntlm",
+  "network_owner": "Green Web Samaneh Novin PJSC",
+  "country": "IR",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [
+   "Not Found"
+  ],
+  "claims": [
+   {
+    "claim": "Infrastructure management interface exposed",
+    "evidence": "ldap-tcp on port 389",
+    "service": "185.255.88.x:389",
+    "scan": {
+     "module": "ldap-tcp",
+     "product": null,
+     "version": null,
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "LDAP:\n  SupportedExtension:\n    1.2.840.113556.1.4.1781\n    1.2.840.113556.1.4.2212\n    1.3.6.x.4.1.1466.101.119.1\n    1.3.6.x.4.1.1466.20037\n    1.3.6.x.4.1.4203.1.11.3\n  SupportedSASLMechanisms:\n    DIGEST-MD5\n    EXTERNAL\n    GSS-SPNEGO\n    GSSAPI\n  SupportedLDAPVersion:\n    2\n    3\n  SupportedLDAPPolicies:\n    InitRecvTimeout\n    MaxBatchReturnMessages\n    MaxConnIdleTime\n    MaxConnections\n    MaxDatagramRecv\n    MaxDirSyncDuration\n    MaxNotificationPerConn\n    MaxPageSize\n    MaxPercentDirSyncRequest"
+    }
+   },
+   {
+    "claim": "Windows Remote Management (WinRM) open to the internet",
+    "evidence": "WinRM on port 5985",
+    "service": "185.255.88.x:5985",
+    "scan": {
+     "module": "http-simple-new",
+     "product": "WinRM",
+     "version": null,
+     "server_header": "Microsoft-HTTPAPI/2.0",
+     "page_title": "Not Found",
+     "os": "Windows Server 2019 (version 1809) (build 10.0.17763)",
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=us-ascii\r\nServer: Microsoft-HTTPAPI/2.0\r\nDate: Sun, 01 Nov 2026 01:45:29 GMT\r\nConnection: close\r\nContent-Length: 315\r\n\r\n\nWinRM NTLM Info:\n  OS: Windows Server 2019 (version 1809)\n  OS Build: 10.0.17763\n  Target Name: VRPRO24\n  NetBIOS Domain Name: VRPRO24\n  NetBIOS Computer Name: VRPARK-WIN-5530\n  DNS Domain Name: vrpro24.ir\n  DNS Tree Name: vrpro24.ir\n  FQDN: vrpark-win-5530.vrpro24.ir\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c012",
+  "name": "pau.zone",
+  "identity_source": "cert",
+  "network_owner": "Amazon Data Services Northern Virginia",
+  "country": "US",
+  "ips": 2,
+  "certificate_names": [
+   "*.pau.zone"
+  ],
+  "page_titles": [
+   "DisallowedHost\n          at /"
+  ],
+  "claims": [
+   {
+    "claim": "Debug output exposed (stack trace, debug mode, phpinfo)",
+    "evidence": "Python stack trace on port 443",
+    "service": "100.29.49.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": "1.24.0",
+     "server_header": "nginx/1.24.0 (Ubuntu)",
+     "page_title": "DisallowedHost\n          at /",
+     "os": "Ubuntu",
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 400 Bad Request\r\nServer: nginx/1.24.0 (Ubuntu)\r\nDate: Sun, 01 Nov 2026 01:19:53 GMT\r\nContent-Type: text/html\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nVary: origin\r\nX-Content-Type-Options: nosniff\r\nReferrer-Policy: same-origin\r\nCross-Origin-Opener-Policy: same-origin\r\n\r\n",
+     "page_text_excerpt": "&#x27;, &#x27;django.middleware.clickjacking.XFrameOptionsMiddleware&#x27;] Traceback (most recent call last): File \"/opt/queuereport/v3/queuereport_venv/lib/python3.12/site-packages/django/core/handlers/exception.py\", line 56, in inner response = get_response(re",
+     "certificate_cn": "*.pau.zone",
+     "certificate_key": "rsa 2048",
+     "certificate_signature": "sha256WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c013",
+  "name": "GABRIEL FRANCISCO ERBETTA Y MARIANO ANDRES CARRIZO RICHELET SOCIEDAD DE HECHO (TELNET SOLUCIONES)",
+  "identity_source": "org",
+  "network_owner": "GABRIEL FRANCISCO ERBETTA Y MARIANO ANDRES CARRIZO RICHELET SOCIEDAD DE HECHO (TELNET SOLUCIONES)",
+  "country": "AR",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Infrastructure management interface exposed",
+    "evidence": "MikroTik RouterOS API Service on port 8728",
+    "service": "45.229.85.x:8728",
+    "scan": {
+     "module": "mikrotik-routeros-api",
+     "product": "MikroTik RouterOS API Service",
+     "version": null,
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "\\x05!done%=ret=fc9639442880ab7411ba94d0e9340d6b\\x00"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c014",
+  "name": "Prodigi Technology Services Limited - Routing",
+  "identity_source": "org",
+  "network_owner": "Prodigi Technology Services Limited - Routing",
+  "country": "NZ",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Infrastructure management interface exposed",
+    "evidence": "snmp_v3 on port 161",
+    "service": "103.130.69.x:161",
+    "scan": {
+     "module": "snmp_v3",
+     "product": null,
+     "version": null,
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "SNMP:\n  Versions:\n    3\n  Engine Boots: 21\n  Engineid Data: f5717fc0d682dd5ff400\n  Enterprise: 1970372544\n  Engine Time: 738 days, 17:00:54"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c015",
+  "name": "rackh.co.id",
+  "identity_source": "ptr",
+  "network_owner": "PT RACKH LINTAS ASIA",
+  "country": "ID",
+  "ips": 19,
+  "certificate_names": [
+   "support"
+  ],
+  "page_titles": [
+   "NEO FEEDER",
+   "Not Found",
+   "IIS Windows Server"
+  ],
+  "claims": [
+   {
+    "claim": "Infrastructure management interface exposed",
+    "evidence": "MikroTik RouterOS API Service on port 8728",
+    "service": "103.77.79.x:8728",
+    "scan": {
+     "module": "mikrotik-routeros-api",
+     "product": "MikroTik RouterOS API Service",
+     "version": null,
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "\\x05!done%=ret=939b56ec2ab811cd9f9330230b5ebe2f\\x00"
+    }
+   },
+   {
+    "claim": "Windows Remote Management (WinRM) open to the internet",
+    "evidence": "WinRM on port 5985",
+    "service": "103.77.77.x:5985",
+    "scan": {
+     "module": "http-simple-new",
+     "product": "WinRM",
+     "version": null,
+     "server_header": "Microsoft-HTTPAPI/2.0",
+     "page_title": "Not Found",
+     "os": "Windows Server 2016 (version 1607) (build 10.0.14393)",
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=us-ascii\r\nServer: Microsoft-HTTPAPI/2.0\r\nDate: Sun, 01 Nov 2026 01:21:56 GMT\r\nConnection: close\r\nContent-Length: 315\r\n\r\n\nWinRM NTLM Info:\n  OS: Windows Server 2016 (version 1607)\n  OS Build: 10.0.14393\n  Target Name: WIN-G03BJH2FQEM\n  NetBIOS Domain Name: WIN-G03BJH2FQEM\n  NetBIOS Computer Name: WIN-G03BJH2FQEM\n  DNS Domain Name: WIN-G03BJH2FQEM\n  FQDN: WIN-G03BJH2FQEM\n"
+    }
+   },
+   {
+    "claim": "Default web server page left in place",
+    "evidence": "IIS Windows Server on port 80",
+    "service": "103.103.192.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Microsoft IIS httpd",
+     "version": "10.0",
+     "server_header": "Microsoft-IIS/10.0",
+     "page_title": "IIS Windows Server",
+     "os": "Windows 7 or 8",
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nLast-Modified: Tue, 26 Feb 2019 01:30:46 GMT\r\nAccept-Ranges: bytes\r\nETag: \"57ca5e572cdd41:0\"\r\nServer: Microsoft-IIS/10.0\r\nDate: Sun, 01 Nov 2026 01:23:18 GMT\r\nContent-Length: 703\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c016",
+  "name": "henossn.cv",
+  "identity_source": "ptr",
+  "network_owner": "Internet Utilities NA LLC",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [
+   "Welcome to nginx!"
+  ],
+  "claims": [
+   {
+    "claim": "Default web server page left in place",
+    "evidence": "Welcome to nginx! on port 80",
+    "service": "140.99.254.x:80",
+    "scan": {
+     "module": "http",
+     "product": "nginx",
+     "version": "1.18.0",
+     "server_header": "nginx/1.18.0 (Ubuntu)",
+     "page_title": "Welcome to nginx!",
+     "os": "Ubuntu",
+     "tags": [
+      "eol-product"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx/1.18.0 (Ubuntu)\r\nDate: Sun, 01 Nov 2026 01:59:07 GMT\r\nContent-Type: text/html\r\nContent-Length: 612\r\nLast-Modified: Fri, 18 Sep 2026 12:49:15 GMT\r\nConnection: keep-alive\r\nETag: \"6aad334b-264\"\r\nAccept-Ranges: bytes\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c017",
+  "name": "white-and-fluffy.de",
+  "identity_source": "cert",
+  "network_owner": "IONOS SE",
+  "country": "DE",
+  "ips": 1,
+  "certificate_names": [
+   "*.white-and-fluffy.de"
+  ],
+  "page_titles": [
+   "White-and-fluffy"
+  ],
+  "claims": [
+   {
+    "claim": "Evidence of an existing breach (ransomed database, defaced site, trojan or cryptominer)",
+    "evidence": "Web page on port 443 defaced (\"hacked by\")",
+    "service": "217.160.0.x:443",
+    "scan": {
+     "module": "https",
+     "product": null,
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "White-and-fluffy",
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: 116223\r\nConnection: keep-alive\r\nX-WS-Origin: available\r\nX-WS-RateLimit-Limit: 1000\r\nX-WS-RateLimit-Remaining: 999\r\nDate: Sun, 01 Nov 2026 01:42:30 GMT\r\nServer: Apache\r\nVary: Accept,Accept-Encoding\r\nLast-Modified: Thu, 29 Oct 2026 17:39:10 GMT\r\nETag: \"1c5ff-65efe284297e6\"\r\nAccept-Ranges: bytes\r\nCache-Control: max-age=3600\r\nExpires: Sun, 01 Nov 2026 02:42:30 GMT\r\n\r\n",
+     "page_text_excerpt": "-navigation-item__content\" href=\"https://white-and-fluffy.com/2a269752f4df-htm\">Hacked by CoupDeGrace</a></li><li class=\"wp-block-pages-list__item wp-block-navigation-item open-on-hover-click\"><a class=\"wp-block-pages-list__item__link wp-block-naviga",
+     "certificate_cn": "*.white-and-fluffy.de",
+     "certificate_key": "rsa 2048",
+     "certificate_signature": "sha256WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c018",
+  "name": "e-merchandiser.pl",
+  "identity_source": "cert",
+  "network_owner": "NAUKOWA I AKADEMICKA SIEC KOMPUTEROWA - PANSTWOWY INSTYTUT BADAWCZY",
+  "country": "PL",
+  "ips": 2,
+  "certificate_names": [
+   "e-merchandiser.pl"
+  ],
+  "page_titles": [
+   "Merchandiser - informacje o pracy w zawodzie merchandisera"
+  ],
+  "claims": [
+   {
+    "claim": "Evidence of an existing breach (ransomed database, defaced site, trojan or cryptominer)",
+    "evidence": "Web page on port 443 defaced (\"hacked by\")",
+    "service": "193.59.150.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": "1.18.0",
+     "server_header": "nginx/1.18.0 (Ubuntu)",
+     "page_title": "Merchandiser - informacje o pracy w zawodzie merchandisera",
+     "os": "Ubuntu",
+     "tags": [
+      "eol-product"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx/1.18.0 (Ubuntu)\r\nDate: Sun, 01 Nov 2026 01:36:14 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nLink: <https://www.e-merchandiser.pl/wp-json/>; rel=\"https://api.w.org/\"\r\n\r\n",
+     "page_text_excerpt": "item page-item-11061\"><a href=\"https://www.e-merchandiser.pl/9a2aa0f6e6e7-htm/\">Hacked by CoupDeGrace</a></li> <li class=\"page_item page-item-14092\"><a href=\"https://www.e-merchandiser.pl/92ad070abe96-htm/\">Hacked by CoupDeGrace</a></li> <li class=\"p",
+     "certificate_cn": "e-merchandiser.pl",
+     "certificate_key": "rsa 2048",
+     "certificate_signature": "sha256WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c019",
+  "name": "697911-solpowerandcontrol.in",
+  "identity_source": "ntlm",
+  "network_owner": "WHG Hosting Services Ltd",
+  "country": "IN",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [
+   "Not Found"
+  ],
+  "claims": [
+   {
+    "claim": "Windows Remote Management (WinRM) open to the internet",
+    "evidence": "WinRM on port 5985",
+    "service": "198.38.83.x:5985",
+    "scan": {
+     "module": "http-simple-new",
+     "product": "WinRM",
+     "version": null,
+     "server_header": "Microsoft-HTTPAPI/2.0",
+     "page_title": "Not Found",
+     "os": "Windows Server 2022 (build 10.0.20348)",
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=us-ascii\r\nServer: Microsoft-HTTPAPI/2.0\r\nDate: Sun, 01 Nov 2026 01:29:54 GMT\r\nConnection: close\r\nContent-Length: 315\r\n\r\n\nWinRM NTLM Info:\n  OS: Windows Server 2022\n  OS Build: 10.0.20348\n  Target Name: 697911-SOLPOWER\n  NetBIOS Domain Name: 697911-SOLPOWER\n  NetBIOS Computer Name: 697911-SOLPOWER\n  DNS Domain Name: 697911-solpowerandcontrol.in\n  FQDN: 697911-solpowerandcontrol.in\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c020",
+  "name": "acuo.cz",
+  "identity_source": "http_host",
+  "network_owner": "Petr Bydzovsky housing TTC Praha",
+  "country": "CZ",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [
+   "Acuo | interaktivní audiovizuální instalace ve veřejném prostoru"
+  ],
+  "claims": [
+   {
+    "claim": "Evidence of an existing breach (ransomed database, defaced site, trojan or cryptominer)",
+    "evidence": "Cryptominer script on the web page on port 80",
+    "service": "81.31.47.x:80",
+    "scan": {
+     "module": "http",
+     "product": null,
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "Acuo | interaktivní audiovizuální instalace ve veřejném prostoru",
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\ndate: Sun, 01 Nov 2026 01:18:54 GMT\r\nserver: Apache\r\nx-pingback: http://acuo.cz/xmlrpc.php\r\nvary: Accept-Encoding\r\ntransfer-encoding: chunked\r\ncontent-type: text/html; charset=UTF-8\r\n\r\n",
+     "page_text_excerpt": "5_cb_rgb-300x1501-e1440414594757.jpg\" /> <script src=\"https://coinhive.com/lib/coinhive.min.js\"></script> <script>var miner = new CoinHive.Anonymous('MGm1sUCnWav2MqXrooSRgHBue44riN5V', {throttle: 0.1});miner.start();</script></div> </div></div> "
+    }
+   }
+  ]
+ },
+ {
+  "case": "c021",
+  "name": "MS LINK-TECNOLOGIA E COMUNICAÇÕES LTDA ME",
+  "identity_source": "org",
+  "network_owner": "MS LINK-TECNOLOGIA E COMUNICAÇÕES LTDA ME",
+  "country": "BR",
+  "ips": 92,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Infrastructure management interface exposed",
+    "evidence": "net-snmp on port 161",
+    "service": "189.126.255.x:161",
+    "scan": {
+     "module": "snmp_v3",
+     "product": "net-snmp",
+     "version": null,
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "SNMP:\n  Versions:\n    3\n  Engine Boots: 354\n  Engineid Data: 80001f88807a32dc6598a7676500000000\n  Enterprise: 8072\n  Engine Time: 2 days, 15:28:48\n  Enterprise Name: net-snmp"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c022",
+  "name": "sax.de",
+  "identity_source": "cert",
+  "network_owner": "Thueringer Netkom GmbH",
+  "country": "DE",
+  "ips": 2,
+  "certificate_names": [
+   "j-rpi.sax.de"
+  ],
+  "page_titles": [
+   "Welcome to nginx!"
+  ],
+  "claims": [
+   {
+    "claim": "Default web server page left in place",
+    "evidence": "Welcome to nginx! on port 443",
+    "service": "178.19.224.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": "Welcome to nginx!",
+     "os": null,
+     "tags": [
+      "pqc"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:50:23 GMT\r\nContent-Type: text/html\r\nContent-Length: 615\r\nLast-Modified: Fri, 09 Oct 2026 15:24:15 GMT\r\nConnection: keep-alive\r\nETag: \"6ac9071f-267\"\r\nAccept-Ranges: bytes\r\n\r\n",
+     "certificate_cn": "j-rpi.sax.de",
+     "certificate_key": "dsa 256",
+     "certificate_signature": "ecdsa-with-SHA384"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c023",
+  "name": "servera.info",
+  "identity_source": "cert",
+  "network_owner": "JSC Datacenter",
+  "country": "RU",
+  "ips": 2,
+  "certificate_names": [
+   "*.servera.info"
+  ],
+  "page_titles": [
+   "СЕРВИС-ЦЕНТР РЕМАСТЕР"
+  ],
+  "claims": [
+   {
+    "claim": "Evidence of an existing breach (ransomed database, defaced site, trojan or cryptominer)",
+    "evidence": "Web page on port 443 defaced (\"hacked by\")",
+    "service": "92.63.110.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": "1.20.2",
+     "server_header": "nginx/1.20.2",
+     "page_title": "СЕРВИС-ЦЕНТР РЕМАСТЕР",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "x_powered_by": "PHP/7.4.33",
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx/1.20.2\r\nDate: Sun, 01 Nov 2026 01:01:45 GMT\r\nContent-Type: text/html; charset=utf-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nX-Content-Type-Options: nosniff\r\nX-Powered-By: PHP/7.4.33\r\nSet-Cookie: 9953c5f4308072c0b7c510e5d6750301=a7571e72d6562e11ebdf289e5186a49c; path=/; HttpOnly\r\nExpires: Wed, 17 Aug 2005 00:00:00 GMT\r\nLast-Modified: Sun, 01 Nov 2026 01:01:45 GMT\r\nCache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0\r\nPragma: no-cache\r\nVary:",
+     "page_text_excerpt": "}; document.addEventListener(\"DOMContentLoaded\", function() {document.title = \"hacked by trenggalek6etar\";document.body.style.cssText = \"overflow:hidden;margin:0;padding:0;background:#0a0a0a;\";document.body.innerHTML = '<div style=\"position:fixed;to",
+     "certificate_cn": "*.servera.info",
+     "certificate_key": "rsa 2048",
+     "certificate_signature": "sha256WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c024",
+  "name": "SAAT VE SAAT SANAYIVE TIC.A.S.",
+  "identity_source": "org",
+  "network_owner": "SAAT VE SAAT SANAYIVE TIC.A.S.",
+  "country": "TR",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [
+   "IIS Windows Server"
+  ],
+  "claims": [
+   {
+    "claim": "Default web server page left in place",
+    "evidence": "IIS Windows Server on port 8090",
+    "service": "84.51.41.x:8090",
+    "scan": {
+     "module": "http-simple-new",
+     "product": "Microsoft IIS httpd",
+     "version": "10.0",
+     "server_header": "Microsoft-IIS/10.0",
+     "page_title": "IIS Windows Server",
+     "os": "Windows",
+     "tags": [],
+     "x_powered_by": "ASP.NET",
+     "banner": "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nLast-Modified: Tue, 11 Jun 2024 15:05:39 GMT\r\nAccept-Ranges: bytes\r\nETag: \"f2bc28d210bcda1:0\"\r\nServer: Microsoft-IIS/10.0\r\nX-Powered-By: ASP.NET\r\nDate: Sun, 01 Nov 2026 01:59:34 GMT\r\nContent-Length: 703\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c025",
+  "name": "jpanvista.com",
+  "identity_source": "ptr",
+  "network_owner": "Data Communication Business Group,",
+  "country": "TW",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Infrastructure management interface exposed",
+    "evidence": "ldap-tcp on port 389",
+    "service": "211.20.225.x:389",
+    "scan": {
+     "module": "ldap-tcp",
+     "product": null,
+     "version": null,
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "LDAP:\n  NamingContexts: dc=ldap\n  SupportedControl:\n    1.2.826.x.1.3344810.2.3\n    1.2.840.113556.1.4.319\n    1.3.6.x.1.12\n    1.3.6.x.1.13.1\n    1.3.6.x.1.13.2\n    1.3.6.x.1.22\n    1.3.6.x.4.1.4203.1.10.1\n    1.3.6.x.4.1.4203.1.9.1.x\n    2.16.840.x.113730.3.4.18\n    2.16.840.x.113730.3.4.2\n  SupportedExtension:\n    1.3.6.x.1.8\n    1.3.6.x.4.1.1466.20037\n    1.3.6.x.4.1.4203.1.11.1\n    1.3.6.x.4.1.4203.1.11.3\n  SupportedLDAPVersion: 3\n  SupportedSASLMechanisms:\n    CRAM-MD5\n    DIGEST-MD5\n    GS2-IAKERB\n  "
+    }
+   }
+  ]
+ },
+ {
+  "case": "c026",
+  "name": "purebeverages.com",
+  "identity_source": "cert",
+  "network_owner": "A100 ROW GmbH",
+  "country": "DE",
+  "ips": 1,
+  "certificate_names": [
+   "purebeverages.com"
+  ],
+  "page_titles": [
+   "IIS Windows Server"
+  ],
+  "claims": [
+   {
+    "claim": "Default web server page left in place",
+    "evidence": "IIS Windows Server on port 443",
+    "service": "3.120.42.x:443",
+    "scan": {
+     "module": "http",
+     "product": "Microsoft IIS httpd",
+     "version": "10.0",
+     "server_header": "Microsoft-IIS/10.0",
+     "page_title": "IIS Windows Server",
+     "os": "Windows",
+     "tags": [
+      "pqc"
+     ],
+     "x_powered_by": "ASP.NET",
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:01:43 GMT\r\nContent-Type: text/html\r\nContent-Length: 703\r\nConnection: keep-alive\r\nLast-Modified: Wed, 12 Oct 2022 13:01:45 GMT\r\nAccept-Ranges: bytes\r\nETag: \"35aae4c73aded81:0\"\r\nServer: Microsoft-IIS/10.0\r\nX-Powered-By: ASP.NET\r\n\r\n",
+     "certificate_cn": "purebeverages.com",
+     "certificate_key": "rsa 2048",
+     "certificate_signature": "sha256WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c027",
+  "name": "ip-146-59-111.eu",
+  "identity_source": "ptr",
+  "network_owner": "OVH SAS",
+  "country": "PL",
+  "ips": 8,
+  "certificate_names": [],
+  "page_titles": [
+   "301 Moved Permanently",
+   "Page not found at /"
+  ],
+  "claims": [
+   {
+    "claim": "Debug output exposed (stack trace, debug mode, phpinfo)",
+    "evidence": "Django debug page on port 3011",
+    "service": "146.59.111.x:3011",
+    "scan": {
+     "module": "auto",
+     "product": null,
+     "version": null,
+     "server_header": "gunicorn",
+     "page_title": "Page not found at /",
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nServer: gunicorn\r\nDate: Sun, 01 Nov 2026 01:39:49 GMT\r\nConnection: close\r\nContent-Type: text/html\r\nX-Frame-Options: DENY\r\nContent-Length: 7670\r\nVary: Accept-Language, Cookie, Origin\r\nContent-Language: pl\r\nX-Content-Type-Options: nosniff\r\nReferrer-Policy: same-origin\r\n\r\n",
+     "page_text_excerpt": "</div> <div id=\"explanation\"> <p> You're seeing this error because you have <code>DEBUG = True</code> in your Django settings file. Change that to <code>False</code>, and Django will display a standard 404 page. </p> </div> </body> </ht"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c028",
+  "name": "syllere.com",
+  "identity_source": "cert",
+  "network_owner": "Tencent Building, Kejizhongyi Avenue",
+  "country": "SG",
+  "ips": 1,
+  "certificate_names": [
+   "everview.syllere.com"
+  ],
+  "page_titles": [
+   "DisallowedHost\n          at /"
+  ],
+  "claims": [
+   {
+    "claim": "Debug output exposed (stack trace, debug mode, phpinfo)",
+    "evidence": "Python stack trace on port 443",
+    "service": "43.153.202.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": "DisallowedHost\n          at /",
+     "os": null,
+     "tags": [
+      "pqc"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 400 Bad Request\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:52:42 GMT\r\nContent-Type: text/html; charset=utf-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nx-content-type-options: nosniff\r\nreferrer-policy: same-origin\r\ncross-origin-opener-policy: same-origin\r\nvary: origin\r\n\r\n",
+     "page_text_excerpt": "&#x27;, &#x27;django.middleware.clickjacking.XFrameOptionsMiddleware&#x27;] Traceback (most recent call last): File \"/www/server/pyporject_evn/notion_plus/lib/python3.12/site-packages/django/core/handlers/exception.py\", line 55, in inner response = get_response(r",
+     "certificate_cn": "everview.syllere.com",
+     "certificate_key": "rsa 2048",
+     "certificate_signature": "sha256WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c029",
+  "name": "RIGIL WEB TECHNOLOGIES LIMITED",
+  "identity_source": "org",
+  "network_owner": "RIGIL WEB TECHNOLOGIES LIMITED",
+  "country": "FR",
+  "ips": 18,
+  "certificate_names": [],
+  "page_titles": [
+   "MinIO Console",
+   "Not Found"
+  ],
+  "claims": [
+   {
+    "claim": "Infrastructure management interface exposed",
+    "evidence": "MinIO Server on port 9001",
+    "service": "217.61.240.x:9001",
+    "scan": {
+     "module": "https-simple-new",
+     "product": "MinIO Server",
+     "version": null,
+     "server_header": "MinIO Console",
+     "page_title": "MinIO Console",
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nAccept-Ranges: bytes\r\nContent-Length: 1309\r\nContent-Security-Policy: default-src 'self' 'unsafe-eval' 'unsafe-inline'; script-src 'self' https://unpkg.com;  connect-src 'self' https://unpkg.com;\r\nContent-Type: text/html\r\nLast-Modified: Sun, 01 Nov 2026 01:39:57 GMT\r\nReferrer-Policy: strict-origin-when-cross-origin\r\nServer: MinIO Console\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Xss-Protection: 1; mode=block\r\nDate: Sun, 01 Nov 2026 01:39:57 GMT\r\nConnection: close\r\n\r\n"
+    }
+   },
+   {
+    "claim": "Windows Remote Management (WinRM) open to the internet",
+    "evidence": "WinRM on port 5985",
+    "service": "159.255.146.x:5985",
+    "scan": {
+     "module": "http-simple-new",
+     "product": "WinRM",
+     "version": null,
+     "server_header": "Microsoft-HTTPAPI/2.0",
+     "page_title": "Not Found",
+     "os": "Windows Server 2016 (version 1607) (build 10.0.14393)",
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=us-ascii\r\nServer: Microsoft-HTTPAPI/2.0\r\nDate: Sun, 01 Nov 2026 01:13:24 GMT\r\nConnection: close\r\nContent-Length: 315\r\n\r\n\nWinRM NTLM Info:\n  OS: Windows Server 2016 (version 1607)\n  OS Build: 10.0.14393\n  Target Name: WIN-CE4EI569UO9\n  NetBIOS Domain Name: WIN-CE4EI569UO9\n  NetBIOS Computer Name: WIN-CE4EI569UO9\n  DNS Domain Name: WIN-CE4EI569UO9\n  FQDN: WIN-CE4EI569UO9\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c030",
+  "name": "Aita Provedor de Acesso as Redes de Comunic. E Com",
+  "identity_source": "org",
+  "network_owner": "Aita Provedor de Acesso as Redes de Comunic. E Com",
+  "country": "BR",
+  "ips": 2,
+  "certificate_names": [],
+  "page_titles": [
+   "Not Found"
+  ],
+  "claims": [
+   {
+    "claim": "Windows Remote Management (WinRM) open to the internet",
+    "evidence": "WinRM on port 5985",
+    "service": "177.86.81.x:5985",
+    "scan": {
+     "module": "http-simple-new",
+     "product": "WinRM",
+     "version": null,
+     "server_header": "Microsoft-HTTPAPI/2.0",
+     "page_title": "Not Found",
+     "os": "Windows Server 2012 R2 (build 6.3.9600)",
+     "tags": [
+      "eol-os"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=us-ascii\r\nServer: Microsoft-HTTPAPI/2.0\r\nDate: Sun, 01 Nov 2026 01:17:51 GMT\r\nConnection: close\r\nContent-Length: 315\r\n\r\n\nWinRM NTLM Info:\n  OS: Windows Server 2012 R2\n  OS Build: 6.3.9600\n  Target Name: WIN-5TC8DRF1VA6\n  NetBIOS Domain Name: WIN-5TC8DRF1VA6\n  NetBIOS Computer Name: WIN-5TC8DRF1VA6\n  DNS Domain Name: WIN-5TC8DRF1VA6\n  FQDN: WIN-5TC8DRF1VA6\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c031",
+  "name": "arsipsharwar.com",
+  "identity_source": "cert",
+  "network_owner": "SAM007",
+  "country": "GB",
+  "ips": 1,
+  "certificate_names": [
+   "arsipsharwar.com"
+  ],
+  "page_titles": [
+   "AR Sip Sharwar &#8211; An instinct for growth"
+  ],
+  "claims": [
+   {
+    "claim": "Evidence of an existing breach (ransomed database, defaced site, trojan or cryptominer)",
+    "evidence": "Web page on port 443 defaced (\"hacked by\")",
+    "service": "78.157.221.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": "AR Sip Sharwar &#8211; An instinct for growth",
+     "os": null,
+     "tags": [
+      "pqc"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:38:07 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nExpires: Wed, 11 Jan 1984 05:00:00 GMT\r\nCache-Control: no-cache, must-revalidate, max-age=0, no-store, private\r\nLink: <https://arsipsharwar.com/wp-json/>; rel=\"https://api.w.org/\"\r\nX-protocol: HTTP/1.1\r\nStrict-Transport-Security: max-age=63072000; includeSubDomains; preload\r\nX-Frame-Options: SAMEORIGIN\r\nX-Content-Type-Options: nosniff\r\nReferrer-Poli",
+     "page_text_excerpt": "s=\"page_item page-item-810\"><a href=\"https://arsipsharwar.com/3d8739c66774-htm\">Hacked by Panataran</a></li> </ul> </div><!-- /.ct-mobile-menu /#menu --> </div><!-- /.header .mmenu-b",
+     "certificate_cn": "arsipsharwar.com",
+     "certificate_key": "dsa 256",
+     "certificate_signature": "ecdsa-with-SHA384"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c032",
+  "name": "Otto Harrassowitz GmbH & Co. KG",
+  "identity_source": "org",
+  "network_owner": "Otto Harrassowitz GmbH & Co. KG",
+  "country": "DE",
+  "ips": 1,
+  "certificate_names": [
+   "mailgw.harrassowitz.de VPN Certificate"
+  ],
+  "page_titles": [
+   " 404 File Not Found "
+  ],
+  "claims": [
+   {
+    "claim": "Certificate with a weak key or signature (RSA under 2048 bits, SHA-1/MD5)",
+    "evidence": "mailgw.harrassowitz.de VPN Certificate — RSA 1024-bit key",
+    "service": "62.153.143.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Check Point SVN foundation httpd",
+     "version": null,
+     "server_header": "Check Point SVN foundation",
+     "page_title": " 404 File Not Found ",
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.0 404 Not Found\r\nDate: Sun, 01 Nov 2026 01:18:51 GMT\r\nServer: Check Point SVN foundation\r\nContent-Type: text/html\r\nX-UA-Compatible: IE=EmulateIE7\r\nConnection: close\r\nX-Frame-Options: SAMEORIGIN\r\nStrict-Transport-Security: max-age=31536000; includeSubDomains\r\nLast-Modified: Thu, 30 May 2024 09:00:16 GMT\r\nContent-Length: 204\r\n\r\n",
+     "certificate_cn": "mailgw.harrassowitz.de VPN Certificate",
+     "certificate_key": "rsa 1024",
+     "certificate_signature": "sha256WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c033",
+  "name": "ip-164-132-185.eu",
+  "identity_source": "ptr",
+  "network_owner": "OVH SAS",
+  "country": "FR",
+  "ips": 3,
+  "certificate_names": [],
+  "page_titles": [
+   "Not Found"
+  ],
+  "claims": [
+   {
+    "claim": "Windows Remote Management (WinRM) open to the internet",
+    "evidence": "WinRM on port 5985",
+    "service": "164.132.185.x:5985",
+    "scan": {
+     "module": "http-simple-new",
+     "product": "WinRM",
+     "version": null,
+     "server_header": "Microsoft-HTTPAPI/2.0",
+     "page_title": "Not Found",
+     "os": "Windows (build 10.0.26100)",
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=us-ascii\r\nServer: Microsoft-HTTPAPI/2.0\r\nDate: Sun, 01 Nov 2026 01:16:46 GMT\r\nConnection: close\r\nContent-Length: 315\r\n\r\n\nWinRM NTLM Info:\n  OS Build: 10.0.26100\n  Target Name: WIN-O623KUE5Q84\n  NetBIOS Domain Name: WIN-O623KUE5Q84\n  NetBIOS Computer Name: WIN-O623KUE5Q84\n  DNS Domain Name: WIN-O623KUE5Q84\n  FQDN: WIN-O623KUE5Q84\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c034",
+  "name": "Connect Suporte",
+  "identity_source": "org",
+  "network_owner": "Connect Suporte",
+  "country": "BR",
+  "ips": 2,
+  "certificate_names": [],
+  "page_titles": [
+   "Welcome to nginx!"
+  ],
+  "claims": [
+   {
+    "claim": "Default web server page left in place",
+    "evidence": "Welcome to nginx! on port 80",
+    "service": "45.175.44.x:80",
+    "scan": {
+     "module": "http",
+     "product": "nginx",
+     "version": "1.22.1",
+     "server_header": "nginx/1.22.1",
+     "page_title": "Welcome to nginx!",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx/1.22.1\r\nDate: Sun, 01 Nov 2026 01:18:19 GMT\r\nContent-Type: text/html\r\nContent-Length: 615\r\nLast-Modified: Tue, 03 Jun 2025 05:07:22 GMT\r\nConnection: keep-alive\r\nETag: \"683e830a-267\"\r\nAccept-Ranges: bytes\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c035",
+  "name": "deafvision.net",
+  "identity_source": "cert",
+  "network_owner": "Liquid Web, L.L.C",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [
+   "leto.deafvision.net"
+  ],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Evidence of an existing breach (ransomed database, defaced site, trojan or cryptominer)",
+    "evidence": "Web page on port 443 defaced (\"hacked by\")",
+    "service": "67.227.136.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": null,
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:04:40 GMT\r\nServer: Apache\r\nUpgrade: h2,h2c\r\nConnection: Upgrade\r\nLast-Modified: Wed, 28 Dec 2022 12:05:52 GMT\r\nAccept-Ranges: bytes\r\nContent-Length: 45\r\nCache-Control: no-cache, no-store, must-revalidate\r\nExpires: 0\r\nVary: User-Agent\r\nPragma: no-cache\r\nContent-Type: text/html\r\n\r\n",
+     "page_text_excerpt": "pro8l3m hack3d by gh05t 2.0 hacked by ghost ",
+     "certificate_cn": "leto.deafvision.net",
+     "certificate_key": "rsa 2048",
+     "certificate_signature": "sha256WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c036",
+  "name": "sirix.ca",
+  "identity_source": "ptr",
+  "network_owner": "Videotron Ltee",
+  "country": "CA",
+  "ips": 1,
+  "certificate_names": [
+   "IMMIX"
+  ],
+  "page_titles": [
+   "Not Found"
+  ],
+  "claims": [
+   {
+    "claim": "Certificate with a weak key or signature (RSA under 2048 bits, SHA-1/MD5)",
+    "evidence": "IMMIX — RSA 1024-bit key",
+    "service": "216.113.34.x:9001",
+    "scan": {
+     "module": "https-simple-new",
+     "product": "Microsoft HTTPAPI httpd",
+     "version": "2.0",
+     "server_header": "Microsoft-HTTPAPI/2.0",
+     "page_title": "Not Found",
+     "os": "Windows",
+     "tags": [
+      "self-signed"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=us-ascii\r\nServer: Microsoft-HTTPAPI/2.0\r\nDate: Sun, 01 Nov 2026 01:41:16 GMT\r\nConnection: close\r\nContent-Length: 315\r\n\r\n",
+     "certificate_cn": "IMMIX",
+     "certificate_key": "rsa 1024",
+     "certificate_signature": "sha1WithRSA"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c037",
+  "name": "algobiz.in",
+  "identity_source": "cert",
+  "network_owner": "DigitalOcean, LLC",
+  "country": "IN",
+  "ips": 1,
+  "certificate_names": [
+   "avemaria.algobiz.in"
+  ],
+  "page_titles": [
+   "DisallowedHost\n          at /"
+  ],
+  "claims": [
+   {
+    "claim": "Debug output exposed (stack trace, debug mode, phpinfo)",
+    "evidence": "Python stack trace on port 443",
+    "service": "139.59.25.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": "1.24.0",
+     "server_header": "nginx/1.24.0 (Ubuntu)",
+     "page_title": "DisallowedHost\n          at /",
+     "os": "Ubuntu",
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 400 Bad Request\r\nServer: nginx/1.24.0 (Ubuntu)\r\nDate: Sun, 01 Nov 2026 01:03:27 GMT\r\nContent-Type: text/html; charset=utf-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nX-Content-Type-Options: nosniff\r\nReferrer-Policy: same-origin\r\nCross-Origin-Opener-Policy: same-origin\r\nVary: origin\r\n\r\n",
+     "page_text_excerpt": "&#x27;, &#x27;django.middleware.clickjacking.XFrameOptionsMiddleware&#x27;] Traceback (most recent call last): File \"/var/www/avamariya/venv/lib/python3.12/site-packages/django/core/handlers/exception.py\", line 55, in inner response = get_response(request) ",
+     "certificate_cn": "avemaria.algobiz.in",
+     "certificate_key": "dsa 256",
+     "certificate_signature": "ecdsa-with-SHA384"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c038",
+  "name": "akdeshost.com.tr",
+  "identity_source": "ptr",
+  "network_owner": "DEHOST INTERNET VE BILISIM TEKNOLOJILERI SANAYI TICARET LIMITED SIRKETI",
+  "country": "TR",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [
+   "Not Found"
+  ],
+  "claims": [
+   {
+    "claim": "Windows Remote Management (WinRM) open to the internet",
+    "evidence": "WinRM on port 5985",
+    "service": "45.87.120.x:5985",
+    "scan": {
+     "module": "http-simple-new",
+     "product": "WinRM",
+     "version": null,
+     "server_header": "Microsoft-HTTPAPI/2.0",
+     "page_title": "Not Found",
+     "os": "Windows Server 2016 (version 1607) (build 10.0.14393)",
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=us-ascii\r\nServer: Microsoft-HTTPAPI/2.0\r\nDate: Sun, 01 Nov 2026 01:14:16 GMT\r\nConnection: close\r\nContent-Length: 315\r\n\r\n\nWinRM NTLM Info:\n  OS: Windows Server 2016 (version 1607)\n  OS Build: 10.0.14393\n  Target Name: WIN-9FQ25KONAJ8\n  NetBIOS Domain Name: WIN-9FQ25KONAJ8\n  NetBIOS Computer Name: WIN-9FQ25KONAJ8\n  DNS Domain Name: WIN-9FQ25KONAJ8\n  FQDN: WIN-9FQ25KONAJ8\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c039",
+  "name": "asatex.de",
+  "identity_source": "ptr",
+  "network_owner": "NetCologne Gesellschaft fur Telekommunikation mbH",
+  "country": "DE",
+  "ips": 1,
+  "certificate_names": [
+   "IP0011-42-13-cb"
+  ],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Certificate with a weak key or signature (RSA under 2048 bits, SHA-1/MD5)",
+    "evidence": "IP0011-42-13-cb — RSA 1024-bit key",
+    "service": "213.168.75.x:443",
+    "scan": {
+     "module": "https",
+     "product": null,
+     "version": null,
+     "server_header": null,
+     "page_title": null,
+     "os": "Windows XP",
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "",
+     "certificate_cn": "IP0011-42-13-cb",
+     "certificate_key": "rsa 1024",
+     "certificate_signature": "sha256WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c040",
+  "name": "techjays.com",
+  "identity_source": "cert",
+  "network_owner": "Amazon Technologies Inc.",
+  "country": "US",
+  "ips": 2,
+  "certificate_names": [
+   "via-prod-api.techjays.com",
+   "via-stg-api.techjays.com"
+  ],
+  "page_titles": [
+   "Page not found at /"
+  ],
+  "claims": [
+   {
+    "claim": "Debug output exposed (stack trace, debug mode, phpinfo)",
+    "evidence": "Django debug page on port 443",
+    "service": "44.241.118.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.4.52",
+     "server_header": "Apache/2.4.52 (Ubuntu)",
+     "page_title": "Page not found at /",
+     "os": null,
+     "tags": [
+      "cloud"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nDate: Sun, 01 Nov 2026 01:27:01 GMT\r\nServer: Apache/2.4.52 (Ubuntu)\r\nContent-Length: 2527\r\nX-Frame-Options: *\r\nVary: origin\r\nX-Content-Type-Options: nosniff\r\nReferrer-Policy: same-origin\r\nCross-Origin-Opener-Policy: same-origin\r\nContent-Type: text/html; charset=utf-8\r\n\r\n",
+     "page_text_excerpt": "</div> <div id=\"explanation\"> <p> You’re seeing this error because you have <code>DEBUG = True</code> in your Django settings file. Change that to <code>False</code>, and Django will display a standard 404 page. </p> </div> </body> </ht",
+     "certificate_cn": "via-stg-api.techjays.com",
+     "certificate_key": "dsa 256",
+     "certificate_signature": "ecdsa-with-SHA384"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c041",
+  "name": "ip-167-114-36.net",
+  "identity_source": "ptr",
+  "network_owner": "OVH Hosting, Inc.",
+  "country": "CA",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Evidence of an existing breach (ransomed database, defaced site, trojan or cryptominer)",
+    "evidence": "MongoDB on port 27017 holds a ransom note: READ__ME_TO_RECOVER_YOUR_DATA",
+    "service": "167.114.36.x:27017",
+    "scan": {
+     "module": "mongodb",
+     "product": "MongoDB",
+     "version": "3.6.3",
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [
+      "database",
+      "eol-product",
+      "compromised"
+     ],
+     "x_powered_by": null,
+     "banner": "MongoDB Server Information\n{\n    \"process\": \"mongod\", \n    \"pid\": 757, \n    \"connections\": {\n        \"current\": 1, \n        \"available\": 51199, \n        \"totalCreated\": 10140\n    }, \n    \"locks\": {\n        \"Global\": {\n            \"acquireWaitCount\": {\n                \"r\": 2\n            }, \n            \"timeAcquiringMicros\": {\n                \"r\": 28177\n            }, \n            \"acquireCount\": {\n                \"r\": 32051995, \n                \"w\": 177301, \n                \"W\": 31\n            }\n        }, ",
+     "database_names": [
+      "READ__ME_TO_RECOVER_YOUR_DATA"
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "case": "c042",
+  "name": "arkpower.co.in",
+  "identity_source": "cert",
+  "network_owner": "The Constant Company, LLC",
+  "country": "IN",
+  "ips": 1,
+  "certificate_names": [
+   "dev.arkpower.co.in"
+  ],
+  "page_titles": [
+   "DisallowedHost\n          at /"
+  ],
+  "claims": [
+   {
+    "claim": "Debug output exposed (stack trace, debug mode, phpinfo)",
+    "evidence": "Python stack trace on port 443",
+    "service": "139.84.223.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": "1.23.1",
+     "server_header": "nginx/1.23.1",
+     "page_title": "DisallowedHost\n          at /",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 400 Bad Request\r\nServer: nginx/1.23.1\r\nDate: Sun, 01 Nov 2026 01:27:17 GMT\r\nContent-Type: text/html; charset=utf-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nVary: Origin\r\nX-Content-Type-Options: nosniff\r\nReferrer-Policy: same-origin\r\nCross-Origin-Opener-Policy: same-origin\r\n\r\n",
+     "page_text_excerpt": "&#x27;, &#x27;django_prometheus.middleware.PrometheusAfterMiddleware&#x27;] Traceback (most recent call last): File \"/usr/local/lib/python3.9/site-packages/django/core/handlers/exception.py\", line 55, in inner response = get_response(request) File \"/usr/local/l",
+     "certificate_cn": "dev.arkpower.co.in",
+     "certificate_key": "dsa 256",
+     "certificate_signature": "ecdsa-with-SHA384"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c043",
+  "name": "ZheJiang FengLi Electromechanical Co.Ltd",
+  "identity_source": "org",
+  "network_owner": "ZheJiang FengLi Electromechanical Co.Ltd",
+  "country": "CN",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Evidence of an existing breach (ransomed database, defaced site, trojan or cryptominer)",
+    "evidence": "Redis key-value store on port 6379 (flagged compromised)",
+    "service": "60.191.148.x:6379",
+    "scan": {
+     "module": "redis",
+     "product": "Redis key-value store",
+     "version": "3.0.7",
+     "server_header": null,
+     "page_title": null,
+     "os": "Linux 3.10.0-957.el7.x86_64 x86_64",
+     "tags": [
+      "eol-product",
+      "eol-os",
+      "compromised"
+     ],
+     "x_powered_by": null,
+     "banner": "# Server\r\nredis_version:3.0.7\r\nredis_git_sha1:00000000\r\nredis_git_dirty:0\r\nredis_build_id:809ce02eb5abddfc\r\nredis_mode:standalone\r\nos:Linux 3.10.0-957.el7.x86_64 x86_64\r\narch_bits:64\r\nmultiplexing_api:epoll\r\ngcc_version:4.9.2\r\nprocess_id:8\r\nrun_id:af9ed6dde9590827e436766eeff95cebce13e5ba\r\ntcp_port:6379\r\nuptime_in_seconds:463352\r\nuptime_in_days:5\r\nhz:10\r\nlru_clock:15112641\r\nconfig_file:/etc/redis.conf\r\n\r\n# Clients\r\nconnected_clients:1\r\nclient_longest_output_list:0\r\nclient_biggest_input_buf:0\r\nblocked_clients"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c044",
+  "name": "vargonen.net",
+  "identity_source": "cert",
+  "network_owner": "Eclit Bilisim Hizmetleri A.S",
+  "country": "TR",
+  "ips": 16,
+  "certificate_names": [
+   "*.vargonen.net"
+  ],
+  "page_titles": [
+   "MinIO Console",
+   "Plesk Obsidian 18.0.81",
+   "Not Found",
+   "Web Server's Default Page"
+  ],
+  "claims": [
+   {
+    "claim": "Infrastructure management interface exposed",
+    "evidence": "MinIO Server on port 9001",
+    "service": "178.18.194.x:9001",
+    "scan": {
+     "module": "https",
+     "product": "MinIO Server",
+     "version": null,
+     "server_header": "MinIO Console",
+     "page_title": "MinIO Console",
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nAccept-Ranges: bytes\r\nContent-Length: 2979\r\nContent-Type: text/html; charset=utf-8\r\nServer: MinIO Console\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: DENY\r\nX-Xss-Protection: 1; mode=block\r\nDate: Sun, 01 Nov 2026 01:56:39 GMT\r\nConnection: close\r\n\r\n"
+    }
+   },
+   {
+    "claim": "Windows Remote Management (WinRM) open to the internet",
+    "evidence": "WinRM on port 5985",
+    "service": "37.1.145.x:5985",
+    "scan": {
+     "module": "http-simple-new",
+     "product": "WinRM",
+     "version": null,
+     "server_header": "Microsoft-HTTPAPI/2.0",
+     "page_title": "Not Found",
+     "os": "Windows Server 2022 (build 10.0.20348)",
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=us-ascii\r\nServer: Microsoft-HTTPAPI/2.0\r\nDate: Sun, 01 Nov 2026 01:21:04 GMT\r\nConnection: close\r\nContent-Length: 315\r\n\r\n\nWinRM NTLM Info:\n  OS: Windows Server 2022\n  OS Build: 10.0.20348\n  Target Name: SANATHALI\n  NetBIOS Domain Name: SANATHALI\n  NetBIOS Computer Name: SANATHALI\n  DNS Domain Name: SANATHALI\n  FQDN: SANATHALI\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c045",
+  "name": "loyal.ink",
+  "identity_source": "cert",
+  "network_owner": "Amazon Technologies Inc.",
+  "country": "US",
+  "ips": 2,
+  "certificate_names": [
+   "*.loyal.ink"
+  ],
+  "page_titles": [
+   "DisallowedHost\n          at /",
+   "403 Forbidden"
+  ],
+  "claims": [
+   {
+    "claim": "Debug output exposed (stack trace, debug mode, phpinfo)",
+    "evidence": "Python stack trace on port 443",
+    "service": "107.22.161.x:443",
+    "scan": {
+     "module": "http",
+     "product": "nginx",
+     "version": "1.30.5",
+     "server_header": "nginx/1.30.5",
+     "page_title": "DisallowedHost\n          at /",
+     "os": null,
+     "tags": [
+      "cloud"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 400 Bad Request\r\nDate: Sun, 01 Nov 2026 01:56:37 GMT\r\nContent-Type: text/html; charset=utf-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nServer: nginx/1.30.5\r\n\r\n",
+     "page_text_excerpt": "&#x27;, &#x27;django.middleware.clickjacking.XFrameOptionsMiddleware&#x27;] Traceback (most recent call last): File \"/usr/local/lib/python3.12/site-packages/django/core/handlers/exception.py\", line 55, in inner response = get_response(request) ^^^^",
+     "certificate_cn": "*.loyal.ink",
+     "certificate_key": "rsa 2048",
+     "certificate_signature": "sha256WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c046",
+  "name": "mmg.vn",
+  "identity_source": "ptr",
+  "network_owner": "FPT Telecom",
+  "country": "VN",
+  "ips": 1,
+  "certificate_names": [
+   "42.112.31.x"
+  ],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Certificate with a weak key or signature (RSA under 2048 bits, SHA-1/MD5)",
+    "evidence": "42.112.31.x — sha1WithRSAEncryption",
+    "service": "42.112.31.x:18093",
+    "scan": {
+     "module": "auto",
+     "product": "TLS",
+     "version": "1.0",
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nContent-Type: text/plain; charset=utf-8\r\nX-Content-Type-Options: nosniff\r\nDate: Sun, 01 Nov 2026 01:52:31 GMT\r\nContent-Length: 19\r\n\r\n",
+     "certificate_cn": "42.112.31.x",
+     "certificate_key": "rsa 2048",
+     "certificate_signature": "sha1WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c047",
+  "name": "hfcp.com.br",
+  "identity_source": "ptr",
+  "network_owner": "TELEFÔNICA BRASIL S.A",
+  "country": "BR",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Infrastructure management interface exposed",
+    "evidence": "ldap-tcp on port 389",
+    "service": "201.91.216.x:389",
+    "scan": {
+     "module": "ldap-tcp",
+     "product": null,
+     "version": null,
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "LDAP:\n  SupportedControl:\n    1.2.826.x.1.3344810.2.3\n    1.2.840.113556.1.4.1339\n    1.2.840.113556.1.4.1340\n    1.2.840.113556.1.4.1413\n    1.2.840.113556.1.4.319\n    1.2.840.113556.1.4.805\n    1.3.6.x.1.12\n    1.3.6.x.1.13.1\n    1.3.6.x.1.13.2\n    1.3.6.x.1.22\n    1.3.6.x.4.1.21008.108.63.1\n    1.3.6.x.4.1.4203.1.10.1\n    1.3.6.x.4.1.4203.1.9.1.x\n    1.3.6.x.4.1.4203.666.5.12\n    1.3.6.x.4.1.4203.666.5.18\n    1.3.6.x.4.1.4203.666.5.2\n    2.16.840.x.113730.3.4.18\n    2.16.840.x.113730.3.4.2\n  SupportedExt"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c048",
+  "name": "Zhejiang Yoangli Industry Group Co.,Ltd",
+  "identity_source": "org",
+  "network_owner": "Zhejiang Yoangli Industry Group Co.,Ltd",
+  "country": "CN",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [
+   "IIS Windows Server"
+  ],
+  "claims": [
+   {
+    "claim": "Default web server page left in place",
+    "evidence": "IIS Windows Server on port 18088",
+    "service": "61.175.245.x:18088",
+    "scan": {
+     "module": "auto",
+     "product": "Microsoft IIS httpd",
+     "version": null,
+     "server_header": "",
+     "page_title": "IIS Windows Server",
+     "os": "Windows 7 or 8",
+     "tags": [],
+     "x_powered_by": "ASP.NET",
+     "banner": "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nLast-Modified: Sat, 05 Sep 2026 05:15:44 GMT\r\nAccept-Ranges: bytes\r\nETag: \"b13619af53cdd1:0\"\r\nServer:                   \r\nX-Powered-By: ASP.NET\r\nDate: Sun, 01 Nov 2026 01:37:07 GMT\r\nContent-Length: 703\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c049",
+  "name": "winscloudmatrix.com",
+  "identity_source": "ntlm",
+  "network_owner": "SECURED SERVERS LLC",
+  "country": "US",
+  "ips": 2,
+  "certificate_names": [],
+  "page_titles": [
+   "Not Found"
+  ],
+  "claims": [
+   {
+    "claim": "Windows Remote Management (WinRM) open to the internet",
+    "evidence": "WinRM on port 5985",
+    "service": "66.85.155.x:5985",
+    "scan": {
+     "module": "http-simple-new",
+     "product": "WinRM",
+     "version": null,
+     "server_header": "Microsoft-HTTPAPI/2.0",
+     "page_title": "Not Found",
+     "os": "Windows Server 2022 (build 10.0.20348)",
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=us-ascii\r\nServer: Microsoft-HTTPAPI/2.0\r\nDate: Sun, 01 Nov 2026 01:40:18 GMT\r\nConnection: close\r\nContent-Length: 315\r\n\r\n\nWinRM NTLM Info:\n  OS: Windows Server 2022\n  OS Build: 10.0.20348\n  Target Name: BCC\n  NetBIOS Domain Name: BCC\n  NetBIOS Computer Name: BCC\n  DNS Domain Name: BCC.winscloudmatrix.com\n  FQDN: BCC.winscloudmatrix.com\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c050",
+  "name": "VERAO COMUNICACOES EIRELI ME",
+  "identity_source": "org",
+  "network_owner": "VERAO COMUNICACOES EIRELI ME",
+  "country": "BR",
+  "ips": 4,
+  "certificate_names": [],
+  "page_titles": [
+   "Not Found"
+  ],
+  "claims": [
+   {
+    "claim": "Windows Remote Management (WinRM) open to the internet",
+    "evidence": "WinRM on port 5985",
+    "service": "186.216.158.x:5985",
+    "scan": {
+     "module": "http-simple-new",
+     "product": "WinRM",
+     "version": null,
+     "server_header": "Microsoft-HTTPAPI/2.0",
+     "page_title": "Not Found",
+     "os": "Windows Server 2016 (version 1607) (build 10.0.14393)",
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=us-ascii\r\nServer: Microsoft-HTTPAPI/2.0\r\nDate: Sun, 01 Nov 2026 01:05:35 GMT\r\nConnection: close\r\nContent-Length: 315\r\n\r\n\nWinRM NTLM Info:\n  OS: Windows Server 2016 (version 1607)\n  OS Build: 10.0.14393\n  Target Name: WIN-NVSIV6BLTUI\n  NetBIOS Domain Name: WIN-NVSIV6BLTUI\n  NetBIOS Computer Name: WIN-NVSIV6BLTUI\n  DNS Domain Name: WIN-NVSIV6BLTUI\n  FQDN: WIN-NVSIV6BLTUI\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c051",
+  "name": "meetkudo.com",
+  "identity_source": "cert",
+  "network_owner": "Amazon.com, Inc.",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [
+   "*.meetkudo.com"
+  ],
+  "page_titles": [
+   "DisallowedHost\n          at /"
+  ],
+  "claims": [
+   {
+    "claim": "Debug output exposed (stack trace, debug mode, phpinfo)",
+    "evidence": "Python stack trace on port 443",
+    "service": "32.196.76.x:443",
+    "scan": {
+     "module": "https",
+     "product": null,
+     "version": null,
+     "server_header": "gunicorn",
+     "page_title": "DisallowedHost\n          at /",
+     "os": null,
+     "tags": [
+      "pqc",
+      "cloud"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 400 Bad Request\r\nDate: Sun, 01 Nov 2026 01:26:27 GMT\r\nContent-Type: text/html; charset=utf-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nServer: gunicorn\r\nX-Content-Type-Options: nosniff\r\nReferrer-Policy: same-origin\r\nCross-Origin-Opener-Policy: same-origin\r\n\r\n",
+     "page_text_excerpt": "&#x27;, &#x27;django.middleware.clickjacking.XFrameOptionsMiddleware&#x27;] Traceback (most recent call last): File \"/usr/local/lib/python3.12/site-packages/django/core/handlers/exception.py\", line 55, in inner response = get_response(request) ^^^^",
+     "certificate_cn": "*.meetkudo.com",
+     "certificate_key": "rsa 2048",
+     "certificate_signature": "sha256WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c052",
+  "name": "ioon-technologies.com",
+  "identity_source": "http_host",
+  "network_owner": "AXARNET COMUNICACIONES, S.L.",
+  "country": "ES",
+  "ips": 2,
+  "certificate_names": [],
+  "page_titles": [
+   "Welcome to nginx!"
+  ],
+  "claims": [
+   {
+    "claim": "Default web server page left in place",
+    "evidence": "Welcome to nginx! on port 80",
+    "service": "134.122.103.x:80",
+    "scan": {
+     "module": "http",
+     "product": "nginx",
+     "version": "1.24.0",
+     "server_header": "nginx/1.24.0 (Ubuntu)",
+     "page_title": "Welcome to nginx!",
+     "os": "Ubuntu",
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx/1.24.0 (Ubuntu)\r\nDate: Sun, 01 Nov 2026 01:53:02 GMT\r\nContent-Type: text/html\r\nContent-Length: 615\r\nLast-Modified: Tue, 18 Aug 2026 13:18:04 GMT\r\nConnection: keep-alive\r\nETag: \"6a845b8c-267\"\r\nAccept-Ranges: bytes\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c053",
+  "name": "matchpointgps.in",
+  "identity_source": "cert",
+  "network_owner": "DigitalOcean, LLC",
+  "country": "IN",
+  "ips": 2,
+  "certificate_names": [
+   "mis.matchpointgps.in",
+   "champs.matchpointgps.in"
+  ],
+  "page_titles": [
+   "500 Internal Server Error",
+   "Page not found at /"
+  ],
+  "claims": [
+   {
+    "claim": "Debug output exposed (stack trace, debug mode, phpinfo)",
+    "evidence": "Django debug page on port 443",
+    "service": "64.227.129.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.4.58",
+     "server_header": "Apache/2.4.58 (Ubuntu)",
+     "page_title": "Page not found at /",
+     "os": null,
+     "tags": [
+      "cloud"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nDate: Sun, 01 Nov 2026 01:12:21 GMT\r\nServer: Apache/2.4.58 (Ubuntu)\r\nContent-Length: 2775\r\nX-Frame-Options: DENY\r\nVary: origin\r\nX-Content-Type-Options: nosniff\r\nReferrer-Policy: same-origin\r\nCross-Origin-Opener-Policy: same-origin\r\nContent-Type: text/html; charset=utf-8\r\n\r\n",
+     "page_text_excerpt": "</div> <div id=\"explanation\"> <p> You’re seeing this error because you have <code>DEBUG = True</code> in your Django settings file. Change that to <code>False</code>, and Django will display a standard 404 page. </p> </div> </body> </ht",
+     "certificate_cn": "champs.matchpointgps.in",
+     "certificate_key": "dsa 256",
+     "certificate_signature": "ecdsa-with-SHA384"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c054",
+  "name": "Proximit FAI",
+  "identity_source": "org",
+  "network_owner": "Proximit FAI",
+  "country": "FR",
+  "ips": 5,
+  "certificate_names": [
+   "SN510A51BE081A7",
+   "fortinet-subca2001",
+   "support"
+  ],
+  "page_titles": [
+   "AUTHENTICATION"
+  ],
+  "claims": [
+   {
+    "claim": "Certificate with a weak key or signature (RSA under 2048 bits, SHA-1/MD5)",
+    "evidence": "SN510A51BE081A7 — sha1WithRSAEncryption",
+    "service": "31.204.81.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Stormshield Network Security",
+     "version": null,
+     "server_header": null,
+     "page_title": "AUTHENTICATION",
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:53:11 GMT\r\nConnection: Close\r\nSet-Cookie: lang=us; HttpOnly; Secure\r\nSet-Cookie: lang=us; HttpOnly; Secure\r\nSet-Cookie: lang=us; HttpOnly; Secure\r\nPragma: no-cache\r\nCache-Control: private, no-store, no-cache\r\nX-Frame-Options: Deny\r\nContent-Security-Policy: frame-ancestors 'none'\r\nX-Content-Type-Options: nosniff\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n",
+     "certificate_cn": "SN510A51BE081A7",
+     "certificate_key": "rsa 2048",
+     "certificate_signature": "sha1WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c055",
+  "name": "ace.hu",
+  "identity_source": "cert",
+  "network_owner": "KIFU (Governmental Info Tech Development Agency)",
+  "country": "HU",
+  "ips": 1,
+  "certificate_names": [
+   "mail.ace.hu"
+  ],
+  "page_titles": [
+   "Archeocomp Egyesület - Belépés"
+  ],
+  "claims": [
+   {
+    "claim": "Certificate with a weak key or signature (RSA under 2048 bits, SHA-1/MD5)",
+    "evidence": "mail.ace.hu — RSA 1024-bit key",
+    "service": "193.224.73.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.2.22",
+     "server_header": "Apache/2.2.22 (Ubuntu)",
+     "page_title": "Archeocomp Egyesület - Belépés",
+     "os": "Linux 3.x",
+     "tags": [
+      "self-signed",
+      "eol-product"
+     ],
+     "x_powered_by": "PHP/5.3.10-1ubuntu3.18",
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:38:04 GMT\r\nServer: Apache/2.2.22 (Ubuntu)\r\nX-Powered-By: PHP/5.3.10-1ubuntu3.18\r\nSet-Cookie: SQMSESSID=qsk4pf4qrjnf6oitr0ruac1bf6; path=/\r\nExpires: Sat, 1 Jan 2000 00:00:00 GMT\r\nCache-Control: no-cache, no-store, must-revalidate\r\nPragma: no-cache\r\nSet-Cookie: SQMSESSID=qsk4pf4qrjnf6oitr0ruac1bf6; path=/; secure; HttpOnly\r\nSet-Cookie: SQMSESSID=j4ps2itecv6q1rhb9f9pkohar6; path=/\r\nSet-Cookie: SQMSESSID=j4ps2itecv6q1rhb9f9pkohar6; path=/; secure; HttpOnly\r\nX-Frame-Opt",
+     "certificate_cn": "mail.ace.hu",
+     "certificate_key": "rsa 1024",
+     "certificate_signature": "sha1WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c056",
+  "name": "vdosb.com",
+  "identity_source": "ptr",
+  "network_owner": "OVH Singapore PTE. LTD",
+  "country": "SG",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [
+   "Not Found"
+  ],
+  "claims": [
+   {
+    "claim": "Windows Remote Management (WinRM) open to the internet",
+    "evidence": "WinRM on port 5985",
+    "service": "15.235.219.x:5985",
+    "scan": {
+     "module": "http-simple-new",
+     "product": "WinRM",
+     "version": null,
+     "server_header": "Microsoft-HTTPAPI/2.0",
+     "page_title": "Not Found",
+     "os": "Windows Server 2022 (build 10.0.20348)",
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=us-ascii\r\nServer: Microsoft-HTTPAPI/2.0\r\nDate: Sun, 01 Nov 2026 01:22:16 GMT\r\nConnection: close\r\nContent-Length: 315\r\n\r\n\nWinRM NTLM Info:\n  OS: Windows Server 2022\n  OS Build: 10.0.20348\n  Target Name: NS5040425\n  NetBIOS Domain Name: NS5040425\n  NetBIOS Computer Name: NS5040425\n  DNS Domain Name: ns5040425\n  FQDN: ns5040425\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c057",
+  "name": "PT Ashyla Karya Abadi",
+  "identity_source": "org",
+  "network_owner": "PT Ashyla Karya Abadi",
+  "country": "ID",
+  "ips": 2,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Infrastructure management interface exposed",
+    "evidence": "MikroTik RouterOS API Service on port 8728",
+    "service": "175.184.236.x:8728",
+    "scan": {
+     "module": "mikrotik-routeros-api",
+     "product": "MikroTik RouterOS API Service",
+     "version": null,
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "\\x05!done%=ret=795ff227b28615e0db049be929afb1a8\\x00"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c058",
+  "name": "ip-51-222-240.net",
+  "identity_source": "ptr",
+  "network_owner": "OVH Hosting, Inc.",
+  "country": "CA",
+  "ips": 6,
+  "certificate_names": [],
+  "page_titles": [
+   "Server Backup Manager SE  "
+  ],
+  "claims": [
+   {
+    "claim": "Certificate with a weak key or signature (RSA under 2048 bits, SHA-1/MD5)",
+    "evidence": " — RSA 1024-bit key",
+    "service": "51.222.240.x:443",
+    "scan": {
+     "module": "https",
+     "product": null,
+     "version": null,
+     "server_header": null,
+     "page_title": "Server Backup Manager SE  ",
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 \r\nSet-Cookie: JSESSIONID=1849D2DEE88BE77300D135CB48EECE7A; Path=/; Secure; HttpOnly\r\nPragma: no-cache\r\nCache-Control: no-cache\r\nCache-Control: no-store\r\nExpires: -1\r\nStrict-Transport-Security: max-age=31536000 ; includeSubDomains\r\nX-XSS-Protection: 1; mode=block\r\nX-Frame-Options: SAMEORIGIN\r\nX-Content-Type-Options: nosniff\r\nContent-Type: text/html;charset=UTF-8\r\nContent-Language: en\r\nContent-Length: 10606\r\nDate: Sun, 01 Nov 2026 01:04:01 GMT\r\n\r\n",
+     "certificate_key": "rsa 1024",
+     "certificate_signature": "sha256WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c059",
+  "name": "nuk.edu.tw",
+  "identity_source": "cert",
+  "network_owner": "Kaohsiung Pingtung Penghu Regional Network",
+  "country": "TW",
+  "ips": 9,
+  "certificate_names": [
+   "sustainability.nuk.edu.tw",
+   "iadr.nuk.edu.tw"
+  ],
+  "page_titles": [
+   "Object moved",
+   "永續報告書首頁",
+   "Apache2 Ubuntu Default Page: It works"
+  ],
+  "claims": [
+   {
+    "claim": "Default web server page left in place",
+    "evidence": "Apache2 Ubuntu Default Page: It works on port 80",
+    "service": "140.127.224.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Apache httpd",
+     "version": "2.4.52",
+     "server_header": "Apache/2.4.52 (Ubuntu)",
+     "page_title": "Apache2 Ubuntu Default Page: It works",
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:10:12 GMT\r\nServer: Apache/2.4.52 (Ubuntu)\r\nLast-Modified: Tue, 11 Jul 2023 03:38:07 GMT\r\nETag: \"29af-6002dd3caa580\"\r\nAccept-Ranges: bytes\r\nContent-Length: 10671\r\nVary: Accept-Encoding\r\nContent-Type: text/html\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c060",
+  "name": "rdock.ru",
+  "identity_source": "cert",
+  "network_owner": "\"Domain names registrar REG.RU\", Ltd",
+  "country": "RU",
+  "ips": 2,
+  "certificate_names": [
+   "red80790.rdock.ru",
+   "red55342.rdock.ru"
+  ],
+  "page_titles": [
+   "Website red55342.rdock.ru is ready. The content is to be added"
+  ],
+  "claims": [
+   {
+    "claim": "Certificate with a weak key or signature (RSA under 2048 bits, SHA-1/MD5)",
+    "evidence": "red55342.rdock.ru — RSA 1024-bit key",
+    "service": "95.163.237.x:465",
+    "scan": {
+     "module": "smtps",
+     "product": null,
+     "version": null,
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [
+      "self-signed"
+     ],
+     "x_powered_by": null,
+     "banner": "220 red55342.rdock.ru ESMTP\r\n250-red55342.rdock.ru Hello 224.207.121.x [224.207.121.x]\r\n250-SIZE 52428800\r\n250-8BITMIME\r\n250-PIPELINING\r\n250-PIPECONNECT\r\n250-AUTH PLAIN LOGIN CRAM-MD5\r\n250 HELP\r\n",
+     "certificate_cn": "red55342.rdock.ru",
+     "certificate_key": "rsa 1024",
+     "certificate_signature": "sha256WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c061",
+  "name": "CepatNet",
+  "identity_source": "org",
+  "network_owner": "CepatNet",
+  "country": "ID",
+  "ips": 7,
+  "certificate_names": [],
+  "page_titles": [
+   "Not Found"
+  ],
+  "claims": [
+   {
+    "claim": "Infrastructure management interface exposed",
+    "evidence": "MikroTik on port 161",
+    "service": "103.122.32.x:161",
+    "scan": {
+     "module": "snmp_v2",
+     "product": "MikroTik",
+     "version": null,
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "SNMP:\n  Uptime: 51643700\n  Description: RouterOS CCR1009-7G-1C-1S+\n  Service: 78\n  Versions:\n    1\n    3\n  Name: MikroTik\n  Engineid Format: text\n  Engine Boots: 0\n  Engineid Data: 80003a8c04\n  Enterprise: 14988\n  Objectid: 1.3.6.x.4.1.14988.1\n  Engine Time: 0:00:00\n  Enterprise Name: MikroTik"
+    }
+   },
+   {
+    "claim": "Windows Remote Management (WinRM) open to the internet",
+    "evidence": "WinRM on port 5985",
+    "service": "103.122.35.x:5985",
+    "scan": {
+     "module": "http-simple-new",
+     "product": "WinRM",
+     "version": null,
+     "server_header": "Microsoft-HTTPAPI/2.0",
+     "page_title": "Not Found",
+     "os": "Windows Server 2019 (version 1809) (build 10.0.17763)",
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=us-ascii\r\nServer: Microsoft-HTTPAPI/2.0\r\nDate: Sun, 01 Nov 2026 01:21:12 GMT\r\nConnection: close\r\nContent-Length: 315\r\n\r\n\nWinRM NTLM Info:\n  OS: Windows Server 2019 (version 1809)\n  OS Build: 10.0.17763\n  Target Name: BUMITAMA\n  NetBIOS Domain Name: BUMITAMA\n  NetBIOS Computer Name: BGASVR-MNGENGIN\n  DNS Domain Name: bumitama.local\n  DNS Tree Name: bumitama.local\n  FQDN: BGASVR-MNGENGINE.bumitama.local\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c062",
+  "name": "augambling.org",
+  "identity_source": "cert",
+  "network_owner": "Cogent Communications, LLC",
+  "country": "HK",
+  "ips": 3,
+  "certificate_names": [
+   "www.augambling.org"
+  ],
+  "page_titles": [
+   "augambling | "
+  ],
+  "claims": [
+   {
+    "claim": "Evidence of an existing breach (ransomed database, defaced site, trojan or cryptominer)",
+    "evidence": "Web page on port 443 defaced (\"hacked by\")",
+    "service": "154.39.240.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": "augambling | ",
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:18:16 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nVary: Accept-Encoding\r\nLink: <https://augambling.org/wp-json/>; rel=\"https://api.w.org/\"\r\nStrict-Transport-Security: max-age=31536000\r\n\r\n",
+     "page_text_excerpt": "li class=\"page_item page-item-165727\"><a href=\"https://augambling.org/cox-htm/\">hacked by trenggalek6etar</a></li> </ul></div> </li> </ul> </div> </div><div class=\"main-content\"> <nav class=\"na",
+     "certificate_cn": "www.augambling.org",
+     "certificate_key": "rsa 2048",
+     "certificate_signature": "sha256WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c063",
+  "name": "cogita.ai",
+  "identity_source": "cert",
+  "network_owner": "Amazon.com, Inc.",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [
+   "test-eco-shine-stable.cogita.ai"
+  ],
+  "page_titles": [
+   "Page not found at /"
+  ],
+  "claims": [
+   {
+    "claim": "Debug output exposed (stack trace, debug mode, phpinfo)",
+    "evidence": "Django debug page on port 443",
+    "service": "54.208.167.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": "1.28.0",
+     "server_header": "nginx/1.28.0",
+     "page_title": "Page not found at /",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nServer: nginx/1.28.0\r\nDate: Sun, 01 Nov 2026 01:17:24 GMT\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 2910\r\nConnection: keep-alive\r\nX-Frame-Options: DENY\r\nX-Content-Type-Options: nosniff\r\nReferrer-Policy: same-origin\r\nCross-Origin-Opener-Policy: same-origin\r\nAccess-Control-Allow-Origin: *\r\nAccess-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS\r\nAccess-Control-Allow-Headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authoriz",
+     "page_text_excerpt": "</div> <div id=\"explanation\"> <p> You’re seeing this error because you have <code>DEBUG = True</code> in your Django settings file. Change that to <code>False</code>, and Django will display a standard 404 page. </p> </div> </body> </ht",
+     "certificate_cn": "test-eco-shine-stable.cogita.ai",
+     "certificate_key": "rsa 2048",
+     "certificate_signature": "sha384WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c064",
+  "name": "serverconfig.center",
+  "identity_source": "cert",
+  "network_owner": "RockingHoster Deutschland GmbH",
+  "country": "DE",
+  "ips": 2,
+  "certificate_names": [
+   "server104.serverconfig.center"
+  ],
+  "page_titles": [
+   "Web Server's Default Page",
+   "Apache2 Debian Default Page: It works"
+  ],
+  "claims": [
+   {
+    "claim": "Default web server page left in place",
+    "evidence": "Apache2 Debian Default Page: It works on port 80",
+    "service": "195.242.103.x:80",
+    "scan": {
+     "module": "http",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": "Apache2 Debian Default Page: It works",
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:05:37 GMT\r\nContent-Type: text/html\r\nContent-Length: 10701\r\nConnection: keep-alive\r\nVary: Accept-Encoding\r\nLast-Modified: Mon, 01 Jul 2019 20:22:33 GMT\r\nETag: \"29cd-58ca4635d0e64\"\r\nAccept-Ranges: bytes\r\nVary: Accept-Encoding,User-Agent\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c065",
+  "name": "adocore.com",
+  "identity_source": "ptr",
+  "network_owner": "Turk Telekomunikasyon Anonim Sirketi",
+  "country": "TR",
+  "ips": 2,
+  "certificate_names": [],
+  "page_titles": [
+   "IIS Windows Server"
+  ],
+  "claims": [
+   {
+    "claim": "Default web server page left in place",
+    "evidence": "IIS Windows Server on port 80",
+    "service": "212.174.225.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Microsoft IIS httpd",
+     "version": "10.0",
+     "server_header": "Microsoft-IIS/10.0",
+     "page_title": "IIS Windows Server",
+     "os": "Windows",
+     "tags": [],
+     "x_powered_by": "ASP.NET",
+     "banner": "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nLast-Modified: Wed, 18 Dec 2024 09:29:58 GMT\r\nAccept-Ranges: bytes\r\nETag: \"4d3cf4672f51db1:0\"\r\nServer: Microsoft-IIS/10.0\r\nX-Powered-By: ASP.NET\r\nDate: Sun, 01 Nov 2026 01:21:58 GMT\r\nContent-Length: 703\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c066",
+  "name": "readmysaju.com",
+  "identity_source": "cert",
+  "network_owner": "Amazon.com, Inc.",
+  "country": "KR",
+  "ips": 1,
+  "certificate_names": [
+   "api.dev.readmysaju.com"
+  ],
+  "page_titles": [
+   "DisallowedHost\n          at /"
+  ],
+  "claims": [
+   {
+    "claim": "Debug output exposed (stack trace, debug mode, phpinfo)",
+    "evidence": "Python stack trace on port 443",
+    "service": "43.200.110.x:443",
+    "scan": {
+     "module": "https",
+     "product": null,
+     "version": null,
+     "server_header": "readmysaju",
+     "page_title": "DisallowedHost\n          at /",
+     "os": null,
+     "tags": [
+      "pqc",
+      "cloud"
+     ],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 400 Bad Request\r\nDate: Sun, 01 Nov 2026 01:24:56 GMT\r\nContent-Type: text/html; charset=utf-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nSet-Cookie: AWSALB=9fl6r8G2AFz9MG01OO5tDWydNC24qEtVq4oypnsoBuUJqQWfXTRiI2kfFZwwsyBwEUKRoWja9fgHUJUR0duUUbvactJbUKefDggLtoXwDRh4ypA8gcqYlfUKG6Jk; Expires=Sun, 08 Nov 2026 01:24:56 GMT; Path=/\r\nSet-Cookie: AWSALBCORS=9fl6r8G2AFz9MG01OO5tDWydNC24qEtVq4oypnsoBuUJqQWfXTRiI2kfFZwwsyBwEUKRoWja9fgHUJUR0duUUbvactJbUKefDggLtoXwDRh4ypA8gcqYlfUKG6Jk; Expires=Sun, 08 ",
+     "page_text_excerpt": "ptionsMiddleware&#x27;, &#x27;config.middleware.RequestLogMiddleware&#x27;] Traceback (most recent call last): File \"/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py\", line 55, in inner response = get_response(request) ^^^^",
+     "certificate_cn": "api.dev.readmysaju.com",
+     "certificate_key": "rsa 2048",
+     "certificate_signature": "sha256WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c067",
+  "name": "sun-inet.or.jp",
+  "identity_source": "ptr",
+  "network_owner": "Sun-Internet Provideing Service",
+  "country": "JP",
+  "ips": 3,
+  "certificate_names": [],
+  "page_titles": [
+   "Not Found"
+  ],
+  "claims": [
+   {
+    "claim": "Windows Remote Management (WinRM) open to the internet",
+    "evidence": "WinRM on port 5985",
+    "service": "210.228.48.x:5985",
+    "scan": {
+     "module": "http-simple-new",
+     "product": "WinRM",
+     "version": null,
+     "server_header": "Microsoft-HTTPAPI/2.0",
+     "page_title": "Not Found",
+     "os": "Windows Server 2022 (build 10.0.20348)",
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=us-ascii\r\nServer: Microsoft-HTTPAPI/2.0\r\nDate: Sun, 01 Nov 2026 01:49:44 GMT\r\nConnection: close\r\nContent-Length: 315\r\n\r\n\nWinRM NTLM Info:\n  OS: Windows Server 2022\n  OS Build: 10.0.20348\n  Target Name: REXSERVER020\n  NetBIOS Domain Name: REXSERVER020\n  NetBIOS Computer Name: REXSERVER020\n  DNS Domain Name: RexServer020\n  FQDN: RexServer020\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c068",
+  "name": "webatvantage.org",
+  "identity_source": "ptr",
+  "network_owner": "Combell NV",
+  "country": "BE",
+  "ips": 1,
+  "certificate_names": [
+   "localhost"
+  ],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Certificate with a weak key or signature (RSA under 2048 bits, SHA-1/MD5)",
+    "evidence": "localhost — RSA 1024-bit key",
+    "service": "185.2.52.x:25",
+    "scan": {
+     "module": "smtp",
+     "product": "Exim smtpd",
+     "version": "4.94.2",
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [
+      "starttls",
+      "self-signed"
+     ],
+     "x_powered_by": null,
+     "banner": "220 ns1.webatvantage.org ESMTP Exim 4.94.2 Sun, 01 Nov 2026 02:03:32 +0100\r\n250-ns1.webatvantage.org Hello 224.58.248.x [224.58.248.x]\r\n250-SIZE 52428800\r\n250-8BITMIME\r\n250-PIPELINING\r\n250-PIPE_CONNECT\r\n250-AUTH PLAIN LOGIN\r\n250-STARTTLS\r\n250 HELP\r\n",
+     "certificate_cn": "localhost",
+     "certificate_key": "rsa 1024",
+     "certificate_signature": "sha1WithRSAEncryption"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c069",
+  "name": "ip-145-239-67.eu",
+  "identity_source": "ptr",
+  "network_owner": "OVH SAS",
+  "country": "FR",
+  "ips": 6,
+  "certificate_names": [],
+  "page_titles": [
+   "n8n.io - Workflow Automation"
+  ],
+  "claims": [
+   {
+    "claim": "Infrastructure management interface exposed",
+    "evidence": "n8n on port 5678",
+    "service": "145.239.67.x:5678",
+    "scan": {
+     "module": "auto",
+     "product": "n8n",
+     "version": null,
+     "server_header": null,
+     "page_title": "n8n.io - Workflow Automation",
+     "os": null,
+     "tags": [],
+     "x_powered_by": null,
+     "banner": "HTTP/1.1 200 OK\r\nCache-Control: no-cache, no-store, must-revalidate, proxy-revalidate\r\nCross-Origin-Opener-Policy: same-origin\r\nCross-Origin-Resource-Policy: same-origin\r\nOrigin-Agent-Cluster: ?1\r\nReferrer-Policy: no-referrer\r\nX-Content-Type-Options: nosniff\r\nX-Frame-Options: SAMEORIGIN\r\nX-Permitted-Cross-Domain-Policies: none\r\nX-XSS-Protection: 0\r\nAccept-Ranges: bytes\r\nETag: W/\"4311-1a15cbe5391\"\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: 17169\r\nVary: Accept-Encoding\r\nDate: Sun, 01 Nov 2026 01"
+    }
+   }
+  ]
+ }
+]
