@@ -315,7 +315,9 @@ function Recon() {
             </div>
           ) : isTemplate && data ? (
             <TemplateCard t={play} meta={data} product={product} example={example ?? null}
-              onCustomize={() => set({ ...NO_FILTERS, sector: play.targeting?.sector ? [play.targeting.sector] : [], strong: !!play.targeting?.strong })}
+              applied={(!play.targeting?.sector || (f.sector.length === 1 && f.sector[0] === play.targeting.sector)) && (!play.targeting?.strong || f.strong)}
+              // the template's own filters on top of yours: its sector replaces any sector you picked, the rest stays
+              onCustomize={() => set({ ...(play.targeting?.sector ? { sector: [play.targeting.sector] } : {}), ...(play.targeting?.strong ? { strong: true } : {}) })}
               onOpen={(id) => set({ id })} />
           ) : (
             <div className="mb-4 flex max-w-[75ch] flex-wrap items-baseline gap-x-4">
@@ -692,8 +694,8 @@ function SaveSearchForm({ suggestion, onSave, onCancel }: { suggestion: string; 
   )
 }
 
-function TemplateCard({ t, meta, product, example, onCustomize, onOpen }: {
-  t: Play; meta: Meta; product: string; example: Account | null; onCustomize: () => void; onOpen: (id: string) => void
+function TemplateCard({ t, meta, product, example, applied, onCustomize, onOpen }: {
+  t: Play; meta: Meta; product: string; example: Account | null; applied: boolean; onCustomize: () => void; onOpen: (id: string) => void
 }) {
   const productNames = (t.forProducts ?? []).map((k) => PRODUCTS.find(([id]) => id === k)?.[1]).filter(Boolean)
   const targeting = [
@@ -730,7 +732,9 @@ function TemplateCard({ t, meta, product, example, onCustomize, onOpen }: {
         <dt className="text-muted">Recommended targeting</dt>
         <dd className="flex flex-wrap items-center gap-2 text-ink">
           {targeting.length ? targeting.map((x) => <span key={x} className="chip">{x}</span>) : <span className="text-ink-2">The whole market</span>}
-          {targeting.length > 0 && <button type="button" className="btn ml-1" onClick={onCustomize}>Apply targeting</button>}
+          {targeting.length > 0 && (applied
+            ? <span className="ml-1 text-ink-2">Targeting applied</span>
+            : <button type="button" className="btn ml-1" onClick={onCustomize} title="Adds these to your current filters">Apply targeting</button>)}
         </dd>
         <dt className="text-muted">Watching</dt>
         <dd className="max-w-[75ch] text-ink-2">When the next scan file is ingested, accounts that newly match this template show up under Newly exposed.</dd>

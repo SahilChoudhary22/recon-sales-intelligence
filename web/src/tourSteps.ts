@@ -5,7 +5,7 @@ export const STEPS: Step[] = [
   {
     target: 'funnel',
     title: 'Where the accounts come from',
-    body: 'One day of internet scan data: 13.4M records, narrowed by removing noise, matching each service to the company that runs it, and keeping only companies with real risk.',
+    body: 'Recon reads internet scan data as each file arrives. Every record is cleaned of noise, matched to the company that runs the service, and kept only if it shows real risk. Today’s accounts come from the latest scan: 13.4M records.',
   },
   {
     target: 'plays',
