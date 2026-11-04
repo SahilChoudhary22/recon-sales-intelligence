@@ -1,0 +1,302 @@
+{
+ "c001": {
+  "build": "after",
+  "company_id": "southeastdance.org.uk",
+  "tier": "P2"
+ },
+ "c002": {
+  "build": "after",
+  "company_id": "lse.ac.uk",
+  "tier": "P2"
+ },
+ "c003": {
+  "build": "after",
+  "company_id": "fiduzia-ag.de",
+  "tier": "P2"
+ },
+ "c004": {
+  "build": "after",
+  "company_id": "gepro.cz",
+  "tier": "P1"
+ },
+ "c005": {
+  "build": "after",
+  "company_id": "crowneplaza.com",
+  "tier": "P2"
+ },
+ "c006": {
+  "build": "after",
+  "company_id": "aisglass.com",
+  "tier": "P2"
+ },
+ "c007": {
+  "build": "after",
+  "company_id": "skidifferent.it",
+  "tier": "P2"
+ },
+ "c008": {
+  "build": "after",
+  "company_id": "vardali.com",
+  "tier": "P2"
+ },
+ "c009": {
+  "build": "after",
+  "company_id": "kamatoku.com",
+  "tier": "P2"
+ },
+ "c010": {
+  "build": "after",
+  "company_id": "abanpump.com",
+  "tier": "P2"
+ },
+ "c011": {
+  "build": "after",
+  "company_id": "rg-nachhaltigkeit.de",
+  "tier": "P2"
+ },
+ "c012": {
+  "build": "after",
+  "company_id": "patrontequila.com",
+  "tier": "P2"
+ },
+ "c013": {
+  "build": "after",
+  "company_id": "insanpro.de",
+  "tier": "P2"
+ },
+ "c014": {
+  "build": "after",
+  "company_id": "espol.edu.ec",
+  "tier": "P1"
+ },
+ "c015": {
+  "build": "after",
+  "company_id": "roubisandassociates.com.au",
+  "tier": "P2"
+ },
+ "c016": {
+  "build": "after",
+  "company_id": "saigonport.vn",
+  "tier": "P2"
+ },
+ "c017": {
+  "build": "after",
+  "company_id": "kawasakiadvertisers.com",
+  "tier": "P2"
+ },
+ "c018": {
+  "build": "after",
+  "company_id": "nstru.ac.th",
+  "tier": "P2"
+ },
+ "c019": {
+  "build": "after",
+  "company_id": "palpublicidad.cl",
+  "tier": "P2"
+ },
+ "c020": {
+  "build": "after",
+  "company_id": "reverse-ip.de",
+  "tier": "P2"
+ },
+ "c021": {
+  "build": "after",
+  "company_id": "modrobotics.com",
+  "tier": "P1"
+ },
+ "c022": {
+  "build": "after",
+  "company_id": "tripinsurance.com",
+  "tier": "P2"
+ },
+ "c023": {
+  "build": "after",
+  "company_id": "starboardcruise.com",
+  "tier": "P2"
+ },
+ "c024": {
+  "build": "after",
+  "company_id": "khsbicycles.com",
+  "tier": "P2"
+ },
+ "c025": {
+  "build": "after",
+  "company_id": "amicho.jp",
+  "tier": "P2"
+ },
+ "c026": {
+  "build": "after",
+  "company_id": "46info.ru",
+  "tier": "P1"
+ },
+ "c027": {
+  "build": "after",
+  "company_id": "mercatas.com",
+  "tier": "P2"
+ },
+ "c028": {
+  "build": "after",
+  "company_id": "eco-ledthai.com",
+  "tier": "P2"
+ },
+ "c029": {
+  "build": "after",
+  "company_id": "foxtrotechnologies.com",
+  "tier": "P2"
+ },
+ "c030": {
+  "build": "after",
+  "company_id": "gpmotorsderby.co.uk",
+  "tier": "P1"
+ },
+ "c031": {
+  "build": "after",
+  "company_id": "imac-italia.it",
+  "tier": "P2"
+ },
+ "c032": {
+  "build": "after",
+  "company_id": "phdns25.es",
+  "tier": "P2"
+ },
+ "c033": {
+  "build": "after",
+  "company_id": "exegy.com",
+  "tier": "P2"
+ },
+ "c034": {
+  "build": "after",
+  "company_id": "org:National Taiwan University",
+  "tier": "P1"
+ },
+ "c035": {
+  "build": "after",
+  "company_id": "dolphineyes.com",
+  "tier": "P2"
+ },
+ "c036": {
+  "build": "after",
+  "company_id": "tvskat.net",
+  "tier": "P2"
+ },
+ "c037": {
+  "build": "after",
+  "company_id": "yyxxgame.com",
+  "tier": "P2"
+ },
+ "c038": {
+  "build": "after",
+  "company_id": "royalmed.com",
+  "tier": "P2"
+ },
+ "c039": {
+  "build": "after",
+  "company_id": "cda.pl",
+  "tier": "P2"
+ },
+ "c040": {
+  "build": "after",
+  "company_id": "minerallakeeventcenter.com",
+  "tier": "P2"
+ },
+ "c041": {
+  "build": "after",
+  "company_id": "webmasters.com",
+  "tier": "P2"
+ },
+ "c042": {
+  "build": "after",
+  "company_id": "seprova.com",
+  "tier": "P2"
+ },
+ "c043": {
+  "build": "after",
+  "company_id": "mrta.co.th",
+  "tier": "P1"
+ },
+ "c044": {
+  "build": "after",
+  "company_id": "schillergartenbau.de",
+  "tier": "P2"
+ },
+ "c045": {
+  "build": "after",
+  "company_id": "privatpraxisbogenhausen.de",
+  "tier": "P2"
+ },
+ "c046": {
+  "build": "after",
+  "company_id": "shyptk.com",
+  "tier": "P2"
+ },
+ "c047": {
+  "build": "after",
+  "company_id": "showtv.ps",
+  "tier": "P2"
+ },
+ "c048": {
+  "build": "after",
+  "company_id": "adversio-elektro.de",
+  "tier": "P2"
+ },
+ "c049": {
+  "build": "after",
+  "company_id": "kl.edu.tw",
+  "tier": "P2"
+ },
+ "c050": {
+  "build": "after",
+  "company_id": "eupersonals.com",
+  "tier": "P1"
+ },
+ "c051": {
+  "build": "after",
+  "company_id": "caricatureking.com",
+  "tier": "P2"
+ },
+ "c052": {
+  "build": "after",
+  "company_id": "ab-lingua.net",
+  "tier": "P2"
+ },
+ "c053": {
+  "build": "after",
+  "company_id": "unibettv.it",
+  "tier": "P2"
+ },
+ "c054": {
+  "build": "after",
+  "company_id": "seiyo-jp.com",
+  "tier": "P2"
+ },
+ "c055": {
+  "build": "after",
+  "company_id": "daihocsuphamkythuat-thuduc.org",
+  "tier": "P2"
+ },
+ "c056": {
+  "build": "after",
+  "company_id": "sju.edu.tw",
+  "tier": "P1"
+ },
+ "c057": {
+  "build": "after",
+  "company_id": "bauernenergie.com",
+  "tier": "P2"
+ },
+ "c058": {
+  "build": "after",
+  "company_id": "mountaingoatadventures.com",
+  "tier": "P2"
+ },
+ "c059": {
+  "build": "after",
+  "company_id": "storm.hr",
+  "tier": "P2"
+ },
+ "c060": {
+  "build": "after",
+  "company_id": "requisimus.com",
+  "tier": "P2"
+ }
+}

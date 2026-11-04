@@ -11,20 +11,34 @@ const LINES: Record<string, (e: Evidence) => string> = {
   database_exposed: (e) => `a database (${e.e}) at ${e.ip} accepts connections from the internet.`,
   smb_exposed: (e) => `Windows file sharing is exposed at ${e.ip}:${e.port}.`,
   ot_exposed: (e) => `an industrial/operational protocol (${e.e}) is reachable at ${e.ip}.`,
-  kev_cve: (e) => `${seen(e) ?? e.p ?? 'a public server'} at ${e.ip}:${e.port} is a version affected by ${cves(e)}, which is on CISA's known-exploited list.`,
+  kev_cve: (e) => confirmed(e)
+    ? `the scanner's own test confirmed ${cves(e)} on ${confirmed(e)} at ${e.ip}:${e.port}, which is on CISA's known-exploited list.`
+    : `${seen(e) ?? e.p ?? 'a public server'} at ${e.ip}:${e.port} is a version affected by ${cves(e)}, which is on CISA's known-exploited list.`,
   eol_os: (e) => e.e?.includes('support ended') ? `a server at ${e.ip} runs ${e.e}.` : `a server at ${e.ip} runs ${e.e}, past the end of its security support.`,
   ntlm_leak: (e) => `a Windows host at ${e.ip} reveals your internal domain (${e.e}) to anyone who connects.`,
   mgmt_exposed: (e) => `an infrastructure management service (${e.e}) is exposed at ${e.ip}.`,
 }
 
-// the product a CVE belongs to, as the evidence names it ("PHP 7.4.33 — CVE-…"), which can differ from the web server
+// The evidence names each CVE under its product: "PHP 7.4.33 — CVE-…; Apache httpd 2.4.49 — CVE-…".
+// A line uses the first product and only its CVEs, so one product's CVE is never put on another.
+const CONFIRMED = "Confirmed by the scanner's own test on "
+
+function first(e: Evidence) {
+  const m = e.e?.split('; ')[0].split(' — ')
+  return m && m.length > 1 ? { seen: m[0], cves: m[1] } : undefined
+}
+
 function seen(e: Evidence) {
-  const m = e.e?.split(' — ')
-  return m && m.length > 1 ? m[0] : undefined
+  return first(e)?.seen
+}
+
+function confirmed(e: Evidence) {
+  const s = seen(e)
+  return s?.startsWith(CONFIRMED) ? s.slice(CONFIRMED.length) : undefined
 }
 
 function cves(e: Evidence) {
-  const m = e.e?.match(/CVE-\d{4}-\d+/g)
+  const m = (first(e)?.cves ?? e.e)?.match(/CVE-\d{4}-\d+/g)
   return m ? m.slice(0, 2).join(' / ') : 'a known-exploited CVE'
 }
 

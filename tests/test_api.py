@@ -54,10 +54,11 @@ def test_search_is_ranked_and_paged(s):
     p1, p2 = s.search(q, 0, 50), s.search(q, 50, 50)
     rows = p1["accounts"] + p2["accounts"]
     assert p1["total"] == live_count(s, q) and len({a["id"] for a in rows}) == 100
-    assert [a["priority"] for a in rows] == sorted((a["priority"] for a in rows), reverse=True)
+    # P1 first, then P2, then P3, each by priority: a held-back account never sits above a P1
+    assert [(a["tier"], -a["priority"]) for a in rows] == sorted((a["tier"], -a["priority"]) for a in rows)
     # paging is stable: two pages are the first 100 of one sort
     w, p = where(q)
-    top = [r[0] for r in s._cur().execute(f"select id from accounts where {w} order by priority desc, id limit 100", p).fetchall()]
+    top = [r[0] for r in s._cur().execute(f"select id from accounts where {w} order by tier, priority desc, id limit 100", p).fetchall()]
     assert [a["id"] for a in rows] == top
 
 

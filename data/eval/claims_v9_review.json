@@ -1,0 +1,1006 @@
+[
+ {
+  "case": "c001",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "CPaaS vendor's own API and ingest hosts on AWS.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.4.29 (Ubuntu) is the 18.04 package; standard support ended 2023."
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.27 mainline superseded by 1.28/1.29 in April 2025."
+   }
+  ]
+ },
+ {
+  "case": "c002",
+  "entity_type": "education",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "NIT Rourkela, Indian engineering institute; own cert and portals.",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "Logjam/FREAK are TLS/OpenSSL issues, not Apache 2.2.9; no cipher evidence."
+   }
+  ]
+ },
+ {
+  "case": "c003",
+  "entity_type": "personal_or_junk",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Adult-style/typo domain, lone mail host; not a prospectable organisation.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unrecognised CVE ID; affected range and KEV status not verifiable from fields."
+   },
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.2.23 in header; 2.2 branch ended 2017."
+   }
+  ]
+ },
+ {
+  "case": "c004",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Italian occupational-health services firm on OVH server.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Win64 Apache 2.4.54 is within CVE-2024-38475 range (<=2.4.59), KEV-listed."
+   },
+   {
+    "verdict": "supported",
+    "reason": "OpenSSL 1.1.1p in header; 1.1.1 public support ended September 2023."
+   }
+  ]
+ },
+ {
+  "case": "c005",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "UK software company, single hosted server.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Win64 Apache 2.4.46 within CVE-2021-40438 and CVE-2024-38475 ranges, both KEV."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 8.0.19 shown in header; branch upstream EOL November 2023."
+   }
+  ]
+ },
+ {
+  "case": "c006",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Spanish airbag-kit retailer, dev site on Plesk host.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unrecognised CVE ID; affected range and KEV status not verifiable from fields."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 7.1.33 shown in header; branch upstream EOL December 2019."
+   }
+  ]
+ },
+ {
+  "case": "c007",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Alula infant formula brand's China site.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unrecognised CVE ID; affected range and KEV status not verifiable from fields."
+   },
+   {
+    "verdict": "supported",
+    "reason": "IIS 7.5 implies Windows Server 2008 R2, EOL January 2020."
+   }
+  ]
+ },
+ {
+  "case": "c008",
+  "entity_type": "education",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Universit\u00e9 Sorbonne Nouvelle (Paris 3) on Renater.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unrecognised CVE ID; possibly Debian-patched build; range unverifiable."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 7.0.33 shown in header; branch upstream EOL January 2019."
+   }
+  ]
+ },
+ {
+  "case": "c009",
+  "entity_type": "government",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Orizaba municipal government, Mexico; owner label mismatched but certs match.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Win64 Apache 2.4.29 in CVE-2021-40438/2024-38475 ranges; 2019-0211 Unix-only."
+   },
+   {
+    "verdict": "supported",
+    "reason": "IIS 8.0 implies Windows Server 2012, EOL October 2023."
+   }
+  ]
+ },
+ {
+  "case": "c010",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Indonesian hospital (RS Karya Medika) server.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.4.56 in CVE-2024-38475 range; PHP 8.1.17 in CVE-2024-4577 range."
+   },
+   {
+    "verdict": "supported",
+    "reason": "OpenSSL 1.1.1t in header; 1.1.1 ended September 2023."
+   }
+  ]
+ },
+ {
+  "case": "c011",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Taiwanese leather-care brand WordPress site on AWS.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.4.52 (non-distro) within CVE-2024-38475 range, KEV-listed."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 7.4.27 shown in header; branch upstream EOL November 2022."
+   }
+  ]
+ },
+ {
+  "case": "c012",
+  "entity_type": "hosting_cloud",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Brazilian data-processing/datacenter provider; mixed infrastructure.",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "Banner shows ntpd 4.2.8p17; both CVEs fixed by p4/p9."
+   },
+   {
+    "verdict": "supported",
+    "reason": "Active Directory LDAP rootDSE answered openly on 389."
+   },
+   {
+    "verdict": "supported",
+    "reason": "WinRM NTLM reply reveals OPEN-SERVER.OPEN.PRI and OS build."
+   }
+  ]
+ },
+ {
+  "case": "c013",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Japanese geotechnical survey company, own WordPress site.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unrecognised CVE ID; affected range and KEV status not verifiable from fields."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 7.4.33 shown in header; branch upstream EOL November 2022."
+   }
+  ]
+ },
+ {
+  "case": "c014",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Scottish ventilation firm, WordPress on Hostinger shared hosting.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unrecognised CVE ID; affected range and KEV status not verifiable from fields."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 7.4.33 shown in header; branch upstream EOL November 2022."
+   }
+  ]
+ },
+ {
+  "case": "c015",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Taizhou pharmaceutical chemical company website.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "PHP 7.2.15 behind nginx is within CVE-2019-11043 range, KEV-listed."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 7.2.15 shown in header; branch upstream EOL November 2020."
+   }
+  ]
+ },
+ {
+  "case": "c016",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Abdulrahman Suliman Establishment, trading company site on LiteSpeed host.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unrecognised CVE ID; affected range and KEV status not verifiable from fields."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 7.2.34 shown in header; branch upstream EOL November 2020."
+   }
+  ]
+ },
+ {
+  "case": "c017",
+  "entity_type": "government",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Indonesian Directorate General of Immigration on AWS Jakarta.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unrecognised CVE ID; PHP 8.4 still supported; range unverifiable."
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.27.5 mainline superseded by 1.28 in April 2025."
+   }
+  ]
+ },
+ {
+  "case": "c018",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "DivX, video software company, host on AWS.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.2.15 (CentOS) is the CentOS 6 package; EOL November 2020."
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "Logjam/FREAK are TLS/OpenSSL issues; CentOS backports; no cipher evidence."
+   }
+  ]
+ },
+ {
+  "case": "c019",
+  "entity_type": "education",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "University of Concepci\u00f3n owns the IP block.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Banner is RouterOS API login challenge reply on 8728."
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "Empty reply on 37777; nothing shows a Dahua protocol response."
+   }
+  ]
+ },
+ {
+  "case": "c020",
+  "entity_type": "government",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Mexico's tax authority (SAT); own certs and appliances.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "OWA page and Exchange 2016 CU23 build exposed on 443."
+   },
+   {
+    "verdict": "supported",
+    "reason": "Fortinet fingerprint and FGT60F serial cert on 10443."
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.14.0 (Ubuntu) is the 18.04 package; standard support ended 2023."
+   }
+  ]
+ },
+ {
+  "case": "c021",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "The Sun Coniston, Lake District hotel/inn, shared hosting.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unrecognised CVE ID; affected range and KEV status not verifiable from fields."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 5.6.40 shown in header; branch upstream EOL December 2018."
+   }
+  ]
+ },
+ {
+  "case": "c022",
+  "entity_type": "unknown",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Generic intercom-server domain; PCCW project site; real operator unclear.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "FGFM reply on 541 identifies FortiGate-101F with serial."
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.13.11 within HTTP/2 CVE ranges; HTTP/2 enablement not shown."
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.13 mainline superseded by 1.14 in April 2018."
+   }
+  ]
+ },
+ {
+  "case": "c023",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Brazilian solutions company app on DigitalOcean.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unrecognised CVE ID; affected range and KEV status not verifiable from fields."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 8.0.30 shown in header; branch upstream EOL November 2023."
+   }
+  ]
+ },
+ {
+  "case": "c024",
+  "entity_type": "unknown",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Generic keyword domain, mail VPS, no site content; organisation unestablished.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unrecognised CVE ID; affected range and KEV status not verifiable from fields."
+   },
+   {
+    "verdict": "supported",
+    "reason": "Control Web Panel reports PHP 7.2.30; branch EOL November 2020."
+   }
+  ]
+ },
+ {
+  "case": "c025",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "3R Shikoku, Japanese environmental consulting firm.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unrecognised CVE ID; affected range and KEV status not verifiable from fields."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 7.4.33 shown in header; branch upstream EOL November 2022."
+   }
+  ]
+ },
+ {
+  "case": "c026",
+  "entity_type": "personal_or_junk",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Individual photographer's portfolio site; title shows designer template.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unrecognised CVE ID; affected range and KEV status not verifiable from fields."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 8.0.30 shown in header; branch upstream EOL November 2023."
+   }
+  ]
+ },
+ {
+  "case": "c027",
+  "entity_type": "personal_or_junk",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Local community/hobby wiki for Rjukan radio; not a prospect.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unrecognised CVE ID; affected range and KEV status not verifiable from fields."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 7.4.33 shown in header; branch upstream EOL November 2022."
+   }
+  ]
+ },
+ {
+  "case": "c028",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "R&F Properties, major Chinese real-estate developer.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "IIS 8.5 implies Windows Server 2012 R2, EOL October 2023."
+   }
+  ]
+ },
+ {
+  "case": "c029",
+  "entity_type": "unknown",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Default nginx and Deskera pages; real organisation unclear.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.14.0 (Ubuntu) is the 18.04 package; standard support ended 2023."
+   }
+  ]
+ },
+ {
+  "case": "c030",
+  "entity_type": "hosting_cloud",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Coremail hosted-mail SaaS domain; hosts serve tenant mailboxes.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "PHP 7.1.8 behind nginx within CVE-2019-11043 range, KEV-listed."
+   },
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.4.6 (CentOS) is CentOS 7 package; EOL June 2024."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 7.1.8 shown in header; branch upstream EOL December 2019."
+   }
+  ]
+ },
+ {
+  "case": "c031",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Small Japanese company host; cert matches domain on consumer ISP block.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Bundled OpenSSL 1.0.1d is Heartbleed-vulnerable; evidence wrongly credits Apache, but claim holds."
+   },
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.2 branch ended 2017; Win64 build, no distro backports."
+   }
+  ]
+ },
+ {
+  "case": "c032",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Essilor Canada workflow dev host on Azure; cert matches.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.4.54 Win64 build within CVE-2024-38475 range (<=2.4.59), KEV-listed."
+   },
+   {
+    "verdict": "supported",
+    "reason": "OpenSSL 1.1.1 public support ended September 2023; bundled Windows build."
+   }
+  ]
+ },
+ {
+  "case": "c033",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Japanese company's MIMAMU login portal on AWS; cert matches.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CVE-2026-109618/9 unknown to me; affected PHP range cannot be confirmed."
+   },
+   {
+    "verdict": "supported",
+    "reason": "X-Powered-By PHP/7.3.33; PHP 7.3 ended December 2021."
+   }
+  ]
+ },
+ {
+  "case": "c034",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Romanian free online games portal; network owner likely its operator.",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "OpenSSL version not visible; Ubuntu package backports; Apache isn't Heartbleed's product."
+   }
+  ]
+ },
+ {
+  "case": "c035",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Toko Kosen Co. corporate WordPress site; cert matches.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CVE-2026-109618/9 unknown to me; affected PHP range cannot be confirmed."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP/7.4.33 Plesk build; PHP 7.4 ended November 2022."
+   }
+  ]
+ },
+ {
+  "case": "c036",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Wanjia'an online shop (ShopWind) on Tencent Cloud; cert matches.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CVE-2026-109618/9 unknown to me; affected PHP range cannot be confirmed."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP/7.4.33 in header; PHP 7.4 ended November 2022."
+   }
+  ]
+ },
+ {
+  "case": "c037",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Reflex Inc. web design firm on GMO shared hosting.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CVE-2026-109618/9 unknown to me; affected PHP range cannot be confirmed."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP/7.4.33 header; upstream 7.4 support ended November 2022."
+   }
+  ]
+ },
+ {
+  "case": "c038",
+  "entity_type": "government",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Catanduva municipal system via local IT contractor; only Cloudflare origin cert.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "PHP 8.3.2 on Windows IIS is within CVE-2024-4577 range (<8.3.8), KEV-listed."
+   }
+  ]
+ },
+ {
+  "case": "c039",
+  "entity_type": "unknown",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Page is Subwaynet.org on Mexican hoster, not Melia; no cert names.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CVE-2026-109618/9 unknown to me; affected PHP range cannot be confirmed."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP/7.4.33 header; PHP 7.4 ended November 2022."
+   }
+  ]
+ },
+ {
+  "case": "c040",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Value Instrument admin backend on Aliyun; cert matches.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CVE-2026-109618/9 unknown to me; affected PHP range cannot be confirmed."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP/7.4.33 header; PHP 7.4 ended November 2022."
+   }
+  ]
+ },
+ {
+  "case": "c041",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "GME Brasil hosted at Locaweb; cert matches.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Full MySQL handshake returned on 3306 from the internet."
+   },
+   {
+    "verdict": "supported",
+    "reason": "MySQL/Percona 5.7 ended October 2023; 5.7.32 is old anyway."
+   }
+  ]
+ },
+ {
+  "case": "c042",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Mobon, Korean ad-targeting company; wildcard cert matches.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Server header Apache/2.4.6 (CentOS) indicates CentOS 7, EOL June 2024."
+   }
+  ]
+ },
+ {
+  "case": "c043",
+  "entity_type": "hosting_cloud",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Rusonyx is a Russian hoster; services are customer sites and panels.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "MariaDB handshake returned on 3306 from the internet."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 5.3.29 is EOL (actually since August 2014, date wrong)."
+   }
+  ]
+ },
+ {
+  "case": "c044",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Philippine National Bank owns the netblock; VPN hostnames in certs.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Server: Check Point SVN foundation is a Check Point gateway web service."
+   }
+  ]
+ },
+ {
+  "case": "c045",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Japan Tobacco International; corporate VPN and portals.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "DSBrowserID/DSPREAUTH cookies and Remote Access title identify Pulse Secure gateway."
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.21 mainline superseded May 2022; no longer patched."
+   }
+  ]
+ },
+ {
+  "case": "c046",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Seacontractors marine company WordPress site; cert matches.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CVE-2026-109618 unknown to me; 8.4 is supported branch, range unverifiable."
+   }
+  ]
+ },
+ {
+  "case": "c047",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Ads4WiFi dev login on AWS; small Wi-Fi advertising firm.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CVE-2026-109618/9 unknown to me; affected PHP range cannot be confirmed."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 8.1 security support ended 31 December 2025."
+   }
+  ]
+ },
+ {
+  "case": "c048",
+  "entity_type": "government",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Indonesian Ministry of Education, own netblock and certs.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "nginx/1.10.3 (Ubuntu) is Ubuntu 16.04 package; standard support ended April 2021."
+   }
+  ]
+ },
+ {
+  "case": "c049",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Small Spanish escape-room business on Plesk hosting.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CVE-2026-109619 unknown to me; affected PHP range cannot be confirmed."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP/7.1.33 header; PHP 7.1 ended December 2019."
+   }
+  ]
+ },
+ {
+  "case": "c050",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "CAP S.A., Chilean steel/mining group, own netblock.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "nginx/1.10.3 (Ubuntu) is Ubuntu 16.04 package; standard support ended 2021."
+   }
+  ]
+ },
+ {
+  "case": "c051",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Small Australian automotive accessory installer site.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CVE-2026-109618/9 unknown to me; PHP 8.2 branch still supported."
+   }
+  ]
+ },
+ {
+  "case": "c052",
+  "entity_type": "public_sector",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Romanian public television broadcaster, own netblock.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "PHP 5.3.10 is below 5.3.12 fix for CVE-2012-1823, KEV-listed."
+   },
+   {
+    "verdict": "supported",
+    "reason": "Apache/2.2.15 (CentOS) is the CentOS 6 package; EOL November 2020."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 5.3 is EOL (since August 2014; evidence date wrong)."
+   }
+  ]
+ },
+ {
+  "case": "c053",
+  "entity_type": "government",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "San Luis provincial government, Argentina; wildcard cert matches.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "IIS 7.5 ships only with Windows Server 2008 R2/Windows 7; EOL."
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.26 stable branch superseded by 1.28 in April 2025."
+   }
+  ]
+ },
+ {
+  "case": "c054",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "CVC Technologies, Taiwanese pharma packaging maker.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Self-built Apache 2.4.38 (Unix) in range of CVE-2019-0211, CVE-2021-40438."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP/5.6.40 in Server header; PHP 5.6 ended December 2018."
+   }
+  ]
+ },
+ {
+  "case": "c055",
+  "entity_type": "public_sector",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "SERPRO, Brazilian federal state-owned IT company, own netblocks.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "CodeIT Apache 2.4.51 tracks upstream, within CVE-2024-38475 range."
+   },
+   {
+    "verdict": "supported",
+    "reason": "Apache/2.4.6 (Red Hat Enterprise Linux) is RHEL 7; maintenance ended June 2024."
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.12.2 within 1.9.5-1.17.2 range of these HTTP/2 CVEs."
+   },
+   {
+    "verdict": "supported",
+    "reason": "OpenSSL/1.1.1l in header; 1.1.1 ended September 2023."
+   }
+  ]
+ },
+ {
+  "case": "c056",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Bartscher AG, Swiss foodservice equipment firm on Hetzner.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Apache/2.4.38 (Debian) is Debian 10 package; LTS ended June 2024."
+   }
+  ]
+ },
+ {
+  "case": "c057",
+  "entity_type": "isp_telecom",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "MNSi is a Canadian regional ISP/telecom.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "webvpn cookies show a Cisco ASA SSL VPN portal."
+   }
+  ]
+ },
+ {
+  "case": "c058",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Socovesa, Chilean real-estate group; NTLM confirms domain.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "NTLM build 6.0.6003 and IIS 7.0 are Windows Server 2008, EOL."
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.25 mainline superseded April 2024; no longer patched."
+   },
+   {
+    "verdict": "supported",
+    "reason": "NTLM reply exposes CRMIIS.socovesa.cl and SOCOVESA domain."
+   }
+  ]
+ },
+ {
+  "case": "c059",
+  "entity_type": "government",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Municipality of Quito; one SQL host looks like a Contabo VPS.",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "MS-SQL answers on 1433 with NTLM info; ownership by Quito unverified."
+   },
+   {
+    "verdict": "supported",
+    "reason": "OWA page with Exchange 2019 build 15.2.1748.10 exposed."
+   },
+   {
+    "verdict": "supported",
+    "reason": "Apache/2.4.6 (CentOS) indicates CentOS 7, EOL June 2024."
+   }
+  ]
+ },
+ {
+  "case": "c060",
+  "entity_type": "personal_or_junk",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Hobby Romanian web radio WordPress site on private-customer VPS.",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CVE-2026-109618/9 unknown to me; affected PHP range cannot be confirmed."
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 8.1 security support ended 31 December 2025."
+   }
+  ]
+ }
+]

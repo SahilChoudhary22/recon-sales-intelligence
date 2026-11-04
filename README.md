@@ -35,9 +35,9 @@ Recon reads internet scan data and tells a security seller which companies to ca
 each company it shows what's exposed, where, and why it matters, and it never invents a finding: every
 line a seller can send comes from something the scan actually saw.
 
-From one file of 13.4M scan records, Recon finds 39,190 companies with real security problems. Blind
+From one file of 13.4M scan records, Recon finds 38,099 companies with real security problems. Blind
 reviewers rejected 6% of the claims it makes about them, against 44% when the scanner's own labels
-are taken at face value, and 72% of its top accounts are real, correctly named companies.
+are taken at face value, and 77% of its top accounts are real, correctly named companies.
 
 **Built with:** Python 3.12, FastAPI and DuckDB for the pipeline and the API; React 19 and TypeScript
 (Vite, on the Node.js 22 toolchain) for the app; SQLite for users' lists; the MCP Python SDK; Claude
@@ -171,7 +171,7 @@ a reply in the protocol.*
 | | Claims a blind reviewer rejected | Top accounts that are real, named companies |
 | --- | --- | --- |
 | Taking the scanner's labels at face value | 44% | 60% |
-| Recon | 6% | 72% |
+| Recon | 6% | 77% |
 
 [How this was measured →](docs/technical-notes.md#8-how-it-was-measured)
 
@@ -181,8 +181,8 @@ an incident are clear, and they became Recon's signal categories, in order of ur
 - **Breach:** ransomed databases, trojans and cryptominers, i.e. already compromised.
 - **Edge:** firewalls and VPNs reachable from the internet, the most common way ransomware gets in,
   and worse on a known-exploited version.
-- **Exposure:** remote desktop, databases, file shares, industrial devices, and 1,700 self-hosted AI
-  apps and MCP servers open to anyone.
+- **Exposure:** remote desktop, databases, file shares, industrial devices, and 175 self-hosted AI
+  apps and MCP servers open to anyone (169 companies).
 - **Vulnerability and end of life:** software that's exploitable or past support.
 - **Hygiene:** expired certificates and old TLS. These never rank an account on their own; they show a
   thin security team.
@@ -190,7 +190,7 @@ an incident are clear, and they became Recon's signal categories, in order of ur
 Each category maps to a buying trigger, and each trigger became a template a seller can start from:
 "firewall with exploited CVEs", "on-prem Exchange", "legacy Windows".
 
-39,190 companies in the file have a material risk signal. Every rule and threshold is in
+38,099 companies in the file have a material risk signal. Every rule and threshold is in
 [docs/technical-notes.md](docs/technical-notes.md).
 
 ## Results
@@ -206,24 +206,29 @@ the 500 accounts a team can call in a week.
 seller depends on, with blind AI reviewers: agents that never saw Recon's code or rules, judging random
 top-tier accounts from a seeded sample that was never used for tuning, against a fixed rubric.
 
-First, are the top accounts real, correctly named companies?
+First, are the top accounts real, correctly named companies? Two reviewer rubrics measured this: an
+identity labeller while the identity rules were built, then the claims reviewers below, whose
+"sellable" also excludes SaaS platforms.
 
-| Pipeline | Sellable |
-| --- | --- |
-| Rules only | 43% (26/60) |
-| + LLM labels for organisation type | 53% (32/60) |
-| + IP-owner identities need an education or government label | 62% (37/60) |
-| Recon, final build (fresh sample) | 72% (43/60) |
+| Pipeline | Sellable | Measured by |
+| --- | --- | --- |
+| Rules only | 43% (26/60) | identity labeller |
+| + LLM labels for organisation type | 53% (32/60) | identity labeller |
+| + IP-owner identities need an education or government label | 62% (37/60) | identity labeller |
+| Taking the scanner's labels at face value | 60% (36/60) | claims reviewers |
+| **Recon, final build (fresh sample)** | **77% (46/60)** | claims reviewers |
 
 Then, is what Recon says about them true? Each risk claim was judged against the raw record behind it:
 
 | | Claims rejected | Claims confirmed |
 | --- | --- | --- |
 | Taking the scanner's labels at face value | 44% (59/135) | 46% |
-| Recon | **6% (8/131)** | **71%** |
+| **Recon, final build (fresh sample)** | **6% (6/109)** | **66%** |
 
-The rest are "unclear": all of them two PHP CVEs CISA listed in late October 2026 without affected
-versions. With 60 accounts the margin is about ±12 points. The LLM labels agreed with the blind
+The rest are "unclear", and 29 of those 31 are the two PHP2Shell CVEs (CISA, 26 October 2026): newer
+than the reviewers' knowledge, so they can't judge them. Each version shown is below PHP's fixed
+release for its branch, and the evidence line says so ("PHP 8.3.26 — … (fixed in 8.3.36)"). With 60
+accounts the margin is about ±12 points. The LLM labels agreed with the blind
 reviewers on carrier versus business 83 to 87% of the time, and labelling 7,328 names with Claude Haiku
 cost $0.26 to $1.28 (how I'd cut that further in production, with the Batch API and a cheap
 first-stage classifier, is in [the technical notes](docs/technical-notes.md#7-where-an-llm-is-used-how-its-checked-and-what-it-costs)). Every sample, verdict and step is in
@@ -264,7 +269,7 @@ with `get_account("toyota.com")`, which works). [Every run →](mcp_server/eval/
   batch, so nothing calls a model when a page loads.
 - **A claim needs the record behind it.** A seller repeats what Recon says to a security engineer, who
   will check. Taken at face value, the scanner's labels make 83,934 companies look at risk; checked
-  against the record, 39,190 are, and blind reviewers reject 6% of the claims instead of 44%.
+  against the record, 38,099 are, and blind reviewers reject 6% of the claims instead of 44%.
 - **P1 is sized to what a team can call.** 500 accounts a week, not a percentile that grows with the
   market.
 - **Evidence instead of generated outreach.** The opening line and the brief are filled from findings,
@@ -291,13 +296,13 @@ raw data reaches billions of records. Every list, count and badge comes from one
 versioned Parquet store, and the counts the app asks for most come from a pre-aggregated cube.
 Measured on the real store and on synthetic ones 10× and 100× its size (median ms, one laptop):
 
-| Query | 83,744 accounts | 837,440 | 8,374,400 |
+| Query | 38,099 accounts | 380,990 | 3,809,900 |
 | --- | --- | --- | --- |
-| Template counts and profile badges (cube) | 0.8 / 3.2 | 0.8 / 3.3 | 0.8 / 3.3 |
-| Ranked page, template + profile | 7.4 | 23 | 91 |
-| Toolbar badges | 4.0 | 12 | 91 |
-| Name search | 9.8 | 29 | 158 |
-| Account, evidence | 3.0, 1.8 | 5.3, 2.6 | 37, 20 |
+| Template counts and profile badges (cube) | 0.8 / 3.3 | 0.8 / 3.3 | 0.8 / 3.3 |
+| Ranked page, template + profile | 6.4 | 22 | 50 |
+| Toolbar badges | 3.7 | 8.5 | 52 |
+| Name search | 8.2 | 19 | 74 |
+| Account, evidence | 2.9, 1.7 | 3.9, 1.8 | 18, 9.7 |
 
 What changes for a full stream of files and many users, and when, is in
 [docs/architecture.md](docs/architecture.md#7-the-production-path), including how I'd trace every

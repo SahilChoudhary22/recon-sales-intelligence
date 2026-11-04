@@ -165,7 +165,7 @@ class Store:
         w, p = where(q)
         total = self._cur().execute(f"select count(*) from accounts where {w}", p).fetchone()[0]
         # DuckDB's top-N keeps only offset + limit rows while scanning
-        rows = self._rows(f"select {ACCOUNT_COLS} from accounts where {w} order by priority desc, id "
+        rows = self._rows(f"select {ACCOUNT_COLS} from accounts where {w} order by tier, priority desc, id "
                           f"limit {int(limit)} offset {int(offset)}", p)
         return {"total": total, "offset": offset, "accounts": rows}
 
@@ -174,7 +174,7 @@ class Store:
         w, p = where(q)
         total = self._cur().execute(f"select count(*) from accounts where {w}", p).fetchone()[0]
         ids = [r[0] for r in self._cur().execute(
-            f"select id from accounts where {w} order by priority desc, id limit {int(cap)}", p).fetchall()]
+            f"select id from accounts where {w} order by tier, priority desc, id limit {int(cap)}", p).fetchall()]
         return {"total": total, "ids": ids}
 
     def account(self, account_id):
@@ -188,7 +188,7 @@ class Store:
     def iter_rows(self, q: Query, cap=100_000, batch=5000):
         """Streams a filtered list for CSV export, without holding it all in memory."""
         w, p = where(q)
-        cur = self._con.cursor().execute(f"select {ACCOUNT_COLS} from accounts where {w} order by priority desc, id limit {int(cap)}", p)
+        cur = self._con.cursor().execute(f"select {ACCOUNT_COLS} from accounts where {w} order by tier, priority desc, id limit {int(cap)}", p)
         cols = [d[0] for d in cur.description]
         while chunk := cur.fetchmany(batch):
             yield from (dict(zip(cols, r)) for r in chunk)
@@ -247,7 +247,7 @@ class Store:
         hits = self._rows(f"""
             select {cols}, max(h.n) affected, any_value(h.product) affected_product, bool_or(h.new) affected_new,
                    list_distinct(flatten(list(h.services)))[1:3] example_services, list(distinct h.cve) cves
-            {base} group by all order by a.priority desc limit {int(limit)}""", [*p, list(ids)])
+            {base} group by all order by a.tier, a.priority desc limit {int(limit)}""", [*p, list(ids)])
         total = self._cur().execute(f"select count(distinct h.company_id) {base}", [*p, list(ids)]).fetchone()[0]
         outside = self._cur().execute("""
             select count(distinct company_id) from cve_hits where list_contains(?, cve) and not served""", [list(ids)]).fetchone()[0]

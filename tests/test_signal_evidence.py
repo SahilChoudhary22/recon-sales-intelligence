@@ -44,14 +44,15 @@ def test_cve_of_a_versioned_product_is_claimed_and_named(tmp_path):
     acc, ev = run(tmp_path, [web(product="nginx", vulns=KEV_PHP, cpe23=["cpe:2.3:a:f5:nginx", "cpe:2.3:a:php:php:7.4.33"],
                                  http={"server": "nginx", "headers": {"X-Powered-By": "PHP/7.4.33"}})])
     assert "kev_cve" in acc["acme-test.co.uk"]
-    assert ev["kev_cve"].startswith("PHP 7.4.33 — CVE-2026-109619")  # the CVE's product, not the web server
+    # the CVE's product, not the web server, and that its branch has no fix
+    assert ev["kev_cve"] == "PHP 7.4.33 — CVE-2026-109619 (no upstream fix on the 7.4 branch)"
 
 
 def test_a_verified_cve_is_claimed_even_on_a_distro_build(tmp_path):
     verified = {"CVE-2021-40438": {"cvss": 9.0, "epss": 0.97, "kev": True, "verified": True}}
     acc, ev = run(tmp_path, [web(product="Apache httpd", version="2.4.41", vulns=verified,
                                  cpe23=["cpe:2.3:a:apache:http_server:2.4.41"], http={"server": "Apache/2.4.41 (Ubuntu)"})])
-    assert "kev_cve" in acc["acme-test.co.uk"] and "confirmed by the scanner" in ev["kev_cve"]
+    assert "kev_cve" in acc["acme-test.co.uk"] and ev["kev_cve"].startswith("Confirmed by the scanner's own test on Apache httpd 2.4.41 — CVE-2021-40438")
 
 
 def test_end_of_life_comes_from_the_os_release_not_the_upstream_version(tmp_path):
@@ -154,3 +155,103 @@ def test_a_domain_the_labeller_could_not_place_stays_out_of_the_top_tiers(tmp_pa
     assert tier == [("P3",)]
     build(f"{tmp_path}/scans/*/*.parquet", f"{tmp_path}/out2")
     assert duckdb.sql(f"select tier from '{tmp_path}/out2/accounts.parquet' where company_id = 'acme-test.co.uk'").fetchall() == [("P1",)]
+
+
+def test_a_known_exploited_cve_needs_its_own_product_not_just_its_vendor(tmp_path):
+    # a SharePoint CVE on a plain ASP.NET site: both Microsoft, but ASP.NET isn't SharePoint
+    toolshell = {"CVE-2025-53770": {"cvss": 9.8, "epss": 0.9, "kev": True, "verified": False}}
+    aspnet = dict(product="Microsoft IIS httpd", vulns=toolshell, http={"server": "Microsoft-IIS/10.0",
+                  "headers": {"X-AspNet-Version": "4.0.30319"}}, cpe23=["cpe:2.3:a:microsoft:asp.net:4.0.30319"])
+    acc, _ = run(tmp_path, [web(**aspnet)])
+    assert "kev_cve" not in acc["acme-test.co.uk"]
+    # the same CVE where the service names SharePoint with its build
+    sp = dict(product="Microsoft SharePoint", vulns=toolshell, http={"server": "Microsoft-IIS/10.0"},
+              data="HTTP/1.1 200 OK\r\nMicrosoftSharePointTeamServices: 16.0.0.10417\r\n",
+              cpe23=["cpe:2.3:a:microsoft:sharepoint_server:16.0.0.10417"])
+    acc, ev = run(tmp_path / "sp", [web(**sp)])
+    assert "kev_cve" in acc["acme-test.co.uk"] and ev["kev_cve"].startswith("SharePoint")
+
+
+def test_php2shell_is_checked_against_the_fixed_releases(tmp_path):
+    # CISA lists no versions; PHP fixed it in 8.3.36 (and 8.2.35, 8.4.27, 8.5.12), and 8.1 has no fix
+    def php(ver, d):
+        return run(tmp_path / d, [web(product="nginx", vulns=KEV_PHP, cpe23=["cpe:2.3:a:f5:nginx", f"cpe:2.3:a:php:php:{ver}"],
+                                      http={"server": "nginx", "headers": {"X-Powered-By": f"PHP/{ver}"}})])[0]["acme-test.co.uk"]
+    assert "kev_cve" in php("8.3.12", "a")
+    _, ev = run(tmp_path / "e", [web(product="nginx", vulns=KEV_PHP, cpe23=["cpe:2.3:a:f5:nginx", "cpe:2.3:a:php:php:8.3.12"],
+                                     http={"server": "nginx", "headers": {"X-Powered-By": "PHP/8.3.12"}})])
+    assert ev["kev_cve"] == "PHP 8.3.12 — CVE-2026-109619 (fixed in 8.3.36)"
+    assert "kev_cve" not in php("8.3.36", "b")
+    assert "kev_cve" in php("8.1.31", "c")
+    assert "kev_cve" not in php("8.4.30", "d")
+
+
+def test_evidence_names_each_cve_under_its_own_product(tmp_path):
+    # Apache's CVE and PHP's CVE on one service: the line mustn't put PHP's CVE under Apache
+    both = {**KEV_APACHE, **KEV_PHP}
+    _, ev = run(tmp_path, [web(product="Apache httpd", version="2.4.49", vulns=both,
+                               cpe23=["cpe:2.3:a:apache:http_server:2.4.49", "cpe:2.3:a:php:php:7.4.33"],
+                               http={"server": "Apache/2.4.49", "headers": {"X-Powered-By": "PHP/7.4.33"}})])
+    parts = dict(p.split(" — ") for p in ev["kev_cve"].split("; "))
+    assert parts.get("Apache httpd 2.4.49") == "CVE-2021-40438" and parts.get("PHP 7.4.33") == "CVE-2026-109619 (no upstream fix on the 7.4 branch)"
+
+
+def test_a_hosters_domain_stays_out_of_the_top_tiers(tmp_path):
+    # blind reviews: 0 of 10 hoster-labelled domains were a company a seller could call. A confident
+    # label already stops the domain naming the company; a low-confidence one is held back here
+    rows = [web(), banner(27017, "mongodb", "2026-11-01T10:02:00", mongodb={"databases": []}, data="MongoDB Server Information")]
+    write_scan(tmp_path / "scans", "scan-2026-11-01", rows)
+    labels = tmp_path / "domain_labels.csv"
+    labels.write_text("domain,org_type,industry,confidence\nacme-test.co.uk,hosting_cloud,Hosting,low\n")
+    build(f"{tmp_path}/scans/*/*.parquet", f"{tmp_path}/out", domain_labels=str(labels))
+    assert duckdb.sql(f"select tier, held_back from '{tmp_path}/out/accounts.parquet'").fetchall() == [("P3", "hoster")]
+
+
+def test_tls_cipher_cves_and_patched_ntp_are_not_version_claims(tmp_path):
+    # Logjam is a cipher a server still offers (weak TLS), not a flaw of its Apache version
+    logjam = {"CVE-2015-4000": {"cvss": 3.7, "epss": 0.99, "kev": False, "verified": True}}
+    acc, _ = run(tmp_path, [web(product="Apache httpd", version="2.4.58", vulns=logjam, cpe23=["cpe:2.3:a:apache:http_server:2.4.58"],
+                                http={"server": "Apache/2.4.58"})])
+    assert "high_epss" not in acc["acme-test.co.uk"]
+    # ntpd 4.2.8p17 has the fixes 4.2.8 lacks
+    ntp = {"CVE-2016-7434": {"cvss": 7.5, "epss": 0.6, "kev": False, "verified": False}}
+    acc, _ = run(tmp_path / "ntp", [web(), banner(123, "ntp", "2026-11-01T10:01:00", product="NTP", version="4.2.8", vulns=ntp,
+                                               data="version=\"ntpd 4.2.8p17@1.4004-o\"", cpe23=["cpe:2.3:a:ntp:ntp:4.2.8"])])
+    assert "high_epss" not in acc["acme-test.co.uk"]
+    # ...while a plain 4.2.8 is claimed
+    acc, _ = run(tmp_path / "ntp2", [web(), banner(123, "ntp", "2026-11-01T10:01:00", product="NTP", version="4.2.8", vulns=ntp,
+                                                data="version=\"ntpd 4.2.8@1.3265-o\"", cpe23=["cpe:2.3:a:ntp:ntp:4.2.8"])])
+    assert "high_epss" in acc["acme-test.co.uk"]
+
+
+def test_a_camera_port_needs_a_camera_reply(tmp_path):
+    acc, _ = run(tmp_path, [web(), banner(37777, "dahua-dvr", "2026-11-01T10:01:00", data="")])
+    assert "iot_camera" not in acc["acme-test.co.uk"]
+    acc, _ = run(tmp_path / "reply", [web(), banner(37777, "dahua-dvr", "2026-11-01T10:01:00", data="\xa0\x00\x00\x00DVR")])
+    assert "iot_camera" in acc["acme-test.co.uk"]
+
+
+def test_a_fix_note_belongs_to_its_own_cve(tmp_path):
+    # CVE-2017-7529 was fixed in nginx 1.12.1; the other CVE on the line wasn't, so the note is the CVE's
+    cves = {"CVE-2017-7529": {"cvss": 7.5, "epss": 0.9, "kev": False, "verified": False},
+            "CVE-2016-0742": {"cvss": 7.5, "epss": 0.8, "kev": False, "verified": False}}
+    _, ev = run(tmp_path, [web(product="nginx", version="1.12.0", vulns=cves, cpe23=["cpe:2.3:a:f5:nginx:1.12.0"],
+                               http={"server": "nginx/1.12.0"})])
+    assert ev["high_epss"] == "nginx 1.12.0 — CVE-2017-7529 (fixed in 1.12.1), CVE-2016-0742"
+    # ...and at 1.12.1 it isn't claimed at all
+    _, ev = run(tmp_path / "b", [web(product="nginx", version="1.12.1", vulns=cves, cpe23=["cpe:2.3:a:f5:nginx:1.12.1"],
+                                     http={"server": "nginx/1.12.1"})])
+    assert ev["high_epss"] == "nginx 1.12.1 — CVE-2016-0742"
+
+
+def test_php_cgi_cves_and_empty_iscsi_targets_are_not_claimed(tmp_path):
+    cgi = {"CVE-2012-1823": {"cvss": 9.8, "epss": 0.97, "kev": True, "verified": False}}
+    acc, _ = run(tmp_path, [web(product="Apache httpd", vulns=cgi, cpe23=["cpe:2.3:a:php:php:5.3.29"],
+                                http={"server": "Apache", "headers": {"X-Powered-By": "PHP/5.3.29"}})])
+    assert "kev_cve" not in acc["acme-test.co.uk"]
+    acc, _ = run(tmp_path / "i", [web(), banner(3260, "iscsi", "2026-11-01T10:01:00", iscsi={"targets": []},
+                                                 data="Not found any reachable targets")])
+    assert "open_directory" not in acc["acme-test.co.uk"]
+    listed = "Login Response Success(0x0)\nKey/Value Pairs\nAuthMethod=None\nTargetAddress=10.0.0.5:3260,1\nTargetName=iqn.2004-04.com.qnap:ts-451:iscsi.backup"
+    acc, _ = run(tmp_path / "j", [web(), banner(3260, "iscsi", "2026-11-01T10:01:00", iscsi={"targets": [{"name": "backup"}]}, data=listed)])
+    assert "open_directory" in acc["acme-test.co.uk"]

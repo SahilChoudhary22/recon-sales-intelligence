@@ -117,14 +117,28 @@ def my_entries(ws):
 
 
 # The opening line, built only from what the scan observed: the same rules as the app (web/src/talkTrack.ts)
+# The evidence names each CVE under its product ("PHP 7.4.33 — CVE-…; Apache httpd 2.4.49 — CVE-…"): a
+# line uses the first product and only its CVEs, so one product's CVE is never put on another.
+_CONFIRMED = "Confirmed by the scanner's own test on "
+
+
+def _first(e):
+    parts = (e.get("e") or "").split("; ")[0].split(" — ")
+    return (parts[0], parts[1]) if len(parts) > 1 else (None, e.get("e") or "")
+
+
 def _cves(e):
-    m = re.findall(r"CVE-\d{4}-\d+", e.get("e") or "")
+    m = re.findall(r"CVE-\d{4}-\d+", _first(e)[1])
     return " / ".join(m[:2]) if m else "a known-exploited CVE"
 
 
 def _seen(e):
-    parts = (e.get("e") or "").split(" — ")
-    return parts[0] if len(parts) > 1 else None
+    return _first(e)[0]
+
+
+def _confirmed(e):
+    s = _seen(e)
+    return s[len(_CONFIRMED):] if s and s.startswith(_CONFIRMED) else None
 
 
 def _or(v, default):
@@ -141,7 +155,9 @@ _LINES = {
     "database_exposed": lambda e: f"a database ({e.get('e')}) at {e['ip']} accepts connections from the internet.",
     "smb_exposed": lambda e: f"Windows file sharing is exposed at {e['ip']}:{e['port']}.",
     "ot_exposed": lambda e: f"an industrial/operational protocol ({e.get('e')}) is reachable at {e['ip']}.",
-    "kev_cve": lambda e: f"{_seen(e) or _or(e.get('p'), 'a public server')} at {e['ip']}:{e['port']} is a version affected by {_cves(e)}, which is on CISA's known-exploited list.",
+    "kev_cve": lambda e: (f"the scanner's own test confirmed {_cves(e)} on {_confirmed(e)} at {e['ip']}:{e['port']}, which is on CISA's known-exploited list."
+                          if _confirmed(e) else
+                          f"{_seen(e) or _or(e.get('p'), 'a public server')} at {e['ip']}:{e['port']} is a version affected by {_cves(e)}, which is on CISA's known-exploited list."),
     "eol_os": lambda e: (f"a server at {e['ip']} runs {e.get('e')}." if "support ended" in (e.get("e") or "")
                          else f"a server at {e['ip']} runs {e.get('e')}, past the end of its security support."),
     "ntlm_leak": lambda e: f"a Windows host at {e['ip']} reveals your internal domain ({e.get('e')}) to anyone who connects.",

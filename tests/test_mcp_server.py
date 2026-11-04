@@ -143,3 +143,13 @@ def test_the_sellers_profile_applies_unless_turned_off(client):
     assert whole["total"] > gb and whole["profile_applied"] is None
     w.save_profile(ws, {"active": False, "countries": ["GB"], "sectors": [], "industries": [], "sizes": [],
                         "product": "", "personas": []})
+
+
+def test_opening_line_keeps_each_cve_with_its_product():
+    from mcp_server.data import _LINES
+    two = {"s": "kev_cve", "ip": "203.0.113.x", "port": 443,
+           "e": "Apache httpd 2.4.49 — CVE-2021-40438; PHP 7.4.33 — CVE-2026-109619 (no upstream fix on the 7.4 branch)"}
+    assert _LINES["kev_cve"](two).startswith("Apache httpd 2.4.49 at 203.0.113.x:443 is a version affected by CVE-2021-40438,")
+    scanner = {"s": "kev_cve", "ip": "203.0.113.x", "port": 443, "e": "Confirmed by the scanner's own test on Apache httpd 2.2.22 — CVE-2014-0160"}
+    assert _LINES["kev_cve"](scanner) == ("the scanner's own test confirmed CVE-2014-0160 on Apache httpd 2.2.22 at 203.0.113.x:443, "
+                                          "which is on CISA's known-exploited list.")

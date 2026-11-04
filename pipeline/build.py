@@ -11,14 +11,16 @@ usage: python -m pipeline.build "<parquet glob>" <out_dir>
 import argparse
 import json
 import os
+import re
 import time
 
 import duckdb
 import pyarrow as pa
 
 from pipeline.identity import resolve
-from pipeline.signals import (CPE_NAMES, CVE_REQUIRES, DISTRO_PACKAGED, EOL_BRANCHES, MATURITY, OS_EOL, OS_RELEASE,
-                              PATCHED_IN_PLACE, SIGNALS, VISIBLE_TEXT, frozen_sql, version_visible_sql)
+from pipeline.signals import (CPE_NAMES, CVE_REQUIRES, DISTRO_PACKAGED, EOL_BRANCHES, FIXED_IN, KEV_ANY_PRODUCT,
+                              KEV_PRODUCT_ALIASES, KEV_PRODUCT_DENY, MATURITY, OS_EOL, OS_RELEASE,
+                              PATCHED_IN_PLACE, SIGNALS, VISIBLE_TEXT, fixed_sql, frozen_sql, version_visible_sql, words, words_sql)
 
 # Retention and "new" go by observation time, not by file: a delivered file is a few hours of an
 # ongoing crawl (this one covers 21:13 to 02:06), not a full re-scan of the internet.
@@ -106,14 +108,21 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
     # --- CVE matches that hold up (see pipeline/signals.py) ---------------------------------
     # notable matches only (known exploited, EPSS >= 0.1 or CVSS >= 9): what the signals and CVE search use
     kev = json.load(open(KEV_PATH))["vulnerabilities"]
+    # each CVE's vendor, and the words of its product (plus any CPE product CISA calls something else)
+    alias = lambda prod: [c for c, rx in KEV_PRODUCT_ALIASES if re.search(rx, prod)]
+    deny = lambda prod: [c for c, rx in KEV_PRODUCT_DENY if re.search(rx, prod)]
     con.register("kev_arrow", pa.table({"cve": [v["cveID"] for v in kev],
-                                         "vendor": [v["vendorProject"] for v in kev]}))
+                                         "vendor": [v["vendorProject"] for v in kev],
+                                         "pwords": [words(v["product"]) for v in kev],
+                                         "palias": [alias(v["product"]) for v in kev],
+                                         "pdeny": [deny(v["product"]) for v in kev],
+                                         "pany": [bool(re.match(KEV_ANY_PRODUCT, v["product"])) for v in kev]}))
     con.execute("""create table kev_vendor as
-        select cve, regexp_replace(lower(vendor), '[^a-z0-9]', '', 'g') vtok from kev_arrow""")
+        select cve, regexp_replace(lower(vendor), '[^a-z0-9]', '', 'g') vtok, pwords, palias, pdeny, pany from kev_arrow""")
     names = " ".join(f"when '{k}' then '{v}'" for k, v in CPE_NAMES.items())
     con.execute(f"""create table vuln_ok as
         with u as (
-            select c.rid, c.product, c.version, c.module, c.patched_in_place, v, kv.vtok, c.exchange_build,
+            select c.rid, c.product, c.version, c.module, c.patched_in_place, v, kv.vtok, kv.pwords, kv.palias, kv.pdeny, kv.pany, c.exchange_build,
                    {VISIBLE_TEXT.replace("version", "c.version").replace("http_server", "c.http_server").replace("http_headers", "c.http_headers").replace("banner", "c.banner")} visible,
                    coalesce(c.http_server, '') || ' ' || coalesce(c.os, '') platform,
                    -- the products the service names with a version number, from its CPEs
@@ -133,20 +142,32 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
             from u),
         m as (
             select *, case
-                -- a KEV CVE: its vendor among those products (php ~ "PHP Group")
-                when vtok is not null then list_filter(cpe_t, lambda x: x.vend = vtok
-                    or (len(x.vend) >= 3 and (starts_with(vtok, x.vend) or starts_with(x.vend, vtok))))[1]
+                -- a KEV CVE: its vendor's product among those (php ~ "PHP Group"; sharepoint_server ~ "SharePoint")
+                when vtok is not null then list_filter(cpe_t, lambda x: (x.vend = vtok
+                    or (len(x.vend) >= 3 and (starts_with(vtok, x.vend) or starts_with(x.vend, vtok))))
+                    and (pany or list_has_any(pwords, {words_sql('x.prod')}) or list_contains(palias, x.prod))
+                    and not list_contains(pdeny, x.prod))[1]
                 -- any other CVE: the service names exactly one versioned product, so it's that one's
                 when len(cpe_v) = 1 and n_unversioned_apps = 0 then cpe_t[1] end hit
             from t)
         select rid, list({{'cve': v.cve, 'cvss': v.cvss, 'epss': v.epss, 'kev': v.kev, 'verified': v.verified,
-            'seen': case when v.verified or hit.ver = version then concat_ws(' ', coalesce(product, module), version)
-                         else (case hit.prod {names} else replace(hit.prod, '_', ' ') end) || ' ' || hit.ver end}}) vulns_ok
+            -- the scanner's own test names no product version, so say what it is
+            'seen': case when v.verified then 'Confirmed by the scanner''s own test on ' || concat_ws(' ', coalesce(product, module), version)
+                         when hit.ver = version then concat_ws(' ', coalesce(product, module), version)
+                         else (case hit.prod {names} else replace(hit.prod, '_', ' ') end) || ' ' || hit.ver end,
+            'fix': case {" ".join(f"when v.cve = '{c}' and not v.verified then case "
+                                  + " ".join(f"when starts_with(hit.ver, '{b}.') then 'fixed in {f}'" for b, f in sorted(fx.items()))
+                                  + f" else 'no upstream fix on the ' || regexp_extract(hit.ver, '^[0-9]+\\.[0-9]+') || ' branch' end"
+                                  for c, fx in FIXED_IN.items())} end}}
+            -- ranked: known exploited first, then likeliest to be exploited, so evidence leads with those
+            order by v.kev desc, coalesce(v.epss, 0) desc, v.cve) vulns_ok
         from m
         where (v.verified or hit is not null)
           and not ({" or ".join(f"(v.cve = '{c}' and platform not ilike '%{x}%')" if kind == "platform" else
                                 f"(v.cve = '{c}' and hit is not null and not starts_with(hit.ver, '{x}'))"
-                                for c, kind, x in CVE_REQUIRES)})
+                                for c, kind, x in CVE_REQUIRES)}
+               -- past the vendor's fix for a CVE the catalogue gives no versions for
+               {"".join(f" or (v.cve = '{c}' and not v.verified and hit is not null and {fixed_sql('hit.ver', f)})" for c, f in FIXED_IN.items())})
         group by rid""")
     # the oldest end-of-life component a service names with a version (pipeline/signals.py EOL_BRANCHES)
     eol_cases = " ".join(f"when cv = '{c}' and regexp_matches(ver, '{rx}') then date '{d}'" for c, rx, _, d in EOL_BRANCHES)
@@ -375,20 +396,28 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
         update accounts set priority = need * urgency * fit * maturity_factor
             * case when has_material then 1 else 0.3 end
             * case when weak_identity and not owns_its_ips then 0.3 else 1 end""")
-    # A domain the LLM labeller couldn't place (unknown, low confidence) stays searchable but doesn't
-    # reach P1/P2: across three blind samples those accounts were 34% sellable (27/80) against 84% for
-    # ones it labelled a business, government or school. Same idea as the IP-owner rule above.
-    con.execute("alter table accounts add column unrecognised boolean default false")
+    # Some accounts stay searchable but don't reach P1/P2, measured on every blind review so far (claims
+    # v4-v8 and the three identity samples, 548 verdicts): an address block known only by its owner's
+    # name (9/52 sellable, 7 of those universities or governments), unless it's one that owns its IPs;
+    # a domain the labeller
+    # couldn't place (43/141); a domain it labelled a hoster or an ISP (1/14). Labelled businesses: 81%.
+    con.execute("alter table accounts add column held_back varchar")
+    con.execute("update accounts set held_back = 'ip_owner' where weak_identity and not owns_its_ips")
     if domain_labels and os.path.exists(domain_labels):
-        con.execute(f"""update accounts set unrecognised = true from read_csv_auto('{domain_labels}') l
-            where l.domain = accounts.domain and accounts.company_id = accounts.domain
-              and l.org_type = 'unknown' and l.confidence = 'low'""")
-    funnel["unrecognised_domains"] = con.execute(
-        "select count(*) from accounts where unrecognised and has_material").fetchone()[0]
+        con.execute(f"""update accounts set held_back = case when l.org_type = 'unknown' then 'unrecognised'
+                else 'hoster' end from read_csv_auto('{domain_labels}') l
+            where l.domain = accounts.domain and accounts.company_id = accounts.domain and accounts.held_back is null
+              and ((l.org_type = 'unknown' and l.confidence = 'low') or l.org_type in ('hosting_cloud', 'isp_telecom'))""")
+    # held back from the top tiers, and ranked like it: the same 0.3 the IP-owner rule always applied
+    con.execute("update accounts set priority = priority * 0.3 where held_back in ('unrecognised', 'hoster')")
+    con.execute("alter table accounts add column unrecognised boolean")
+    con.execute("update accounts set unrecognised = held_back is not null")
+    funnel["held_back_from_top_tiers"] = dict(con.execute(
+        "select held_back, count(*) from accounts where held_back is not null and has_material group by 1 order by 1").fetchall())
     con.execute("""alter table accounts add column material_rank bigint;
         update accounts set material_rank = r.rk from (
             select company_id, row_number() over (order by priority desc, company_id) rk
-            from accounts where has_material and not unrecognised) r where accounts.company_id = r.company_id""")
+            from accounts where has_material and held_back is null) r where accounts.company_id = r.company_id""")
     # score: log-scaled so the top stays spread out; tiers: by rank, sized to what a sales team can
     # actually work (P1 = this week's calls), not percentiles of a long hygiene-only tail
     con.execute(f"""create table accounts_out as

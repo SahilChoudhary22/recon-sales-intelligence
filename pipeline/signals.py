@@ -5,10 +5,14 @@ Weights encode "how likely is this to turn into an incident soon", roughly:
 evidence of a breach > known-exploited edge device > exposed remote access / databases > exploitable CVE
 > EOL > hygiene.
 """
+import re
 
 # KEV-listed but not a reason to call: HTTP/2 Rapid Reset is flagged on ~every nginx, and the jQuery
-# XSS CVEs are inferred from a JS library on the page (client-side, not the server)
-NOISE_CVES = "['CVE-2023-44487', 'CVE-2020-11023', 'CVE-2020-11022', 'CVE-2019-11358', 'CVE-2015-9251']"
+# XSS CVEs are inferred from a JS library on the page (client-side, not the server). Logjam and FREAK
+# are export-grade TLS ciphers, not a flaw of the server's version: the weak-TLS hygiene signal's
+# finding, not a "likely to be exploited" one (a blind review rejected both, v9)
+NOISE_CVES = ("['CVE-2023-44487', 'CVE-2020-11023', 'CVE-2020-11022', 'CVE-2019-11358', 'CVE-2015-9251', "
+              "'CVE-2015-4000', 'CVE-2015-0204']")
 
 # --- which CVE matches hold up --------------------------------------------------------------------
 # The scanner matches CVEs to a service from version numbers, and verified the match on only ~1.5% of
@@ -33,8 +37,10 @@ DISTRO_RE = (r"(?i)(ubuntu|debian|centos|red ?hat|rhel|\.el[5-9]|\bel[5-9]\b|amz
 DISTRO_VERSIONS = {
     "Apache httpd": ["2.2.15", "2.2.22", "2.4.6", "2.4.7", "2.4.10", "2.4.18", "2.4.25", "2.4.29", "2.4.37", "2.4.38",
                      "2.4.41", "2.4.52", "2.4.57", "2.4.58", "2.4.62", "2.4.65"],
-    "nginx": ["1.4.6", "1.10.3", "1.14.0", "1.14.1", "1.14.2", "1.18.0", "1.20.1", "1.22.1", "1.24.0", "1.26.3"],
+    "nginx": ["1.1.19", "1.4.6", "1.10.3", "1.14.0", "1.14.1", "1.14.2", "1.18.0", "1.20.1", "1.22.1", "1.24.0", "1.26.3"],
     "OpenSSH": ["5.3", "6.6.1", "7.4", "8.0", "8.7"],  # RHEL's: no "p1"
+    # Debian 9-12 and Ubuntu 18.04-24.04 ship these and patch them in place; Exim's banner names no distro
+    "Exim smtpd": ["4.89", "4.90_1", "4.92", "4.93", "4.94.2", "4.95", "4.96", "4.97"],
 }
 UPSTREAM_BUILD_RE = r"\((Unix|Win32|Win64)\)"
 # A distro build (coalesce: a service with no version reads as "not a distro build", not NULL, which
@@ -61,7 +67,9 @@ VISIBLE_TEXT = ("concat_ws(' ', version, http_server, cast(http_headers['x-power
 
 def version_visible_sql(prod, ver, text="visible"):
     """SQL: the CPE (prod, ver) is a full version that the record itself shows."""
-    return (f"(({ver} like '%.%' and regexp_matches({text}, '(^|[^0-9.])' || regexp_escape({ver}) || '([^0-9]|$)')) "
+    # ntpd's patch level is part of its version: a CPE of 4.2.8 on a "4.2.8p17" banner is not 4.2.8
+    return (f"(({ver} like '%.%' and regexp_matches({text}, '(^|[^0-9.])' || regexp_escape({ver}) || '([^0-9]|$)') "
+            f"and not ({prod} = 'ntp' and regexp_matches({text}, regexp_escape({ver}) || 'p[0-9]'))) "
             f"or ({prod} in ('outlook_web_access', 'exchange_server') and exchange_build is not null))")
 
 # An operating system past end of support, read from the package versions each release ships (a
@@ -107,7 +115,56 @@ CVE_REQUIRES = [
     ("CVE-2021-40438", "version", "2.4."),  # mod_proxy SSRF: Apache 2.4 only
     ("CVE-2024-38475", "version", "2.4."),  # mod_rewrite escaping: Apache 2.4 only
     ("CVE-2019-0211", "version", "2.4."),  # scoreboard privilege escalation: Apache 2.4 only
+    ("CVE-2012-1823", "platform", "php-cgi"),  # PHP-CGI query string: CGI mode only, not mod_php or FPM
 ]
+
+# A known-exploited CVE is CISA's for one vendor's product, so the service must name that product, not
+# just something by the vendor (ASP.NET is not SharePoint, PHP is not PHPMailer). The product the CPE
+# names is matched on its words; these are the ones CISA calls something else, or must not match.
+GENERIC_WORDS = ["server", "and", "the", "of", "for", "web", "ui", "net", "cli", "open", "source", "enterprise", "edition"]
+KEV_PRODUCT_ALIASES = [  # (CPE product, CISA product regex)
+    ("http_server", r"^Apache$"),                       # CVE-2021-40438: CISA names the product "Apache"
+    ("php", r"FastCGI Process Manager"),                # PHP-FPM ships with PHP
+    ("exim", r"Mail Transfer Agent"),
+    ("weblogic_server", r"Fusion Middleware"),          # CVE-2020-2551 is WebLogic's IIOP
+    ("outlook_web_access", r"Exchange"),                # Outlook Web Access is Exchange's web front end
+]
+KEV_PRODUCT_DENY = [("ios", r"^(Cisco )?IOS XE")]       # IOS XE's web UI isn't classic IOS
+# ...and the entries whose product names no product ("Core" for WordPress and Drupal, "Multiple
+# Products"), where the vendor's own product is the one meant
+KEV_ANY_PRODUCT = r"^\s*(Multiple\b.*|Core|Framework|Server|Platform)\s*$"
+
+
+def words(name):
+    return [w for w in re.split(r"[^a-z0-9]+", name.lower()) if w and w not in GENERIC_WORDS]
+
+
+def words_sql(x):
+    return (f"list_filter(regexp_split_to_array(lower({x}), '[^a-z0-9]+'), "
+            f"lambda w: w <> '' and not list_contains({GENERIC_WORDS!r}, w))")
+
+
+# Known-exploited CVEs whose catalogue entry names no versions, checked against the vendor's fixed
+# releases instead: a version at or past the fix on its branch isn't affected; an older branch with no
+# upstream fix is. PHP2Shell (CVE-2026-109618/109619): fixed in 8.5.12, 8.4.27, 8.3.36 and 8.2.35 on
+# 2026-10-21; 8.1 and older have no upstream release (github.com/NCSC-NL/php2shell/wiki).
+_PHP2SHELL = {"8.2": "8.2.35", "8.3": "8.3.36", "8.4": "8.4.27", "8.5": "8.5.12"}
+FIXED_IN = {"CVE-2026-109618": _PHP2SHELL, "CVE-2026-109619": _PHP2SHELL,
+            # nginx range-filter overflow: the scanner's range misses the 1.12.1 backport
+            "CVE-2017-7529": {"1.12": "1.12.1", "1.13": "1.13.3"}}
+
+
+def _ver_sql(v):
+    return f"list_transform(string_split(regexp_extract({v}, '^[0-9]+(\\.[0-9]+)*'), '.'), lambda x: try_cast(x as int))"
+
+
+def fixed_sql(ver, fixes):
+    """True when `ver` is at or past the fix on its branch, or on a branch newer than all of them."""
+    newest = max(fixes, key=lambda b: [int(x) for x in b.split(".")])
+    newer = ".".join(str(int(x) + (i == len(newest.split(".")) - 1)) for i, x in enumerate(newest.split(".")))
+    return ("coalesce((" + " or ".join(f"(starts_with({ver}, '{b}.') and {_ver_sql(ver)} >= {_ver_sql(repr(f))})"
+                              for b, f in sorted(fixes.items()))
+            + f" or {_ver_sql(ver)} >= {_ver_sql(repr(newer))}), false)")
 
 # End-of-life software, decided from the versioned products the service names (its CPEs) against the
 # end of upstream security support, not from the scanner's host-wide `eol-product` tag, which names
@@ -173,9 +230,20 @@ CRITICAL = (f"list_filter(vulns_ok, lambda v: coalesce(v.cvss, 0) >= 9 and coale
 
 
 def cve_evidence(matches):
-    """'PHP 7.2.13 — CVE-2026-109619, CVE-2026-109618', naming the product the CVE was matched to."""
-    return (f"{matches}[1].seen || ' — ' || array_to_string(list_transform({matches}, lambda v: v.cve)[1:3], ', ') "
-            f"|| case when list_bool_or(list_transform({matches}, lambda v: v.verified)) then ' (confirmed by the scanner)' else '' end")
+    """'Apache httpd 2.4.58 — CVE-…, CVE-…; PHP 8.4.26 — CVE-2026-109618 (fixed in 8.4.27)': each CVE
+    under the product it was matched to (at most two products, three CVEs each, in the order the
+    matches are ranked), with the vendor's fix where FIXED_IN has one: after the list when every CVE on
+    it shares that fix, otherwise next to its own CVE."""
+    m = matches
+    first_seen = (f"list_filter(list_transform({m}, lambda v, i: case when list_position("
+                  f"list_transform({m}, lambda w: w.seen), v.seen) = i then v.seen end), lambda s: s is not null)")
+    cves = f"list_filter({m}, lambda v: v.seen = s)[1:3]"
+    fixes = f"list_distinct(list_transform({cves}, lambda v: coalesce(v.fix, '')))"
+    line = (f"case when len({fixes}) = 1 and {fixes}[1] <> '' "
+            f"then array_to_string(list_transform({cves}, lambda v: v.cve), ', ') || ' (' || {fixes}[1] || ')' "
+            f"else array_to_string(list_transform({cves}, lambda v: v.cve || coalesce(' (' || v.fix || ')', '')), ', ') end")
+    return f"array_to_string(list_transform({first_seen}[1:2], lambda s: s || ' — ' || {line}), '; ')"
+
 
 EDGE_RE = (r"(?i)(fortigate|fortinet|fortiweb|fortimail|fortiproxy|sonicwall|netscaler|citrix|pulse secure|"
            r"ivanti|globalprotect|pan-os|palo alto|sophos|watchguard|check ?point|cisco asa|anyconnect|"
@@ -231,7 +299,9 @@ SIGNALS = [
      "module = 'smb' or list_contains(service_keys, 'smb') or (port = 445 and module like 'smb%')",
      "'SMB on port ' || port"),
     ("open_directory", "exposure", 5.0, "Open directory / file share listing",
-     "list_has_any(service_keys, ['open_dir','iscsi','dav']) or list_contains(tags, 'open-dir')",
+     # iSCSI only when the target answers with its targets, not "Not found any reachable targets"
+     "list_has_any(service_keys, ['open_dir','dav']) or list_contains(tags, 'open-dir') "
+     "or (list_contains(service_keys, 'iscsi') and regexp_matches(coalesce(banner, ''), '(?i)TargetName|TargetAddress'))",
      "coalesce(http_title, module) || ' on port ' || port"),
     ("breach_evidence", "breach", 12.0, "Evidence of an existing breach (ransomed database, trojan or cryptominer)",
      f"list_contains(tags, 'compromised') or (list_contains(tags, 'malware') and regexp_matches(coalesce(product, ''), '{BREACH_MALWARE_RE}'))",
@@ -251,7 +321,9 @@ SIGNALS = [
      "and cloud_provider is null",
      "coalesce(product, module) || ' on port ' || port"),
     ("iot_camera", "exposure", 4.0, "IP camera / DVR exposed",
-     f"regexp_matches(coalesce(product,'') || ' ' || coalesce(devicetype,'') || ' ' || coalesce(module,''), '{IOT_RE}')",
+     # named by the device itself, or by the probe (port 37777 = Dahua) only when the reply is that protocol
+     f"(regexp_matches(coalesce(product,'') || ' ' || coalesce(devicetype,''), '{IOT_RE}') "
+     f"or (regexp_matches(coalesce(module,''), '{IOT_RE}') and {PROTO_OK}))",
      "coalesce(product, devicetype, module)"),
     ("kev_cve", "vuln", 8.0, "Runs a version affected by a known-exploited (CISA KEV) CVE",
      f"len({KEV}) > 0", cve_evidence(KEV)),

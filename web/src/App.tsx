@@ -16,6 +16,7 @@ import { peerLine } from './peer'
 import { guideSeen } from './tourSteps'
 import { IcpCard } from './IcpCard'
 import { Icon } from './icons'
+import { collapse } from './evidence'
 import { EMPTY_ICP, SIZES, describeIcp, icpFilters, icpIsEmpty, personaRoles, type Icp, type Persona } from './icp'
 
 const fmt = (n: number) => n.toLocaleString('en-US')
@@ -1029,14 +1030,14 @@ function Detail({ account: a, meta, lists, highlight, personas, onClose }: {
                       <span className="shrink-0 text-xs text-muted"><span className="measured">{items.length}</span> {items.length === 1 ? 'asset' : 'assets'}</span>
                     </div>
                     <ul className="divide-y divide-rule">
-                      {items.slice(0, 6).map((e, i) => (
+                      {collapse(items).slice(0, 6).map(({ e, n }, i) => (
                         <li key={i} className={`grid grid-cols-[minmax(0,10.5rem)_minmax(0,1fr)] gap-3 px-4 py-2 text-sm ${
                           highlight.some((id) => e.e?.includes(id)) ? 'bg-accent-soft' : ''}`}>
                           <span className="measured text-cool">{e.ip}:{e.port}</span>
-                          <span className="measured min-w-0 break-words text-ink-2">{e.e ?? e.p}</span>
+                          <span className="measured min-w-0 break-words text-ink-2">{e.e ?? e.p}{n > 1 && <span className="text-muted"> ({n} hosts)</span>}</span>
                         </li>
                       ))}
-                      {items.length > 6 && <li className="px-4 py-2 text-xs text-muted">and <span className="measured">{items.length - 6}</span> more</li>}
+                      {collapse(items).length > 6 && <li className="px-4 py-2 text-xs text-muted">and <span className="measured">{collapse(items).length - 6}</span> more</li>}
                     </ul>
                   </div>
                 ))}

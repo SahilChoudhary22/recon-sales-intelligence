@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { Account, Meta, Evidence } from './types'
 import { GUIDANCE } from './guidance'
+import { collapse } from './evidence'
 import { LogoMark } from './Logo'
 import { APP_NAME } from './brand'
 
@@ -68,8 +69,8 @@ export function Brief({ a, meta }: { a: Account; meta: Meta }) {
                 <h3 className="text-md font-medium text-ink"><span className="measured mr-2 text-muted">{i + 1}.</span>{meta.signals[sid]?.label}</h3>
                 <p className="mt-1 text-sm text-ink-2">{GUIDANCE[sid]?.means}</p>
                 <ul className="measured mt-2 space-y-0.5 text-sm text-ink-2">
-                  {items.slice(0, 4).map((e, k) => <li key={k}><span className="text-cool">{e.ip}:{e.port}</span> {e.e ?? e.p}</li>)}
-                  {items.length > 4 && <li className="text-muted">and {items.length - 4} more</li>}
+                  {collapse(items).slice(0, 4).map(({ e, n }, k) => <li key={k}><span className="text-cool">{e.ip}:{e.port}</span> {e.e ?? e.p}{n > 1 && <span className="text-muted"> ({n} hosts)</span>}</li>)}
+                  {collapse(items).length > 4 && <li className="text-muted">and {collapse(items).length - 4} more</li>}
                 </ul>
                 <p className="mt-2 text-sm text-ink"><span className="text-muted">Usual fix: </span>{GUIDANCE[sid]?.action}</p>
               </li>

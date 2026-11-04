@@ -166,7 +166,7 @@ def build_accounts(con, build_dir, limit=None):
     rows = con.execute(f"""
         select company_id, display_name, business_org, top_org, country, score::double, tier, play,
                n_ips, n_assets, identity_source, signals, has_kev, has_eol, maturity, products,
-               round(need, 2)::double, round(urgency, 2)::double, round(fit, 2)::double, round(priority, 2)::double,
+               round(need, 2)::double, round(urgency, 2)::double, round(fit, 2)::double, round(priority, 4)::double,
                org_industry, domain, has_new, products_all
         from '{build_dir}/accounts.parquet'
         where has_material order by priority desc {f'limit {int(limit)}' if limit else ''}""").fetchall()
@@ -262,7 +262,7 @@ def main():
     accounts = build_accounts(con, a.build_dir, a.limit)
     pq.write_table(pa.Table.from_pylist(accounts, schema=_schema()), f"{tmp}/accounts.raw.parquet")
     # one boolean column per signal template, computed from the catalogue rules once per build;
-    # sorted by priority, so "the top N for this filter" reads the first row groups only
+    # sorted by tier then priority (the order search shows), so "the top N for this filter" reads the first row groups only
     from api.rules import TEMPLATES, flag, rule_sql
     flags = ", ".join(f"{rule_sql(t)} as {flag(t)}" for t in TEMPLATES)
     prev = "" if a.rebaseline else os.path.join(a.out, "current")
@@ -270,7 +270,7 @@ def main():
     # so neither renamed companies nor saved searches made before it see a flood of "new"
     first = f"'{BASELINE}'" if a.rebaseline else first_ranked_sql(prev, build_id)
     con.execute(f"""copy (select r.*, {first} as first_ranked, {flags} from '{tmp}/accounts.raw.parquet' r
-        {first_ranked_join(prev)} order by priority desc, id)
+        {first_ranked_join(prev)} order by tier, priority desc, id)
         to '{tmp}/accounts.parquet' (format parquet, row_group_size 16384)""")
     os.remove(f"{tmp}/accounts.raw.parquet")
     con.execute(f"""copy (select * from '{tmp}/accounts.parquet' order by id)
@@ -281,6 +281,9 @@ def main():
         select e.company_id, e.signal s, regexp_replace(e.ip, {m}) ip, e.port, e.product p,
                regexp_replace(e.evidence, {m}) e, regexp_replace(e.http_title, {m}) t, regexp_replace(e.cert_cn, {m}) cn
         from '{a.build_dir}/evidence.parquet' e semi join '{tmp}/accounts.parquet' a on e.company_id = a.id
+        -- one row per service and finding: the crawl can observe a service twice (two host names on one
+        -- IP:port), which would show as a repeated line; the latest observation stands for it
+        qualify row_number() over (partition by e.company_id, e.signal, e.ip, e.port, e.evidence order by e.ts desc) = 1
         order by e.company_id) to '{tmp}/evidence.parquet' (format parquet, row_group_size 16384)""")
     write_cube(con, tmp)
     cve = cve_index.build(con, a.build_dir, tmp)
