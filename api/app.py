@@ -16,6 +16,7 @@ list of ids.
 import csv
 import io
 import os
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.responses import JSONResponse, StreamingResponse
@@ -25,7 +26,14 @@ from api.rules import CATALOG
 from api.store import FACETS, Query, get_store
 from api.workspace import STATUSES, LimitError, get_workspace
 
-app = FastAPI(title="Recon API", version="1.0", docs_url="/api/docs", openapi_url="/api/openapi.json",
+@asynccontextmanager
+async def lifespan(_app):
+    get_workspace()  # open the app database and load RECON_USERS now: a bad config stops startup, loudly
+    get_store()
+    yield
+
+
+app = FastAPI(title="Recon API", version="1.0", lifespan=lifespan, docs_url="/api/docs", openapi_url="/api/openapi.json",
               description="Ranked cybersecurity-need accounts from internet scan data (IPs masked to /24), and each "
                           "user's lists and saved searches. Sign in with POST /api/login.")
 

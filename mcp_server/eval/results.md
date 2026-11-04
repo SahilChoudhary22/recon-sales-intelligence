@@ -2,7 +2,24 @@
 
 Does an assistant, given only Recon's tool schemas, turn a salesperson's request into the right
 first tool call? Scored by `score.py` (tool must match an accepted answer, every argument that answer
-names must match; extra arguments allowed). Models saw only `tools.json` and the request text.
+names must match; extra arguments allowed). Models saw only the tool schemas and the request text.
+
+## v3: the full ten-tool server
+
+The current server (`tools_v3.json`, exported from a live `tools/list`) adds lists and saved searches
+(`make_list` writing real lists, `my_lists`, `save_search`, `whats_new`). Ten new requests for those
+tools (`lists.json`) were written with their accepted answers before the run, and the earlier 30 were
+re-run to check that four more tools didn't confuse the calls that already worked.
+
+| First call correct (v3 tools) | Original 18 | Held-out 12 | List and saved-search 10 |
+|---|---|---|---|
+| Claude Sonnet | 18/18 | 12/12 | 10/10 |
+| Claude Haiku | 18/18 | 12/12 | 10/10 |
+
+Runs: `run_v3_sonnet.json`, `run_v3_haiku.json`; requests and answers: `expected_v3.json`. Score one
+with `python -m mcp_server.eval.score mcp_server/eval/run_v3_sonnet.json mcp_server/eval/expected_v3.json`.
+
+## v1 to v2: fixing the descriptions
 
 | First call correct | v1 descriptions (18) | v2, in-sample (same 18) | v2, held-out (12 new) |
 |---|---|---|---|

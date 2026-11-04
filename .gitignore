@@ -23,3 +23,4 @@ data/serve/
 data/legacy-static-export/
 data/bench/
 data/app/
+deploy/.env.recon

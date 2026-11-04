@@ -80,12 +80,13 @@ def new_id(prefix):
 def hash_password(password: str) -> str:
     salt = secrets.token_bytes(16)
     digest = hashlib.scrypt(password.encode(), salt=salt, n=2**14, r=8, p=1)
-    return f"scrypt${salt.hex()}${digest.hex()}"
+    # '.'-separated, not '$': Docker Compose would interpolate '$' in the .env this is kept in
+    return f"scrypt.{salt.hex()}.{digest.hex()}"
 
 
 def check_password(password: str, stored: str) -> bool:
     try:
-        scheme, salt, digest = stored.split("$")
+        scheme, salt, digest = stored.split(".")
     except ValueError:
         return False
     if scheme != "scrypt":
@@ -139,7 +140,7 @@ class Workspace:
         Each user gets a workspace of their own on first sight."""
         for pair in filter(None, (p.strip() for p in (spec or "").split(","))):
             name, _, pw_hash = pair.partition(":")
-            if not name or not pw_hash.startswith("scrypt$"):
+            if not name or not pw_hash.startswith("scrypt."):
                 raise ValueError(f"RECON_USERS entry for {name or '?'} needs a scrypt hash (python -m api.workspace hash)")
             with self._tx() as c:
                 u = c.execute("select id from users where username = ?", (name,)).fetchone()

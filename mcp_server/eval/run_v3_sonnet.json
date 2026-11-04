@@ -1,0 +1,330 @@
+[
+ {
+  "id": 1,
+  "tool": "search_accounts",
+  "arguments": {
+   "template": "edge-kev",
+   "country": "GB",
+   "industry": "Manufacturing",
+   "software": "Fortinet FortiGate"
+  }
+ },
+ {
+  "id": 2,
+  "tool": "cve_exposure",
+  "arguments": {
+   "cve_or_name": "Citrix Bleed"
+  }
+ },
+ {
+  "id": 3,
+  "tool": "list_signal_templates",
+  "arguments": {
+   "product": "email"
+  }
+ },
+ {
+  "id": 4,
+  "tool": "search_accounts",
+  "arguments": {
+   "template": "exchange",
+   "country": "DE"
+  }
+ },
+ {
+  "id": 5,
+  "tool": "search_accounts",
+  "arguments": {
+   "template": "p1",
+   "country": "US",
+   "limit": 10
+  }
+ },
+ {
+  "id": 6,
+  "tool": "get_account",
+  "arguments": {
+   "account_id": "chevron.com"
+  }
+ },
+ {
+  "id": 7,
+  "tool": "search_accounts",
+  "arguments": {
+   "template": "remote",
+   "industry": "Healthcare"
+  }
+ },
+ {
+  "id": 8,
+  "tool": "search_accounts",
+  "arguments": {
+   "template": "legacy",
+   "industry": "Healthcare"
+  }
+ },
+ {
+  "id": 9,
+  "tool": "cve_exposure",
+  "arguments": {
+   "cve_or_name": "CVE-2024-38475",
+   "country": "FR"
+  }
+ },
+ {
+  "id": 10,
+  "tool": "search_accounts",
+  "arguments": {
+   "template": "ot",
+   "sector": "commercial"
+  }
+ },
+ {
+  "id": 11,
+  "tool": "make_list",
+  "arguments": {
+   "account_ids": [
+    "chevron.com",
+    "toyota.com"
+   ]
+  }
+ },
+ {
+  "id": 12,
+  "tool": "export_crm_tasks",
+  "arguments": {
+   "account_ids": [
+    "bbci.co.uk",
+    "chevron.com"
+   ]
+  }
+ },
+ {
+  "id": 13,
+  "tool": "search_accounts",
+  "arguments": {
+   "template": "kev",
+   "industry": "Education"
+  }
+ },
+ {
+  "id": 14,
+  "tool": "search_accounts",
+  "arguments": {
+   "template": "exchange",
+   "industry": "Financial services"
+  }
+ },
+ {
+  "id": 15,
+  "tool": "cve_exposure",
+  "arguments": {
+   "cve_or_name": "Log4Shell"
+  }
+ },
+ {
+  "id": 16,
+  "tool": "search_accounts",
+  "arguments": {
+   "template": "mature",
+   "country": "AU"
+  }
+ },
+ {
+  "id": 17,
+  "tool": "search_accounts",
+  "arguments": {
+   "template": "edge",
+   "strong_identity": true
+  }
+ },
+ {
+  "id": 18,
+  "tool": "search_accounts",
+  "arguments": {
+   "query": "Toyota",
+   "limit": 5
+  }
+ },
+ {
+  "id": 101,
+  "tool": "search_accounts",
+  "arguments": {
+   "template": "remote",
+   "country": "ES",
+   "industry": "Retail & e-commerce"
+  }
+ },
+ {
+  "id": 102,
+  "tool": "list_signal_templates",
+  "arguments": {
+   "product": "vuln"
+  }
+ },
+ {
+  "id": 103,
+  "tool": "get_account",
+  "arguments": {
+   "account_id": "toyota.com"
+  }
+ },
+ {
+  "id": 104,
+  "tool": "cve_exposure",
+  "arguments": {
+   "cve_or_name": "ProxyLogon"
+  }
+ },
+ {
+  "id": 105,
+  "tool": "search_accounts",
+  "arguments": {
+   "template": "edge",
+   "country": "JP"
+  }
+ },
+ {
+  "id": 106,
+  "tool": "make_list",
+  "arguments": {
+   "account_ids": [
+    "bbci.co.uk",
+    "chevron.com",
+    "toyota.com"
+   ]
+  }
+ },
+ {
+  "id": 107,
+  "tool": "search_accounts",
+  "arguments": {
+   "template": "ot",
+   "industry": "Energy & utilities"
+  }
+ },
+ {
+  "id": 108,
+  "tool": "search_accounts",
+  "arguments": {
+   "template": "legacy",
+   "industry": "Manufacturing"
+  }
+ },
+ {
+  "id": 109,
+  "tool": "export_crm_tasks",
+  "arguments": {
+   "account_ids": [
+    "toyota.com"
+   ]
+  }
+ },
+ {
+  "id": 110,
+  "tool": "search_accounts",
+  "arguments": {
+   "template": "p1",
+   "country": "DE",
+   "limit": 5
+  }
+ },
+ {
+  "id": 111,
+  "tool": "search_accounts",
+  "arguments": {
+   "template": "kev",
+   "country": "NL",
+   "sector": "commercial"
+  }
+ },
+ {
+  "id": 112,
+  "tool": "search_accounts",
+  "arguments": {
+   "software": "Citrix NetScaler",
+   "country": "GB"
+  }
+ },
+ {
+  "id": 201,
+  "tool": "make_list",
+  "arguments": {
+   "template": "edge",
+   "country": "GB",
+   "list_name": "UK edge Q4"
+  }
+ },
+ {
+  "id": 202,
+  "tool": "my_lists",
+  "arguments": {}
+ },
+ {
+  "id": 203,
+  "tool": "make_list",
+  "arguments": {
+   "account_ids": [
+    "chevron.com",
+    "toyota.com"
+   ],
+   "list_name": "Energy targets"
+  }
+ },
+ {
+  "id": 204,
+  "tool": "save_search",
+  "arguments": {
+   "name": "German on-prem Exchange",
+   "template": "exchange",
+   "country": "DE"
+  }
+ },
+ {
+  "id": 205,
+  "tool": "whats_new",
+  "arguments": {
+   "saved_search": "UK edge Q4"
+  }
+ },
+ {
+  "id": 206,
+  "tool": "my_lists",
+  "arguments": {}
+ },
+ {
+  "id": 207,
+  "tool": "whats_new",
+  "arguments": {
+   "saved_search": "GB firewalls",
+   "mark_reviewed": true
+  }
+ },
+ {
+  "id": 208,
+  "tool": "make_list",
+  "arguments": {
+   "template": "remote",
+   "country": "US",
+   "industry": "Healthcare"
+  }
+ },
+ {
+  "id": 209,
+  "tool": "save_search",
+  "arguments": {
+   "name": "Dutch known-exploited CVEs",
+   "template": "kev",
+   "country": "NL"
+  }
+ },
+ {
+  "id": 210,
+  "tool": "make_list",
+  "arguments": {
+   "account_ids": [
+    "bbc.com"
+   ]
+  }
+ }
+]

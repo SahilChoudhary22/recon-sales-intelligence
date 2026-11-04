@@ -1,0 +1,344 @@
+[
+ {
+  "name": "dataset_overview",
+  "description": "Where Recon's accounts come from: the scan, how many records survived each step (noise removal,\n    company identification, real risk), and the CISA KEV catalogue version used. Use it to explain or\n    cite the data behind any answer.",
+  "inputSchema": {
+   "properties": {},
+   "type": "object",
+   "title": "dataset_overviewArguments"
+  }
+ },
+ {
+  "name": "list_signal_templates",
+  "description": "List Recon's signal templates: ready-to-run searches, each built around one buying trigger.\n\n    product: optional product line the seller sells, one of firewall, email, endpoint, vuln, asm,\n    mdr, ot. Templates built for that product are marked for_you. Use the template id with\n    search_accounts.\n    ",
+  "inputSchema": {
+   "properties": {
+    "product": {
+     "default": "",
+     "title": "Product",
+     "type": "string"
+    }
+   },
+   "type": "object",
+   "title": "list_signal_templatesArguments"
+  }
+ },
+ {
+  "name": "search_accounts",
+  "description": "Find and rank companies that need security help now, from internet scan evidence.\n\ntemplate: the buying trigger to search for. Use one of these ids (or \"market\" for every account):\n  new: Newly exposed. A risky service that was not in the previous scan: the clearest reason to call this week.\n  p1: Top priority (P1). The 500 highest-priority accounts across every signal: this week\u2019s call list.\n  edge-kev: Firewall/VPN with exploited CVEs. An exposed firewall or VPN admin plane plus CISA known-exploited CVEs in the same estate: the classic ransomware entry path.\n  edge: Exposed firewall/VPN admin. FortiGate, NetScaler, SonicWall, Pulse or BIG-IP with its management interface reachable from the internet.\n  exchange: On-prem Exchange. Self-hosted Exchange or Outlook Web App on the internet: a ProxyShell-class attack surface.\n  remote: Open RDP, databases & shares. Remote access, databases or Windows file sharing reachable from the internet.\n  legacy: Legacy Windows estates. End-of-life Windows Server, or NTLM banners leaking the internal Active Directory domain.\n  kev: Known-exploited CVEs. Software with CVEs on CISA\u2019s Known Exploited Vulnerabilities list (Rapid Reset and jQuery noise excluded).\n  ot: OT & IoT exposure. Industrial, medical or point-of-sale protocols and cameras on the internet.\n  mature: Already investing. Has a WAF, security.txt or post-quantum TLS but still has gaps.\nquery: part of a company or organisation name. country: ISO-2 code (US, GB, DE, JP...).\nindustry: e.g. \"Financial services\", \"Healthcare\", \"Manufacturing\", \"Education\", \"Retail & e-commerce\",\n\"Energy & utilities\" (partial text matches). sector: commercial, public (public sector and education) or infra\n(telecom and hosting). software: a product family seen on their services, e.g. \"Fortinet FortiGate\",\n\"Microsoft Exchange\", \"Citrix NetScaler\", \"Microsoft SQL Server\". strong_identity: only accounts whose name comes\nfrom their own TLS certificate or domain. tier: P1 (top 500 this week), P2 or P3. Ranked by priority, highest first.",
+  "inputSchema": {
+   "properties": {
+    "template": {
+     "default": "market",
+     "enum": [
+      "market",
+      "new",
+      "p1",
+      "edge-kev",
+      "edge",
+      "exchange",
+      "remote",
+      "legacy",
+      "kev",
+      "ot",
+      "mature"
+     ],
+     "title": "Template",
+     "type": "string"
+    },
+    "query": {
+     "default": "",
+     "title": "Query",
+     "type": "string"
+    },
+    "country": {
+     "default": "",
+     "title": "Country",
+     "type": "string"
+    },
+    "industry": {
+     "default": "",
+     "title": "Industry",
+     "type": "string"
+    },
+    "sector": {
+     "default": "",
+     "title": "Sector",
+     "type": "string"
+    },
+    "software": {
+     "default": "",
+     "title": "Software",
+     "type": "string"
+    },
+    "strong_identity": {
+     "default": false,
+     "title": "Strong Identity",
+     "type": "boolean"
+    },
+    "tier": {
+     "default": "",
+     "title": "Tier",
+     "type": "string"
+    },
+    "limit": {
+     "default": 20,
+     "title": "Limit",
+     "type": "integer"
+    }
+   },
+   "type": "object",
+   "title": "search_accountsArguments"
+  }
+ },
+ {
+  "name": "get_account",
+  "description": "Everything Recon knows about one account: score breakdown, why now, and the evidence by signal (IP addresses masked to /24). An account id is the company's own domain exactly as Recon shows it (e.g. chevron.com, toyota.com); pass it directly, no search needed. Accounts named only by the owner of their IP block use org:<name>.",
+  "inputSchema": {
+   "properties": {
+    "account_id": {
+     "title": "Account Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "account_id"
+   ],
+   "type": "object",
+   "title": "get_accountArguments"
+  }
+ },
+ {
+  "name": "cve_exposure",
+  "description": "Which companies run software affected by a vulnerability in the news.\n\n    cve_or_name: a CVE id (CVE-2023-4966) or a well-known name (Citrix Bleed, ProxyShell, Log4Shell).\n    Returns the CVE's facts (CVSS, EPSS, CISA KEV status and ransomware use) and the affected accounts\n    ranked by priority. A CVE not matched in the scan falls back to companies running the affected product.\n    ",
+  "inputSchema": {
+   "properties": {
+    "cve_or_name": {
+     "title": "Cve Or Name",
+     "type": "string"
+    },
+    "country": {
+     "default": "",
+     "title": "Country",
+     "type": "string"
+    },
+    "sector": {
+     "default": "",
+     "title": "Sector",
+     "type": "string"
+    },
+    "limit": {
+     "default": 20,
+     "title": "Limit",
+     "type": "integer"
+    }
+   },
+   "required": [
+    "cve_or_name"
+   ],
+   "type": "object",
+   "title": "cve_exposureArguments"
+  }
+ },
+ {
+  "name": "make_list",
+  "description": "Save accounts to one of the seller's lists in Recon (the same lists they see in the app), creating the list if it doesn't exist. Pass account ids, or a search (template and filters, as for search_accounts) to add its top results. Returns the list and a link to it. An account id is the company's own domain exactly as Recon shows it (e.g. chevron.com, toyota.com); pass it directly, no search needed. Accounts named only by the owner of their IP block use org:<name>.",
+  "inputSchema": {
+   "properties": {
+    "account_ids": {
+     "anyOf": [
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Account Ids"
+    },
+    "list_name": {
+     "default": "My list",
+     "title": "List Name",
+     "type": "string"
+    },
+    "template": {
+     "anyOf": [
+      {
+       "enum": [
+        "market",
+        "new",
+        "p1",
+        "edge-kev",
+        "edge",
+        "exchange",
+        "remote",
+        "legacy",
+        "kev",
+        "ot",
+        "mature"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Template"
+    },
+    "country": {
+     "default": "",
+     "title": "Country",
+     "type": "string"
+    },
+    "industry": {
+     "default": "",
+     "title": "Industry",
+     "type": "string"
+    },
+    "sector": {
+     "default": "",
+     "title": "Sector",
+     "type": "string"
+    },
+    "software": {
+     "default": "",
+     "title": "Software",
+     "type": "string"
+    },
+    "strong_identity": {
+     "default": false,
+     "title": "Strong Identity",
+     "type": "boolean"
+    },
+    "limit": {
+     "default": 500,
+     "title": "Limit",
+     "type": "integer"
+    }
+   },
+   "type": "object",
+   "title": "make_listArguments"
+  }
+ },
+ {
+  "name": "my_lists",
+  "description": "The seller's lists (with how many accounts each holds) and saved searches (with how many accounts\n    are new since each was last reviewed and in none of their lists).",
+  "inputSchema": {
+   "properties": {},
+   "type": "object",
+   "title": "my_listsArguments"
+  }
+ },
+ {
+  "name": "save_search",
+  "description": "Save a search (a template and filters, as for search_accounts) so the seller can re-run it; its next run reports the accounts that are new since today and in none of their lists.",
+  "inputSchema": {
+   "properties": {
+    "name": {
+     "title": "Name",
+     "type": "string"
+    },
+    "template": {
+     "default": "market",
+     "enum": [
+      "market",
+      "new",
+      "p1",
+      "edge-kev",
+      "edge",
+      "exchange",
+      "remote",
+      "legacy",
+      "kev",
+      "ot",
+      "mature"
+     ],
+     "title": "Template",
+     "type": "string"
+    },
+    "country": {
+     "default": "",
+     "title": "Country",
+     "type": "string"
+    },
+    "industry": {
+     "default": "",
+     "title": "Industry",
+     "type": "string"
+    },
+    "sector": {
+     "default": "",
+     "title": "Sector",
+     "type": "string"
+    },
+    "software": {
+     "default": "",
+     "title": "Software",
+     "type": "string"
+    },
+    "strong_identity": {
+     "default": false,
+     "title": "Strong Identity",
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "name"
+   ],
+   "type": "object",
+   "title": "save_searchArguments"
+  }
+ },
+ {
+  "name": "whats_new",
+  "description": "What a saved search finds that is new since it was last reviewed and not in any of the seller's lists, ranked. With mark_reviewed, the search's last review moves to now.",
+  "inputSchema": {
+   "properties": {
+    "saved_search": {
+     "title": "Saved Search",
+     "type": "string"
+    },
+    "limit": {
+     "default": 20,
+     "title": "Limit",
+     "type": "integer"
+    },
+    "mark_reviewed": {
+     "default": false,
+     "title": "Mark Reviewed",
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "saved_search"
+   ],
+   "type": "object",
+   "title": "whats_newArguments"
+  }
+ },
+ {
+  "name": "export_crm_tasks",
+  "description": "CRM-ready call tasks for accounts, one per row (company, subject, note, priority, link), as CSV to import into HubSpot or Salesforce. Subjects and notes are filled from the evidence. An account id is the company's own domain exactly as Recon shows it (e.g. chevron.com, toyota.com); pass it directly, no search needed. Accounts named only by the owner of their IP block use org:<name>.",
+  "inputSchema": {
+   "properties": {
+    "account_ids": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Account Ids",
+     "type": "array"
+    }
+   },
+   "required": [
+    "account_ids"
+   ],
+   "type": "object",
+   "title": "export_crm_tasksArguments"
+  }
+ }
+]

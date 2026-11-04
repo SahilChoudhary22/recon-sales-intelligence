@@ -204,3 +204,15 @@
     animation-duration: 0ms !important;
   }
 }
+
+/* sign-in backdrop: an optional image (public/login-bg.webp) under a tint of the page colour, over a
+   faint grid of scan points that also stands in when there is no image */
+.login-backdrop {
+  background-color: var(--color-paper);
+  background-image:
+    linear-gradient(color-mix(in oklch, var(--color-paper) 55%, transparent), color-mix(in oklch, var(--color-paper) 80%, transparent)),
+    url('/login-bg.webp'),
+    radial-gradient(color-mix(in oklch, var(--color-accent) 28%, transparent) 1px, transparent 1.4px);
+  background-size: cover, cover, 22px 22px;
+  background-position: center, center, 0 0;
+}

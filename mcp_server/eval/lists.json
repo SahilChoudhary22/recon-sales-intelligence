@@ -1,0 +1,23 @@
+[
+ {"id": 201, "request": "Put the top UK accounts with an exposed firewall or VPN admin interface into a list called UK edge Q4.",
+  "expect": [{"tool": "make_list", "args": {"list_name": "UK edge", "template": "edge", "country": "GB"}},
+             {"tool": "make_list", "args": {"list_name": "UK edge", "template": "edge-kev", "country": "GB"}}]},
+ {"id": 202, "request": "What lists do I have?",
+  "expect": [{"tool": "my_lists", "args": {}}]},
+ {"id": 203, "request": "Add chevron.com and toyota.com to my Energy targets list.",
+  "expect": [{"tool": "make_list", "args": {"account_ids": ["chevron.com", "toyota.com"], "list_name": "Energy targets"}}]},
+ {"id": 204, "request": "Save a search for German companies still on on-prem Exchange so I can check it every week.",
+  "expect": [{"tool": "save_search", "args": {"template": "exchange", "country": "DE"}}]},
+ {"id": 205, "request": "Anything new in my UK edge Q4 saved search?",
+  "expect": [{"tool": "whats_new", "args": {"saved_search": "UK edge Q4"}}]},
+ {"id": 206, "request": "Which of my saved searches have new accounts in them?",
+  "expect": [{"tool": "my_lists", "args": {}}]},
+ {"id": 207, "request": "Show me what's new in GB firewalls and mark it as reviewed.",
+  "expect": [{"tool": "whats_new", "args": {"saved_search": "GB firewalls", "mark_reviewed": true}}]},
+ {"id": 208, "request": "Make a list of US healthcare companies with remote desktop or databases open to the internet.",
+  "expect": [{"tool": "make_list", "args": {"template": "remote", "country": "US", "industry": "Healthcare"}}]},
+ {"id": 209, "request": "Keep an eye on Dutch companies running software with known-exploited CVEs for me.",
+  "expect": [{"tool": "save_search", "args": {"template": "kev", "country": "NL"}}]},
+ {"id": 210, "request": "Add bbc.com to my list.",
+  "expect": [{"tool": "make_list", "args": {"account_ids": ["bbc.com"]}}]}
+]

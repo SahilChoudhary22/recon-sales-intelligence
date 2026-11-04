@@ -190,12 +190,13 @@ are single-IP personal sites. The LLM agreed with the blind reviewer on carrier 
 
 The MCP server was tested the same way: given only the tool schemas, does an assistant make the right
 first call for a salesperson's request? The first run exposed two description problems; the revised
-tools were then tested on 12 requests written before the re-run.
+tools were then tested on 12 requests written before the re-run. The full ten-tool server, with lists
+and saved searches, was tested on all 30 plus 10 new list requests.
 
-| First call correct | First descriptions | Revised, same 18 | Revised, 12 new |
-| --- | --- | --- | --- |
-| Claude Sonnet | 10/18 | 17/18 | 12/12 |
-| Claude Haiku | 8/18 | 18/18 | 12/12 |
+| First call correct | First descriptions | Revised, same 18 | Revised, 12 new | All ten tools, 40 requests |
+| --- | --- | --- | --- | --- |
+| Claude Sonnet | 10/18 | 17/18 | 12/12 | 40/40 |
+| Claude Haiku | 8/18 | 18/18 | 12/12 | 40/40 |
 
 CVE search returns exactly the companies a direct query over the build finds (four CVEs, one of them on
 24,291 companies), and peer ranks were recomputed independently.

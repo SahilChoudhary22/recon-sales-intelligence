@@ -12,7 +12,12 @@ BUILD=$(readlink "$STORE")
 grep -q '"ips_masked": true' "$STORE/meta.json" || { echo "serving store is not IP-masked; refusing"; exit 1; }
 (cd web && npm run build)
 ssh "$HOST" "mkdir -p $DIR/site $DIR/serve $DIR/api $DIR/web/src $DIR/app-data"
-ssh "$HOST" "grep -q '^RECON_USERS=' $DIR/.env" || { echo "add RECON_USERS to $DIR/.env (uv run python -m api.workspace hash)"; exit 1; }
+# the sign-in user: a name and a password hash (uv run python -m api.workspace hash), kept only in the host's
+# .env; deploy/.env.recon (gitignored) holds the line to add on the first deploy
+if ! ssh "$HOST" "grep -q '^RECON_USERS=' $DIR/.env"; then
+  [ -f deploy/.env.recon ] || { echo "add RECON_USERS to $DIR/.env (uv run python -m api.workspace hash)"; exit 1; }
+  ssh "$HOST" "cat >> $DIR/.env" < deploy/.env.recon
+fi
 rsync -az --delete web/dist/ "$HOST:$DIR/site/"
 rsync -az --delete api/ "$HOST:$DIR/api/" --exclude __pycache__ --exclude bench.py
 rsync -az web/src/catalog.json "$HOST:$DIR/web/src/"

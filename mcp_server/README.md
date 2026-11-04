@@ -28,7 +28,8 @@ The repo ships a `.mcp.json` for MCP clients that read project config. `RECON_SE
 serving store (default `data/serve/current`), `RECON_DB` at the app database, `RECON_USER` names whose
 lists and saved searches the tools work on, and `RECON_APP_URL` is the app the links open.
 
-**Evaluation** (`mcp_server/eval/`): 18 sales requests with accepted answers. A model sees only the
+**Evaluation** (`mcp_server/eval/`): 40 sales requests with accepted answers. A model sees only the
 tool schemas (`tools.json`) and the requests (`prompts.json`), writes the first call it would make, and
-`score.py` checks it. The evaluated tool set is the one in `tools.json`; `my_lists`, `save_search` and
-`whats_new` aren't in it yet. Protocol tests cover all ten tools: `tests/test_mcp_server.py`.
+`score.py` checks it. On the current ten tools (`tools_v3.json`) both Claude Sonnet and Haiku make the
+right first call on all 40 requests, including 10 for lists and saved searches (`results.md`).
+Protocol tests cover all ten tools: `tests/test_mcp_server.py`.
