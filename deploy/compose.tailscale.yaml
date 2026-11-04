@@ -3,7 +3,7 @@
 # Needs TS_AUTHKEY in .env (a Tailscale auth key) and Funnel allowed for the node by the tailnet policy.
 services:
   tailscale:
-    image: tailscale/tailscale:v1.102.2
+    image: tailscale/tailscale:v1.102.4
     restart: unless-stopped
     environment:
       TS_AUTHKEY: ${TS_AUTHKEY}
