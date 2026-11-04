@@ -48,16 +48,51 @@ const withCounts = (opts: [string, string][], counts: [string, number][] | undef
 }
 
 // every route needs a session; a 401 anywhere swaps the app for the sign-in screen
+// One question first, "am I signed in?", answered before anything else is drawn: no flash of the app
+// before the sign-in page on a slow link, and a plain message when the server can't be reached.
+type Session = 'checking' | 'in' | 'out' | 'unreachable'
+
 export default function App() {
-  const [signIn, setSignIn] = useState(false)
-  // a layout effect runs before any child's data effects, so the first 401 is never missed
+  const [session, setSession] = useState<Session>('checking')
+  useEffect(() => {
+    const ctl = new AbortController()
+    const giveUp = setTimeout(() => ctl.abort(), 45_000)
+    fetch('./api/me', { signal: ctl.signal })
+      .then((r) => setSession(r.ok ? 'in' : r.status === 401 ? 'out' : 'unreachable'))
+      .catch(() => setSession('unreachable'))
+      .finally(() => clearTimeout(giveUp))
+    return () => { clearTimeout(giveUp); ctl.abort() }
+  }, [])
+  // a session that expires later still lands on sign-in; a layout effect runs before any child's data
+  // effects, so the first 401 is never missed
   useLayoutEffect(() => {
-    const show = () => setSignIn(true)
+    const show = () => setSession('out')
     window.addEventListener(SIGN_IN, show)
     if (needsSignIn()) show()
     return () => window.removeEventListener(SIGN_IN, show)
   }, [])
-  return signIn ? <Login onDone={() => window.location.reload()} /> : <Recon />
+  if (session === 'out') return <Login onDone={() => window.location.reload()} />
+  if (session === 'in') return <Recon />
+  return <Splash unreachable={session === 'unreachable'} />
+}
+
+function Splash({ unreachable }: { unreachable: boolean }) {
+  return (
+    <main className="login-backdrop flex min-h-screen items-center justify-center px-4" aria-busy={!unreachable}>
+      <div className="max-w-sm text-center">
+        <LogoMark className={`mx-auto size-10 text-ink ${unreachable ? '' : 'animate-pulse'}`} />
+        {unreachable ? (
+          <>
+            <p className="mt-4 text-lg text-ink">Recon can’t be reached right now.</p>
+            <p className="mt-1 text-sm text-muted">The server didn’t answer. Check the connection and try again.</p>
+            <button type="button" className="btn btn-primary mt-5" onClick={() => window.location.reload()}>Try again</button>
+          </>
+        ) : (
+          <p className="mt-4 text-sm text-muted" role="status">Connecting to {APP_NAME}…</p>
+        )}
+      </div>
+    </main>
+  )
 }
 
 function Recon() {
