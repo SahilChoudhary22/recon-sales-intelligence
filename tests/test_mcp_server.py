@@ -1,6 +1,6 @@
 """The MCP server over the real protocol: start it on stdio, speak JSON-RPC, call tools.
 
-Needs the exported web data (web/public/data); skipped where it hasn't been generated."""
+Needs the serving store (data/serve/current); skipped where the export hasn't been run."""
 import json
 import os
 import subprocess
@@ -8,7 +8,7 @@ import sys
 
 import pytest
 
-pytestmark = pytest.mark.skipif(not os.path.exists("web/public/data/accounts.json"), reason="export not run")
+pytestmark = pytest.mark.skipif(not os.path.exists("data/serve/current/meta.json"), reason="export not run")
 
 
 class Client:
@@ -60,7 +60,7 @@ def test_lists_the_tools(client):
 
 def test_search_matches_the_app_filters(client):
     r = client.call("search_accounts", template="exchange", sector="commercial", limit=5)
-    assert r["total"] == 99 and r["view_in_app"].endswith("play=exchange&sector=commercial")
+    assert r["total"] == 727 and r["view_in_app"].endswith("play=exchange&sector=commercial")
     assert all(a["sector"] == "Commercial" for a in r["accounts"])
 
 

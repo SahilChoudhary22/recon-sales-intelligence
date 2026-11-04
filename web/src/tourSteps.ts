@@ -15,7 +15,7 @@ export const STEPS: Step[] = [
   {
     target: 'filters',
     title: 'Narrow it to your ICP',
-    body: 'Filter by sector, country, industry or the software they run, then save the combination as a segment to rerun it next week.',
+    body: 'Pick several values in any filter (GB or IE, small or mid-size estates); the badges show what each choice gives. Save the search, and Recon tells you what is new each time it runs.',
   },
   {
     target: 'table',
@@ -25,7 +25,7 @@ export const STEPS: Step[] = [
   {
     target: 'mylist',
     title: 'Your work',
-    body: 'Lists and segments live here. Track each saved account from to contact to meeting booked, and export it for your CRM.',
+    body: 'Your lists and saved searches live here. An account can be in several lists, and every table shows which ones. Saved searches count what is new since you last ran them and not in a list yet.',
   },
 ]
 

@@ -21,6 +21,7 @@
   <a href="#results">Results</a> ·
   <a href="docs/architecture.md">Architecture</a> ·
   <a href="docs/technical-notes.md">Technical notes</a> ·
+  <a href="#built-for-growth">Built for growth</a> ·
   <a href="#mcp-server">MCP server</a>
 </p>
 
@@ -29,7 +30,8 @@
   <br /><sub>A signal template for a firewall seller: exposed VPN admin planes plus known-exploited CVEs, with the top real account as a worked example.</sub>
 </p>
 
-Recon reads one day of Shodan-style banners (13.4 million records, one per IP and port), works out
+Recon reads a Shodan-style scan file (13.4 million banners, one per IP and port, about five hours of
+crawl), works out
 which company runs each internet-facing service, and ranks companies by how urgently they need
 security help. Every score traces back to a service a salesperson can point to, and nothing a seller
 sends is generated: the outreach is the evidence.
@@ -45,18 +47,21 @@ sends is generated: the outreach is the evidence.
 - **Market signals and signal templates.** The whole ranked market, or a ready-to-run search built
   around one buying trigger (exposed firewalls with exploited CVEs, on-prem Exchange, legacy Windows,
   OT exposure). **What you sell** puts the templates for your product first.
-- **Your ideal customer profile.** Asked once on a first visit: what you sell, where, to whom and
-  who you call, with a live count of matching accounts. It narrows every view and count, the CVE
-  search included, sets the roles in the contact searches, and can be edited or switched off.
-- **ICP filters and segments.** Sector, country, industry and the software they run, saved as
-  segments to rerun each week.
+- **Your ideal customer profile.** One sentence, offered in the page on a first visit and never in
+  the way: what you sell, where, to whom, estate size and who you call, each choice with a count. It
+  narrows every view and count, the CVE search included, sets the roles in the contact searches, and
+  can be edited or switched off.
+- **Multi-select filters and saved searches.** Every filter takes several values (GB or IE, small or
+  mid-size estates), each option showing how many accounts it gives. A saved search remembers the data
+  build it last ran on, so it shows what is new since then and not in any of your lists yet.
 - **CVE in the news.** Search a CVE id or a name such as "Citrix Bleed" and see which accounts run
   the affected software, with today's CISA KEV status and ransomware use.
 - **Peer benchmark.** "Ranks #1 of 112 manufacturing organisations in the US by external exposure",
   over every scored company, with the peer group always named.
 - **Exposure brief.** A printable page of what anyone on the internet can see about an account, what
   each finding means and the usual fix: the asset a seller sends.
-- **Lists and CRM export.** Track accounts from to contact to meeting booked, and export call tasks.
+- **Lists and CRM export.** Several named lists; every table shows which lists an account is in and
+  its status (to contact to meeting booked). Export a list or any search as CSV.
 - **MCP server.** Prospect from Claude or any MCP client; lists come back as a link into the app.
 
 <p align="center">
@@ -72,13 +77,13 @@ sends is generated: the outreach is the evidence.
 uv sync
 uv run python -m ingest.extract <scan-file> data/parquet/scan-2026-11-01   # ~15 min, flat memory
 uv run python -m pipeline.build "data/parquet/scan-*/*.parquet" data/build/full
-uv run python -m pipeline.export data/build/full
-uv run python -m pipeline.cve_index data/build/full
+uv run python -m pipeline.export data/build/full                            # serving store, ~20 s
+uv run uvicorn api.app:app --port 8787                                      # read API, docs at /api/docs
 cd web && npm install && npm run dev                                        # http://localhost:5173
 ```
 
 Tests: `uv run pytest`. The MCP server: `uv run python -m mcp_server.server` (registered for Claude
-Code through `.mcp.json`).
+Code through `.mcp.json`). Benchmark: `uv run python -m api.bench`.
 
 ## How it works
 
@@ -108,10 +113,11 @@ flowchart LR
   labels[(LLM label cache)] --> identity
   identity --> signals[20 risk signals]
   signals --> score[Score: need x urgency x fit]
-  score --> out[(Accounts, CVE index,<br/>peer ranks)]
+  score --> out[(Serving store<br/>versioned Parquet,<br/>count cube)]
   kev[(CISA KEV)] --> out
-  out --> app[Web app]
-  out --> mcp[MCP server]
+  out --> api[Read API<br/>DuckDB]
+  api --> app[Web app]
+  api --> mcp[MCP server]
 ```
 
 1. **Stream once.** Each file is read once with flat memory into about 40 fields of Parquet: 118 GB
@@ -125,11 +131,11 @@ flowchart LR
 4. **Score.** `need × urgency × fit`: weighted signals with diminishing returns, raised by known-
    exploited CVEs, end-of-life software and newly exposed services, adjusted for how sure the identity
    is. Tiers follow sales capacity: P1 is the top 500.
-5. **Publish.** Accounts, the CVE index and peer ranks, with every IP masked to /24, for the app and
-   the MCP server.
+5. **Publish.** A versioned serving store (accounts, evidence, CVE hits, peer ranks and a count cube),
+   every IP masked to /24, swapped in atomically. A read API answers the app and the MCP server from it.
 
-Across several scans the latest observation of each service wins, and a risky service that wasn't in
-the previous scan is flagged as new. The full flow for a continuous stream, including what is built
+Across files the latest observation of each service wins and only the last 30 days count. A service
+first seen in the last week, on an IP the crawl already knew, is flagged as new. The full flow for a continuous stream, including what is built
 and what is designed, is in [docs/architecture.md](docs/architecture.md).
 
 ## Results
@@ -145,7 +151,9 @@ influenced any tuning.
 | + LLM labels for organisation type | 53% (32/60) |
 | + IP-owner identities need an education or government label | 62% (37/60) |
 
-With 60 accounts the margin is about ±12 points, so the gain is real and the middle step indicative.
+With 60 accounts the margin is about ±12 points, so the gain is real and the middle step indicative. After
+the build was made deterministic (ties between a certificate's domains are now broken by name), one
+holdout account changed identity and left the top tiers; the holdout reads 61% (36/59).
 Each sample pointed at the next fix: the first showed that IP-owner identities were 15% sellable, the
 second that labels alone didn't fix them except for universities and governments. The remaining errors
 are single-IP personal sites. The LLM agreed with the blind reviewer on carrier versus business 83 to
@@ -177,12 +185,44 @@ CVE search returns exactly the companies a direct query over the build finds (fo
 - **Evidence instead of generated outreach.** The opening line and the brief are filled from findings,
   so neither can claim a vulnerability the scan didn't see.
 - **IPs masked to /24 in everything published.** A public list of vulnerable hosts is a target list.
-- **A static app.** Scoring happens offline; the app filters and displays.
+- **A read API over versioned Parquet, not a database of record.** The build writes the store, the API
+  only reads it, and the app holds one page at a time. Counts the app asks for constantly come from a
+  pre-aggregated cube, so they cost the same at any number of accounts.
+- **"New since last run" from the data, not from per-user snapshots.** Each account records the build it
+  was first ranked in, so a saved search finds what is new with one filter.
+
+## Built for growth
+
+The data grows with every file, so nothing the app or an assistant reads is sized by the market:
+
+- **A read API** ([`api/`](api/)) answers every list, count and badge with DuckDB over a versioned,
+  IP-masked Parquet store. The browser holds one page; all 83,810 risky companies are served (the
+  first version shipped the top 15,000 as one JSON file and filtered in the browser).
+- **A count cube** answers the template counts and the profile badges. It grows with the number of
+  country × sector × industry × size combinations, not with accounts.
+- **New builds land atomically.** The export writes a new folder, checks it (no full IPs, unique ids,
+  no orphan evidence) and moves a pointer; the API picks it up without a restart.
+
+Measured over the real store and synthetic stores 10× and 100× its size (median ms, one laptop,
+`uv run python -m api.bench`):
+
+| Query | 83,744 accounts | 837,440 | 8,374,400 |
+| --- | --- | --- | --- |
+| Template counts and profile badges (cube) | 0.8 / 3.2 | 0.8 / 3.3 | 0.8 / 3.3 |
+| Ranked page, template + profile | 7.4 | 23 | 91 |
+| Toolbar badges | 4.0 | 12 | 91 |
+| Name search | 9.8 | 29 | 158 |
+| Account, evidence | 3.0, 1.8 | 5.3, 2.6 | 37, 20 |
+
+The served table grows with companies, not banners, so the read side meets millions long before
+billions; the billions of raw records stay in the batch layer (Parquet and SQL that move to a warehouse
+unchanged). A separate review of the design at 10× to 1,000× the files found 13 further issues; what was fixed
+and what is designed is in [docs/architecture.md](docs/architecture.md#6-scale-review-what-holds-what-changed-what-is-designed).
 
 ## MCP server
 
-Seven deterministic tools over the published, IP-masked data. The assistant handles the language;
-nothing runs a model or costs per call on Recon's side.
+Seven deterministic tools over the same query layer as the API (IP-masked). The assistant handles the
+language; nothing runs a model or costs per call on Recon's side.
 
 | Tool | Returns |
 | --- | --- |
@@ -209,7 +249,10 @@ nothing runs a model or costs per call on Recon's side.
   data for the estates on ISP lines, certificate transparency for subsidiaries, SPF and DMARC for
   email security sellers.
 - **Single-IP precision:** the largest remaining error, measured on a fresh blind sample.
-- **CRM sync** for lists and segments, in place of browser storage.
+- **Accounts and team state:** lists, statuses and saved searches move from browser storage to the app
+  database (Postgres: lists, list items, saved searches, runs), shared with a team and synced to the CRM.
+- **Scheduled saved searches:** a worker re-runs each saved search when a build lands and notifies the
+  owner of new accounts, through the same API.
 
 ## How it was built
 

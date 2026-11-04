@@ -1,18 +1,19 @@
 import { useEffect, useMemo, useState } from 'react'
-import type { Account, Dataset, Evidence } from './types'
+import type { Account, Meta, Evidence } from './types'
 import { GUIDANCE } from './guidance'
 import { LogoMark } from './Logo'
 import { APP_NAME } from './brand'
 
 import { peerLine } from './peer'
+import { api } from './api'
 
 const fmt = (n: number) => n.toLocaleString('en-US')
 
 // The exposure brief: one printable page a seller can send, built only from the scan evidence.
-export function Brief({ a, meta }: { a: Account; meta: Dataset }) {
+export function Brief({ a, meta }: { a: Account; meta: Meta }) {
   const [ev, setEv] = useState<Evidence[] | null>(null)
   useEffect(() => {
-    fetch(`./data/evidence/${String(a.shard).padStart(2, '0')}.json`).then((r) => r.json()).then((d) => setEv(d[a.id] ?? []))
+    api.evidence(a.id).then(setEv).catch(() => setEv([]))
   }, [a])
   const groups = useMemo(() => {
     const g = new Map<string, Evidence[]>()

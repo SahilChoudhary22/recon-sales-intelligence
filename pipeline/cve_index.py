@@ -2,32 +2,27 @@
 
 Built from the notable CVEs per service (build.py writes asset_cves.parquet) and enriched with the
 current CISA KEV catalogue (data/enrichment/cisa_kev.json), so a CVE added to KEV after the scan is
-still recognised and mapped to the product it affects.
+still recognised and mapped to the product it affects. Called by pipeline/export.py; writes into the
+serving store:
 
-  web/public/data/cve/index.json     every known CVE: facts, KEV status today, companies affected,
-                                     plus nicknames ("Citrix Bleed") and product families for fallback
-  web/public/data/cve/<CVE>.json     the affected companies, ranked, loaded only when searched:
-                                     {"in": [[id, services, product, new, examples]],      accounts in the app
-                                      "out": [[name, country, score, services, product]],  the rest, top 300
-                                      "outTotal": n}
-
-usage: python -m pipeline.cve_index <build_dir> [--kev data/enrichment/cisa_kev.json]
+  cve_hits.parquet   one row per (CVE, company): services affected, product, examples (masked),
+                     and whether the company is a served account; sorted by CVE so a lookup reads
+                     one row group
+  cve_index.json     every known CVE: facts, KEV status today, companies affected, plus nicknames
+                     ("Citrix Bleed") and product families for the fallback search
 """
-import argparse
 import json
 import os
-import shutil
 
-import duckdb
+import pyarrow as pa
+import pyarrow.parquet as pq
 
-from pipeline.export import OUT, _FAMILY_RE, mask
+from pipeline.export import _FAMILY_RE, mask
 from pipeline.signals import NOISE_CVES
 
 KEV_PATH = "data/enrichment/cisa_kev.json"
-SCAN_DATE = "2026-11-01"
 NOISE = set(eval(NOISE_CVES))  # the same list the scoring ignores
 EXAMPLES_PER_COMPANY = 3
-OUTSIDE_CAP = 300  # accounts not in the app's top 15,000 are summarised, not shipped in full
 
 # names security sellers actually hear in the news -> CVE ids (kept small and checkable)
 NICKNAMES = {
@@ -50,18 +45,15 @@ def family(text):
     return next((name for name, rx in _FAMILY_RE if rx.search(text or "")), None)
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("build_dir")
-    ap.add_argument("--kev", default=KEV_PATH)
-    a = ap.parse_args()
-    con = duckdb.connect()
-    exported = {r["id"] for r in json.load(open(f"{OUT}/accounts.json"))["accounts"]}
+def build(con, build_dir, out, kev_path=KEV_PATH):
+    funnel = json.load(open(f"{build_dir}/funnel.json"))
+    scan_date = funnel.get("observed_to", "")[:10] or "unknown"
+    served = {r[0] for r in con.execute(f"select id from '{out}/accounts.parquet'").fetchall()}
 
     kev = {}
     kev_meta = {}
-    if os.path.exists(a.kev):
-        doc = json.load(open(a.kev))
+    if os.path.exists(kev_path):
+        doc = json.load(open(kev_path))
         kev_meta = {"version": doc.get("catalogVersion"), "released": doc.get("dateReleased", "")[:10]}
         for v in doc["vulnerabilities"]:
             kev[v["cveID"]] = {
@@ -72,13 +64,13 @@ def main():
     rows = con.execute(f"""
         with x as (
             select c.company_id, c.ip, c.port, c.product, c.is_new, unnest(c.cves) v
-            from '{a.build_dir}/asset_cves.parquet' c)
+            from '{build_dir}/asset_cves.parquet' c)
         select v.cve, any_value(v.cvss), max(v.epss), bool_or(v.kev), x.company_id,
                count(*) n, list(distinct x.ip || ':' || x.port)[1:{EXAMPLES_PER_COMPANY}] svc,
                mode(x.product) product, bool_or(x.is_new) is_new,
                any_value(ac.display_name), any_value(ac.country), any_value(ac.score)::double,
                any_value(ac.tier), any_value(ac.identity_source)
-        from x join '{a.build_dir}/accounts.parquet' ac using (company_id)
+        from x join '{build_dir}/accounts.parquet' ac using (company_id)
         group by v.cve, x.company_id""").fetchall()
 
     by_cve = {}
@@ -91,7 +83,7 @@ def main():
             f["products"][product] = f["products"].get(product, 0) + 1
         by_cve.setdefault(cve, []).append({
             "id": cid, "name": name, "country": cc, "score": score, "tier": tier, "ident": ident,
-            "exported": cid in exported, "n": n, "product": product, "new": bool(new),
+            "served": cid in served, "n": n, "product": product, "new": bool(new),
             "services": [mask(s, True) for s in (svc or [])],
         })
 
@@ -111,25 +103,16 @@ def main():
                           "vendor": k["vendor"], "product": k["product"], "title": k["name"], "noise": cve in NOISE,
                           "family": family(f"{k['vendor']} {k['product']}")}
 
-    out = f"{OUT}/cve"
-    shutil.rmtree(out, ignore_errors=True)
-    os.makedirs(out)
+    hits = []
     for cve, companies in by_cve.items():
         companies.sort(key=lambda c: -(c["score"] or 0))
-        inside = [[c["id"], c["n"], c["product"], int(c["new"]), c["services"]] for c in companies if c["exported"]]
-        outside = [c for c in companies if not c["exported"]]
-        doc = {"in": inside, "out": [[c["name"], c["country"], c["score"], c["n"], c["product"]] for c in outside[:OUTSIDE_CAP]],
-               "outTotal": len(outside)}
-        facts[cve]["inApp"] = len(inside)
-        with open(f"{out}/{cve}.json", "w") as fh:
-            json.dump(doc, fh, separators=(",", ":"))
-    index = {"scanDate": SCAN_DATE, "kev": kev_meta, "cves": facts, "nicknames": NICKNAMES}
-    with open(f"{out}/index.json", "w") as fh:
+        facts[cve]["inApp"] = sum(c["served"] for c in companies)
+        hits += [{"cve": cve, "company_id": c["id"], "n": c["n"], "product": c["product"], "new": c["new"],
+                  "services": c["services"], "name": c["name"], "country": c["country"], "score": c["score"],
+                  "served": c["served"]} for c in companies]
+    pq.write_table(pa.Table.from_pylist(hits), f"{out}/cve_hits.parquet", row_group_size=16384)
+    index = {"scanDate": scan_date, "kev": kev_meta, "cves": facts, "nicknames": NICKNAMES}
+    with open(f"{out}/cve_index.json", "w") as fh:
         json.dump(index, fh, separators=(",", ":"))
     in_scan = sum(1 for f in facts.values() if f["inScan"])
-    print(json.dumps({"cves_in_scan": in_scan, "kev_only": len(facts) - in_scan, "company_files": len(by_cve),
-                      "index_kb": round(os.path.getsize(f"{out}/index.json") / 1024)}))
-
-
-if __name__ == "__main__":
-    main()
+    return {"cve_hits": len(hits), "cves_in_scan": in_scan, "kev_only": len(facts) - in_scan}

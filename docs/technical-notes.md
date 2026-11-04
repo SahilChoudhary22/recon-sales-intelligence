@@ -1,6 +1,6 @@
 # Recon: technical notes
 
-The reference behind the [write-up](../README.md). Recon turns one day of raw internet-scan banners (13.4M records) into a ranked list of companies
+The reference behind the [write-up](../README.md). Recon turns about five hours of raw internet-scan banners (13.4M records) into a ranked list of companies
 that need security help **now**, with the evidence a salesperson can open a conversation with.
 
 Profiling scripts and their outputs: [`analysis/`](../analysis/). Architecture diagrams: [`architecture.md`](architecture.md).
@@ -9,8 +9,8 @@ Profiling scripts and their outputs: [`analysis/`](../analysis/). Architecture d
 
 ## 1. What the data is
 
-The file is **one day (2026-11-01) of Shodan-style banner data**: 13,384,515 NDJSON records, one
-per `IP:port`, 17 GB zstd / 118 GB raw. Each record has the IP, port, WHOIS `org`/ASN, hostnames,
+The file is **about five hours of a Shodan-style crawl** (observed 2026-10-31 21:13 to 2026-11-01 02:06 UTC):
+13,384,515 NDJSON records, one per `IP:port` across 4.1M IPs, 17 GB zstd / 118 GB raw. Each record has the IP, port, WHOIS `org`/ASN, hostnames,
 the detected product/version, HTTP data (headers, title, WAF, security.txt), the TLS certificate and
 supported versions, `tags`, and inferred `vulns` (CVE, CVSS, EPSS, CISA-KEV flag).
 
@@ -71,7 +71,7 @@ change the pitch from "first security purchase" to "consolidation / coverage gap
    DNS or ≥ 10% are consumer gear (TR-069 routers, cameras), or if its name/size/cloud share says so.
    LLM labels settle the long tail (§7). IP-owner and reverse-DNS identities only reach P1/P2 when labeled education/government (measured, §8).
 
-Result: 918k assets attributed to 297k companies; **83,748 companies with a material risk signal**.
+Result: 917k assets attributed to 298k companies; **83,810 companies with a material risk signal**.
 
 ## 5. Scoring
 
@@ -95,33 +95,43 @@ The score is log-scaled to 0–100. **Tiers are sized to sales capacity, not per
                                                                    │ DuckDB
    pipeline/build.py: noise filter → identity → signals → company scores + evidence
                                                                    │
-   pipeline/export.py ─► static JSON (IPs masked to /24) ─► web/ (React + Vite + Tailwind)
+   pipeline/export.py ─► serving store: versioned Parquet, IPs masked to /24, count cube
+                                                                   │ DuckDB
+   api/ (FastAPI, read-only) ─► web/ (React + Vite + Tailwind) and mcp_server/
 ```
 
 | Step | Measured on this file (MacBook Air, 8 GB RAM, 8 cores) |
 |---|---|
 | Ingest 118 GB raw → 1.2 GB Parquet (100× smaller) | **882 s, 134 MB/s, 15k records/s**, flat memory |
 | Full build (13.4M rows → scored accounts) | ~3.5 min |
-| Export | seconds; 5.8 MB summary JSON + 64 evidence shards |
+| Export to the serving store (83,810 accounts, evidence, CVE hits, count cube) | ~20 s; 39 MB of Parquet |
 
 **Volume in production (hundreds to thousands of files a month):** a zstd frame can't be split, so
 the unit of parallelism is the file. Ingest is stateless per file, so N workers on a file queue scale
 linearly: ~15 min/file/machine means ~100 files a day per machine, and 1,000 files a month needs
 1–2 machines. The build is plain SQL over Parquet, so it moves unchanged to DuckDB-on-object-storage or
-a warehouse. Scores come from each company's latest assets, so a new file only re-scores the
-companies it touches. Scan-over-scan changes (newly exposed RDP, a new KEV CVE on a known FortiGate)
-are where "right now" timing signals would come from once there is more than one file.
+a warehouse. Today the build recomputes everything from the retained window on every run; the
+incremental design (state tables merged per file, only touched companies re-scored, global statistics
+on a schedule) is in [architecture.md](architecture.md#6-scale-review-what-holds-what-changed-what-is-designed).
+Scan-over-scan changes (newly exposed RDP, a new KEV CVE on a known FortiGate) are where "right now"
+timing signals come from once there is more than one file.
+
+The app never holds the market: it asks the read API ([`api/`](../api/)) for one page, the counts and
+the filter badges, and the API answers with DuckDB over the serving store. Measured at 1×, 10× and
+100× the current size in [architecture.md](architecture.md#5-serving-the-read-api).
 
 
 ### A stream of scan files
 
 Each scan file is ingested into its own folder (`data/parquet/<scan-id>/`). A `_manifest.json`
 keyed on the source path, size and mtime makes re-running an ingested file a no-op, and shards are
-written to `<scan-id>.partial` and renamed into place only when the whole file is done. With two or
-more scans the build keeps the latest observation per `ip:port:transport`, drops services missing
-from the last 3 scans, and flags a service first seen in the newest scan as new. A company whose
-material risk includes a new service gets urgency ×1.3 and a "Newly exposed" play. Covered by
-`tests/test_build_scans.py`; tested on a simulated two-scan stream from the sample.
+written to `<scan-id>.partial` and renamed into place only when the whole file is done. A file is a
+few hours of an ongoing crawl, not a re-scan of the internet, so retention and "new" go by observation
+time, not by file: the build keeps the latest observation per `ip:port:transport` seen in the last 30
+days, and a service is new when it was first observed in the last 7 days on an IP the crawl had
+already seen before then. A file that covers a fresh IP range therefore doesn't make everything in it
+look new. A company whose material risk includes a new service gets urgency ×1.3 and a "Newly exposed"
+play. Covered by `tests/test_build_scans.py`.
 
 ## 7. Where an LLM is used, how I know it's right, and what it costs
 
@@ -207,7 +217,9 @@ tests: `uv run pytest -q`.
 
 ## 10. Limitations and next steps
 
-- One snapshot means no change-over-time signals yet. Those are the strongest "right now" triggers.
+- One file means no change-over-time signals yet. Those are the strongest "right now" triggers. The
+  serving store keeps the last three builds and each account records the build it was first ranked
+  in, so "new since you last ran this search" works as soon as a second file is processed.
 - CVEs are inferred from version banners, not verified exploitation.
 - No firmographics (headcount, revenue); footprint size is a proxy. Joining a firmographic source
   on domain is the obvious next step.
@@ -222,12 +234,16 @@ uv run python -m ingest.extract ~/Downloads/b2_download_file_by_id data/parquet/
 uv run python -m pipeline.build "data/parquet/scan-2026-11-01/*.parquet" data/build/full
 uv run python -m pipeline.llm_label data/build/full        # optional, needs ANTHROPIC_API_KEY
 uv run python -m pipeline.build "data/parquet/scan-2026-11-01/*.parquet" data/build/full
-uv run python -m pipeline.export data/build/full
-cd web && npm install && npm run dev
+uv run python -m pipeline.export data/build/full          # serving store in data/serve/<build>, data/serve/current
+uv run uvicorn api.app:app --port 8787                     # read API, docs at /api/docs
+cd web && npm install && npm run dev                       # proxies /api to :8787
 uv run pytest -q
+uv run python -m api.bench --scales 1,10,100               # query latency over synthetic 10x and 100x stores
 ```
 
-Deploy (static build + Tailscale Funnel sidecar, see `deploy/`): `deploy/push.sh bluedragon` (needs `TS_AUTHKEY` in the host's `.env`; refuses to ship an export that isn't IP-masked).
+Deploy (nginx for the app, the API container, Tailscale Funnel sidecar, see `deploy/`): `deploy/push.sh bluedragon`
+(needs `TS_AUTHKEY` in the host's `.env`; refuses to ship a store that isn't IP-masked, and copies a
+build before moving the host's `current` pointer to it).
 
 ## 12. How it was built
 

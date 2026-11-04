@@ -1,89 +1,59 @@
-"""Read-only access to Recon's published data, for the MCP server.
+"""Read-only access to Recon's serving store, for the MCP server.
 
-Reads exactly what the web app reads (IP-masked): accounts.json, the evidence shards and the CVE
-index, from a local folder or the hosted app. Signal templates, products and sectors come from the
-same catalogue the app uses (web/src/catalog.json), so both always agree on what a template matches.
+Uses the same query layer as the HTTP API (api/store.py): the same SQL, the same IP-masked data and
+the same template rules (compiled from web/src/catalog.json), so the app, the API and an assistant
+always give the same answer.
 
-  RECON_DATA     folder or base URL of the published data (default: web/public/data in this repo)
+  RECON_SERVE    the serving store (default: data/serve/current in this repo)
   RECON_APP_URL  where links should point (default: http://localhost:5173)
 """
 import csv
 import io
-import json
 import os
 import urllib.parse
-import urllib.request
-from functools import lru_cache
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA = os.environ.get("RECON_DATA", os.path.join(ROOT, "web", "public", "data")).rstrip("/")
+from api.rules import CATALOG, TEMPLATES
+from api.store import Query, get_store
+from pipeline.export import SOFTWARE_FAMILIES
+
 APP_URL = os.environ.get("RECON_APP_URL", "http://localhost:5173").rstrip("/")
-CATALOG = json.load(open(os.path.join(ROOT, "web", "src", "catalog.json")))
-STRONG_IDENTITY = {"cert", "ntlm", "http_host", "same_ip"}
-TEMPLATES = {t["id"]: t for t in CATALOG["templates"]}
 PRODUCTS = dict(CATALOG["products"])
 SECTORS = dict(CATALOG["sectors"])
+FAMILIES = [name for name, _ in SOFTWARE_FAMILIES]
 
 
-def _read(path):
-    if DATA.startswith(("http://", "https://")):
-        with urllib.request.urlopen(f"{DATA}/{path}", timeout=30) as r:  # noqa: S310 (our own published data)
-            return json.loads(r.read())
-    with open(f"{DATA}/{path}") as f:
-        return json.load(f)
+def store():
+    return get_store()
 
 
-@lru_cache(maxsize=1)
-def dataset():
-    return _read("accounts.json")
+def meta():
+    return store().meta
 
 
-@lru_cache(maxsize=1)
-def accounts_by_id():
-    return {a["id"]: a for a in dataset()["accounts"]}
+def software_family(text):
+    """Loose input ("fortigate", "exchange") -> the family name the data uses, or the text unchanged."""
+    t = text.strip().lower()
+    return next((f for f in FAMILIES if t and t in f.lower()), text)
 
 
-@lru_cache(maxsize=64)
-def evidence_shard(n):
-    return _read(f"evidence/{n:02d}.json")
+def query(template="market", query="", country="", industry="", sector="", software="", strong_identity=False,
+          tier="", ids=None):
+    return Query.make(template=template or "market", q=query, country=country.upper(), industry=industry,
+                      sector=sector, software=software_family(software) if software else (), strong=strong_identity,
+                      tier=tier, ids=ids)
 
 
-@lru_cache(maxsize=1)
-def cve_index():
-    return _read("cve/index.json")
+def account(account_id):
+    return store().account(account_id)
 
 
-@lru_cache(maxsize=256)
-def cve_file(cve):
-    return _read(f"cve/{cve}.json")
-
-
-def matches(a, rule):
-    """Same semantics as web/src/plays.ts: an OR of clauses, each an AND of conditions."""
-    for c in rule:
-        if ((not c.get("signals") or any(s in a["signals"] for s in c["signals"]))
-                and ("kev" not in c or a["kev"] == c["kev"])
-                and (not c.get("tier") or a["tier"] == c["tier"])
-                and ("maturity" not in c or bool(a["maturity"]) == c["maturity"])
-                and ("new" not in c or a["new"] == c["new"])):
-            return True
-    return False
-
-
-def in_template(a, template):
-    return template in ("", "market") or matches(a, TEMPLATES[template]["rule"])
-
-
-def icp(a, country="", industry="", sector="", software="", strong_identity=False):
-    return ((not country or a["country"] == country.upper())
-            and (not industry or (a["industry"] or "").lower() == industry.lower())
-            and (not sector or a["sector"] == sector)
-            and (not software or any(software.lower() in s.lower() for s in a["software"]))
-            and (not strong_identity or a["ident"] in STRONG_IDENTITY))
+def known_ids(ids):
+    found = store().search(Query.make(template="list", ids=ids), 0, 500)["accounts"]
+    return {a["id"] for a in found}
 
 
 def signal_label(sig):
-    return dataset()["signals"].get(sig, {}).get("label", sig)
+    return meta()["signals"].get(sig, {}).get("label", sig)
 
 
 def summary(a):
@@ -123,7 +93,7 @@ def crm_tasks_csv(account_ids):
     w = csv.writer(out)
     w.writerow(["company", "task_subject", "task_note", "priority", "recon_link"])
     for aid in account_ids:
-        a = accounts_by_id().get(aid)
+        a = account(aid)
         if not a:
             continue
         top = signal_label(a["signals"][0]) if a["signals"] else "security exposure"

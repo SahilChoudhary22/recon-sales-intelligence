@@ -19,3 +19,6 @@ deploy/.env
 
 # planning notes stay local
 plan.md
+data/serve/
+data/legacy-static-export/
+data/bench/

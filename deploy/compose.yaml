@@ -1,6 +1,7 @@
-# Static site: the pre-built web app (web/dist incl. its data JSON) served read-only by unprivileged
-# nginx. Not published on any host port; only the Tailscale sidecar in compose.tailscale.yaml reaches it.
-#   docker compose -f compose.yaml -f compose.tailscale.yaml up -d
+# The app: nginx serves the built web app and forwards /api/ to the read API, which queries the
+# serving store (Parquet, IP-masked) with DuckDB. Neither is published on a host port; only the
+# Tailscale sidecar in compose.tailscale.yaml reaches nginx.
+#   docker compose -f compose.yaml -f compose.tailscale.yaml up -d --build
 services:
   web:
     image: nginxinc/nginx-unprivileged:1.29-alpine
@@ -11,6 +12,28 @@ services:
     volumes:
       - ./site:/usr/share/nginx/html:ro
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    depends_on:
+      - api
+
+  api:
+    build:
+      context: .
+      dockerfile: api.Dockerfile
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    volumes:
+      # a new build is a new folder plus a moved 'current' link; the API picks it up on the next request
+      - ./serve:/data/serve:ro
+    environment:
+      # DuckDB can spill to /tmp; keep it bounded on a shared host
+      DUCKDB_MEMORY_LIMIT: 1GB
+    mem_limit: 1536m
     security_opt:
       - no-new-privileges:true
     cap_drop:

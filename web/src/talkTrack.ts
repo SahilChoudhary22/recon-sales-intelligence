@@ -1,4 +1,4 @@
-import type { Account, Dataset, Evidence } from './types'
+import type { Account, Meta, Evidence } from './types'
 
 // Opening lines filled in from observed facts only. No LLM, so nothing gets invented.
 const LINES: Record<string, (e: Evidence) => string> = {
@@ -20,7 +20,7 @@ function cves(e: Evidence) {
   return m ? m.slice(0, 2).join(' / ') : 'a known-exploited CVE'
 }
 
-export function talkTrack(a: Account, ev: Evidence[], meta: Dataset): string {
+export function talkTrack(a: Account, ev: Evidence[], meta: Meta): string {
   const ranked = [...ev].sort((x, y) => (meta.signals[y.s]?.weight ?? 0) - (meta.signals[x.s]?.weight ?? 0))
   const lines: string[] = []
   const used = new Set<string>()
