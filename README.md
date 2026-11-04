@@ -26,8 +26,8 @@
 </p>
 
 <p align="center">
-  <img src="docs/images/signal-template.jpg" alt="A signal template for firewall and VPN sellers: who it is for, the pitch, a worked example from live data and the recommended targeting" width="880" />
-  <br /><sub>A signal template for a firewall seller: exposed VPN admin planes plus known-exploited CVEs, with the top real account as a worked example.</sub>
+  <img src="docs/media/walkthrough.gif" alt="A 70-second walkthrough of Recon: sign in, set an ideal customer profile, open a signal template, filter with multi-select, add accounts to lists, open an account, save a search, search a CVE in the news and open an exposure brief" width="880" />
+  <br /><sub>A 70-second walkthrough (<a href="docs/media/walkthrough.mp4">MP4, full resolution</a>).</sub>
 </p>
 
 Recon turns a stream of internet scan data (Shodan-style banners, one per IP and port) into a ranked
@@ -65,11 +65,26 @@ seller sends is generated: the outreach is the evidence.
   search into a list, and export a list or any search as CSV.
 - **MCP server.** Prospect from Claude or any MCP client, including building lists and checking saved
   searches for what's new; they are the same lists the seller opens in the app.
+## Screens
 
-<p align="center">
-  <img src="docs/images/cve-in-the-news.jpg" alt="CVE search for ProxyShell: three CVEs with CVSS, EPSS, CISA KEV dates and ransomware use, and the affected accounts" width="880" />
-  <br /><sub>"ProxyShell" resolves to its three CVEs, each with today's CISA KEV status and ransomware use, and the accounts running the affected Exchange.</sub>
-</p>
+<table>
+  <tr>
+    <td width="50%"><img src="docs/images/profile.jpg" alt="The ideal customer profile as one sentence, with a country picker showing account counts" /><br /><sub><b>Ideal customer profile.</b> One sentence in the page; every choice shows what it would give.</sub></td>
+    <td width="50%"><img src="docs/images/signal-template.jpg" alt="A signal template for exposed firewall and VPN admin interfaces with its pitch, worked example and targeting" /><br /><sub><b>Signal template.</b> One buying trigger, the pitch, a real worked example and recommended targeting.</sub></td>
+  </tr>
+  <tr>
+    <td><img src="docs/images/filters.jpg" alt="The estate size filter open with small and mid-size ticked and a count on each option" /><br /><sub><b>Multi-select filters.</b> OR within a filter, AND across, a count on every option.</sub></td>
+    <td><img src="docs/images/lists.jpg" alt="Accounts with their list membership and status, after adding a search to a list" /><br /><sub><b>Lists.</b> Pick rows or take a whole search; every row shows its lists and status.</sub></td>
+  </tr>
+  <tr>
+    <td><img src="docs/images/account.jpg" alt="An account panel with score breakdown, peer rank, facts and an opening line" /><br /><sub><b>An account.</b> Why now, peer rank, score breakdown, an opening line built from the evidence.</sub></td>
+    <td><img src="docs/images/saved-search.jpg" alt="A saved search with its last run, schedule and what is new since then" /><br /><sub><b>Saved search.</b> Remembers the build it ran on, so the next run shows what's new.</sub></td>
+  </tr>
+  <tr>
+    <td><img src="docs/images/cve-in-the-news.jpg" alt="CVE search for ProxyShell with CVSS, EPSS, CISA KEV dates, ransomware use and affected accounts" /><br /><sub><b>CVE in the news.</b> An id or a name such as ProxyShell, with today's KEV status and the accounts exposed.</sub></td>
+    <td><img src="docs/images/exposure-brief.jpg" alt="An exposure brief with a peer rank, finding counts, masked evidence and the usual fix" /><br /><sub><b>Exposure brief.</b> A printable page of what anyone on the internet can see, and the usual fix.</sub></td>
+  </tr>
+</table>
 
 ## Quick start
 
@@ -92,19 +107,20 @@ Code through `.mcp.json`). Benchmark: `uv run python -m api.bench`.
 
 ```mermaid
 flowchart LR
-  files[(Scan files<br/>hundreds a month)] --> ingest[Ingest<br/>one worker per file]
-  ingest --> lake[(Parquet<br/>per scan)]
-  lake --> build[Build<br/>noise, identity,<br/>signals, scores]
-  labels[(LLM label cache)] --> build
-  kev[(CISA KEV)] --> build
-  build --> store[(Serving store<br/>one folder per build)]
-  store --> api[Read API<br/>DuckDB]
-  api --> app[Web app]
-  api --> mcp[MCP server]
+  files[("<b>Scan files</b><br/>hundreds to thousands a month,<br/>billions of banners")] --> ingest["<b>Ingest</b><br/>one worker per file"]
+  ingest --> lake[("<b>Parquet</b><br/>~1.2 GB a file")]
+  lake --> build["<b>Build</b><br/>removes noise, identifies<br/>the company, scores"]
+  labels[("<b>LLM label cache</b>")] --> build
+  kev[("<b>CISA KEV</b>")] --> build
+  build --> store[("<b>Serving store</b><br/>one row per company,<br/>a new folder per build")]
+  store --> api["<b>API</b><br/>FastAPI, DuckDB"]
+  appdb[("<b>App database</b><br/>users, lists, saved searches")] <--> api
+  api --> app["<b>Web app</b>"]
+  api --> mcp["<b>MCP server</b>"]
 ```
 
-1. **Ingest each file once.** A file is streamed with flat memory into about 40 fields of Parquet and
-   never read again. A compressed file can't be split, so the file is the unit of work: a stream of
+1. **Ingest each file once.** Hundreds to thousands of files a month, billions of banners. Each file
+   is streamed with flat memory into about 40 fields of Parquet and never read again. A compressed file can't be split, so the file is the unit of work: a stream of
    files is a queue of independent workers.
 2. **Keep a window of observations.** A file is a few hours of an ongoing crawl, not a re-scan of the
    internet, so the build keeps the latest observation of each service from the last 30 days. A
@@ -200,12 +216,6 @@ and saved searches, was tested on all 30 plus 10 new list requests.
 
 CVE search returns exactly the companies a direct query over the build finds (four CVEs, one of them on
 24,291 companies), and peer ranks were recomputed independently.
-
-<p align="center">
-  <img src="docs/images/exposure-brief.jpg" alt="An exposure brief: a peer rank, counts of services and findings, and the first findings with masked evidence and the usual fix" width="880" />
-  <br /><sub>The exposure brief: a peer rank first, then what anyone on the internet can see, each finding with masked evidence and the usual fix.</sub>
-</p>
-
 ## Key decisions
 
 - **DuckDB, for the build and the API.** The work is analytical: scans, joins and aggregates over

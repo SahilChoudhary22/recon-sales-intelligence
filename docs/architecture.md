@@ -16,14 +16,14 @@ into (dashed).
 
 ```mermaid
 flowchart LR
-  files[("Scan files")] --> ingest["Ingest<br/>one worker per file"]
-  ingest --> lake[("Parquet by scan")]
-  lake --> build["Build<br/>noise, identity, signals, scores"]
-  build --> store[("Serving store<br/>one folder per build")]
-  store --> api["API<br/>DuckDB reads"]
-  appdb[("App database<br/>users, lists, saved searches")] <--> api
-  api --> app["Web app"]
-  api --> mcp["MCP server"]
+  files[("<b>Scan files</b><br/>hundreds to thousands a month,<br/>billions of banners")] --> ingest["<b>Ingest</b><br/>one worker per file"]
+  ingest --> lake[("<b>Parquet by scan</b>")]
+  lake --> build["<b>Build</b><br/>removes noise, identifies the company,<br/>finds signals, scores"]
+  build --> store[("<b>Serving store</b><br/>a new folder per build")]
+  store --> api["<b>API</b><br/>FastAPI, DuckDB"]
+  appdb[("<b>App database</b><br/>users, lists, saved searches")] <--> api
+  api --> app["<b>Web app</b>"]
+  api --> mcp["<b>MCP server</b>"]
 ```
 
 ## 1. One file through the pipeline
@@ -33,28 +33,28 @@ The supplied file: 13.4M banners covering about five hours of crawl (2026-10-31 
 
 ```mermaid
 flowchart TD
-  scan(["Scan file<br/>17 GB zstd, 118 GB NDJSON<br/>13,384,515 banners"])
-  scan --> extract["Stream and slim (ingest/extract.py)<br/>1 reader + 7 parsers, flat memory<br/>keep ~40 fields, drop HTML and cert chains<br/>15 min"]
+  scan(["<b>Scan file</b><br/>17 GB zstd, 118 GB NDJSON<br/>13,384,515 banners"])
+  scan --> extract["<b>Stream and slim</b><br/>ingest/extract.py<br/>1 reader, 7 parsers<br/>keeps ~40 fields<br/>15 minutes, flat memory"]
   extract --> lake[("Parquet, 1.2 GB")]
   lake --> noise["Remove noise (pipeline/build.py)"]
   noise -.->|"5.6M CDN edges"| dropped(["dropped"])
   noise -.->|"1.55M phantom IPs"| dropped
   noise -.->|"246k honeypots"| dropped
   noise --> real["5.99M real services"]
-  real --> identity["Identify the company<br/>TLS cert, AD domain, HTTP host,<br/>reverse DNS, IP owner;<br/>carried across ports of one IP;<br/>hosters and ISP pools excluded"]
-  labels[("LLM label cache<br/>4,430 names")] --> identity
+  real --> identity["<b>Identify the company</b><br/>TLS cert, AD domain, HTTP host,<br/>reverse DNS or IP owner,<br/>shared across ports of one IP"]
+  labels[("<b>LLM label cache</b><br/>4,430 names labelled")] --> identity
   identity --> attributed["917k services, 298k companies"]
-  attributed --> signals["20 risk signals per service<br/>(pipeline/signals.py)"]
-  signals --> score["Score per company<br/>need x urgency x fit, tiers P1 / P2 / P3"]
+  attributed --> signals["<b>Find risk signals</b><br/>20 per service, pipeline/signals.py"]
+  signals --> score["<b>Score each company</b><br/>need × urgency × fit, tiers P1 / P2 / P3"]
   score --> risky["83,810 companies with real risk"]
-  risky --> export["Export (pipeline/export.py)<br/>IPs masked to /24, software families,<br/>sector, peer ranks, template flags, count cube"]
-  risky --> cveidx["CVE hits (pipeline/cve_index.py)<br/>1,701 CVEs, 878,683 company matches"]
+  risky --> export["<b>Export</b><br/>pipeline/export.py<br/>masks IPs to /24, adds peer ranks,<br/>template flags, the count cube"]
+  risky --> cveidx["<b>CVE hits</b><br/>pipeline/cve_index.py<br/>1,701 CVEs, 878,683 matches"]
   kev[("CISA KEV v2026.11.03")] --> cveidx
-  export --> published[("Serving store<br/>data/serve/&lt;build&gt;, 45 MB")]
+  export --> published[("<b>Serving store</b><br/>data/serve/&lt;build&gt;, 45 MB")]
   cveidx --> published
-  published --> api["Read API (api/)<br/>DuckDB over Parquet"]
-  api --> app["Web app"]
-  api --> mcp["MCP server"]
+  published --> api["<b>API</b><br/>DuckDB over the Parquet"]
+  api --> app["<b>Web app</b>"]
+  api --> mcp["<b>MCP server</b>"]
 ```
 
 ## 2. A continuous stream of files
@@ -64,31 +64,35 @@ A zstd file can't be split and files are independent, so the file is the unit of
 ```mermaid
 flowchart TB
   subgraph arrive["Arrival"]
-    bucket[("Object storage<br/>new scan files")]:::designed --> event["New-object event"]:::designed
-    event --> queue[["Work queue<br/>one message per file"]]:::designed
+    bucket[("<b>Object storage</b><br/>100 to 1,000 files a month,<br/>1.7 to 17 TB compressed")]:::designed --> event["New-object event"]:::designed
+    event --> queue[["<b>Work queue</b><br/>one message per file"]]:::designed
   end
   subgraph ingest["Ingest"]
-    queue --> w1["Worker"] & w2["Worker"] & w3["Worker ..."]
-    w1 & w2 & w3 --> lake[("Parquet by scan<br/>scan-id/part-*.parquet<br/>+ _manifest.json")]
+    queue --> w1["<b>Worker</b><br/>~15 min a file"] & w2["<b>Worker</b>"] & w3["<b>Worker ...</b>"]
+    w1 & w2 & w3 --> lake[("<b>Parquet by scan</b><br/>~1.2 GB a file, 0.1 to 1.2 TB a month,<br/>each with a _manifest.json")]
   end
   subgraph build["Build"]
-    lake --> merge["Merge observations<br/>latest per service wins,<br/>last 30 days retained"]
-    merge --> fresh["Flag new exposures<br/>first seen in 7 days<br/>on an IP already known"]
+    lake --> merge["<b>Merge observations</b><br/>1.3 to 13 billion banners a month;<br/>latest per service wins,<br/>the last 30 days are kept"]
+    merge --> fresh["<b>Flag new exposures</b><br/>first seen in the last 7 days,<br/>on an IP already known"]
     fresh --> score["Identity, signals, scores"]
-    labels[("Label cache<br/>only unseen names go to the LLM")] --> score
+    labels[("<b>Label cache</b><br/>only unseen names go to the LLM")] --> score
     kev[("CISA KEV, refreshed daily")]:::designed --> index
-    score --> index[("Serving store, one folder per build<br/>'current' pointer swapped atomically")]
+    score --> index[("<b>Serving store</b><br/>one row per company: millions, not billions;<br/>a folder per build, swapped atomically")]
   end
   subgraph use["Use"]
-    index --> api["Read API<br/>DuckDB, count cube"]
+    index --> api["<b>API</b><br/>DuckDB and the count cube"]
     api --> app["App and MCP server"]
-    index --> agents["Saved searches and signal agents<br/>re-run on each new build"]:::designed
+    index --> agents["<b>Saved searches and signal agents</b><br/>re-run on each new build"]:::designed
     agents --> crm["CRM tasks and alerts"]:::designed
-    enrich[("Enrichment by domain<br/>firmographics, contacts")]:::designed --> app
+    enrich[("<b>Enrichment by domain</b><br/>firmographics and contacts")]:::designed --> app
   end
   classDef designed stroke-dasharray: 6 4
 ```
 
+- **Volume.** The brief's hundreds to thousands of files a month, at this file's size (13.4M banners,
+  17 GB compressed), is 1.3 to 13 billion banners and 1.7 to 17 TB compressed a month, 0.1 to 1.2 TB
+  once slimmed to Parquet. The served side is one row per company with real risk, so it grows with
+  companies (84k from this file), not with banners.
 - **Throughput.** 118 GB raw in 882 s (134 MB/s) on one 8 GB laptop, about 15 minutes per file.
   1,000 files a month is about 250 machine-hours, a third of one machine running continuously, so a
   small worker pool absorbs bursts.
@@ -135,9 +139,9 @@ sequenceDiagram
 
 ```mermaid
 flowchart LR
-  R["Raw banner<br/>HTML, headers, cert chain,<br/>full IP, every CVE"] -->|"slim: ~40 fields"| PQ["Parquet<br/>full IP, product, notable fields"]
-  PQ -->|"build"| AC["Company scores and evidence<br/>full IP, local only"]
-  AC -->|"export: mask to /24"| PUB["Serving store<br/>API, app, MCP<br/>203.0.113.x:443"]
+  R["<b>Raw banner</b><br/>HTML, headers, cert chain,<br/>full IP, every CVE"] -->|"slim: ~40 fields"| PQ["<b>Parquet</b><br/>full IP, product, notable fields"]
+  PQ -->|"build"| AC["<b>Company scores and evidence</b><br/>full IP, kept on the build machine"]
+  AC -->|"export: mask to /24"| PUB["<b>Serving store</b><br/>read by the API, app and MCP;<br/>IPs shown as 203.0.113.x:443"]
   R -.->|"raw HTML, cert chains, pubkeys"| DROP["Not kept"]
 ```
 
@@ -152,21 +156,21 @@ badges, and the API computes each of them over the serving store.
 
 ```mermaid
 flowchart LR
-  subgraph store["Serving store: data/serve/&lt;build&gt;/ (Parquet, masked)"]
-    acc[("accounts.parquet<br/>one flag column per template")]
-    byid[("accounts_by_id.parquet<br/>sorted by id")]
-    ev[("evidence.parquet<br/>sorted by company")]
-    cube[("cube.parquet<br/>counts per template x country<br/>x sector x industry x size")]
-    hits[("cve_hits.parquet<br/>sorted by CVE")]
+  subgraph store["Serving store, one folder per build"]
+    acc[("<b>accounts.parquet</b><br/>one flag column per template")]
+    byid[("<b>accounts_by_id.parquet</b><br/>sorted by id")]
+    ev[("<b>evidence.parquet</b><br/>sorted by company")]
+    cube[("<b>cube.parquet</b><br/>counts by template, country,<br/>sector, industry, size")]
+    hits[("<b>cve_hits.parquet</b><br/>sorted by CVE")]
   end
-  api["Read API (FastAPI + DuckDB)<br/>POST /api/search, /counts, /facets, /cve, /export.csv<br/>GET /api/accounts/{id}, /evidence, /meta"]
+  api["<b>API</b><br/>FastAPI and DuckDB<br/>search, counts, facets,<br/>CVE, export, evidence"]
   acc --> api
   byid --> api
   ev --> api
   cube --> api
   hits --> api
-  api --> app["Web app<br/>one page at a time"]
-  api --> mcp["MCP server<br/>same query layer"]
+  api --> app["<b>Web app</b><br/>one page at a time"]
+  api --> mcp["<b>MCP server</b><br/>the same query layer"]
 ```
 
 - **Two query paths.** Anything that filters only on template, country, sector, industry and estate
