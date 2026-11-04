@@ -11,7 +11,7 @@ BUILD=$(readlink "$STORE")
 # the published store must be the masked one (export.py also refuses to write an unmasked one)
 grep -q '"ips_masked": true' "$STORE/meta.json" || { echo "serving store is not IP-masked; refusing"; exit 1; }
 (cd web && npm run build)
-ssh "$HOST" "mkdir -p $DIR/site $DIR/serve $DIR/api $DIR/web/src $DIR/app-data"
+ssh "$HOST" "mkdir -p $DIR/site $DIR/serve $DIR/api $DIR/mcp_server $DIR/pipeline $DIR/web/src $DIR/app-data"
 # the sign-in user: a name and a password hash (uv run python -m api.workspace hash), kept only in the host's
 # .env; deploy/.env.recon (gitignored) holds the line to add on the first deploy
 # and the MCP endpoint's settings; deploy/.env.recon (gitignored) holds the lines to add on the first deploy
@@ -23,6 +23,9 @@ for key in RECON_USERS RECON_MCP_TOKEN RECON_PUBLIC_HOST; do
 done
 rsync -az --delete web/dist/ "$HOST:$DIR/site/"
 rsync -az --delete api/ "$HOST:$DIR/api/" --exclude __pycache__ --exclude bench.py
+# the MCP server and the pipeline modules it imports (code only: no evaluation runs, no data)
+rsync -az --delete mcp_server/ "$HOST:$DIR/mcp_server/" --exclude __pycache__ --exclude eval
+rsync -az --delete pipeline/ "$HOST:$DIR/pipeline/" --exclude __pycache__
 rsync -az web/src/catalog.json "$HOST:$DIR/web/src/"
 # ship the build folder first, then move the pointer: the API never sees a half-copied build
 rsync -az "data/serve/$BUILD/" "$HOST:$DIR/serve/$BUILD/"
