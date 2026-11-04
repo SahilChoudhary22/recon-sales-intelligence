@@ -69,7 +69,8 @@ class LimitError(ValueError):
 
 
 def now():
-    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+    # microseconds, so rows made in the same second still sort in the order they were made
+    return datetime.now(timezone.utc).isoformat(timespec="microseconds")
 
 
 def new_id(prefix):

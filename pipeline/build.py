@@ -234,8 +234,9 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
                    bool_or(signal in ('edge_kev','kev_cve')) has_kev,
                    bool_or(signal in ('eol_os','eol_product')) has_eol,
                    bool_or(signal in ('cert_expired','cert_expiring')) has_cert_issue,
-                   bool_or(category in ('edge','exposure','vuln','eol')) has_material,
-                   bool_or(any_new and category in ('edge','exposure','vuln','eol')) has_new,
+                   bool_or(category = 'breach') has_breach,
+                   bool_or(category in ('breach','edge','exposure','vuln','eol')) has_material,
+                   bool_or(any_new and category in ('breach','edge','exposure','vuln','eol')) has_new,
                    list(signal order by pts desc) signals,
                    list(label order by pts desc) signal_labels,
                    max(weight) top_weight
@@ -244,7 +245,9 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
               from maturity group by company_id)
         select a.*, s.* exclude (company_id), coalesce(m.maturity, []) maturity,
                coalesce(m.maturity_labels, []) maturity_labels,
-               1 + 0.4 * has_kev::int + 0.2 * has_eol::int + 0.1 * has_cert_issue::int + 0.3 * has_new::int urgency,
+               -- already breached outranks could be breached
+               1 + 0.5 * has_breach::int + 0.4 * has_kev::int + 0.2 * has_eol::int + 0.1 * has_cert_issue::int
+                 + 0.3 * has_new::int urgency,
                (case when ident_prio is null then 0.85      -- business org only
                      when ident_prio <= 3 then 1.0          -- cert / ntlm / http host
                      when ident_prio = 4 then 0.75          -- reverse DNS

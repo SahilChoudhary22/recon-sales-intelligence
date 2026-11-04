@@ -30,6 +30,7 @@ const IDENT: Record<Account['ident'], { label: string; strong: boolean; hint: st
 }
 
 const SHORT: Record<string, string> = {
+  breach_evidence: 'Signs of a breach', ai_exposed: 'Exposed AI / MCP server',
   edge_kev: 'Edge device + KEV', edge_device: 'Exposed firewall/VPN', exchange_onprem: 'On-prem Exchange',
   remote_access: 'Remote access open', database_exposed: 'Open database', smb_exposed: 'SMB exposed',
   open_directory: 'Open directory', mgmt_exposed: 'Management interface', ot_exposed: 'OT protocol',

@@ -1,6 +1,14 @@
 // Plain-language guidance per signal for the exposure brief: what the finding means and the usual fix.
 // Written once, applied to every account; nothing here is generated per company.
 export const GUIDANCE: Record<string, { means: string; action: string }> = {
+  breach_evidence: {
+    means: 'A database the scanner found already ransomed, or a remote-access trojan or cryptominer running on the company’s address: signs the network has already been breached.',
+    action: 'Treat it as an incident: isolate the host, preserve logs, and bring in incident response before cleaning up.',
+  },
+  ai_exposed: {
+    means: 'A self-hosted AI app (a model gateway, chat UI or agent builder) or an MCP server answers on the public internet, often with no login in front of it.',
+    action: 'Put it behind single sign-on or a VPN, rotate any API keys it holds, and review which tools an exposed agent can call.',
+  },
   edge_kev: {
     means: 'A firewall or VPN appliance is reachable from the internet and runs software with vulnerabilities CISA lists as actively exploited.',
     action: 'Patch the appliance to a fixed release and move its management interface off the public internet.',

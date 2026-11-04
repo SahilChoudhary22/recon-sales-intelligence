@@ -39,7 +39,7 @@ seller sends is generated: the outreach is the evidence.
 ## Features
 
 - **Signals that survive the noise.** 42% of the scan is CDN edges that answer on every port, 12%
-  is phantom hosts and 1.8% is honeypots with fake CVEs. After those are removed, 20 signals remain,
+  is phantom hosts and 1.8% is honeypots with fake CVEs. After those are removed, 22 signals remain,
   led by internet-facing firewall and VPN admin planes, the most common way ransomware gets in.
 - **Company identity from the services themselves.** TLS certificates, leaked Active Directory
   domains and HTTP hosts name the company; identity carries across ports of one IP, and hosters and
@@ -178,10 +178,19 @@ What the file hides, and what Recon does about it:
   of one IP turns the most common ransomware entry point into a named account.
 - **Leaked AD domains do double duty.** An NTLM handshake gives away the internal domain (a name for
   the company) and the Windows build (an end-of-life operating system).
+- **The newest attack surface is AI.** 1,700 services are self-hosted AI apps (LiteLLM, Ollama, Dify,
+  Flowise) or MCP servers answering on the open internet, often with no login: 170 identified
+  companies, eight of them in P1. A model gateway or agent server in the open leaks keys, data and
+  tool access.
+- **A few are already breached.** The scanner flags ransomed databases, and fingerprints
+  remote-access trojans and cryptominers. Those count as evidence of a breach, the strongest signal;
+  the offensive tools it also tags (GoPhish, BurpSuite, C2 frameworks) are what red teams run, so they
+  don't. Only two such services belong to companies Recon can name in this file; the signal is there
+  for the stream.
 - **Security maturity changes the pitch, not the rank.** A WAF, a security.txt or post-quantum TLS
   marks a buyer with a team: a consolidation conversation, not a first purchase.
 
-The result: 917k services tied to 298k companies, and 83,810 companies with a material risk signal.
+The result: 917k services tied to 298k companies, and 83,934 companies with a material risk signal.
 Every signal, threshold and rule is in [docs/technical-notes.md](docs/technical-notes.md).
 
 ## Results
@@ -262,7 +271,7 @@ CVE search returns exactly the companies a direct query over the build finds (fo
 The data grows with every file, so nothing the app or an assistant reads is sized by the market:
 
 - **A read API** ([`api/`](api/)) answers every list, count and badge with DuckDB over a versioned,
-  IP-masked Parquet store. The browser holds one page at a time, and all 83,810 risky companies are
+  IP-masked Parquet store. The browser holds one page at a time, and all 83,934 risky companies are
   served.
 - **A count cube** answers the template counts and the profile badges. It grows with the number of
   country × sector × industry × size combinations, not with accounts.

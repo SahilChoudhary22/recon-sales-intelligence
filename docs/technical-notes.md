@@ -47,6 +47,8 @@ evidence string ([`pipeline/signals.py`](../pipeline/signals.py)). Counts are co
 | Database reachable (MS-SQL, MySQL, Oracle, Redis, Mongo…) | 3,429 | Data exposure |
 | SMB / open directories | 1,278 | Data exposure, lateral movement |
 | OT / medical / POS protocols (non-cloud only) | 6,258 | Compliance-driven buyer |
+| Self-hosted AI app or MCP server (LiteLLM, Ollama, Dify, Flowise, MCP) | 170 | New attack surface: leaked keys, data and agent tools |
+| Evidence of a breach (ransomed database, remote-access trojan, cryptominer; red-team tools excluded) | 2 | Already compromised: an incident-response call |
 | KEV CVE (noise CVEs excluded) | 16,272 | Known exploited in the wild |
 | EPSS ≥ 0.5 | 15,741 | Likely to be exploited soon |
 | EOL Windows (from NTLM OS build) / EOL software | 2,618 / 35,918 | Unpatchable |
@@ -71,7 +73,7 @@ change the pitch from "first security purchase" to "consolidation / coverage gap
    DNS or ≥ 10% are consumer gear (TR-069 routers, cameras), or if its name/size/cloud share says so.
    LLM labels settle the long tail (§7). IP-owner and reverse-DNS identities only reach P1/P2 when labeled education/government (measured, §8).
 
-Result: 917k assets attributed to 298k companies; **83,810 companies with a material risk signal**.
+Result: 917k assets attributed to 298k companies; **83,934 companies with a material risk signal**.
 
 ## 5. Scoring
 
@@ -104,7 +106,7 @@ The score is log-scaled to 0–100. **Tiers are sized to sales capacity, not per
 |---|---|
 | Ingest 118 GB raw → 1.2 GB Parquet (100× smaller) | **882 s, 134 MB/s, 15k records/s**, flat memory |
 | Full build (13.4M rows → scored accounts) | ~3.5 min |
-| Export to the serving store (83,810 accounts, evidence, CVE hits, count cube) | ~20 s; 39 MB of Parquet |
+| Export to the serving store (83,934 accounts, evidence, CVE hits, count cube) | ~20 s; 39 MB of Parquet |
 
 **Volume in production (hundreds to thousands of files a month):** a zstd frame can't be split, so
 the unit of parallelism is the file. Ingest is stateless per file, so N workers on a file queue scale

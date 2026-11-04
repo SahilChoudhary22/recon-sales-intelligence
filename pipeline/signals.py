@@ -2,7 +2,8 @@
 Parquet schema plus a weight, a sales-facing label and an evidence expression.
 
 Weights encode "how likely is this to turn into an incident soon", roughly:
-known-exploited edge device > exposed remote access / databases > exploitable CVE > EOL > hygiene.
+evidence of a breach > known-exploited edge device > exposed remote access / databases > exploitable CVE
+> EOL > hygiene.
 """
 
 # KEV-listed but not a reason to call: HTTP/2 Rapid Reset is flagged on ~every nginx, and the jQuery
@@ -26,6 +27,10 @@ OT_MODULES = ("'melsec-q-tcp','codesys','proconos','automated-tank-gauge','modbu
               "'ethernetip','fox','secure-fox','pcworx','omron-tcp','iec-104','general-electric-srtp',"
               "'gesrtp','hart-ip','crimson-v3','dicom','toshiba-pos','handpunch'")
 IOT_RE = r"(?i)(hikvision|dahua|webcam|ip camera|dvr|nvr|axis|xiongmai|uniview)"
+# malware the scanner fingerprints that means a victim: remote-access trojans and cryptominers. Offensive
+# security tools it also tags (GoPhish, BurpSuite, PowerSploit, Interactsh, C2 frameworks) are what red
+# teams and pentesters run, so on a company's IP they point to a security-mature buyer, not a breach.
+BREACH_MALWARE_RE = r"(?i)(trojan|xtremerat|darkcomet|njrat|quasar|cryptominer|xmrig)"
 EOL_OS_RE = r"(?i)(server 2003|server 2008|server 2012|windows xp|windows 7|windows vista)"
 
 # id, category, weight, label, predicate, evidence
@@ -50,9 +55,16 @@ SIGNALS = [
     ("open_directory", "exposure", 5.0, "Open directory / file share listing",
      "list_has_any(service_keys, ['open_dir','iscsi','dav']) or list_contains(tags, 'open-dir')",
      "coalesce(http_title, module) || ' on port ' || port"),
+    ("breach_evidence", "breach", 12.0, "Evidence of an existing breach (ransomed database, trojan or cryptominer)",
+     f"list_contains(tags, 'compromised') or (list_contains(tags, 'malware') and regexp_matches(coalesce(product, ''), '{BREACH_MALWARE_RE}'))",
+     "coalesce(product, module) || ' on port ' || port || case when list_contains(tags, 'compromised') then ' (flagged compromised)' else '' end"),
+    ("ai_exposed", "exposure", 6.0, "Self-hosted AI app or MCP server open to the internet",
+     "list_has_any(tags, ['ai', 'mcp'])",
+     "coalesce(product, http_title, module) || ' on port ' || port"),
     ("mgmt_exposed", "exposure", 5.0, "Infrastructure management interface exposed",
      "module like 'snmp%' or module like 'ldap%' or module in ('ipmi','mikrotik-routeros-api','mikrotik-winbox','docker','etcd','kubernetes') "
-     "or list_has_any(service_keys, ['kubernetes','docker','etcd','mikrotik_routeros','tacacs'])",
+     "or list_has_any(service_keys, ['kubernetes','docker','etcd','mikrotik_routeros','tacacs']) "
+     "or list_contains(tags, 'devops')",  # the scanner's DevOps tag: Kubernetes, Harbor, Docker, Vault, Consul
      "coalesce(product, module) || ' on port ' || port"),
     ("ot_exposed", "exposure", 8.0, "Industrial / medical / POS protocol on the internet",
      f"module in ({OT_MODULES}) and cloud_provider is null", "module || ' on port ' || port"),

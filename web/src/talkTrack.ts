@@ -2,6 +2,8 @@ import type { Account, Meta, Evidence } from './types'
 
 // Opening lines filled in from observed facts only. No LLM, so nothing gets invented.
 const LINES: Record<string, (e: Evidence) => string> = {
+  breach_evidence: (e) => `${e.e ?? 'a service'} at ${e.ip} shows signs of an existing compromise, which usually means someone is already inside.`,
+  ai_exposed: (e) => `a self-hosted AI service (${e.e ?? 'an AI app'}) at ${e.ip} answers on the public internet, where model gateways and agent servers can leak keys, data and tool access.`,
   edge_kev: (e) => `${e.p ?? 'Your edge appliance'} at ${e.ip}:${e.port} is reachable from the internet and matches ${cves(e)}, which CISA lists as actively exploited.`,
   edge_device: (e) => `the management interface of ${e.p ?? 'your firewall/VPN'} (${e.ip}:${e.port}) answers on the public internet. These appliances are the most common ransomware entry point.`,
   exchange_onprem: (e) => `${e.e ?? 'an on-prem Exchange server'} is internet-facing at ${e.ip}.`,
