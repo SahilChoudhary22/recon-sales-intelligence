@@ -32,11 +32,15 @@ export function useShortlist() {
     }
   }, [])
   const save = (id: string) => write({ ...list, [id]: { status: 'to_contact', added: new Date().toISOString() } })
+  const saveMany = (ids: string[]) => {
+    const added = new Date().toISOString()
+    write({ ...Object.fromEntries(ids.map((id) => [id, { status: 'to_contact' as Status, added }])), ...list })
+  }
   const setStatus = (id: string, status: Status) => list[id] && write({ ...list, [id]: { ...list[id], status } })
   const remove = (id: string) => {
     const next = { ...list }
     delete next[id]
     write(next)
   }
-  return { list, save, setStatus, remove }
+  return { list, save, saveMany, setStatus, remove }
 }

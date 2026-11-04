@@ -278,6 +278,14 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
     ) to '{out_dir}/evidence.parquet' (format parquet, compression zstd)""")
     con.execute(f"""copy (select org, org_type, org_type_source, n_ips, n_asn, cloud_share
         from org_class join org_stats using (org)) to '{out_dir}/org_class.parquet' (format parquet)""")
+    # notable CVEs per service, for every attributed company: the index behind CVE search.
+    # Notable = known exploited, EPSS >= 0.1 or CVSS >= 9; the long tail of version-matched CVEs is left out
+    con.execute(f"""copy (
+        select company_id, ip, port, coalesce(fortinet_device, product) product, is_new,
+               list_filter(vulns, lambda v: v.kev or coalesce(v.epss, 0) >= 0.1 or coalesce(v.cvss, 0) >= 9) cves
+        from assets where company_id is not null
+          and len(list_filter(vulns, lambda v: v.kev or coalesce(v.epss, 0) >= 0.1 or coalesce(v.cvss, 0) >= 9)) > 0
+    ) to '{out_dir}/asset_cves.parquet' (format parquet, compression zstd)""")
 
     funnel["scored_companies"] = con.execute("select count(*) from accounts_out").fetchone()[0]
     funnel["companies_with_material_signal"] = con.execute(

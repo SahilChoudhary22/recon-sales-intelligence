@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { Account, Dataset, Evidence, Play } from './types'
 import { DEFAULT_PLAY, MARKET, PRODUCTS, SECTORS, TEMPLATES, forProduct, inTargeting, sectorOf } from './plays'
 import { useSegments } from './segments'
+import { kevUrl, looksLikeCve, nvdUrl, parseCves, type CveCompanies, type CveIndex } from './cve'
 import { talkTrack } from './talkTrack'
 import { APP_NAME, PRODUCT_LINE } from './brand'
 import { STATUSES, statusLabel, useShortlist, type Saved, type Status } from './shortlist'
@@ -74,6 +75,7 @@ export default function App() {
   const [naming, setNaming] = useState(false)
   const shortlist = useShortlist()
   const segs = useSegments()
+  const [cveIndex, setCveIndex] = useState<CveIndex | null>(null)
   const set = (patch: Partial<Filters>) => {
     setF((cur) => ({ ...cur, ...patch }))
     if (!('id' in patch)) setLimit(100) // a new filter starts the list from the top
@@ -95,6 +97,11 @@ export default function App() {
   }, [])
   useEffect(load, [load])
   useEffect(() => writeUrl(f), [f])
+  // the CVE index (about 750 KB) loads the first time someone types in the search box
+  useEffect(() => {
+    if (f.q.trim().length >= 3 && !cveIndex) fetch('./data/cve/index.json').then((r) => r.json()).then(setCveIndex).catch(() => {})
+  }, [f.q, cveIndex])
+  const cveIds = useMemo(() => parseCves(f.q, cveIndex), [f.q, cveIndex])
 
   const counts = useMemo(
     () => Object.fromEntries([MARKET, ...TEMPLATES].map((p) => [p.id, data ? data.accounts.filter(p.match).length : 0])),
@@ -118,20 +125,21 @@ export default function App() {
   }
   const play = f.play === 'list' ? myList : [MARKET, ...TEMPLATES].find((x) => x.id === f.play) ?? MARKET
   const isTemplate = TEMPLATES.some((t) => t.id === play.id)
+  // ICP filters, shared by every view including CVE search
+  const icp = useCallback((a: Account) =>
+    (!f.country || a.country === f.country) &&
+    (!f.industry || a.industry === f.industry) &&
+    (!f.sector || sectorOf(a) === f.sector) &&
+    (!f.software || a.software.includes(f.software)) &&
+    (!f.strong || IDENT[a.ident].strong), [f.country, f.industry, f.sector, f.software, f.strong])
   const rows = useMemo(() => {
     if (!data) return []
     const needle = f.q.trim().toLowerCase()
     return data.accounts.filter(
-      (a) =>
-        play.match(a) &&
-        (!f.country || a.country === f.country) &&
-        (!f.industry || a.industry === f.industry) &&
-        (!f.sector || sectorOf(a) === f.sector) &&
-        (!f.software || a.software.includes(f.software)) &&
-        (!f.strong || IDENT[a.ident].strong) &&
+      (a) => play.match(a) && icp(a) &&
         (!needle || a.name.toLowerCase().includes(needle) || (a.org ?? '').toLowerCase().includes(needle)),
     )
-  }, [data, play, f.q, f.country, f.industry, f.sector, f.software, f.strong])
+  }, [data, play, f.q, icp])
   const selected = useMemo(() => data?.accounts.find((a) => a.id === f.id) ?? null, [data, f.id])
   const filtered = !!(f.q || f.country || f.industry || f.sector || f.software || f.strong)
   const nSaved = Object.keys(shortlist.list).length
@@ -209,7 +217,12 @@ export default function App() {
         </nav>
 
         <main className="min-w-0 px-4 py-5 sm:px-6">
-          {isTemplate && data ? (
+          {cveIds.length > 0 ? (
+            <div className="mb-4 max-w-[75ch]">
+              <h1 className="text-xl text-ink">CVE in the news</h1>
+              <p className="mt-1 text-sm text-muted">Which accounts run software affected by {cveIds.length === 1 ? 'this vulnerability' : 'these vulnerabilities'}, across the whole market. Your ICP filters still apply.</p>
+            </div>
+          ) : isTemplate && data ? (
             <TemplateCard t={play} meta={data} product={product}
               example={data.accounts.find((a) => play.match(a) && inTargeting(play, a)) ?? null}
               onCustomize={() => set({ ...EMPTY_ICP, ...(play.targeting ?? {}) })}
@@ -225,7 +238,7 @@ export default function App() {
             <div className="flex flex-wrap items-center gap-2">
               <label className="sr-only" htmlFor="q">Search accounts</label>
               <input id="q" type="search" name="q" autoComplete="off" value={f.q} onChange={(e) => set({ q: e.target.value })}
-                placeholder="Search a company or organisation" className="field w-full sm:w-64" />
+                placeholder="Company, or a CVE in the news" className="field w-full sm:w-64" />
               <Select id="sector" label="Sector" value={f.sector} onChange={(v) => set({ sector: v })} all="All sectors" options={SECTORS} />
               <Select id="country" label="Country" value={f.country} onChange={(v) => set({ country: v })} all="All countries"
                 options={options.countries.map(([c, n]) => [c, `${c} (${fmt(n)})`])} />
@@ -239,7 +252,7 @@ export default function App() {
               </label>
             </div>
             <div className="mt-2 flex flex-wrap items-center gap-3">
-              <span className="text-sm text-muted"><span className="measured text-ink">{fmt(rows.length)}</span> {rows.length === 1 ? 'account' : 'accounts'}</span>
+              {!cveIds.length && <span className="text-sm text-muted"><span className="measured text-ink">{fmt(rows.length)}</span> {rows.length === 1 ? 'account' : 'accounts'}</span>}
               {filtered && <button type="button" className="text-sm text-muted underline underline-offset-4 hover:text-ink" onClick={() => set(EMPTY_ICP)}>Clear filters</button>}
               <div className="ml-auto flex flex-wrap items-center gap-2">
                 {naming ? (
@@ -248,13 +261,18 @@ export default function App() {
                 ) : (
                   <button type="button" className="btn" disabled={play.id === 'list'} onClick={() => setNaming(true)}>Save as segment</button>
                 )}
-                <button type="button" className="btn" disabled={!rows.length} onClick={() => data && exportCsv(rows, data, shortlist.list)}>Export CSV</button>
+                {!cveIds.length && <button type="button" className="btn" disabled={!rows.length} onClick={() => data && exportCsv(rows, data, shortlist.list)}>Export CSV</button>}
               </div>
             </div>
           </div>
 
           <div data-tour="table">
-            {failed ? (
+            {data && cveIndex && cveIds.length > 0 ? (
+              <CveResults ids={cveIds} index={cveIndex} data={data} icp={icp} selectedId={f.id} shortlist={shortlist}
+                onOpen={(id) => set({ id })} onFamily={(fam) => set({ q: '', software: fam })} />
+            ) : data && looksLikeCve(f.q) && !cveIndex ? (
+              <SkeletonRows />
+            ) : failed ? (
               <State title="The account list did not load." body="The data file could not be fetched. Check the connection and try again.">
                 <button type="button" className="btn" onClick={() => { setFailed(false); load() }}>Try again</button>
               </State>
@@ -282,9 +300,160 @@ export default function App() {
           </div>
         </main>
 
-        <Detail key={selected?.id ?? 'none'} account={selected} meta={data} shortlist={shortlist} onClose={() => set({ id: null })} />
+        <Detail key={selected?.id ?? 'none'} account={selected} meta={data} shortlist={shortlist} highlight={cveIds} onClose={() => set({ id: null })} />
       </div>
       {guide && data && <Tour onClose={() => setGuide(false)} />}
+    </div>
+  )
+}
+
+const pctFmt = (x?: number | null) => (x == null ? 'n/a' : x >= 0.995 ? '>99%' : `${(x * 100).toFixed(x < 0.1 ? 1 : 0)}%`)
+
+function CveResults({ ids, index, data, icp, selectedId, shortlist, onOpen, onFamily }: {
+  ids: string[]; index: CveIndex; data: Dataset; icp: (a: Account) => boolean; selectedId: string | null
+  shortlist: ReturnType<typeof useShortlist>; onOpen: (id: string) => void; onFamily: (family: string) => void
+}) {
+  const [files, setFiles] = useState<Record<string, CveCompanies | null>>({})
+  const byId = useMemo(() => new Map(data.accounts.map((a) => [a.id, a])), [data])
+  useEffect(() => {
+    ids.filter((id) => index.cves[id]?.inScan && !(id in files)).forEach((id) =>
+      fetch(`./data/cve/${id}.json`).then((r) => r.json()).then((d) => setFiles((cur) => ({ ...cur, [id]: d })))
+        .catch(() => setFiles((cur) => ({ ...cur, [id]: null }))))
+  }, [ids, index, files])
+
+  // union of matches across the searched CVEs, inside the ICP filters
+  const merged = new Map<string, { a: Account; n: number; product: string | null; services: string[]; cves: string[]; isNew: boolean }>()
+  let outside: CveCompanies['out'] = []
+  let outsideTotal = 0
+  for (const id of ids) {
+    const doc = files[id]
+    if (!doc) continue
+    for (const [cid, n, product, isNew, services] of doc.in) {
+      const a = byId.get(cid)
+      if (!a || !icp(a)) continue
+      const m = merged.get(cid) ?? { a, n: 0, product, services: [], cves: [], isNew: false }
+      m.n = Math.max(m.n, n); m.cves.push(id); m.isNew ||= !!isNew
+      m.services = [...new Set([...m.services, ...services])].slice(0, 3)
+      merged.set(cid, m)
+    }
+    outside = outside.concat(doc.out)
+    outsideTotal += doc.outTotal
+  }
+  const hits = [...merged.values()].sort((x, y) => y.a.priority - x.a.priority)
+  const loading = ids.some((id) => index.cves[id]?.inScan && !(id in files))
+  const unsaved = hits.filter((h) => !shortlist.list[h.a.id]).map((h) => h.a.id)
+
+  return (
+    <div className="space-y-5">
+      <div className="grid gap-3 xl:grid-cols-2">
+        {ids.map((id) => {
+          const c = index.cves[id]
+          return (
+            <section key={id} aria-label={id} className="rounded-[var(--radius-card)] border border-rule px-4 py-3">
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <h2 className="measured text-lg text-ink">{id}</h2>
+                <span className="text-sm">
+                  <a href={nvdUrl(id)} target="_blank" rel="noopener noreferrer" className="text-ink-2 underline hover:text-accent">NVD</a>
+                  {c?.kev && <> <span className="text-muted">and</span> <a href={kevUrl(id)} target="_blank" rel="noopener noreferrer" className="text-ink-2 underline hover:text-accent">CISA KEV</a></>}
+                </span>
+              </div>
+              {!c ? (
+                <p className="mt-1 text-sm text-muted">Not matched in this scan and not on CISA’s known-exploited list (catalogue {index.kev.version ?? 'not loaded'}).</p>
+              ) : (
+                <>
+                  {c.title && <p className="mt-1 text-sm text-ink-2">{c.title}</p>}
+                  <dl className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-sm">
+                    <div><dt className="inline text-muted">CVSS </dt><dd className="measured inline text-ink">{c.cvss != null ? c.cvss.toFixed(1) : 'n/a'}</dd></div>
+                    <div><dt className="inline text-muted">EPSS </dt><dd className="measured inline text-ink">{pctFmt(c.epss)}</dd></div>
+                    <div><dt className="inline text-muted">Known exploited </dt><dd className="inline text-ink">{c.kev ? `yes, since ${c.kevAdded ?? 'the scan'}` : 'no'}</dd></div>
+                    {c.ransomware && <div><dd className="inline"><span className="chip chip-critical">Used in ransomware campaigns</span></dd></div>}
+                  </dl>
+                  {c.noise && (
+                    <p className="mt-2 text-sm text-bad">Matched on nearly every web server of this type from its version number alone, so it is a weak reason to call. Recon leaves it out of scoring.</p>
+                  )}
+                  <p className="mt-2 text-sm text-ink-2">
+                    {c.inScan ? (
+                      <>Matched by software version on <span className="measured text-ink">{fmt(c.companies)}</span> companies in the {index.scanDate} scan
+                        {c.seenProduct ? <>, mostly on {c.seenProduct}</> : null}. That is a version match, not proof the hole is open.</>
+                    ) : (
+                      <>Not matched in the {index.scanDate} scan{c.vendor ? <>. CISA lists it for {c.vendor} {c.product}</> : null}.</>
+                    )}
+                  </p>
+                  {!c.inScan && c.family && (
+                    <button type="button" className="btn mt-2" onClick={() => onFamily(c.family!)}>Show companies running {c.family}</button>
+                  )}
+                </>
+              )}
+            </section>
+          )
+        })}
+      </div>
+
+      {loading ? <SkeletonRows /> : hits.length > 0 && (
+        <section aria-labelledby="cve-hits">
+          <div className="mb-2 flex flex-wrap items-center gap-3">
+            <h2 id="cve-hits" className="text-lg text-ink">Affected accounts</h2>
+            <span className="text-sm text-muted"><span className="measured text-ink">{fmt(hits.length)}</span> in the app, inside your ICP filters</span>
+            <button type="button" className="btn btn-primary ml-auto" disabled={!unsaved.length} onClick={() => shortlist.saveMany(unsaved)}>
+              {unsaved.length ? `Add ${fmt(unsaved.length)} to my list` : 'All on your list'}
+            </button>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[46rem] border-collapse text-md">
+              <thead>
+                <tr className="border-b border-rule-2 text-left text-sm text-muted">
+                  <th scope="col" className="py-2 pr-4 font-medium">Priority</th>
+                  <th scope="col" className="py-2 pr-4 font-medium">Account</th>
+                  <th scope="col" className="py-2 pr-4 font-medium">Affected</th>
+                  <th scope="col" className="py-2 pr-4 font-medium">Country</th>
+                  <th scope="col" className="py-2 text-right font-medium">Services</th>
+                </tr>
+              </thead>
+              <tbody>
+                {hits.slice(0, 300).map(({ a, n, product, services, cves, isNew }) => (
+                  <tr key={a.id} onClick={() => onOpen(a.id)}
+                    className={`cursor-pointer border-b border-rule align-top ${a.id === selectedId ? 'bg-accent-soft' : 'hover:bg-paper-2'}`}>
+                    <td className="py-3 pr-4"><div className="flex items-center gap-2"><Tier tier={a.tier} /><span className="measured text-sm">{a.score.toFixed(0)}</span></div></td>
+                    <td className="max-w-[20rem] py-3 pr-4">
+                      <button type="button" onClick={(e) => { e.stopPropagation(); onOpen(a.id) }} className="block max-w-full truncate text-left font-medium text-ink hover:underline">{a.name}</button>
+                      <div className="truncate text-sm text-muted">{IDENT[a.ident].label}{a.org && a.org !== a.name ? <>, {a.org}</> : null}</div>
+                      {shortlist.list[a.id] && <span className="chip chip-act mt-1.5">{statusLabel(shortlist.list[a.id].status)}</span>}
+                    </td>
+                    <td className="py-3 pr-4 text-sm">
+                      <div className="text-ink">{product ?? 'Unknown software'}{isNew && <span className="chip chip-act ml-2">New this scan</span>}</div>
+                      <div className="measured text-ink-2">{services.join(', ')}</div>
+                      {ids.length > 1 && <div className="measured text-xs text-muted">{cves.join(', ')}</div>}
+                    </td>
+                    <td className="measured py-3 pr-4 text-sm text-ink-2">{a.country ?? ''}</td>
+                    <td className="measured py-3 text-right text-sm text-ink-2">{fmt(n)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {hits.length > 300 && <p className="mt-2 text-sm text-muted">Showing the top 300 of {fmt(hits.length)}. Narrow with ICP filters, or export from the pipeline.</p>}
+        </section>
+      )}
+
+      {!loading && outsideTotal > 0 && (
+        <section aria-labelledby="cve-outside">
+          <h2 id="cve-outside" className="text-lg text-ink">Also affected, below the app’s top 15,000</h2>
+          <p className="mb-2 mt-1 text-sm text-muted">
+            <span className="measured">{fmt(outsideTotal)}</span> more companies, ranked lower overall. ICP filters do not apply to this list; the top {fmt(Math.min(outside.length, 300))} are shown.
+          </p>
+          <ul className="divide-y divide-rule border-y border-rule text-sm">
+            {outside.sort((x, y) => y[2] - x[2]).slice(0, 300).map(([name, cc, score, n, product], i) => (
+              <li key={`${name}-${i}`} className="grid grid-cols-[3rem_minmax(0,1fr)_3rem_minmax(0,12rem)_4rem] gap-3 py-2">
+                <span className="measured text-ink-2">{score.toFixed(0)}</span>
+                <span className="truncate text-ink">{name}</span>
+                <span className="measured text-muted">{cc}</span>
+                <span className="truncate text-ink-2">{product}</span>
+                <span className="measured text-right text-muted">{fmt(n)}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </div>
   )
 }
@@ -530,8 +699,8 @@ function State({ title, body, children }: { title: string; body: string; childre
   )
 }
 
-function Detail({ account: a, meta, shortlist, onClose }: {
-  account: Account | null; meta: Dataset | null; shortlist: ReturnType<typeof useShortlist>; onClose: () => void
+function Detail({ account: a, meta, shortlist, highlight, onClose }: {
+  account: Account | null; meta: Dataset | null; shortlist: ReturnType<typeof useShortlist>; highlight: string[]; onClose: () => void
 }) {
   const [ev, setEv] = useState<Evidence[] | null>(null)
   const [evFailed, setEvFailed] = useState(false)
@@ -656,7 +825,8 @@ function Detail({ account: a, meta, shortlist, onClose }: {
                     </div>
                     <ul className="divide-y divide-rule">
                       {items.slice(0, 6).map((e, i) => (
-                        <li key={i} className="grid grid-cols-[minmax(0,10.5rem)_minmax(0,1fr)] gap-3 px-4 py-2 text-sm">
+                        <li key={i} className={`grid grid-cols-[minmax(0,10.5rem)_minmax(0,1fr)] gap-3 px-4 py-2 text-sm ${
+                          highlight.some((id) => e.e?.includes(id)) ? 'bg-accent-soft' : ''}`}>
                           <span className="measured text-cool">{e.ip}:{e.port}</span>
                           <span className="measured min-w-0 break-words text-ink-2">{e.e ?? e.p}</span>
                         </li>
