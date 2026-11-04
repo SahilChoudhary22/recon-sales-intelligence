@@ -10,7 +10,7 @@ export const STEPS: Step[] = [
   {
     target: 'plays',
     title: 'Pick a play',
-    body: 'Each play is a prospecting motion: exposed firewalls with exploited CVEs, on-prem Exchange, legacy Windows. You start in Commercial accounts; universities and government have their own view.',
+    body: 'Each play is a prospecting motion: exposed firewalls with exploited CVEs, on-prem Exchange, legacy Windows. Commercial accounts keeps companies only; universities and government have their own view.',
   },
   {
     target: 'filters',

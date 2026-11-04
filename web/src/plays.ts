@@ -5,11 +5,12 @@ const PUBLIC_NAME = /(universi|college|ministry|municipal|\.edu|\.ac\.|\.gov|\.g
 const isCommercial = (a: Account) =>
   !['Education', 'Government', 'Telecom & hosting'].includes(a.industry ?? '') && !PUBLIC_NAME.test(`${a.name} ${a.org ?? ''}`)
 
-// the view a seller lands on: the segment most security vendors sell to
-export const DEFAULT_PLAY = 'commercial'
+// the view a seller lands on: the whole ranked market; segments narrow it from there
+export const DEFAULT_PLAY = 'all'
 
 // saved views = the prospecting motions a security AE actually runs
 export const PLAYS: Play[] = [
+  { id: 'all', name: 'All accounts', blurb: 'Every company with a material signal, ranked, across every segment.', match: () => true },
   {
     id: 'commercial', name: 'Commercial accounts',
     blurb: 'Companies only, the usual security buyer. Universities, government, telecoms and hosters have their own views.',
@@ -20,7 +21,6 @@ export const PLAYS: Play[] = [
     blurb: 'Universities, research networks, ministries and municipalities. They rank high on sheer network size and buy through their own procurement.',
     match: (a) => !isCommercial(a) && a.industry !== 'Telecom & hosting',
   },
-  { id: 'all', name: 'All accounts', blurb: 'Every company with a material signal, ranked, across every segment.', match: () => true },
   {
     id: 'new', name: 'Newly exposed',
     blurb: 'A risky service that was not there in the previous scan: the clearest reason to call this week.',
