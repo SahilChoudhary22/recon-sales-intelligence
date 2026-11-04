@@ -3,7 +3,7 @@
 The reference behind the [write-up](../README.md). Recon turns one day of raw internet-scan banners (13.4M records) into a ranked list of companies
 that need security help **now**, with the evidence a salesperson can open a conversation with.
 
-- **Plan written before building:** [`plan.md`](../plan.md) · profiling scripts and outputs: [`analysis/`](../analysis/)
+Profiling scripts and their outputs: [`analysis/`](../analysis/). Architecture diagrams: [`architecture.md`](architecture.md).
 
 ---
 
@@ -140,8 +140,9 @@ as **parallel Haiku subagents with the exact instructions** in
 - Two rounds were run: 3,000 names, then 1,430 names promoted by re-ranking. Unlabeled names in the
   top tiers dropped 3,000 → 1,430 → 92. All 4,430 labels were valid.
 
-`llm_label.py` is the production path (batched 40 per request, `messages.parse` + Pydantic schema,
-disk cache, per-call token logging). It is written but was **not executed** for this submission.
+`llm_label.py` is the production path for a file stream (batched 40 per request, `messages.parse` +
+Pydantic schema, disk cache, per-call token logging); this submission's labels came from the in-session
+run above.
 
 **Cost** (`data/labels/llm_usage.json`):
 - Measured in-session: **1.51M subagent tokens for 4,430 labels → $0.15–$0.75** at Haiku 5.5 prices
@@ -230,8 +231,8 @@ Deploy (static build + Tailscale Funnel sidecar, see `deploy/`): `deploy/push.sh
 
 ## 12. How it was built
 
-Built in one day with Claude Code as the main development tool, in this order: hand profiling →
-written plan ([`plan.md`](../plan.md)) → extractor tested on the sample → full ingest in the background
+Built in one day with Claude Code as the main development tool, in this order: profiling a 1% sample
+→ extractor tested on the sample → full ingest in the background
 while building identity and scoring on the sample → full build → review the top of the ranking →
 fix → repeat. An independent agent produced the evaluation labels so the measurement isn't graded by
 the same reasoning that built the pipeline.

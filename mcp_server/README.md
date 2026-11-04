@@ -6,6 +6,7 @@ per-call cost, and nothing for Recon to hallucinate.
 
 | Tool | What it does |
 |---|---|
+| `dataset_overview()` | The scan and how many records survived each step; the KEV catalogue version |
 | `list_signal_templates(product)` | The signal templates, with templates for your product first |
 | `search_accounts(template, query, country, industry, sector, software, strong_identity, tier, limit)` | Ranked accounts, plus a link to the same view in the app |
 | `get_account(account_id)` | Score breakdown, why now, evidence by signal (IPs masked) |

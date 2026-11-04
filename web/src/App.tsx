@@ -546,43 +546,31 @@ function TemplateCard({ t, meta, product, example, onCustomize, onOpen }: {
 }
 
 const compact = new Intl.NumberFormat('en-US', { notation: 'compact', maximumSignificantDigits: 3 })
-const pct = (part?: number, whole?: number) => (part && whole ? `${(100 * part / whole).toFixed(part / whole < 0.1 ? 1 : 0)}%` : '')
 
 function Header({ data, onGuide }: { data: Dataset | null; onGuide: () => void }) {
   const f = data?.funnel as Record<string, number> | undefined
-  const steps: { label: string; n?: number; note: string }[] = [
-    { label: 'Banners scanned', n: f?.raw_records, note: 'One day of internet scan data, 1 Nov 2026' },
-    { label: 'Real services', n: f?.clean, note: `${pct(f?.clean, f?.raw_records)} kept after removing CDN edges, honeypots and phantom hosts` },
-    { label: 'Tied to a company', n: f?.attributed_assets, note: f ? `${pct(f.attributed_assets, f.clean)} of real services, across ${compact.format(f.companies)} companies` : '' },
-    { label: 'Companies with real risk', n: f?.companies_with_material_signal, note: data ? `The top ${fmt(data.accounts.length)} are ranked here` : '' },
-  ]
   return (
     <header className="border-b border-rule bg-paper-2" data-tour="funnel">
-      <div className="mx-auto max-w-[112rem] px-4 pt-4 pb-5 sm:px-6">
-        <div className="mb-4 flex items-center justify-between gap-4">
-          <p className="flex items-center gap-2.5">
-            <LogoMark className="size-7 shrink-0 text-ink" />
-            {/* the two names share a baseline; the mark centres on the pair */}
-            <span className="flex items-baseline gap-2.5">
-              <span className="text-xl font-medium leading-none text-ink">{APP_NAME}</span>
-              <span className="text-sm leading-none text-muted">{PRODUCT_LINE}</span>
-            </span>
-          </p>
+      <div className="mx-auto flex max-w-[112rem] flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-3 sm:px-6">
+        <p className="flex items-center gap-2.5">
+          <LogoMark className="size-7 shrink-0 text-ink" />
+          {/* the two names share a baseline; the mark centres on the pair */}
+          <span className="flex items-baseline gap-2.5">
+            <span className="text-xl font-medium leading-none text-ink">{APP_NAME}</span>
+            <span className="text-sm leading-none text-muted">{PRODUCT_LINE}</span>
+          </span>
+        </p>
+        <div className="flex items-center gap-4">
+          {/* provenance in one quiet line; the full funnel lives in the README and the MCP server */}
+          {f && (
+            <p className="hidden text-sm text-muted md:block"
+              title={`${fmt(f.raw_records)} banners, ${fmt(f.clean)} after noise removal, ${fmt(f.attributed_assets)} tied to a company`}>
+              <span className="measured text-ink-2">{compact.format(f.companies_with_material_signal)}</span> companies with real risk, from{' '}
+              <span className="measured text-ink-2">{compact.format(f.raw_records)}</span> scan records
+            </p>
+          )}
           <button type="button" className="btn" onClick={onGuide}>How it works</button>
         </div>
-        <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-[var(--radius-card)] border border-rule bg-rule lg:grid-cols-4">
-          {steps.map((s) => (
-            <div key={s.label} className="bg-paper-3 px-4 py-3">
-              <dt className="text-sm text-muted">{s.label}</dt>
-              <dd className="measured mt-1 text-[1.75rem] leading-none tracking-[-0.03em] text-ink" title={s.n === undefined ? undefined : fmt(s.n)}>
-                {s.n === undefined ? <span className="skeleton inline-block h-7 w-20 align-middle" /> : (
-                  <><span aria-hidden>{compact.format(s.n)}</span><span className="sr-only">{fmt(s.n)}</span></>
-                )}
-              </dd>
-              <dd className="mt-1.5 text-xs leading-snug text-muted">{s.note}</dd>
-            </div>
-          ))}
-        </dl>
       </div>
     </header>
   )

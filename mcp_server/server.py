@@ -37,6 +37,19 @@ from their own TLS certificate or domain. tier: P1 (top 500 this week), P2 or P3
 
 
 @mcp.tool()
+def dataset_overview() -> dict:
+    """Where Recon's accounts come from: the scan, how many records survived each step (noise removal,
+    company identification, real risk), and the CISA KEV catalogue version used. Use it to explain or
+    cite the data behind any answer."""
+    f = data.dataset()["funnel"]
+    keep = ["raw_records", "honeypot", "cdn", "phantom", "clean", "attributed_assets", "companies",
+            "companies_with_material_signal", "scans"]
+    return {"scan": data.dataset()["generated_from"], "funnel": {k: f[k] for k in keep if k in f},
+            "accounts_ranked_in_app": len(data.dataset()["accounts"]), "kev_catalogue": data.cve_index()["kev"],
+            "ips_masked": data.dataset().get("ips_masked", True)}
+
+
+@mcp.tool()
 def list_signal_templates(product: str = "") -> list[dict]:
     """List Recon's signal templates: ready-to-run searches, each built around one buying trigger.
 

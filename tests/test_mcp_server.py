@@ -54,7 +54,8 @@ def client():
 
 def test_lists_the_tools(client):
     names = {t["name"] for t in client.send("tools/list")["result"]["tools"]}
-    assert names == {"list_signal_templates", "search_accounts", "get_account", "cve_exposure", "make_list", "export_crm_tasks"}
+    assert names == {"dataset_overview", "list_signal_templates", "search_accounts", "get_account", "cve_exposure",
+                     "make_list", "export_crm_tasks"}
 
 
 def test_search_matches_the_app_filters(client):
@@ -71,3 +72,8 @@ def test_cve_in_the_news_falls_back_to_product(client):
 def test_list_link_round_trip(client):
     r = client.call("make_list", account_ids=["chevron.com", "nope.invalid"])
     assert r["added"] == 1 and r["skipped_unknown"] == 1 and "import=chevron.com" in r["open_to_import"]
+
+
+def test_dataset_overview_states_the_funnel(client):
+    r = client.call("dataset_overview")
+    assert r["funnel"]["raw_records"] > r["funnel"]["clean"] > r["funnel"]["companies_with_material_signal"]
