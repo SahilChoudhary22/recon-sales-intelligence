@@ -128,14 +128,74 @@ def cve_exposure(cve_or_name: str, country: str = "", sector: str = "", limit: i
     return out
 
 
-@mcp.tool(description="Save accounts to the seller's list in Recon. Returns a link: opening it adds the accounts to "
-                       "My list in the app (to contact, contacted, meeting booked, not a fit). " + _ACCOUNT_ID)
-def make_list(account_ids: list[str]) -> dict:
-    found = data.known_ids(account_ids)
-    known = [a for a in account_ids if a in found]
-    if not known:
-        raise ToolError("None of those ids are Recon accounts.")
-    return {"added": len(known), "skipped_unknown": len(account_ids) - len(known), "open_to_import": data.import_link(known)}
+def _ws():
+    try:
+        return data.workspace_id()
+    except LookupError as e:
+        raise ToolError(str(e)) from e
+
+
+@mcp.tool(description="Save accounts to one of the seller's lists in Recon (the same lists they see in the app), "
+                       "creating the list if it doesn't exist. Pass account ids, or a search (template and filters, as "
+                       "for search_accounts) to add its top results. Returns the list and a link to it. " + _ACCOUNT_ID)
+def make_list(account_ids: list[str] | None = None, list_name: str = "My list", template: TemplateId | None = None,
+              country: str = "", industry: str = "", sector: str = "", software: str = "", strong_identity: bool = False,
+              limit: int = 500) -> dict:
+    ws, w, s = _ws(), data.get_workspace(), data.store()
+    if not account_ids and template is None:
+        raise ToolError("Pass account_ids, or a template (and filters) whose results to add.")
+    if template is not None:
+        ids = s.ids(data.query(template, "", country, industry, sector, software, strong_identity), max(1, min(limit, 5000)))["ids"]
+    else:
+        ids = s.ids(data.query("list", ids=account_ids), 5000)["ids"]
+    if not ids:
+        raise ToolError("None of those are Recon accounts." if account_ids else "That search has no results.")
+    li = w.find_list(ws, list_name) or w.create_list(ws, list_name)
+    r = w.add_items(ws, li["id"], ids)
+    return {"list": li["name"], "added": r["added"], "now_in_list": r["in_list"],
+            "skipped_unknown": len(set(account_ids or [])) - len(ids) if account_ids else 0,
+            "open_in_app": data.list_link(li["id"])}
+
+
+@mcp.tool()
+def my_lists() -> dict:
+    """The seller's lists (with how many accounts each holds) and saved searches (with how many accounts
+    are new since each was last reviewed and in none of their lists)."""
+    ws, w, s = _ws(), data.get_workspace(), data.store()
+    listed = w.listed_ids(ws)
+    searches = []
+    for x in w.searches(ws):
+        q = data.saved_query(x, listed)
+        searches.append({"name": x["name"], "new_since_last_review": s.ids(q, 1)["total"],
+                         "last_reviewed": x["lastRunAt"], "open_in_app": data.search_link(x["id"])})
+    return {"lists": [{"name": li["name"], "accounts": li["n"], "open_in_app": data.list_link(li["id"])} for li in w.lists(ws)],
+            "saved_searches": searches}
+
+
+@mcp.tool(description="Save a search (a template and filters, as for search_accounts) so the seller can re-run it; "
+                       "its next run reports the accounts that are new since today and in none of their lists.")
+def save_search(name: str, template: TemplateId = "market", country: str = "", industry: str = "", sector: str = "",
+                software: str = "", strong_identity: bool = False) -> dict:
+    ws = _ws()
+    filters = {"play": template, "q": "", "country": [country.upper()] if country else [], "industry": [industry] if industry else [],
+               "sector": [sector] if sector else [], "software": [data.software_family(software)] if software else [],
+               "size": [], "strong": strong_identity, "hideListed": False}
+    s = data.get_workspace().save_search(ws, name, filters, {}, data.meta()["build_id"])
+    return {"saved": s["name"], "open_in_app": data.search_link(s["id"])}
+
+
+@mcp.tool(description="What a saved search finds that is new since it was last reviewed and not in any of the seller's "
+                       "lists, ranked. With mark_reviewed, the search's last review moves to now.")
+def whats_new(saved_search: str, limit: int = 20, mark_reviewed: bool = False) -> dict:
+    ws, w, s = _ws(), data.get_workspace(), data.store()
+    x = w.find_search(ws, saved_search)
+    if not x:
+        raise ToolError(f"No saved search {saved_search!r}. Call my_lists for their names.")
+    page = s.search(data.saved_query(x, w.listed_ids(ws)), 0, max(1, min(limit, 100)))
+    if mark_reviewed:
+        w.mark_run(ws, x["id"], data.meta()["build_id"])
+    return {"saved_search": x["name"], "last_reviewed": x["lastRunAt"], "new": page["total"],
+            "accounts": [data.summary(a) for a in page["accounts"]], "open_in_app": data.search_link(x["id"])}
 
 
 @mcp.tool(description="CRM-ready call tasks for accounts, one per row (company, subject, note, priority, link), as CSV "

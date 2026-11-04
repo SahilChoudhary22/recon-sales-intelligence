@@ -1,28 +1,55 @@
 import { useEffect, useState } from 'react'
 import type { Account, CveResult, Evidence, Meta } from './types'
+import type { FilterSet } from './filters'
+import type { WorkspaceSnapshot } from './workspace'
 
 // The app's only data source: the read API (api/app.py). Every list, count and badge is computed on
 // the server, so the browser holds one page of accounts however big the market gets.
 
 // every filter takes several values (ORed); different filters are ANDed
 export type ApiFilters = {
-  template?: string; ids?: string[]; exclude_ids?: string[]; q?: string; since_build?: string
+  template?: string; list_id?: string; exclude_listed?: boolean; q?: string; since_build?: string
   country?: string[]; industry?: string[]; sector?: string[]; software?: string[]; size?: string[]; strong?: boolean
   icp_country?: string[]; icp_sector?: string[]; icp_industry?: string[]; icp_size?: string[]
 }
 export type Page = { total: number; offset: number; accounts: Account[] }
 export type Facets = Record<'country' | 'industry' | 'sector' | 'size' | 'software', [string, number][]>
 
-async function call<T>(path: string, body?: unknown, signal?: AbortSignal): Promise<T> {
-  const r = await fetch(`./api/${path}`, body === undefined ? { signal } : {
-    method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), signal,
+// every route but login needs a session; a 401 anywhere sends the app to the sign-in screen
+export const SIGN_IN = 'recon:sign-in'
+let signInNeeded = false
+export const needsSignIn = () => signInNeeded
+
+async function call<T>(path: string, body?: unknown, signal?: AbortSignal, method?: string): Promise<T> {
+  const r = await fetch(`./api/${path}`, body === undefined && !method ? { signal } : {
+    method: method ?? 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body ?? {}), signal,
   })
+  if (r.status === 401 && path !== 'login') {
+    signInNeeded = true
+    window.dispatchEvent(new Event(SIGN_IN))
+  }
   if (!r.ok) throw new Error(`${path}: ${r.status}`)
   return r.json()
 }
 
 export const api = {
+  login: (username: string, password: string) => call<{ username: string }>('login', { username, password }),
+  logout: () => call('logout', {}),
+  me: () => call<{ username: string }>('me'),
   meta: () => call<Meta>('meta'),
+  // your work (api/workspace.py)
+  workspace: () => call<WorkspaceSnapshot>('workspace'),
+  createList: (id: string, name: string) => call('lists', { id, name }),
+  renameList: (id: string, name: string) => call(`lists/${id}`, { name }, undefined, 'PATCH'),
+  deleteList: (id: string) => call(`lists/${id}`, undefined, undefined, 'DELETE'),
+  addToList: (id: string, what: { ids?: string[]; search?: ApiFilters }) =>
+    call<{ added: number; in_list: number }>(`lists/${id}/items`, what),
+  removeFromList: (id: string, ids: string[]) => call(`lists/${id}/items/remove`, { ids }),
+  setStatus: (account_id: string, status: string) => call('status', { account_id, status }, undefined, 'PUT'),
+  saveSearch: (id: string, name: string, filters: FilterSet, profile: ApiFilters) => call('searches', { id, name, filters, profile }),
+  updateSearch: (id: string, patch: { reviewed?: boolean; schedule?: string }) => call(`searches/${id}`, patch, undefined, 'PATCH'),
+  deleteSearch: (id: string) => call(`searches/${id}`, undefined, undefined, 'DELETE'),
+  saveProfile: (p: unknown) => call('profile', p, undefined, 'PUT'),
   search: (f: ApiFilters, offset = 0, limit = 100, s?: AbortSignal) => call<Page>('search', { ...f, offset, limit }, s),
   ids: (f: ApiFilters, limit = 5000) => call<{ total: number; ids: string[] }>('ids', { ...f, limit }),
   counts: (f: ApiFilters, s?: AbortSignal) => call<Record<string, number>>('counts', f, s),

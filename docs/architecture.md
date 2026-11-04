@@ -1,12 +1,14 @@
 # Recon: architecture and data flow
 
-Recon has three layers, each sized for a stream of hundreds to thousands of scan files a month:
+Recon has three layers for scan data, each sized for a stream of hundreds to thousands of files a month,
+and one small store for what users do with it:
 
 1. **Batch:** each scan file is streamed once into Parquet, then a SQL build turns the retained
    observations into scored companies.
 2. **Serving store:** every build publishes a versioned, IP-masked set of Parquet files, laid out for
    the queries the product makes, plus a pre-aggregated count cube.
-3. **Read API:** FastAPI and DuckDB over the serving store. The web app and the MCP server both use
+3. **API:** FastAPI. It queries the serving store with DuckDB and keeps each user's lists, statuses,
+   saved searches and profile in the app database. The web app and the MCP server both go through
    it, so they always give the same answer.
 
 Diagrams mark what runs in this repo on the supplied file (solid) and the production pieces it slots
@@ -18,7 +20,8 @@ flowchart LR
   ingest --> lake[("Parquet by scan")]
   lake --> build["Build<br/>noise, identity, signals, scores"]
   build --> store[("Serving store<br/>one folder per build")]
-  store --> api["Read API<br/>DuckDB"]
+  store --> api["API<br/>DuckDB reads"]
+  appdb[("App database<br/>users, lists, saved searches")] <--> api
   api --> app["Web app"]
   api --> mcp["MCP server"]
 ```
@@ -183,8 +186,9 @@ flowchart LR
   unique ids, no evidence for unknown accounts), renames it and moves the `current` link. The API
   opens the new build on its next request, with no restart. The last three builds are kept for
   rollback and comparison.
-- **Read-only.** The API never writes; the build is the only writer, so the serving side needs no
-  locking and scales by adding read replicas of the same files.
+- **Scan data is read-only to the API.** The build is the only writer of the serving store, so serving
+  needs no locking and scales by adding read replicas of the same files; the only writes are users'
+  lists and searches, in the app database (section 6).
 
 ### Measured at 1×, 10× and 100×
 
@@ -235,11 +239,30 @@ was saved with).
 - **Re-baselining.** `first_ranked` follows account ids, so a change to the identity rules (which can
   rename a company) is published with `--rebaseline`, marking everything present as already seen.
   Otherwise renamed companies would surface as new.
-- **Where the state lives.** In this deployment, lists and saved searches are kept per browser, and
-  the MCP server hands accounts to the app with an import link. In production they are rows in the
-  app database (Postgres: workspaces, lists, list items, saved searches, runs) behind the same API,
-  shared with a team and synced to the CRM, with a runner that re-executes each saved search when a
-  build lands and notifies its owner.
+- **Where the state lives: the app database, behind the API.** Users, sessions, lists, list items,
+  account statuses, saved searches and profiles ([`api/workspace.py`](../api/workspace.py)). Every row
+  belongs to a workspace; each user has one, and a team is a membership table away. The app, the
+  HTTP API and the MCP server all read and write the same rows, so a list Claude builds is the list
+  the seller opens. "This list" and "not in my lists" are resolved on the server, so the browser
+  never sends id lists, and caps per workspace (50 lists, 20,000 listed accounts, 50 saved searches)
+  bound what one user can store.
+- **SQLite here, Postgres in production.** The two stores have different jobs. Scan data is a
+  column workload (scans and aggregates over millions of rows, rebuilt per batch), so it is Parquet
+  read by DuckDB. User state is a row workload (small, frequent writes that must not be lost), so it
+  needs a transactional row store. This deployment runs one API host, where SQLite in WAL mode
+  (many readers, one writer, millisecond writes) is enough and needs no server. Production uses
+  Postgres: several API instances writing the same rows, teams editing one list, backups with
+  point-in-time recovery. The queries are portable SQL and live in one module, so the move is a
+  change of driver and connection, not of design.
+- **Signed in, everything.** Every route except health and sign-in needs a session: the account list
+  names companies with exploitable exposure, and an unlisted URL is not a secret (every TLS
+  certificate is published in Certificate Transparency logs, which scanners watch). Passwords are
+  stored as scrypt hashes from configuration, sessions as hashed tokens in an HttpOnly, SameSite
+  cookie, and sign-in is rate-limited at nginx. Production replaces the password with SSO (OIDC) and
+  maps identity-provider groups to team workspaces.
+- **Saved searches, run on new data.** Each saved search can be reviewed in the app or asked through
+  the MCP server (`whats_new`). In production a runner re-executes every daily search when a build
+  lands and notifies its owner, through the same API.
 
 ## 7. The production path
 
@@ -258,7 +281,8 @@ for a full stream of files and many users, with the point at which each is neede
 | Data quality | The export fails on a full IP, duplicate ids or orphan evidence | Plus row-count and null-rate drift checks against the previous build |
 | LLM label cache | Keyed by name | Keyed by name, model and prompt version, so a prompt change relabels |
 | Serving store | Parquet on local disk, DuckDB in the API process | Past tens of millions of accounts or many concurrent users: the same API on ClickHouse (or Postgres with indexes), partitioned by country, a search index for names, the cube materialised per build |
-| User state | Per browser | Postgres behind the API, with workspaces and a saved-search runner |
+| User state | SQLite in WAL mode on one API host | Postgres: several API instances, teams sharing workspaces, point-in-time recovery; a runner that re-executes saved searches per build and notifies |
+| Sign-in | Configured users with scrypt-hashed passwords, server-side sessions | SSO (OIDC), identity-provider groups mapped to team workspaces, audit log |
 
 Unchanged at any scale: ingest streams with bounded memory and renames atomically, DuckDB spills to
 disk, CVE results grow with the number of CVEs rather than companies, evidence is capped per company,

@@ -35,7 +35,7 @@ export function readUrl(): ViewState {
   const p = new URLSearchParams(window.location.search)
   const list = (k: string) => (p.get(k) ? p.get(k)!.split(',').filter(Boolean) : [])
   return {
-    play: p.get('import') ? 'list:mine' : p.get('play') ?? DEFAULT_PLAY,
+    play: p.get('play') ?? DEFAULT_PLAY,
     q: p.get('q') ?? '', country: list('country'), industry: list('industry'), sector: list('sector'),
     software: list('software'), size: list('size'), strong: p.get('strong') === '1', hideListed: p.get('new') === '1',
     id: p.get('account'), search: p.get('search'), onlyNew: p.get('since') === '1',

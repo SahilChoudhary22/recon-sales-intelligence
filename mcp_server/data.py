@@ -5,6 +5,8 @@ the same template rules (compiled from web/src/catalog.json), so the app, the AP
 always give the same answer.
 
   RECON_SERVE    the serving store (default: data/serve/current in this repo)
+  RECON_DB       the app database with users' lists and saved searches (default: data/app/recon.db)
+  RECON_USER     whose lists and saved searches the tools work on (a user configured in RECON_USERS)
   RECON_APP_URL  where links should point (default: http://localhost:5173)
 """
 import csv
@@ -14,6 +16,7 @@ import urllib.parse
 
 from api.rules import CATALOG, TEMPLATES
 from api.store import Query, get_store
+from api.workspace import get_workspace
 from pipeline.export import SOFTWARE_FAMILIES
 
 APP_URL = os.environ.get("RECON_APP_URL", "http://localhost:5173").rstrip("/")
@@ -82,9 +85,30 @@ def view_link(**params):
     return f"{APP_URL}/?{urllib.parse.urlencode(q)}" if q else f"{APP_URL}/"
 
 
-def import_link(account_ids):
-    """Opening this link adds the accounts to the viewer's My list in the app."""
-    return f"{APP_URL}/?{urllib.parse.urlencode({'import': ','.join(account_ids)})}"
+def list_link(list_id):
+    return f"{APP_URL}/?play=list:{urllib.parse.quote(list_id)}"
+
+
+def search_link(search_id):
+    return f"{APP_URL}/?search={urllib.parse.quote(search_id)}"
+
+
+def saved_query(search, listed):
+    """A saved search as a query for what is new since it was last reviewed and in none of the lists."""
+    f = search["filters"]
+    return Query.make(template=f.get("play", "market"), q=f.get("q", ""), country=f.get("country", []),
+                      industry=f.get("industry", []), sector=f.get("sector", []), software=f.get("software", []),
+                      size=f.get("size", []), strong=f.get("strong", False), since_build=search["lastRun"] or "",
+                      exclude_ids=tuple(listed), **search["profile"])
+
+
+def workspace_id():
+    """The workspace of RECON_USER: the same lists and saved searches the user sees in the app."""
+    name = os.environ.get("RECON_USER", "")
+    user = get_workspace().user_by_name(name) if name else None
+    if not user:
+        raise LookupError("Set RECON_USER to a Recon user (one configured in RECON_USERS) to use lists and saved searches.")
+    return user["workspace_id"]
 
 
 def crm_tasks_csv(account_ids):

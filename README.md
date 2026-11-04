@@ -60,9 +60,11 @@ seller sends is generated: the outreach is the evidence.
   over every scored company, with the peer group always named.
 - **Exposure brief.** A printable page of what anyone on the internet can see about an account, what
   each finding means and the usual fix: the asset a seller sends.
-- **Lists and CRM export.** Several named lists; every table shows which lists an account is in and
-  its status (to contact to meeting booked). Export a list or any search as CSV.
-- **MCP server.** Prospect from Claude or any MCP client; lists come back as a link into the app.
+- **Lists and CRM export.** Several named lists, kept per user on the server; every table shows which
+  lists an account is in and its status (to contact to meeting booked). Pick rows or take a whole
+  search into a list, and export a list or any search as CSV.
+- **MCP server.** Prospect from Claude or any MCP client, including building lists and checking saved
+  searches for what's new; they are the same lists the seller opens in the app.
 
 <p align="center">
   <img src="docs/images/cve-in-the-news.jpg" alt="CVE search for ProxyShell: three CVEs with CVSS, EPSS, CISA KEV dates and ransomware use, and the affected accounts" width="880" />
@@ -78,7 +80,8 @@ uv sync
 uv run python -m ingest.extract <scan-file> data/parquet/scan-2026-11-01   # ~15 min, flat memory
 uv run python -m pipeline.build "data/parquet/scan-*/*.parquet" data/build/full
 uv run python -m pipeline.export data/build/full                            # serving store, ~20 s
-uv run uvicorn api.app:app --port 8787                                      # read API, docs at /api/docs
+export RECON_USERS="you:$(uv run python -m api.workspace hash)" RECON_SECURE_COOKIE=0
+uv run uvicorn api.app:app --port 8787                                      # API, docs at /api/docs
 cd web && npm install && npm run dev                                        # http://localhost:5173
 ```
 
@@ -229,7 +232,14 @@ CVE search returns exactly the companies a direct query over the build finds (fo
   percentile that grows with the market.
 - **Evidence instead of generated outreach.** The opening line and the brief are filled from findings,
   so neither can claim a vulnerability the scan didn't see.
-- **IPs masked to /24 in everything served.** A public list of vulnerable hosts is a target list.
+- **IPs masked to /24 in everything served, and nothing served without sign-in.** A public list of
+  vulnerable hosts is a target list, and an unlisted URL isn't private: its TLS certificate is in the
+  public Certificate Transparency logs that scanners watch.
+- **SQLite for users' work in this deployment, Postgres in production.** Lists, statuses and saved
+  searches are small, frequent writes that must not be lost: a row store with transactions, not the
+  column store the scan data uses. One API host makes SQLite (WAL mode) enough and serverless;
+  several API instances and shared team lists are where Postgres takes over. The queries are portable
+  SQL in one module, and every row carries a workspace, so teams are a membership table away.
 - **Counts from a pre-aggregated cube, "new" from the data.** The queries the app sends most cost the
   same at any number of accounts, and each account records the build it was first ranked in, so a
   saved search finds what is new with one filter instead of storing old results per user.
@@ -266,8 +276,8 @@ unchanged). What changes for a full stream of files and many users, and when, is
 
 ## MCP server
 
-Seven deterministic tools over the same query layer as the API (IP-masked). The assistant handles the
-language; nothing runs a model or costs per call on Recon's side.
+Ten deterministic tools over the same query layer and app database as the API (IP-masked). The
+assistant handles the language; nothing runs a model or costs per call on Recon's side.
 
 | Tool | Returns |
 | --- | --- |
@@ -276,7 +286,10 @@ language; nothing runs a model or costs per call on Recon's side.
 | `search_accounts(template, country, industry, sector, software, ...)` | Ranked accounts and a link to the same view |
 | `get_account(account_id)` | Score breakdown, peer rank, evidence by signal |
 | `cve_exposure(cve_or_name, ...)` | CVE facts and affected accounts, with the product fallback |
-| `make_list(account_ids)` | A link that adds the accounts to My list in the app |
+| `make_list(account_ids or template + filters, list_name)` | Adds accounts, or a search's top results, to one of the seller's lists |
+| `my_lists()` | The seller's lists, and how many accounts are new in each saved search |
+| `save_search(name, template, filters)` | A saved search the seller can re-run in the app |
+| `whats_new(saved_search, mark_reviewed)` | Accounts new since the search was last reviewed and in none of the lists |
 | `export_crm_tasks(account_ids)` | CRM call tasks as CSV, filled from the evidence |
 
 ## How it was built
@@ -314,7 +327,6 @@ An AI-native loop, with checks at the points where a model's confidence can't be
   data for the estates on ISP lines, certificate transparency for subsidiaries, SPF and DMARC for
   email security sellers.
 - **Single-IP precision:** the largest remaining error, measured on a fresh blind sample.
-- **Accounts and team state:** lists, statuses and saved searches move from browser storage to the app
-  database (Postgres: lists, list items, saved searches, runs), shared with a team and synced to the CRM.
+- **Teams and CRM sync:** shared team workspaces on Postgres with SSO, and lists synced to the CRM.
 - **Scheduled saved searches:** a worker re-runs each saved search when a build lands and notifies the
   owner of new accounts, through the same API.

@@ -1,6 +1,7 @@
-# The app: nginx serves the built web app and forwards /api/ to the read API, which queries the
-# serving store (Parquet, IP-masked) with DuckDB. Neither is published on a host port; only the
-# Tailscale sidecar in compose.tailscale.yaml reaches nginx.
+# The app: nginx serves the built web app and forwards /api/ to the API. The API reads scan data from
+# the serving store (Parquet, IP-masked, read-only) with DuckDB and keeps users' lists and saved
+# searches in SQLite on a volume. Nothing is published on a host port; only the Tailscale sidecar in
+# compose.tailscale.yaml reaches nginx. RECON_USERS comes from .env (python -m api.workspace hash).
 #   docker compose -f compose.yaml -f compose.tailscale.yaml up -d --build
 services:
   web:
@@ -25,12 +26,18 @@ services:
       dockerfile: api.Dockerfile
     restart: unless-stopped
     read_only: true
+    # the host user owns ./app-data, so the container writes the database as that user
+    user: "${RECON_UID:-1000}:${RECON_UID:-1000}"
     tmpfs:
       - /tmp
     volumes:
       # a new build is a new folder plus a moved 'current' link; the API picks it up on the next request
       - ./serve:/data/serve:ro
+      # the only writable state: users, sessions, lists, saved searches (back up this folder)
+      - ./app-data:/data/app
     environment:
+      RECON_USERS: ${RECON_USERS:?set RECON_USERS in .env}
+      RECON_DB: /data/app/recon.db
       # DuckDB can spill to /tmp; keep it bounded on a shared host
       DUCKDB_MEMORY_LIMIT: 1GB
     mem_limit: 1536m

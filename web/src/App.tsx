@@ -1,12 +1,12 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import type { Account, CveResult, Evidence, Meta, Play } from './types'
 import { MARKET, PRODUCTS, SECTORS, TEMPLATES, forProduct } from './plays'
 import { kevUrl, looksLikeCve, nvdUrl } from './cve'
-import { api, useApi, useDebounced, type ApiFilters } from './api'
+import { SIGN_IN, api, needsSignIn, useApi, useDebounced, type ApiFilters } from './api'
 import { talkTrack } from './talkTrack'
 import { APP_NAME, PRODUCT_LINE } from './brand'
-import { STATUSES, statusLabel, useLists, type List, type Lists, type Status } from './lists'
-import { useSearches, type SavedSearch, type Schedule } from './searches'
+import { STATUSES, statusLabel, useWorkspace, type List, type Lists, type SavedSearch, type Schedule, type Status } from './workspace'
+import { Login } from './Login'
 import { NO_FILTERS, isFiltered, readUrl, toApi, writeUrl, type FilterSet, type ViewState } from './filters'
 import { MultiSelect, type Option } from './MultiSelect'
 import { Tour } from './Tour'
@@ -15,7 +15,7 @@ import { Brief } from './Brief'
 import { peerLine } from './peer'
 import { guideSeen } from './tourSteps'
 import { IcpCard } from './IcpCard'
-import { SIZES, describeIcp, icpFilters, icpIsEmpty, personaRoles, useIcp, type Icp, type Persona } from './icp'
+import { EMPTY_ICP, SIZES, describeIcp, icpFilters, icpIsEmpty, personaRoles, type Icp, type Persona } from './icp'
 
 const fmt = (n: number) => n.toLocaleString('en-US')
 const CRITICAL_WEIGHT = 8
@@ -39,17 +39,7 @@ const SHORT: Record<string, string> = {
   weak_tls: 'TLS 1.0/1.1', self_signed_web: 'Self-signed certificate',
 }
 
-let IMPORT_IDS = new URLSearchParams(window.location.search).get('import')
 const BRIEF_ID = new URLSearchParams(window.location.search).get('brief')
-
-const PRODUCT_KEY = 'recon.product'
-function readProduct() {
-  try {
-    return localStorage.getItem(PRODUCT_KEY) ?? ''
-  } catch {
-    return ''
-  }
-}
 
 const SIZE_OPTIONS: [string, string][] = SIZES.map(([k, l, hint]) => [k, `${l.replace(' estate', '')}, ${hint}`])
 const withCounts = (opts: [string, string][], counts: [string, number][] | undefined): Option[] => {
@@ -57,21 +47,41 @@ const withCounts = (opts: [string, string][], counts: [string, number][] | undef
   return opts.map(([k, l]) => [k, l, counts ? m.get(k) ?? 0 : undefined])
 }
 
+// every route needs a session; a 401 anywhere swaps the app for the sign-in screen
 export default function App() {
+  const [signIn, setSignIn] = useState(false)
+  // a layout effect runs before any child's data effects, so the first 401 is never missed
+  useLayoutEffect(() => {
+    const show = () => setSignIn(true)
+    window.addEventListener(SIGN_IN, show)
+    if (needsSignIn()) show()
+    return () => window.removeEventListener(SIGN_IN, show)
+  }, [])
+  return signIn ? <Login onDone={() => window.location.reload()} /> : <Recon />
+}
+
+function Recon() {
   const [f, setF] = useState<ViewState>(readUrl)
   // the tour starts by itself on a first visit once the profile card is out of the way; asked for
   // from the header, it always opens
   const [guide, setGuide] = useState<'auto' | 'asked' | null>(() => (guideSeen() ? null : 'auto'))
   const [icpPing, setIcpPing] = useState(0)
-  const [product, setProductState] = useState(readProduct)
   const [naming, setNaming] = useState(false)
-  const lists = useLists()
-  const saved = useSearches()
+  const meta = useApi('meta', () => api.meta())
+  const data = meta.data
+  const build = data?.build_id ?? ''
+  // the user's lists, saved searches and profile, kept by the API
+  const work = useWorkspace(build)
+  const { lists, saved } = work
   // the ideal customer profile: offered once on a first visit, in the page (never blocking it), then a
   // default layer under every view
-  const { icp: profile, seen: profileSeen, save: saveProfile } = useIcp()
+  const profile = work.profile.icp ?? EMPTY_ICP
+  const profileSeen = work.profile.icp !== null
+  const saveProfile = work.profile.save
+  const product = profile.product
+  const setProduct = (v: string) => saveProfile({ ...profile, product: v })
   const [editingIcp, setEditingIcp] = useState(false)
-  const showIcp = editingIcp || (!profileSeen && !BRIEF_ID)
+  const showIcp = editingIcp || (work.ready && !profileSeen && !BRIEF_ID)
   const closeIcp = () => {
     if (!profileSeen) saveProfile({ ...profile, active: false }) // skipped: don't offer it again
     setEditingIcp(false)
@@ -82,19 +92,7 @@ export default function App() {
     setF((cur) => ({ ...cur, ...(filterChange && !('search' in patch) ? { search: null, onlyNew: false } : {}), ...patch }))
     if (!('id' in patch)) setMore([])
   }
-  const setProduct = (v: string) => {
-    setProductState(v)
-    try {
-      localStorage.setItem(PRODUCT_KEY, v)
-    } catch {
-      // ignore
-    }
-  }
   useEffect(() => { if (!BRIEF_ID) writeUrl(f) }, [f]) // the brief keeps its own ?brief= URL so it can be shared
-
-  const meta = useApi('meta', () => api.meta())
-  const data = meta.data
-  const build = data?.build_id ?? ''
 
   const listId = f.play.startsWith('list:') ? f.play.slice(5) : null
   const openSearch = f.search ? saved.searches.find((s) => s.id === f.search) ?? null : null
@@ -104,17 +102,17 @@ export default function App() {
   const profileQ = useMemo(() => (openSearch ? openSearch.profile : icpFilters(profile)), [openSearch, profile])
   const query: ApiFilters = useMemo(() => {
     const base = toApi({ ...f, q })
-    if (listId) return { ...base, template: 'list', ids: lists.idsIn(listId) }
+    if (listId) return { ...base, template: 'list', list_id: listId }
     const fresh = f.onlyNew && openSearch?.lastRun
     return {
       ...base, ...profileQ, template: f.play,
-      exclude_ids: f.hideListed || fresh ? lists.listed : [],
+      exclude_listed: !!(f.hideListed || fresh),
       since_build: fresh ? openSearch!.lastRun! : '',
     }
-    // lists.idsIn / lists.listed change exactly when lists.entries does
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [f, q, listId, profileQ, openSearch, lists.entries])
-  const qKey = JSON.stringify(query)
+  }, [f, q, listId, profileQ, openSearch])
+  // a list view and "not in my lists" depend on list membership, which the server resolves: re-ask
+  // when it changes
+  const qKey = JSON.stringify(query) + (query.list_id || query.exclude_listed ? `:v${lists.version}` : '')
 
   const page = useApi(`search:${qKey}`, (s) => api.search(query, 0, 100, s))
   const [more, setMore] = useState<Account[]>([])
@@ -155,16 +153,6 @@ export default function App() {
   const cve = useApi(cveAsk ? `cve:${q}:${JSON.stringify(cveQuery)}` : null, (s) => api.cve(q, cveQuery, s))
   const cveIds = cveAsk ? cve.data?.ids ?? [] : []
   const cveMode = cveIds.length > 0
-
-  // ?import=id1,id2 (from the MCP server's make_list) adds those accounts to My list once, then opens it.
-  // The ids are read at page load (IMPORT_IDS), because writeUrl drops the parameter on first render.
-  const { add: addToList } = lists
-  useEffect(() => {
-    if (!IMPORT_IDS) return
-    const ids = IMPORT_IDS.split(',').slice(0, 500)
-    IMPORT_IDS = null
-    api.search({ template: 'list', ids }, 0, 500).then((p) => addToList(p.accounts.map((a) => a.id), 'mine')).catch(() => {})
-  }, [addToList])
 
   const listPlay = (l: List): Play => ({
     id: `list:${l.id}`, name: l.name,
@@ -208,7 +196,6 @@ export default function App() {
   const sectorName = (s: string) => SECTORS.find(([k]) => k === s)?.[1] ?? s
   const saveIcp = (p: Icp) => {
     saveProfile(p)
-    setProduct(p.product)
     setEditingIcp(false)
     setMore([])
   }
@@ -234,7 +221,7 @@ export default function App() {
               <ul className="space-y-0.5">
                 {saved.searches.map((s) => (
                   <li key={s.id}>
-                    <SavedSearchItem s={s} on={f.search === s.id} listed={lists.listed} onOpen={() => openSaved(s)} />
+                    <SavedSearchItem s={s} on={f.search === s.id} version={lists.version} onOpen={() => openSaved(s)} />
                   </li>
                 ))}
               </ul>
@@ -274,9 +261,11 @@ export default function App() {
           {showIcp && data && <IcpCard initial={{ ...profile, product }} first={!profileSeen} ping={icpPing} onSave={saveIcp} onClose={closeIcp} />}
 
           {openSearch ? (
-            <SavedSearchBanner s={openSearch} build={build} onlyNew={f.onlyNew} listed={lists.listed} lists={lists}
-              onAddNew={(ids, l, name) => { addAndSay(ids, l, name); saved.markRun(openSearch.id, build) }}
-              onOnlyNew={(v) => set({ onlyNew: v })} onRun={() => { saved.markRun(openSearch.id, build); set({ onlyNew: false }) }}
+            <SavedSearchBanner s={openSearch} build={build} onlyNew={f.onlyNew} lists={lists}
+              onAddNew={(l, name) => lists.addSearch(newQuery(openSearch), l).then((n) => {
+                setNotice(`Added ${fmt(n)} new ${n === 1 ? 'account' : 'accounts'} to ${name}.`); saved.markRun(openSearch.id)
+              })}
+              onOnlyNew={(v) => set({ onlyNew: v })} onRun={() => { saved.markRun(openSearch.id); set({ onlyNew: false }) }}
               onSchedule={(v) => saved.setSchedule(openSearch.id, v)}
               onDelete={() => { saved.remove(openSearch.id); set({ search: null, onlyNew: false }) }} />
           ) : cveMode ? (
@@ -291,9 +280,9 @@ export default function App() {
           ) : (
             <div className="mb-4 flex max-w-[75ch] flex-wrap items-baseline gap-x-4">
               <h1 className="text-xl text-ink">{play.name}</h1>
-              {currentList && currentList.id !== 'mine' && (
+              {currentList && currentList.id !== lists.lists[0]?.id && (
                 <button type="button" className="text-sm text-muted underline underline-offset-4 hover:text-ink"
-                  onClick={() => { lists.remove(currentList.id); set({ play: 'list:mine' }) }}>Delete list</button>
+                  onClick={() => { lists.remove(currentList.id); set({ play: `list:${lists.lists[0]?.id}` }) }}>Delete list</button>
               )}
               <p className="mt-1 w-full text-sm text-muted">{play.blurb}</p>
             </div>
@@ -352,11 +341,11 @@ export default function App() {
                 )}
                 {!cveMode && picked.size === 0 && total > 0 && (
                   <ListPicker lists={lists} label={total > 5000 ? 'Add top 5,000 to a list' : `Add all ${fmt(total)} to a list`}
-                    onPick={(l, name) => api.ids(query).then((r) => addAndSay(r.ids, l, name))} />
+                    onPick={(l, name) => lists.addSearch(query, l).then((n) => setNotice(`Added ${fmt(n)} ${n === 1 ? 'account' : 'accounts'} to ${name}.`))} />
                 )}
                 {naming ? (
                   <SaveSearchForm onCancel={() => setNaming(false)}
-                    onSave={(name) => { const id = saved.add(name, filterSet, profileQ, build); setNaming(false); set({ search: id, onlyNew: false }) }}
+                    onSave={(name) => { const id = saved.add(name, filterSet, profileQ); setNaming(false); set({ search: id, onlyNew: false }) }}
                     suggestion={[play.name, ...f.sector.map(sectorName), ...f.country, ...f.software].filter(Boolean).slice(0, 4).join(', ')} />
                 ) : (
                   <button type="button" className="btn" disabled={!!listId || !!openSearch || !build} onClick={() => setNaming(true)}>Save search</button>
@@ -415,12 +404,16 @@ export default function App() {
   )
 }
 
+// what a saved search finds that is new since its last run and in none of your lists
+const newQuery = (s: SavedSearch): ApiFilters =>
+  ({ ...toApi(s.filters), ...s.profile, template: s.filters.play, exclude_listed: true, since_build: s.lastRun ?? '' })
+
 const shortDate = (iso: string | null) => (iso ? new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : 'the last run')
 
 // a saved search in the nav, with how many accounts are new since it last ran and in none of your lists
-function SavedSearchItem({ s, on, listed, onOpen }: { s: SavedSearch; on: boolean; listed: string[]; onOpen: () => void }) {
-  const fresh = { ...toApi(s.filters), ...s.profile, template: s.filters.play, exclude_ids: listed, since_build: s.lastRun ?? '' }
-  const n = useApi(s.lastRun ? `new:${JSON.stringify(fresh)}` : null, (sig) => api.search(fresh, 0, 1, sig)).data?.total ?? 0
+function SavedSearchItem({ s, on, version, onOpen }: { s: SavedSearch; on: boolean; version: number; onOpen: () => void }) {
+  const fresh = newQuery(s)
+  const n = useApi(s.lastRun ? `new:${JSON.stringify(fresh)}:v${version}` : null, (sig) => api.search(fresh, 0, 1, sig)).data?.total ?? 0
   return (
     <button type="button" onClick={onOpen} aria-current={on ? 'page' : undefined} title={`Saved search: ${s.name}`}
       className={`flex min-h-8 w-full items-center justify-between gap-2 rounded-[var(--radius-ctl)] px-2.5 text-left text-sm ${on ? 'bg-accent-soft font-medium text-ink' : 'text-ink-2 hover:bg-paper-2'}`}>
@@ -430,13 +423,13 @@ function SavedSearchItem({ s, on, listed, onOpen }: { s: SavedSearch; on: boolea
   )
 }
 
-function SavedSearchBanner({ s, build, onlyNew, listed, lists, onAddNew, onOnlyNew, onRun, onSchedule, onDelete }: {
-  s: SavedSearch; build: string; onlyNew: boolean; listed: string[]; lists: Lists
-  onAddNew: (ids: string[], listId: string, name: string) => void
+function SavedSearchBanner({ s, build, onlyNew, lists, onAddNew, onOnlyNew, onRun, onSchedule, onDelete }: {
+  s: SavedSearch; build: string; onlyNew: boolean; lists: Lists
+  onAddNew: (listId: string, name: string) => void
   onOnlyNew: (v: boolean) => void; onRun: () => void; onSchedule: (v: Schedule) => void; onDelete: () => void
 }) {
-  const fresh = { ...toApi(s.filters), ...s.profile, template: s.filters.play, exclude_ids: listed, since_build: s.lastRun ?? '' }
-  const n = useApi(s.lastRun ? `new:${JSON.stringify(fresh)}` : null, (sig) => api.search(fresh, 0, 1, sig)).data?.total
+  const fresh = newQuery(s)
+  const n = useApi(s.lastRun ? `new:${JSON.stringify(fresh)}:v${lists.version}` : null, (sig) => api.search(fresh, 0, 1, sig)).data?.total
   const upToDate = s.lastRun === build
   return (
     <section aria-labelledby="search-title" className="mb-4 rounded-[var(--radius-card)] border border-rule px-5 py-4">
@@ -455,7 +448,7 @@ function SavedSearchBanner({ s, build, onlyNew, listed, lists, onAddNew, onOnlyN
             <Chevron />
           </span>
           {!!n && <ListPicker lists={lists} primary label={`Add ${fmt(n)} new to a list`}
-            onPick={(l, name) => api.ids(fresh).then((r) => onAddNew(r.ids, l, name))} />}
+            onPick={(l, name) => onAddNew(l, name)} />}
           <button type="button" className="btn" onClick={onRun} disabled={upToDate && !n}>Mark as reviewed</button>
           <button type="button" className="text-muted underline underline-offset-4 hover:text-ink" onClick={onDelete}>Delete</button>
         </div>
@@ -727,6 +720,8 @@ function Header({ data, onGuide, onIcp, icpOn }: { data: Meta | null; onGuide: (
             Your ICP{icpOn && <span aria-hidden="true" className="size-1.5 rounded-full bg-accent" />}
           </button>
           <button type="button" className="btn" onClick={onGuide}>How it works</button>
+          <button type="button" className="text-sm text-muted underline underline-offset-4 hover:text-ink"
+            onClick={() => api.logout().finally(() => window.location.reload())}>Sign out</button>
         </div>
       </div>
     </header>

@@ -12,9 +12,9 @@ pytestmark = pytest.mark.skipif(not os.path.exists("data/serve/current/meta.json
 
 
 class Client:
-    def __init__(self):
+    def __init__(self, env):
         self.p = subprocess.Popen([sys.executable, "-m", "mcp_server.server"], stdin=subprocess.PIPE,
-                                  stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True)
+                                  stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True, env=env)
         self.n = 0
 
     def send(self, method, params=None, notify=False):
@@ -42,8 +42,11 @@ class Client:
 
 
 @pytest.fixture(scope="module")
-def client():
-    c = Client()
+def client(tmp_path_factory):
+    from api.workspace import hash_password
+    db = tmp_path_factory.mktemp("app") / "recon.db"
+    env = {**os.environ, "RECON_DB": str(db), "RECON_USERS": f"seller:{hash_password('x')}", "RECON_USER": "seller"}
+    c = Client(env)
     init = c.send("initialize", {"protocolVersion": "2025-06-18", "capabilities": {},
                                  "clientInfo": {"name": "recon-test", "version": "0"}})
     assert init["result"]["serverInfo"]["name"] == "Recon"
@@ -55,7 +58,7 @@ def client():
 def test_lists_the_tools(client):
     names = {t["name"] for t in client.send("tools/list")["result"]["tools"]}
     assert names == {"dataset_overview", "list_signal_templates", "search_accounts", "get_account", "cve_exposure",
-                     "make_list", "export_crm_tasks"}
+                     "make_list", "my_lists", "save_search", "whats_new", "export_crm_tasks"}
 
 
 def test_search_matches_the_app_filters(client):
@@ -69,9 +72,19 @@ def test_cve_in_the_news_falls_back_to_product(client):
     assert r["total_in_app"] == 0 and "Citrix NetScaler" in r["fallback"]["reason"]
 
 
-def test_list_link_round_trip(client):
+def test_lists_are_the_sellers_own(client):
     r = client.call("make_list", account_ids=["chevron.com", "nope.invalid"])
-    assert r["added"] == 1 and r["skipped_unknown"] == 1 and "import=chevron.com" in r["open_to_import"]
+    assert r["list"] == "My list" and r["added"] == 1 and r["skipped_unknown"] == 1 and "play=list:" in r["open_in_app"]
+    r = client.call("make_list", list_name="UK edge", template="edge", country="GB", limit=10)
+    assert r["added"] == 10
+    lists = {li["name"]: li["accounts"] for li in client.call("my_lists")["lists"]}
+    assert lists == {"My list": 1, "UK edge": 10}
+
+
+def test_saved_search_reports_whats_new(client):
+    client.call("save_search", name="GB firewalls", template="edge", country="GB")
+    r = client.call("whats_new", saved_search="GB firewalls")
+    assert r["new"] == 0  # nothing is first ranked after the build it was saved on
 
 
 def test_dataset_overview_states_the_funnel(client):

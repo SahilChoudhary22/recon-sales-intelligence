@@ -269,7 +269,7 @@ build before moving the host's `current` pointer to it).
   only, with fixed guidance per signal ([`web/src/guidance.ts`](../web/src/guidance.ts)).
 - **Ideal customer profile, filters, lists and saved searches** ([`web/src/`](../web/src/)): every filter
   takes several values, the profile is a default layer under every view, an account can sit in several
-  lists, and a saved search reports what is new since its last run. How these are stored, and where
-  they move in production, is in [architecture.md](architecture.md#6-lists-and-saved-searches).
-- **MCP server** ([`mcp_server/`](../mcp_server/)): seven deterministic tools on the API's query layer;
+  lists, and a saved search reports what is new since its last run. They are kept per user in the app
+  database behind sign-in; how, and what changes in production, is in [architecture.md](architecture.md#6-lists-and-saved-searches).
+- **MCP server** ([`mcp_server/`](../mcp_server/)): ten deterministic tools on the API's query layer and app database;
   protocol tests in `tests/test_mcp_server.py`, accuracy evaluation in `mcp_server/eval/`.

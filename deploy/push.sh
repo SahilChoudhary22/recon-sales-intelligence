@@ -11,7 +11,8 @@ BUILD=$(readlink "$STORE")
 # the published store must be the masked one (export.py also refuses to write an unmasked one)
 grep -q '"ips_masked": true' "$STORE/meta.json" || { echo "serving store is not IP-masked; refusing"; exit 1; }
 (cd web && npm run build)
-ssh "$HOST" "mkdir -p $DIR/site $DIR/serve $DIR/api $DIR/web/src"
+ssh "$HOST" "mkdir -p $DIR/site $DIR/serve $DIR/api $DIR/web/src $DIR/app-data"
+ssh "$HOST" "grep -q '^RECON_USERS=' $DIR/.env" || { echo "add RECON_USERS to $DIR/.env (uv run python -m api.workspace hash)"; exit 1; }
 rsync -az --delete web/dist/ "$HOST:$DIR/site/"
 rsync -az --delete api/ "$HOST:$DIR/api/" --exclude __pycache__ --exclude bench.py
 rsync -az web/src/catalog.json "$HOST:$DIR/web/src/"
