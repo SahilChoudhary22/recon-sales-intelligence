@@ -255,3 +255,62 @@ def test_php_cgi_cves_and_empty_iscsi_targets_are_not_claimed(tmp_path):
     listed = "Login Response Success(0x0)\nKey/Value Pairs\nAuthMethod=None\nTargetAddress=10.0.0.5:3260,1\nTargetName=iqn.2004-04.com.qnap:ts-451:iscsi.backup"
     acc, _ = run(tmp_path / "j", [web(), banner(3260, "iscsi", "2026-11-01T10:01:00", iscsi={"targets": [{"name": "backup"}]}, data=listed)])
     assert "open_directory" in acc["acme-test.co.uk"]
+
+
+def test_winrm_open_to_the_internet(tmp_path):
+    acc, ev = run(tmp_path, [web(), banner(5985, "http", "2026-11-01T10:01:00", product="WinRM",
+                                          data="HTTP/1.1 404 Not Found\r\nServer: Microsoft-HTTPAPI/2.0\r\n")])
+    assert "winrm_exposed" in acc["acme-test.co.uk"] and ev["winrm_exposed"] == "WinRM on port 5985"
+
+
+def test_a_ransom_note_in_a_database_is_breach_evidence(tmp_path):
+    mongo = {"databases": [{"name": "READ_ME_TO_RECOVER_DATA", "empty": False}, {"name": "admin"}]}
+    acc, ev = run(tmp_path, [web(), banner(27017, "mongodb", "2026-11-01T10:02:00", product="MongoDB",
+                                          mongodb=mongo, data="MongoDB Server Information")])
+    assert "breach_evidence" in acc["acme-test.co.uk"]
+    assert ev["breach_evidence"].endswith("holds a ransom note: READ_ME_TO_RECOVER_DATA")
+
+
+def test_a_defaced_page_is_breach_evidence_but_a_decoy_page_is_nothing(tmp_path):
+    acc, ev = run(tmp_path, [web(http={"title": "x", "html": "<h1>Hacked By Someone</h1>"})])
+    assert "breach_evidence" in acc["acme-test.co.uk"] and "defaced" in ev["breach_evidence"]
+    # a page stuffed with every fingerprint (built to fool scanners) claims nothing
+    decoy = "<h1>Hacked By X</h1> coinhive.min.js <title>phpinfo()</title> Whitelabel Error Page"
+    acc, _ = run(tmp_path / "decoy", [web(http={"title": "MinIO Console", "html": decoy})])
+    assert not {"breach_evidence", "debug_exposed", "mgmt_exposed"} & set(acc["acme-test.co.uk"])
+
+
+def test_a_stack_trace_or_phpinfo_page_is_a_debug_exposure(tmp_path):
+    # Spring's fallback error page names the framework and nothing else: no claim
+    acc, ev = run(tmp_path, [web(http={"title": "Error", "html": "<h1>Whitelabel Error Page</h1><p>This application has no explicit mapping"})])
+    assert "debug_exposed" not in acc["acme-test.co.uk"]
+    acc, ev = run(tmp_path / "django", [web(http={"title": "Page not found", "html": "<p>You're seeing this error because you have <code>DEBUG = True</code> in your Django settings file.</p>"})])
+    assert ev["debug_exposed"] == "Django debug page on port 443"
+    acc, ev = run(tmp_path / "php", [web(http={"title": "phpinfo()", "html": "<title>phpinfo()</title><table>"})])
+    assert ev["debug_exposed"].startswith("phpinfo() page")
+
+
+def test_a_management_console_named_by_its_title(tmp_path):
+    acc, ev = run(tmp_path, [web(http={"title": "MinIO Console", "html": "<div id=root></div>"})])
+    assert "mgmt_exposed" in acc["acme-test.co.uk"] and ev["mgmt_exposed"] == "MinIO Console on port 443"
+
+
+def test_a_weak_certificate_key_or_signature(tmp_path):
+    weak = {"cert": {"subject": {"CN": "www.acme-test.co.uk"}, "issuer": {"CN": "CA"}, "sig_alg": "sha256WithRSAEncryption",
+                     "pubkey": {"type": "rsa", "bits": 1024}}, "versions": ["TLSv1.2"]}
+    # one hygiene finding per service (the strongest), so TLS 1.0 would hide this one
+    acc, ev = run(tmp_path, [banner(443, "https", "2026-11-01T10:00:00", ssl=weak)])
+    assert ev["weak_cert_crypto"] == "www.acme-test.co.uk — RSA 1024-bit key"
+    sha1 = {**weak, "cert": {**weak["cert"], "sig_alg": "sha1WithRSAEncryption", "pubkey": {"type": "rsa", "bits": 2048}}}
+    acc, ev = run(tmp_path / "sha1", [banner(443, "https", "2026-11-01T10:00:00", ssl=sha1)])
+    assert ev["weak_cert_crypto"] == "www.acme-test.co.uk — sha1WithRSAEncryption"
+
+
+def test_a_redirect_names_the_company_behind_an_unnamed_host(tmp_path):
+    # no certificate, a cloud reverse-DNS name, but the server redirects to the company's own site
+    redirect = [{"data": "HTTP/1.1 301 Moved Permanently\r\nLocation: https://portal.acme-redirect.co.uk/login\r\n"}]
+    row = banner(80, "http", "2026-11-01T10:00:00", product="nginx", hostnames=["ec2-198-51-100-7.compute.amazonaws.com"],
+                 http={"title": "301 Moved", "redirects": redirect}, vulns={}, data="HTTP/1.1 200 OK",
+                 ssl={"versions": ["TLSv1"]})
+    acc, _ = run(tmp_path, [row])
+    assert "acme-redirect.co.uk" in acc

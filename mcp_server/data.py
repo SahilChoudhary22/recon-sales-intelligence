@@ -152,6 +152,8 @@ _LINES = {
     "edge_device": lambda e: f"{_or(e.get('p'), 'your firewall/VPN appliance')} ({e['ip']}:{e['port']}) answers on the public internet. These appliances are the most common ransomware entry point.",
     "exchange_onprem": lambda e: f"{_or(e.get('e'), 'an on-prem Exchange server')} is internet-facing at {e['ip']}.",
     "remote_access": lambda e: f"{e.get('e')} at {e['ip']} is open to anyone on the internet.",
+    "winrm_exposed": lambda e: f"Windows Remote Management (WinRM) at {e['ip']}:{e['port']} answers on the public internet.",
+    "debug_exposed": lambda e: f"a public page at {e['ip']}:{e['port']} shows {'a phpinfo() page' if (e.get('e') or '').startswith('phpinfo') else 'a stack trace'}, giving away software versions and file paths.",
     "database_exposed": lambda e: f"a database ({e.get('e')}) at {e['ip']} accepts connections from the internet.",
     "smb_exposed": lambda e: f"Windows file sharing is exposed at {e['ip']}:{e['port']}.",
     "ot_exposed": lambda e: f"an industrial/operational protocol ({e.get('e')}) is reachable at {e['ip']}.",

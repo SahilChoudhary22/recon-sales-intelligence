@@ -245,7 +245,7 @@ def cve_evidence(matches):
     return f"array_to_string(list_transform({first_seen}[1:2], lambda s: s || ' — ' || {line}), '; ')"
 
 
-EDGE_RE = (r"(?i)(fortigate|fortinet|fortiweb|fortimail|fortiproxy|sonicwall|netscaler|citrix|pulse secure|"
+EDGE_RE = (r"(?i)(pfsense|opnsense|fortigate|fortinet|fortiweb|fortimail|fortiproxy|sonicwall|netscaler|citrix|pulse secure|"
            r"ivanti|globalprotect|pan-os|palo alto|sophos|watchguard|check ?point|cisco asa|anyconnect|"
            r"adaptive security|zyxel|juniper|sangfor|array networks|barracuda|openvpn access server|draytek)")
 # The appliance itself, from its product fingerprint or its own page. Not a certificate alone: sites
@@ -276,6 +276,23 @@ IOT_RE = r"(?i)(hikvision|dahua|webcam|ip camera|dvr|nvr|axis|xiongmai|uniview)"
 # security tools it also tags (GoPhish, BurpSuite, PowerSploit, Interactsh, C2 frameworks) are what red
 # teams and pentesters run, so on a company's IP they point to a security-mature buyer, not a breach.
 BREACH_MALWARE_RE = r"(?i)(trojan|xtremerat|darkcomet|njrat|quasar|cryptominer|xmrig)"
+# management consoles named by their login page's title (decoy pages, which carry every product's name, excluded)
+CONSOLE_TITLE_RE = (r"(?i)(minio console|n8n\.io|portainer|synology diskstation|3cx (webclient|management)|home assistant|"
+                    r"phpmyadmin|webmin|proxmox|vmware esxi|vsphere|unifi (os|network)|zabbix|rancher|argo cd|"
+                    r"airflow|jupyter|cockpit|cyberpanel|easypanel|routeros|vigor login|kibana|jenkins)")
+# Page markers are read at ingest; these narrow them on the text around the match (page_snippet).
+# Defaced: the attacker's own change to the page (its title, a script rewriting it, a heading, or injected
+# pages listed in the site's menu, "/9a2aa0f6e6e7-htm/"), not a news story quoting "hacked by".
+DEFACED = r"""(list_contains(coalesce(page_flags, []), 'defaced') and (coalesce(http_title, '') ilike '%hacked by%' or regexp_matches(coalesce(page_snippet, ''), '(?i)(-htm/?"[^>]*>\s*hacked by|document\.title\s*=\s*"hacked by|<(h1|h2|h3|title|center|font)[^>]*>\s*hacked by|hack3d by)')))"""
+# Debug: real debug output, not a framework's plain error page (Spring's "Whitelabel Error Page", an
+# ASP.NET 404) that names the framework and nothing else
+DEBUG_KIND = r"""(case when list_contains(page_flags, 'phpinfo') then 'phpinfo() page'
+    when page_snippet like '%DEBUG = True%' then 'Django debug page'
+    when page_snippet like '%Werkzeug Debugger%' then 'Werkzeug debugger'
+    when page_snippet like '%Whoops! There was an error%' then 'Laravel debug page'
+    when page_snippet like '%Traceback (most recent call last)%' then 'Python stack trace'
+    when page_snippet like '%Server Error in ''/'' Application%' and regexp_matches(page_snippet, 'Exception|Stack Trace') then 'ASP.NET error with exception details'
+    end)"""
 EOL_OS_RE = r"(?i)(server 2003|server 2008|server 2012|windows xp|windows 7|windows vista)"
 
 # id, category, weight, label, predicate, evidence
@@ -291,6 +308,10 @@ SIGNALS = [
      f"((module in ('rdp','vnc','telnet','x11') and {PROTO_OK}) or list_has_any(service_keys, ['rdp_encryption','vnc','telnet'])) "
      f"and not regexp_matches(coalesce(banner, ''), '{DENIED_RE}')",
      "module || ' on port ' || port"),
+    # Windows Remote Management (5985/5986): PowerShell remoting, a common lateral-movement door. The
+    # scanner names it from WinRM's own HTTP reply; 128k services in the 2026-11-01 file
+    ("winrm_exposed", "exposure", 5.0, "Windows Remote Management (WinRM) open to the internet",
+     "product = 'WinRM'", "'WinRM on port ' || port"),
     ("database_exposed", "exposure", 7.0, "Database reachable from the internet",
      f"((module in ({DB_MODULES}) and {PROTO_OK}) or list_has_any(service_keys, ['mysql','mongodb','elastic','redis'])) "
      f"and not regexp_matches(coalesce(banner, ''), '{DENIED_RE}')",
@@ -300,12 +321,21 @@ SIGNALS = [
      "'SMB on port ' || port"),
     ("open_directory", "exposure", 5.0, "Open directory / file share listing",
      # iSCSI only when the target answers with its targets, not "Not found any reachable targets"
-     "list_has_any(service_keys, ['open_dir','dav']) or list_contains(tags, 'open-dir') "
+     "list_has_any(service_keys, ['open_dir','dav']) or list_contains(tags, 'open-dir') or coalesce(ftp_anonymous, false) "
      "or (list_contains(service_keys, 'iscsi') and regexp_matches(coalesce(banner, ''), '(?i)TargetName|TargetAddress'))",
      "coalesce(http_title, module) || ' on port ' || port"),
-    ("breach_evidence", "breach", 12.0, "Evidence of an existing breach (ransomed database, trojan or cryptominer)",
-     f"list_contains(tags, 'compromised') or (list_contains(tags, 'malware') and regexp_matches(coalesce(product, ''), '{BREACH_MALWARE_RE}'))",
-     "coalesce(product, module) || ' on port ' || port || case when list_contains(tags, 'compromised') then ' (flagged compromised)' else '' end"),
+    # also read at ingest: a database holding a ransom note ("READ_ME_TO_RECOVER_DATA"), a defaced
+    # page ("hacked by …"), a cryptominer script; decoy pages never carry these flags
+    ("breach_evidence", "breach", 12.0, "Evidence of an existing breach (ransomed database, defaced site, trojan or cryptominer)",
+     f"list_contains(tags, 'compromised') or (list_contains(tags, 'malware') and regexp_matches(coalesce(product, ''), '{BREACH_MALWARE_RE}')) "
+     f"or len(coalesce(ransom_db, [])) > 0 or {DEFACED} or list_contains(coalesce(page_flags, []), 'miner')",
+     "case when len(coalesce(ransom_db, [])) > 0 then coalesce(product, module) || ' on port ' || port || ' holds a ransom note: ' || ransom_db[1] "
+     f"when {DEFACED} then 'Web page on port ' || port || ' defaced (\"hacked by\")' "
+     "when list_contains(coalesce(page_flags, []), 'miner') then 'Cryptominer script on the web page on port ' || port "
+     "else coalesce(product, module) || ' on port ' || port || case when list_contains(tags, 'compromised') then ' (flagged compromised)' else '' end end"),
+    ("debug_exposed", "exposure", 4.0, "Debug output exposed (stack trace, debug mode, phpinfo)",
+     f"list_has_any(coalesce(page_flags, []), ['debug_page', 'phpinfo']) and {DEBUG_KIND} is not null",
+     f"{DEBUG_KIND} || ' on port ' || port"),
     ("ai_exposed", "exposure", 6.0, "Self-hosted AI app or MCP server open to the internet",
      "list_has_any(tags, ['ai', 'mcp'])",
      "coalesce(product, http_title, module) || ' on port ' || port"),
@@ -313,8 +343,9 @@ SIGNALS = [
      f"((module like 'snmp%' or module like 'ldap%' or module in ('ipmi','mikrotik-routeros-api','mikrotik-winbox')) and {PROTO_OK}) "
      "or module in ('docker','etcd','kubernetes') "
      "or list_has_any(service_keys, ['kubernetes','docker','etcd','mikrotik_routeros','tacacs']) "
-     "or list_contains(tags, 'devops')",  # the scanner's DevOps tag: Kubernetes, Harbor, Docker, Vault, Consul
-     "coalesce(product, module) || ' on port ' || port"),
+     "or list_contains(tags, 'devops') "  # the scanner's DevOps tag: Kubernetes, Harbor, Docker, Vault, Consul
+     f"or (regexp_matches(coalesce(http_title, ''), '{CONSOLE_TITLE_RE}') and not list_contains(coalesce(page_flags, []), 'decoy'))",
+     "coalesce(product, case when regexp_matches(coalesce(http_title, ''), '" + CONSOLE_TITLE_RE + "') then trim(http_title) end, module) || ' on port ' || port"),
     # the scanner's ics/medical tag, or an industrial product it named on an industrial protocol
     ("ot_exposed", "exposure", 8.0, "Industrial / medical / POS protocol on the internet",
      f"(list_has_any(tags, ['ics', 'medical']) or (module in ({OT_MODULES}) and regexp_matches(coalesce(product, ''), '{OT_PRODUCT_RE}'))) "
@@ -342,7 +373,9 @@ SIGNALS = [
      "eol_sw is not null and eol_sw_date < try_cast(ts as timestamp) and not patched_in_place",
      "eol_sw || ', support ended ' || strftime(eol_sw_date, '%B %Y')"),
     # a domain-joined host: a standalone server reports its own name as the "domain" (96% of NTLM replies)
-    ("ntlm_leak", "exposure", 3.0, "Leaks internal Windows domain / host names (NTLM)",
+    # its own category: the leak rides on a service (WinRM, RDP, Exchange) that carries its own exposure
+    # claim, and the build keeps one claim per service per category
+    ("ntlm_leak", "leak", 3.0, "Leaks internal Windows domain / host names (NTLM)",
      "ntlm_dns_domain is not null and lower(ntlm_dns_domain) <> lower(coalesce(ntlm_fqdn, ''))",
      "coalesce(ntlm_fqdn, ntlm_netbios_domain) || coalesce(' — ' || ntlm_os, '')"),
     ("cert_expired", "hygiene", 2.0, "Expired TLS certificate in production",
@@ -358,6 +391,14 @@ SIGNALS = [
     ("weak_tls", "hygiene", 1.5, "Still accepts TLS 1.0/1.1 or SSL",
      "list_has_any(tls_versions, ['TLSv1','TLSv1.1','SSLv3','SSLv2'])",
      "array_to_string(list_filter(tls_versions, lambda v: v[1] <> '-'), ', ')"),
+    # the certificate's own key or signature is weak: RSA under 2048 bits, or SHA-1/MD5 signed by a CA
+    ("weak_cert_crypto", "hygiene", 1.0, "Certificate with a weak key or signature (RSA under 2048 bits, SHA-1/MD5)",
+     "(cert_key_type = 'rsa' and cert_key_bits < 2048) "
+     "or (regexp_matches(lower(coalesce(cert_sig_alg, '')), 'sha1|md5') and not coalesce(cert_self_signed, false))",
+     "coalesce(cert_cn, '') || ' — ' || case when cert_key_type = 'rsa' and cert_key_bits < 2048 then 'RSA ' || cert_key_bits || '-bit key' "
+     "else cert_sig_alg end"),
+    ("default_page", "hygiene", 0.5, "Default web server page left in place",
+     "list_contains(coalesce(page_flags, []), 'default_page')", "coalesce(http_title, 'default page') || ' on port ' || port"),
     ("self_signed_web", "hygiene", 1.0, "Self-signed certificate on a public service",
      "cert_self_signed and not " + EDGE, "coalesce(cert_cn, '') || ' on port ' || port"),
 ]
@@ -368,4 +409,5 @@ MATURITY = [
     ("security_txt", "http_securitytxt", "Publishes security.txt (has a disclosure process)"),
     ("pqc", "list_contains(tags, 'pqc')", "Post-quantum TLS enabled"),
     ("hsts", "map_contains(http_headers, 'strict-transport-security')", "HSTS enabled"),
+    ("sso", "list_contains(coalesce(page_flags, []), 'sso')", "Signs in through a cloud identity provider (Okta / Entra ID)"),
 ]

@@ -62,6 +62,10 @@ SCHEMA = pa.schema([
     ("ntlm_fqdn", pa.string()), ("ntlm_netbios_domain", pa.string()),
     ("fortinet_device", pa.string()), ("exchange_build", pa.string()),
     ("banner", pa.string()),
+    # read from the parts of the record not kept whole (page HTML, redirects, cert key, database names)
+    ("page_flags", pa.list_(pa.string())), ("redirect_host", pa.string()),
+    ("cert_key_type", pa.string()), ("cert_key_bits", pa.int32()), ("cert_sig_alg", pa.string()),
+    ("ransom_db", pa.list_(pa.string())), ("ftp_anonymous", pa.bool_()), ("page_snippet", pa.string()),
 ])
 
 
@@ -90,6 +94,63 @@ def _san(cert):
     return []
 
 
+# Page markers, read from the HTML at ingest so the HTML itself needn't be kept. A page that matches
+# several unrelated fingerprints at once is a decoy built to fool scanners (60k records in the
+# 2026-11-01 file): it gets only the 'decoy' flag. Measured in docs/technical-notes.md.
+PAGE_RX = {
+    "defaced": re.compile(r"(?i)hacked\s+by\s|defaced\s+by\s|h4ck3d\s+by"),
+    "miner": re.compile(r"(?i)coinhive\.min\.js|cryptonight|webminepool|crypto-?loot"),
+    "phpinfo": re.compile(r"<title>phpinfo\(\)</title>"),
+    "debug_page": re.compile(r"Whoops! There was an error|you have <code>DEBUG = True|Werkzeug Debugger|"
+                             r"Whitelabel Error Page|Server Error in '/' Application|Traceback \(most recent call last\)"),
+    "password_form": re.compile(r"(?i)<input[^>]+type=[\"']?password"),
+    "sso": re.compile(r"(?i)\.okta\.com|login\.microsoftonline\.com"),
+}
+DEFAULT_TITLE_RE = re.compile(r"(?i)^\s*(apache2 (ubuntu|debian) default page|iis windows server|welcome to nginx!|"
+                              r"test page for the apache|it works!|welcome to centos|iis\d* welcome)")
+LOCATION_RE = re.compile(r"(?im)^location:\s*https?://([^/\s:?#]+)")
+RANSOM_RE = re.compile(r"(?i)read_?me|readme_to|to_?recover|recover_?your|pwned|ransom|how_to_restore|backup_?your|meow")
+
+
+def _page_flags(http):
+    """(flags, snippet): the page markers, and the text around the first finding, as evidence."""
+    html = http.get("html") or ""
+    found = {k: m for k, rx in PAGE_RX.items() if html and (m := rx.search(html))}
+    flags, snippet = [], None
+    if sum(k in found for k in ("defaced", "miner", "phpinfo", "debug_page")) >= 2 or len(found) >= 4:
+        flags.append("decoy")
+    else:
+        flags += list(found)
+        m = next((found[k] for k in ("defaced", "miner", "phpinfo", "debug_page") if k in found), None)
+        if m:
+            snippet = re.sub(r"\s+", " ", html[max(0, m.start() - 80):m.end() + 160])[:300]
+    if DEFAULT_TITLE_RE.search(http.get("title") or ""):
+        flags.append("default_page")
+    return flags, snippet
+
+
+def _redirect_host(http):
+    for rd in http.get("redirects") or ():
+        d = rd.get("data") if isinstance(rd, dict) else None
+        m = LOCATION_RE.search(d if isinstance(d, str) else "")
+        if m:
+            host = m.group(1).lower().strip(".")
+            return None if re.fullmatch(r"[\d.]+|\[?[0-9a-f:]+\]?", host) else host[:200]
+    return None
+
+
+def _ransom_db(r):
+    names = []
+    for k in ("mongodb", "elastic", "redis", "couchdb", "cassandra"):
+        v = r.get(k)
+        if isinstance(v, dict):
+            s = orjson.dumps(v).decode()
+            names += re.findall(r'"name":"([^"]{1,80})"', s)
+            if isinstance(v.get("indices"), dict):
+                names += list(v["indices"])[:200]
+    return sorted({n[:80] for n in names if RANSOM_RE.search(n)})[:10]
+
+
 def slim(r):
     sh = r.get("_shodan") or {}
     loc = r.get("location") or {}
@@ -102,6 +163,7 @@ def slim(r):
     vulns = [{"cve": k, "cvss": v.get("cvss"), "epss": v.get("epss"), "kev": bool(v.get("kev")),
               "verified": bool(v.get("verified"))} for k, v in (r.get("vulns") or {}).items()]
     ntlm_os = ntlm.get("os")
+    pf = _page_flags(http) if http else ([], None)
     return {
         "ip": r.get("ip_str") or r.get("ipv6"), "port": r.get("port"), "transport": r.get("transport"),
         "ts": r.get("timestamp"), "org": _s(r.get("org")), "isp": _s(r.get("isp")), "asn": r.get("asn"),
@@ -129,6 +191,13 @@ def slim(r):
         "fortinet_device": _s((r.get("fortinet") or {}).get("device")),
         "exchange_build": _s((r.get("microsoft_exchange") or {}).get("name")),
         "banner": _s(r.get("data"), 512),
+        "page_flags": pf[0], "page_snippet": pf[1],
+        "redirect_host": _redirect_host(http) if http else None,
+        "cert_key_type": _s((cert.get("pubkey") or {}).get("type"), 20),
+        "cert_key_bits": (cert.get("pubkey") or {}).get("bits") if isinstance((cert.get("pubkey") or {}).get("bits"), int) else None,
+        "cert_sig_alg": _s(cert.get("sig_alg"), 60),
+        "ransom_db": _ransom_db(r),
+        "ftp_anonymous": bool((r.get("ftp") or {}).get("anonymous")) if isinstance(r.get("ftp"), dict) else None,
     }
 
 

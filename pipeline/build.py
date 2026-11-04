@@ -194,6 +194,10 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
         union all select rid, ip, ntlm_dns_domain, 'ntlm', false from clean where ntlm_dns_domain is not null
         union all select rid, ip, http_host, 'http_host', false from clean
             where http_host is not null and not regexp_matches(http_host, '^[0-9.:\\[\\]]+$')
+        -- where the web server redirects to names its site (an EC2 host redirecting to services.acme.aero);
+        -- platforms it redirects to (login.microsoftonline.com) are dropped as infra below
+        union all select rid, ip, redirect_host, 'http_host', false from clean
+            where redirect_host is not null and not regexp_matches(redirect_host, '^[0-9.:\\[\\]]+$')
         union all select rid, ip, unnest(hostnames), 'ptr', false from clean where len(hostnames) > 0""")
     distinct = con.execute("select distinct h, src from cand where h is not null").fetchall()
     mapped = [(h, s, *resolve(h, s)) for h, s in distinct]
@@ -372,8 +376,8 @@ def build(glob, out_dir, llm_labels=None, domain_labels=None):
                    bool_or(signal in ('eol_os','eol_product')) has_eol,
                    bool_or(signal in ('cert_expired','cert_expiring')) has_cert_issue,
                    bool_or(category = 'breach') has_breach,
-                   bool_or(category in ('breach','edge','exposure','vuln','eol')) has_material,
-                   bool_or(any_new and category in ('breach','edge','exposure','vuln','eol')) has_new,
+                   bool_or(category in ('breach','edge','exposure','leak','vuln','eol')) has_material,
+                   bool_or(any_new and category in ('breach','edge','exposure','leak','vuln','eol')) has_new,
                    list(signal order by pts desc) signals,
                    list(label order by pts desc) signal_labels,
                    max(weight) top_weight

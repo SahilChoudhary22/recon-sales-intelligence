@@ -2,7 +2,7 @@
 // Written once, applied to every account; nothing here is generated per company.
 export const GUIDANCE: Record<string, { means: string; action: string }> = {
   breach_evidence: {
-    means: 'A database the scanner found already ransomed, or a remote-access trojan or cryptominer running on the company’s address: signs the network has already been breached.',
+    means: 'A database holding a ransom note, a defaced web page, or a remote-access trojan or cryptominer running on the company’s address: signs the network has already been breached.',
     action: 'Treat it as an incident: isolate the host, preserve logs, and bring in incident response before cleaning up.',
   },
   ai_exposed: {
@@ -24,6 +24,14 @@ export const GUIDANCE: Record<string, { means: string; action: string }> = {
   remote_access: {
     means: 'Remote desktop, VNC, Telnet or X11 accepts connections from anywhere on the internet.',
     action: 'Put remote access behind a VPN or zero-trust gateway with multi-factor authentication.',
+  },
+  winrm_exposed: {
+    means: 'Windows Remote Management (WinRM, the service behind PowerShell remoting) answers on the public internet, where attackers try stolen or guessed passwords against it.',
+    action: 'Block ports 5985/5986 at the edge and allow WinRM only from management hosts over a VPN.',
+  },
+  debug_exposed: {
+    means: 'A public page shows a stack trace or a phpinfo() page, revealing file paths, software versions and sometimes configuration secrets.',
+    action: 'Turn off debug mode in production and remove diagnostic pages.',
   },
   database_exposed: {
     means: 'A database server accepts connections from the internet.',
@@ -52,5 +60,7 @@ export const GUIDANCE: Record<string, { means: string; action: string }> = {
   cert_expired: { means: 'A public service presents an expired TLS certificate.', action: 'Renew it and add certificate-expiry monitoring.' },
   cert_expiring: { means: 'A TLS certificate expires within 30 days.', action: 'Renew it before it lapses.' },
   weak_tls: { means: 'A public service still accepts TLS 1.0/1.1 or SSL.', action: 'Disable legacy protocol versions.' },
+  weak_cert_crypto: { means: 'A public certificate uses a key under 2048 bits or a SHA-1/MD5 signature, which no longer protects traffic as intended.', action: 'Reissue it with a 2048-bit (or larger) RSA or an ECDSA key and SHA-256.' },
+  default_page: { means: 'A web server still shows its default install page, usually a server set up and forgotten.', action: 'Decommission it, or configure and patch it like any other public server.' },
   self_signed_web: { means: 'A public service uses a self-signed certificate.', action: 'Use a certificate from a trusted authority.' },
 }

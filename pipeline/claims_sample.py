@@ -10,6 +10,8 @@ and never shown to reviewers.
 usage: python -m pipeline.claims_sample <before_build_dir> <after_build_dir> "<scan glob>" <out_prefix>
        (before_build_dir "-" samples one build only: a fresh holdout)
        --refresh: rebuild <out_prefix>'s existing cases (same accounts and ids) from the after build
+       --signals a,b: a targeted sample: accounts (any tier) carrying one of these signals, showing only
+                      those claims, to measure newly added signals
 
 Each claim shows the record behind it, matched on IP, port and observation time: one IP:port can
 carry several sites, and matching on IP:port alone could show a neighbour's reply.
@@ -25,7 +27,7 @@ from pipeline.export import mask
 
 N, MAX_CLAIMS, SEED = 60, 4, 20261104
 BANNER = 512  # the whole banner the pipeline keeps, so the reviewer sees everything a rule could
-HYGIENE = "('cert_expired', 'cert_expiring', 'weak_tls', 'self_signed_web')"
+HYGIENE = "('cert_expired', 'cert_expiring', 'weak_tls', 'self_signed_web', 'weak_cert_crypto', 'default_page')"
 
 
 def main():
@@ -35,7 +37,11 @@ def main():
     ap.add_argument("scan_glob")
     ap.add_argument("out_prefix")
     ap.add_argument("--refresh", action="store_true")
+    ap.add_argument("--signals", default="")
+    ap.add_argument("--n", type=int, default=N)
     a = ap.parse_args()
+    only = [x for x in a.signals.split(",") if x]
+    claim_filter = (f"e.signal in ({', '.join(repr(x) for x in only)})" if only else f"e.signal not in {HYGIENE}")
     con = duckdb.connect()
     con.execute("set memory_limit='3GB'")
     used = set()
@@ -51,9 +57,17 @@ def main():
         key = json.load(open(f"{a.out_prefix}_key.json"))
         picks = [(v["build"], a.after if v["build"] == "after" else a.before, v["company_id"]) for _, v in sorted(key.items())]
     for build, d in ([] if a.refresh else builds):
+        if only:  # stratified: up to n / len(signals) accounts per signal, so rare signals get reviewed too
+            for sig in only:
+                ids = [r[0] for r in con.execute(f"""select distinct company_id from '{d}/evidence.parquet'
+                    where signal = ? order by 1""", [sig]).fetchall() if r[0] not in used]
+                chosen = rng.sample(ids, min(a.n // len(only), len(ids)))
+                used |= set(chosen)
+                picks += [(build, d, cid) for cid in chosen]
+            continue
         ids = [r[0] for r in con.execute(f"""select company_id from '{d}/accounts.parquet'
             where tier in ('P1', 'P2') order by company_id""").fetchall() if r[0] not in used]
-        picks += [(build, d, cid) for cid in rng.sample(ids, N)]
+        picks += [(build, d, cid) for cid in rng.sample(ids, min(a.n, len(ids)))]
     con.execute("create table pick (build varchar, dir varchar, company_id varchar)")
     con.executemany("insert into pick values (?, ?, ?)", picks)
 
@@ -62,7 +76,7 @@ def main():
     for build, d in builds:
         parts.append(f"""select '{build}' build, e.company_id, e.signal, e.label, e.evidence, e.ip, e.port, e.ts, e.weight
             from '{d}/evidence.parquet' e join pick p on p.company_id = e.company_id and p.build = '{build}'
-            where e.signal not in {HYGIENE}
+            where {claim_filter}
             qualify row_number() over (partition by e.company_id, e.signal order by e.weight desc, e.ip, e.port) = 1""")
     con.execute("create table ev as " + " union all ".join(parts))
     # one read of the scan, limited to the services those rows name
@@ -70,8 +84,10 @@ def main():
         select ip, port, ts, any_value(module) module, any_value(product) product, any_value(version) version,
                any_value(http_server) http_server, any_value(http_title) http_title, any_value(os) os,
                any_value(tags) tags, any_value(left(banner, {BANNER})) banner,
-               any_value(cast(http_headers['x-powered-by'] as varchar)) powered_by
-        from read_parquet('{a.scan_glob}') where (ip, port, ts) in (select ip, port, ts from ev) group by ip, port, ts""")
+               any_value(cast(http_headers['x-powered-by'] as varchar)) powered_by,
+               any_value(page_snippet) page_snippet, any_value(ransom_db) db_names, any_value(cert_cn) cert_cn,
+               any_value(cert_key_type || ' ' || cert_key_bits) cert_key, any_value(cert_sig_alg) cert_sig_alg
+        from read_parquet('{a.scan_glob}', union_by_name = true) where (ip, port, ts) in (select ip, port, ts from ev) group by ip, port, ts""")
 
     cases = []
     for build, d, cid in picks:
@@ -81,7 +97,8 @@ def main():
                 list(distinct http_title) filter (where http_title is not null)[1:5]
             from '{d}/evidence.parquet' where company_id = ?""", [cid]).fetchone()
         claims = con.execute("""select e.label, e.evidence, e.ip, e.port, r.module, r.product, r.version,
-                r.http_server, r.http_title, r.os, r.tags, r.banner, r.powered_by
+                r.http_server, r.http_title, r.os, r.tags, r.banner, r.powered_by,
+                r.page_snippet, r.db_names, r.cert_cn, r.cert_key, r.cert_sig_alg
             from ev e left join raw r using (ip, port, ts) where e.build = ? and e.company_id = ?
             order by e.weight desc, e.signal limit ?""", [build, cid, MAX_CLAIMS]).fetchall()
         cases.append(({"build": build, "company_id": cid, "tier": acc[5]}, {
@@ -91,7 +108,11 @@ def main():
             "claims": [{"claim": c[0], "evidence": mask(c[1], True), "service": mask(f"{c[2]}:{c[3]}", True),
                         "scan": {"module": c[4], "product": c[5], "version": c[6], "server_header": c[7],
                                  "page_title": mask(c[8], True), "os": c[9], "tags": c[10], "x_powered_by": c[12],
-                                 "banner": mask(c[11], True)}}
+                                 "banner": mask(c[11], True),
+                                 # read at ingest from parts of the record not kept whole; shown when present
+                                 **{k: (mask(v, True) if isinstance(v, str) else v) for k, v in
+                                    (("page_text_excerpt", c[13]), ("database_names", c[14]), ("certificate_cn", c[15]),
+                                     ("certificate_key", c[16]), ("certificate_signature", c[17])) if v}}}
                        for c in claims]}))
     if not a.refresh:
         rng.shuffle(cases)

@@ -40,6 +40,7 @@ const SHORT: Record<string, string> = {
   critical_cve: 'Critical CVE', eol_os: 'End-of-life OS', eol_product: 'End-of-life software',
   ntlm_leak: 'Leaks AD domain', cert_expired: 'Expired certificate', cert_expiring: 'Certificate expiring',
   weak_tls: 'TLS 1.0/1.1', self_signed_web: 'Self-signed certificate',
+  winrm_exposed: 'WinRM open', debug_exposed: 'Debug page exposed', weak_cert_crypto: 'Weak certificate', default_page: 'Default page',
 }
 
 const BRIEF_ID = new URLSearchParams(window.location.search).get('brief')
