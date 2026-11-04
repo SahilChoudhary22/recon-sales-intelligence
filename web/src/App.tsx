@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { Account, Dataset, Evidence, Play } from './types'
-import { DEFAULT_PLAY, PLAYS } from './plays'
+import { DEFAULT_PLAY, MARKET, PRODUCTS, SECTORS, TEMPLATES, forProduct, inTargeting, sectorOf } from './plays'
+import { useSegments } from './segments'
 import { talkTrack } from './talkTrack'
 import { APP_NAME, PRODUCT_LINE } from './brand'
 import { STATUSES, statusLabel, useShortlist, type Saved, type Status } from './shortlist'
@@ -30,27 +31,37 @@ const SHORT: Record<string, string> = {
   weak_tls: 'TLS 1.0/1.1', self_signed_web: 'Self-signed certificate',
 }
 
-type Filters = { play: string; q: string; country: string; industry: string; software: string; strong: boolean; id: string | null }
+type Filters = {
+  play: string; q: string; country: string; industry: string; sector: string; software: string; strong: boolean; id: string | null
+}
+const EMPTY_ICP = { q: '', country: '', industry: '', sector: '', software: '', strong: false }
 
 function readUrl(): Filters {
   const p = new URLSearchParams(window.location.search)
   return {
     play: p.get('play') ?? DEFAULT_PLAY, q: p.get('q') ?? '', country: p.get('country') ?? '',
-    industry: p.get('industry') ?? '', software: p.get('software') ?? '', strong: p.get('strong') === '1', id: p.get('account'),
+    industry: p.get('industry') ?? '', sector: p.get('sector') ?? '', software: p.get('software') ?? '',
+    strong: p.get('strong') === '1', id: p.get('account'),
   }
 }
 
 function writeUrl(f: Filters) {
   const p = new URLSearchParams()
   if (f.play !== DEFAULT_PLAY) p.set('play', f.play)
-  if (f.q) p.set('q', f.q)
-  if (f.country) p.set('country', f.country)
-  if (f.industry) p.set('industry', f.industry)
-  if (f.software) p.set('software', f.software)
+  for (const k of ['q', 'country', 'industry', 'sector', 'software'] as const) if (f[k]) p.set(k, f[k])
   if (f.strong) p.set('strong', '1')
   if (f.id) p.set('account', f.id)
   const qs = p.toString()
   window.history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname)
+}
+
+const PRODUCT_KEY = 'recon.product'
+function readProduct() {
+  try {
+    return localStorage.getItem(PRODUCT_KEY) ?? ''
+  } catch {
+    return ''
+  }
 }
 
 export default function App() {
@@ -59,10 +70,21 @@ export default function App() {
   const [f, setF] = useState<Filters>(readUrl)
   const [limit, setLimit] = useState(100)
   const [guide, setGuide] = useState(() => !guideSeen())
+  const [product, setProductState] = useState(readProduct)
+  const [naming, setNaming] = useState(false)
   const shortlist = useShortlist()
+  const segs = useSegments()
   const set = (patch: Partial<Filters>) => {
     setF((cur) => ({ ...cur, ...patch }))
     if (!('id' in patch)) setLimit(100) // a new filter starts the list from the top
+  }
+  const setProduct = (v: string) => {
+    setProductState(v)
+    try {
+      localStorage.setItem(PRODUCT_KEY, v)
+    } catch {
+      // ignore
+    }
   }
 
   const load = useCallback(() => {
@@ -74,8 +96,8 @@ export default function App() {
   useEffect(load, [load])
   useEffect(() => writeUrl(f), [f])
 
-  const playCounts = useMemo(
-    () => Object.fromEntries(PLAYS.map((p) => [p.id, data ? data.accounts.filter(p.match).length : 0])),
+  const counts = useMemo(
+    () => Object.fromEntries([MARKET, ...TEMPLATES].map((p) => [p.id, data ? data.accounts.filter(p.match).length : 0])),
     [data],
   )
   const options = useMemo(() => {
@@ -94,7 +116,8 @@ export default function App() {
     blurb: 'Accounts you saved from the account panel, with where each one stands. Export it for your CRM.',
     match: (a) => !!shortlist.list[a.id],
   }
-  const play = f.play === 'list' ? myList : PLAYS.find((x) => x.id === f.play) ?? PLAYS[0]
+  const play = f.play === 'list' ? myList : [MARKET, ...TEMPLATES].find((x) => x.id === f.play) ?? MARKET
+  const isTemplate = TEMPLATES.some((t) => t.id === play.id)
   const rows = useMemo(() => {
     if (!data) return []
     const needle = f.q.trim().toLowerCase()
@@ -103,14 +126,19 @@ export default function App() {
         play.match(a) &&
         (!f.country || a.country === f.country) &&
         (!f.industry || a.industry === f.industry) &&
+        (!f.sector || sectorOf(a) === f.sector) &&
         (!f.software || a.software.includes(f.software)) &&
         (!f.strong || IDENT[a.ident].strong) &&
         (!needle || a.name.toLowerCase().includes(needle) || (a.org ?? '').toLowerCase().includes(needle)),
     )
-  }, [data, play, f.q, f.country, f.industry, f.software, f.strong])
+  }, [data, play, f.q, f.country, f.industry, f.sector, f.software, f.strong])
   const selected = useMemo(() => data?.accounts.find((a) => a.id === f.id) ?? null, [data, f.id])
-  const filtered = f.q || f.country || f.industry || f.software || f.strong
+  const filtered = !!(f.q || f.country || f.industry || f.sector || f.software || f.strong)
   const nSaved = Object.keys(shortlist.list).length
+  // 'Newly exposed' needs two or more scans; it stays out of the way until there is something in it
+  const shown = TEMPLATES.filter((t) => t.id !== 'new' || counts[t.id] > 0)
+  const mine = shown.filter((t) => forProduct(t, product))
+  const others = product ? shown.filter((t) => !forProduct(t, product)) : []
 
   const navButton = (p: Play, count: number) => {
     const on = p.id === play.id
@@ -124,6 +152,7 @@ export default function App() {
       </button>
     )
   }
+  const current = { play: f.play, q: f.q, country: f.country, industry: f.industry, sector: f.sector, software: f.software, strong: f.strong }
 
   return (
     <div className="min-h-screen">
@@ -133,39 +162,94 @@ export default function App() {
           <div data-tour="mylist" className="shrink-0 lg:mb-5">
             <h2 className="mb-2 hidden px-2 text-sm text-muted lg:block">Your work</h2>
             {navButton(myList, nSaved)}
+            {segs.segments.length > 0 && (
+              <ul className="mt-1 hidden space-y-0.5 lg:block" aria-label="Segments">
+                {segs.segments.map((sg) => (
+                  <li key={sg.id} className="group flex items-center">
+                    <button type="button" onClick={() => set({ ...sg.filters, id: null })}
+                      className="min-h-8 flex-1 truncate rounded-[var(--radius-ctl)] px-2.5 text-left text-sm text-ink-2 hover:bg-paper-2"
+                      title={`Segment: ${sg.name}`}>
+                      {sg.name}
+                    </button>
+                    <button type="button" aria-label={`Delete segment ${sg.name}`} onClick={() => segs.remove(sg.id)}
+                      className="px-2 text-xs text-muted opacity-0 hover:text-ink focus-visible:opacity-100 group-hover:opacity-100">Delete</button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          <div className="shrink-0 lg:mb-5">
+            <h2 className="mb-2 hidden px-2 text-sm text-muted lg:block">Prospect</h2>
+            {navButton(MARKET, counts[MARKET.id])}
           </div>
           <div data-tour="plays" className="min-w-0">
-            <h2 className="mb-2 hidden px-2 text-sm text-muted lg:block">Plays</h2>
+            <div className="mb-2 hidden px-2 lg:block">
+              <label htmlFor="product" className="text-sm text-muted">What you sell</label>
+              <span className="relative mt-1 flex">
+                <select id="product" value={product} onChange={(e) => setProduct(e.target.value)} className="field w-full appearance-none pl-3 pr-9">
+                  <option value="">Any security product</option>
+                  {PRODUCTS.map(([k, l]) => <option key={k} value={k}>{l}</option>)}
+                </select>
+                <Chevron />
+              </span>
+            </div>
+            <h2 className="mb-2 mt-4 hidden px-2 text-sm text-muted lg:block">{product ? 'Signal templates for you' : 'Signal templates'}</h2>
             <ul className="flex gap-1 lg:flex-col">
-              {/* 'Newly exposed' needs two or more scans; it stays out of the way until there is something in it */}
-              {PLAYS.filter((p) => p.id !== 'new' || playCounts[p.id] > 0).map((p) => <li key={p.id} className="shrink-0">{navButton(p, playCounts[p.id])}</li>)}
+              {mine.map((t) => <li key={t.id} className="shrink-0">{navButton(t, counts[t.id])}</li>)}
             </ul>
+            {others.length > 0 && (
+              <>
+                <h2 className="mb-2 mt-4 hidden px-2 text-sm text-muted lg:block">Other templates</h2>
+                <ul className="flex gap-1 lg:flex-col">
+                  {others.map((t) => <li key={t.id} className="shrink-0">{navButton(t, counts[t.id])}</li>)}
+                </ul>
+              </>
+            )}
           </div>
         </nav>
 
         <main className="min-w-0 px-4 py-5 sm:px-6">
-          <div className="mb-4 max-w-[70ch]">
-            <h1 className="text-xl text-ink">{play.name}</h1>
-            <p className="mt-1 text-sm text-muted">{play.blurb}</p>
-          </div>
+          {isTemplate && data ? (
+            <TemplateCard t={play} meta={data} product={product}
+              example={data.accounts.find((a) => play.match(a) && inTargeting(play, a)) ?? null}
+              onCustomize={() => set({ ...EMPTY_ICP, ...(play.targeting ?? {}) })}
+              onOpen={(id) => set({ id })} />
+          ) : (
+            <div className="mb-4 max-w-[70ch]">
+              <h1 className="text-xl text-ink">{play.name}</h1>
+              <p className="mt-1 text-sm text-muted">{play.blurb}</p>
+            </div>
+          )}
 
-          <div data-tour="filters" className="mb-4 flex flex-wrap items-center gap-2">
-            <label className="sr-only" htmlFor="q">Search accounts</label>
-            <input id="q" type="search" name="q" autoComplete="off" value={f.q} onChange={(e) => set({ q: e.target.value })}
-              placeholder="Search a company or organisation" className="field w-full sm:w-72" />
-            <Select id="country" label="Country" value={f.country} onChange={(v) => set({ country: v })} all="All countries"
-              options={options.countries.map(([c, n]) => [c, `${c} (${fmt(n)})`])} />
-            <Select id="industry" label="Industry" value={f.industry} onChange={(v) => set({ industry: v })} all="All industries"
-              options={options.industries.map(([c, n]) => [c, `${c} (${fmt(n)})`])} />
-            <Select id="software" label="Software seen" value={f.software} onChange={(v) => set({ software: v })} all="All software"
-              options={options.software.map(([c, n]) => [c, `${c} (${fmt(n)})`])} />
-            <label className="flex min-h-9 items-center gap-2 px-1 text-sm text-ink-2">
-              <input type="checkbox" checked={f.strong} onChange={(e) => set({ strong: e.target.checked })} className="size-4 accent-[var(--color-accent)]" />
-              Strong identity only
-            </label>
-            <div className="ml-auto flex items-center gap-3">
+          <div data-tour="filters" className="mb-4">
+            <div className="flex flex-wrap items-center gap-2">
+              <label className="sr-only" htmlFor="q">Search accounts</label>
+              <input id="q" type="search" name="q" autoComplete="off" value={f.q} onChange={(e) => set({ q: e.target.value })}
+                placeholder="Search a company or organisation" className="field w-full sm:w-64" />
+              <Select id="sector" label="Sector" value={f.sector} onChange={(v) => set({ sector: v })} all="All sectors" options={SECTORS} />
+              <Select id="country" label="Country" value={f.country} onChange={(v) => set({ country: v })} all="All countries"
+                options={options.countries.map(([c, n]) => [c, `${c} (${fmt(n)})`])} />
+              <Select id="industry" label="Industry" value={f.industry} onChange={(v) => set({ industry: v })} all="All industries"
+                options={options.industries.map(([c, n]) => [c, `${c} (${fmt(n)})`])} />
+              <Select id="software" label="Software seen" value={f.software} onChange={(v) => set({ software: v })} all="All software"
+                options={options.software.map(([c, n]) => [c, `${c} (${fmt(n)})`])} />
+              <label className="flex min-h-9 items-center gap-2 px-1 text-sm text-ink-2">
+                <input type="checkbox" checked={f.strong} onChange={(e) => set({ strong: e.target.checked })} className="size-4 accent-[var(--color-accent)]" />
+                Strong identity only
+              </label>
+            </div>
+            <div className="mt-2 flex flex-wrap items-center gap-3">
               <span className="text-sm text-muted"><span className="measured text-ink">{fmt(rows.length)}</span> {rows.length === 1 ? 'account' : 'accounts'}</span>
-              <button type="button" className="btn" disabled={!rows.length} onClick={() => data && exportCsv(rows, data, shortlist.list)}>Export CSV</button>
+              {filtered && <button type="button" className="text-sm text-muted underline underline-offset-4 hover:text-ink" onClick={() => set(EMPTY_ICP)}>Clear filters</button>}
+              <div className="ml-auto flex flex-wrap items-center gap-2">
+                {naming ? (
+                  <SegmentForm onCancel={() => setNaming(false)} onSave={(name) => { segs.add(name, current); setNaming(false) }}
+                    suggestion={[play.name, f.sector && SECTORS.find(([k]) => k === f.sector)?.[1], f.country, f.software].filter(Boolean).join(', ')} />
+                ) : (
+                  <button type="button" className="btn" disabled={play.id === 'list'} onClick={() => setNaming(true)}>Save as segment</button>
+                )}
+                <button type="button" className="btn" disabled={!rows.length} onClick={() => data && exportCsv(rows, data, shortlist.list)}>Export CSV</button>
+              </div>
             </div>
           </div>
 
@@ -181,8 +265,8 @@ export default function App() {
                 <button type="button" className="btn" onClick={() => set({ play: 'p1' })}>Browse the P1 accounts</button>
               </State>
             ) : !rows.length ? (
-              <State title="No accounts match these filters." body={`The ${play.name.toLowerCase()} view has ${fmt(play.id === 'list' ? nSaved : playCounts[play.id])} accounts before filtering.`}>
-                {filtered && <button type="button" className="btn" onClick={() => set({ q: '', country: '', industry: '', software: '', strong: false })}>Clear filters</button>}
+              <State title="No accounts match these filters." body={`${play.name} has ${fmt(play.id === 'list' ? nSaved : counts[play.id] ?? 0)} accounts before filtering.`}>
+                {filtered && <button type="button" className="btn" onClick={() => set(EMPTY_ICP)}>Clear filters</button>}
               </State>
             ) : (
               <>
@@ -202,6 +286,74 @@ export default function App() {
       </div>
       {guide && data && <Tour onClose={() => setGuide(false)} />}
     </div>
+  )
+}
+
+function Chevron() {
+  return (
+    <svg aria-hidden viewBox="0 0 16 16" className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted">
+      <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function SegmentForm({ suggestion, onSave, onCancel }: { suggestion: string; onSave: (name: string) => void; onCancel: () => void }) {
+  const [name, setName] = useState(suggestion)
+  return (
+    <form className="flex items-center gap-2" onSubmit={(e) => { e.preventDefault(); if (name.trim()) onSave(name) }}>
+      <label className="sr-only" htmlFor="segment-name">Segment name</label>
+      <input id="segment-name" autoFocus value={name} onChange={(e) => setName(e.target.value)} maxLength={60}
+        className="field w-64" placeholder="Name this segment" />
+      <button type="submit" className="btn btn-primary" disabled={!name.trim()}>Save</button>
+      <button type="button" className="btn" onClick={onCancel}>Cancel</button>
+    </form>
+  )
+}
+
+function TemplateCard({ t, meta, product, example, onCustomize, onOpen }: {
+  t: Play; meta: Dataset; product: string; example: Account | null; onCustomize: () => void; onOpen: (id: string) => void
+}) {
+  const productNames = (t.forProducts ?? []).map((k) => PRODUCTS.find(([id]) => id === k)?.[1]).filter(Boolean)
+  const targeting = [
+    t.targeting?.sector && SECTORS.find(([k]) => k === t.targeting?.sector)?.[1],
+    t.targeting?.strong && 'Strong identity only',
+  ].filter(Boolean) as string[]
+  // show the finding this template is about, not just the account's strongest signal
+  const keyed = example && (t.keys?.find((k) => example.signals.includes(k)) ?? example.signals[0])
+  const top = keyed ? meta.signals[keyed]?.label : undefined
+  return (
+    <section aria-labelledby="template-title" className="mb-5 overflow-hidden rounded-[var(--radius-card)] border border-rule">
+      <div className="bg-paper-2 px-5 py-4">
+        <p className="text-sm text-muted">Signal template</p>
+        <h1 id="template-title" className="mt-0.5 text-xl text-ink">{t.name}</h1>
+        <p className="mt-1 max-w-[75ch] text-sm text-ink-2">{t.blurb}</p>
+      </div>
+      <dl className="grid gap-x-6 gap-y-3 px-5 py-4 text-sm md:grid-cols-[9rem_minmax(0,1fr)]">
+        <dt className="text-muted">Built for</dt>
+        <dd className="text-ink">{productNames.length ? productNames.join(', ') : 'Any security product'}
+          {product && t.forProducts && !t.forProducts.includes(product) && <span className="text-muted">, not your product</span>}
+        </dd>
+        <dt className="text-muted">Pitch</dt>
+        <dd className="max-w-[75ch] text-ink">{t.pitch}</dd>
+        <dt className="text-muted">Worked example</dt>
+        <dd className="text-ink">
+          {example ? (
+            <>
+              <button type="button" className="font-medium underline underline-offset-4 hover:text-accent" onClick={() => onOpen(example.id)}>{example.name}</button>
+              <span className="text-muted"> scores <span className="measured">{example.score.toFixed(0)}</span>, the top account for this template and its targeting.</span>
+              {top && <span className="mt-0.5 block text-ink-2">{top}</span>}
+            </>
+          ) : 'No account matches in this scan.'}
+        </dd>
+        <dt className="text-muted">Recommended targeting</dt>
+        <dd className="flex flex-wrap items-center gap-2 text-ink">
+          {targeting.length ? targeting.map((x) => <span key={x} className="chip">{x}</span>) : <span className="text-ink-2">The whole market</span>}
+          {targeting.length > 0 && <button type="button" className="btn ml-1" onClick={onCustomize}>Apply targeting</button>}
+        </dd>
+        <dt className="text-muted">Watching</dt>
+        <dd className="max-w-[75ch] text-ink-2">When the next scan file is ingested, accounts that newly match this template show up under Newly exposed.</dd>
+      </dl>
+    </section>
   )
 }
 
@@ -259,9 +411,7 @@ function Select({ id, label, value, onChange, options, all }: {
         <option value="">{all}</option>
         {options.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
       </select>
-      <svg aria-hidden viewBox="0 0 16 16" className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted">
-        <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
+      <Chevron />
     </span>
   )
 }
@@ -452,7 +602,7 @@ function Detail({ account: a, meta, shortlist, onClose }: {
             </p>
             <p className="mt-1 max-w-[60ch] text-sm text-muted">
               Need is risk points from the evidence below. Urgency rises with known-exploited CVEs and end-of-life software.
-              Fit is how sure the match is and how large the estate is.
+              Fit is how sure the match is and how large the estate is (estimated from its IPs here; firmographic enrichment would give real headcount).
             </p>
           </section>
 
@@ -585,7 +735,7 @@ function WhoToContact({ account: a }: { account: Account }) {
   return (
     <section aria-labelledby="contact">
       <h3 id="contact" className="mb-1 text-lg text-ink">Who to contact</h3>
-      <p className="mb-2 max-w-[60ch] text-sm text-muted">Recon holds no contact data and does not guess names. These open searches for the people who own this exposure.</p>
+      <p className="mb-2 max-w-[60ch] text-sm text-muted">This scan data has no people in it, and Recon never guesses names. These open searches for the people who own this exposure. In production, named and verified contacts come from an enrichment source joined on the company domain.</p>
       <ul className="space-y-1.5 text-sm">
         {links.map(([label, href]) => (
           <li key={href}><a href={href} target="_blank" rel="noopener noreferrer" className="text-ink underline hover:text-accent">{label}</a></li>

@@ -44,9 +44,16 @@ export type Evidence = {
   cn: string | null
 }
 
+export type Sector = 'commercial' | 'public' | 'infra'
+
+// a view of accounts: the whole market, a signal template, or one of your lists
 export type Play = {
   id: string
   name: string
-  blurb: string
+  blurb: string // why now: the trigger, in one sentence
   match: (a: Account) => boolean
+  forProducts?: string[] // product ids this template is built for; omitted = every product
+  pitch?: string // what to open with, for the seller who sells one of forProducts
+  targeting?: { sector?: Sector; strong?: boolean } // recommended ICP filters, applied by Customize
+  keys?: string[] // the signals this template is about, used to show its worked example
 }

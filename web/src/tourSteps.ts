@@ -9,13 +9,13 @@ export const STEPS: Step[] = [
   },
   {
     target: 'plays',
-    title: 'Pick a play',
-    body: 'Each play is a prospecting motion: exposed firewalls with exploited CVEs, on-prem Exchange, legacy Windows. Commercial accounts keeps companies only; universities and government have their own view.',
+    title: 'Start from what you sell',
+    body: 'Pick your product and the signal templates built for it come first. Each template is one buying trigger, like an exposed firewall with exploited CVEs, with a worked example and recommended targeting.',
   },
   {
     target: 'filters',
-    title: 'Narrow it to your patch',
-    body: 'Filter by country, industry or the software they run (FortiGate, Exchange, SQL Server…), or keep only accounts whose identity is strong.',
+    title: 'Narrow it to your ICP',
+    body: 'Filter by sector, country, industry or the software they run, then save the combination as a segment to rerun it next week.',
   },
   {
     target: 'table',
@@ -24,8 +24,8 @@ export const STEPS: Step[] = [
   },
   {
     target: 'mylist',
-    title: 'Work your list',
-    body: 'Add accounts to your list from the account panel, track each one from to contact to meeting booked, and export the list to your CRM.',
+    title: 'Your work',
+    body: 'Lists and segments live here. Track each saved account from to contact to meeting booked, and export it for your CRM.',
   },
 ]
 
