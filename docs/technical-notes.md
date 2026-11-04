@@ -114,6 +114,14 @@ Result: 907k assets attributed to 295k companies; **39,190 companies with a mate
 The score is log-scaled to 0–100. **Tiers are sized to sales capacity, not percentiles:** P1 = top 500
 (this week's calls), P2 = next 2,500, P3 = the rest.
 
+**In production, outcomes join the score.** The weights are set by judgement because a take-home has no
+sales outcomes; the blind reviews (§8) check them instead. The product already records the outcome
+labels: every account carries a seller's status (to contact, contacted, meeting booked, not a fit). In
+production the score would gain a performance term: the recent meeting rate against the not-a-fit rate
+for accounts like this one, by signal, template, industry and size, with recent outcomes weighted more.
+Triggers that keep booking meetings rise and ones that keep failing sink, and the same statuses show
+whether a change to the rules helped.
+
 ## 6. Architecture and scale
 
 ```

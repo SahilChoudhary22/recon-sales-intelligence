@@ -30,61 +30,44 @@
   <br /><sub>A one-minute walkthrough (<a href="docs/media/walkthrough.mp4">MP4, full resolution</a>).</sub>
 </p>
 
-Recon turns a stream of internet scan data (Shodan-style banners, one per IP and port) into a ranked
-market of companies that need security help now. It works out which company runs each internet-facing
-service, scores each company by how urgently it needs help, and gives a seller the evidence to open
-the conversation with. Every score traces back to a service a salesperson can point to, and nothing a
-seller sends is generated: the outreach is the evidence.
+Recon reads internet scan data and tells a security seller which companies to call this week. For
+each company it shows what's exposed, where, and why it matters, and it never invents a finding: every
+line a seller can send comes from something the scan actually saw.
+
+From one file of 13.4M scan records, Recon finds 39,190 companies with real security problems. Blind
+reviewers rejected 6% of the claims it makes about them, against 44% when the scanner's own labels
+are taken at face value, and 72% of its top accounts are real, correctly named companies.
 
 ## Features
 
-- **Signals that survive the noise, and claims that survive the record.** 42% of the scan is CDN
-  edges that answer on every port, 11% is phantom hosts and 2.2% is honeypots with fake CVEs. Of what
-  remains, the scanner's own verdicts (CVE matches, end-of-life tags, which protocol a port speaks)
-  are mostly guesses, so each of the 22 signals is held to what the record actually shows. They're led
-  by exposed firewall and VPN appliances, the most common way ransomware gets in.
-- **Company identity from the services themselves.** TLS certificates, leaked Active Directory
-  domains and HTTP hosts name the company; identity carries across ports of one IP, and hosters and
-  ISP customer pools are recognised and excluded.
-- **Market signals and signal templates.** The whole ranked market, or a ready-to-run search built
-  around one buying trigger (exposed firewalls with exploited CVEs, on-prem Exchange, legacy Windows,
-  OT exposure). **What you sell** puts the templates for your product first.
-- **Your ideal customer profile.** One sentence, offered in the page on a first visit and never in
-  the way: what you sell, where, to whom, estate size and who you call, each choice with a count. It
-  narrows every view and count, the CVE search included, sets the roles in the contact searches, and
-  can be edited or switched off.
-- **Multi-select filters and saved searches.** Every filter takes several values (GB or IE, small or
-  mid-size estates), each option showing how many accounts it gives. A saved search remembers the data
-  build it last ran on, so it shows what is new since then and not in any of your lists yet.
-- **CVE in the news.** Search a CVE id or a name such as "Citrix Bleed" and see which accounts run
-  the affected software, with today's CISA KEV status and ransomware use.
-- **Peer benchmark.** "Ranks #1 of 112 manufacturing organisations in the US by external exposure",
-  over every scored company, with the peer group always named.
-- **Exposure brief.** A printable page of what anyone on the internet can see about an account, what
-  each finding means and the usual fix: the asset a seller sends.
-- **Lists and CRM export.** Several named lists, kept per user on the server; every table shows which
-  lists an account is in and its status (to contact to meeting booked). Pick rows or take a whole
-  search into a list, and export a list or any search as CSV.
-- **MCP server.** Prospect from Claude or any MCP client, including building lists and checking saved
-  searches for what's new; they are the same lists the seller opens in the app.
+- A ranked market of companies with real security problems, and ready-made searches for one buying
+  trigger at a time: an exposed firewall with exploited CVEs, on-prem Exchange, legacy Windows.
+- An ideal customer profile you set in one sentence. It filters everything, and every option shows how
+  many accounts it would leave you.
+- Filters that take several values, and saved searches that tell you what's new since you last looked.
+- Lists you build from rows or from a whole search, with a status per account and CSV export.
+- Search a CVE from the news, by id or by name ("Citrix Bleed"), and see who runs the affected software.
+- For each account: a peer rank, the evidence, an opening line, and a one-page exposure brief to send.
+- An MCP server, so the same search and the same lists work from Claude or any MCP client.
+
 ## Screens
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/images/profile.jpg" alt="The ideal customer profile as one sentence, with a country picker showing account counts" /><br /><sub><b>Ideal customer profile.</b> One sentence in the page; every choice shows what it would give.</sub></td>
-    <td width="50%"><img src="docs/images/signal-template.jpg" alt="A signal template for exposed firewall and VPN appliances with its pitch, worked example and targeting" /><br /><sub><b>Signal template.</b> One buying trigger, the pitch, a real worked example and recommended targeting.</sub></td>
+    <td width="50%"><img src="docs/images/profile.jpg" alt="The ideal customer profile as one sentence, with a country picker showing account counts" /><br /><sub><b>Ideal customer profile.</b> Every choice shows what it would give.</sub></td>
+    <td width="50%"><img src="docs/images/signal-template.jpg" alt="A signal template for exposed firewall and VPN appliances with its pitch, worked example and targeting" /><br /><sub><b>Signal template.</b> One buying trigger, its pitch and a real example.</sub></td>
   </tr>
   <tr>
-    <td><img src="docs/images/filters.jpg" alt="The estate size filter open with small and mid-size ticked and a count on each option" /><br /><sub><b>Multi-select filters.</b> OR within a filter, AND across, a count on every option.</sub></td>
-    <td><img src="docs/images/lists.jpg" alt="Accounts with their list membership and status, after adding a search to a list" /><br /><sub><b>Lists.</b> Pick rows or take a whole search; every row shows its lists and status.</sub></td>
+    <td><img src="docs/images/filters.jpg" alt="The estate size filter open with small and mid-size ticked and a count on each option" /><br /><sub><b>Filters.</b> Several values each, a count on every option.</sub></td>
+    <td><img src="docs/images/lists.jpg" alt="Accounts with their list membership and status, after adding a search to a list" /><br /><sub><b>Lists.</b> Every row shows its lists and status.</sub></td>
   </tr>
   <tr>
-    <td><img src="docs/images/account.jpg" alt="An account panel with score breakdown, peer rank, facts and an opening line" /><br /><sub><b>An account.</b> Why now, peer rank, score breakdown, an opening line built from the evidence.</sub></td>
-    <td><img src="docs/images/saved-search.jpg" alt="A saved search with its last run, schedule and what is new since then" /><br /><sub><b>Saved search.</b> Remembers the build it ran on, so the next run shows what's new.</sub></td>
+    <td><img src="docs/images/account.jpg" alt="An account panel with score breakdown, peer rank, facts and an opening line" /><br /><sub><b>An account.</b> Peer rank, score breakdown and an opening line.</sub></td>
+    <td><img src="docs/images/saved-search.jpg" alt="A saved search with its last run, schedule and what is new since then" /><br /><sub><b>Saved search.</b> Shows what's new since the last run.</sub></td>
   </tr>
   <tr>
-    <td><img src="docs/images/cve-in-the-news.jpg" alt="CVE search for ProxyShell with CVSS, EPSS, CISA KEV dates, ransomware use and affected accounts" /><br /><sub><b>CVE in the news.</b> An id or a name such as ProxyShell, with today's KEV status and the accounts exposed.</sub></td>
-    <td><img src="docs/images/exposure-brief.jpg" alt="An exposure brief with a peer rank, finding counts, masked evidence and the usual fix" /><br /><sub><b>Exposure brief.</b> A printable page of what anyone on the internet can see, and the usual fix.</sub></td>
+    <td><img src="docs/images/cve-in-the-news.jpg" alt="CVE search for ProxyShell with CVSS, EPSS, CISA KEV dates, ransomware use and affected accounts" /><br /><sub><b>CVE in the news.</b> Today's KEV status and the accounts exposed.</sub></td>
+    <td><img src="docs/images/exposure-brief.jpg" alt="An exposure brief with a peer rank, finding counts, masked evidence and the usual fix" /><br /><sub><b>Exposure brief.</b> What anyone on the internet can see.</sub></td>
   </tr>
 </table>
 
@@ -102,8 +85,7 @@ uv run uvicorn api.app:app --port 8787                                      # AP
 cd web && npm install && npm run dev                                        # http://localhost:5173
 ```
 
-Tests: `uv run pytest`. The MCP server: `uv run python -m mcp_server.server` (registered for Claude
-Code through `.mcp.json`). Benchmark: `uv run python -m api.bench`.
+Tests: `uv run pytest`. MCP server: `uv run python -m mcp_server.server`. Benchmark: `uv run python -m api.bench`.
 
 ## How Recon works
 
@@ -121,37 +103,30 @@ flowchart LR
   api --> mcp["<b>MCP server</b>"]
 ```
 
-1. **Ingest each file once.** Hundreds to thousands of files a month, billions of banners. Each file
-   is streamed with flat memory into about 40 fields of Parquet and never read again. A compressed file can't be split, so the file is the unit of work: a stream of
-   files is a queue of independent workers.
-2. **Keep a window of observations.** A file is a few hours of an ongoing crawl, not a re-scan of the
-   internet, so the build keeps the latest observation of each service from the last 30 days. A
-   service first seen this week, on an IP the crawl already knew, is newly exposed.
-3. **Remove noise, and keep only claims the record supports.** CDN edges that answer on every port,
-   IPs answering on more than 50 ports, honeypot IPs and Tor relays go. A CVE counts only when the
-   scanner verified it or its product was seen with a version that isn't a distro package patched in
-   place; end of life is read from the OS release and the component's version; a port counts only when
-   it answered in that protocol and didn't refuse.
-4. **Identify the company.** From its own services: the TLS certificate, then a leaked Active Directory
-   domain, then the HTTP host, then the IP block's owner, carried across the ports of one IP. Hosters
-   and ISP customer pools are excluded. An LLM settles what rules can't (is this name a carrier, a
-   hoster or a business, and in what industry) as a cached batch over distinct names.
-5. **Score.** `need × urgency × fit`: weighted signals with diminishing returns, raised by
-   known-exploited CVEs, end-of-life software and new exposure, adjusted for how sure the identity is.
-   Tiers follow sales capacity: P1 is the 500 accounts to call this week.
-6. **Publish and serve.** Each build becomes a versioned, IP-masked serving store, swapped in
-   atomically. A read API answers the app and the MCP server from it, one page at a time.
+1. **Ingest.** Each scan file is streamed once into Parquet, about 40 fields per record. A compressed
+   file can't be split, so each file is one job, and a month of files is a queue of them.
+2. **Keep 30 days of observations.** A file is a few hours of an ongoing crawl. Recon keeps the latest
+   sighting of each service from the last 30 days, and calls a service new when it first appears on an
+   IP the crawl already knew.
+3. **Drop the noise, keep only what the record shows.** CDN edges, IPs that answer on every port,
+   honeypots and Tor relays go. A CVE, an end-of-life claim or an exposed protocol counts only when the
+   record itself shows it (more on why below).
+4. **Find the company.** Its own TLS certificate first, then a leaked Active Directory domain, then the
+   HTTP host, then the owner of the IP block, carried across the ports of one IP. An LLM decides what
+   rules can't, such as whether a name is a carrier, a hoster or a business.
+5. **Score and tier.** Weighted signals, raised by known-exploited CVEs, end-of-life software and new
+   exposure, and adjusted for how sure the identity is. P1 is the 500 accounts a team can call in a week.
+6. **Serve.** Each build becomes a new IP-masked folder, swapped in at once. One API serves the app
+   and the MCP server, a page at a time.
 
 The full flow, the serving layer and the production path are in [docs/architecture.md](docs/architecture.md).
 
 ## The data we were given
 
-One real file of the kind the brief says arrives hundreds to thousands of times a month: 13,384,515
-banners, 17 GB of zstd (118 GB of NDJSON), covering about five hours of crawl over 4.1M IPs
-(2026-10-31 21:13 to 2026-11-01 02:06 UTC). It was profiled on a 1% systematic sample before any
-pipeline code was written, ingested once (15 minutes on an 8 GB laptop) and built in about 4 minutes.
-
-Where the records go (millions of banners):
+One file: 13,384,515 banners, about five hours of an internet-wide crawl over 4.1M IPs
+(2026-10-31 21:13 to 2026-11-01 02:06 UTC, 17 GB compressed). Before writing any pipeline code I
+profiled a 1% sample, to learn what a record really says before deciding what to build. Four findings
+shaped everything that followed.
 
 ```mermaid
 ---
@@ -168,158 +143,133 @@ Real services,Tied to a company,0.91
 Real services,Owner not identifiable,5.06
 ```
 
-What the file hides, and what Recon does about it:
+**1. Most of the file isn't real.** 42% of records are CDN edges that answer on every port, so the
+scanner "finds" trojans and industrial controllers on Cloudflare. 11% are IPs answering on more than
+50 ports, and 2% are honeypots carrying up to 170 fake CVEs each. Any ranking that counts findings puts
+these decoys first. *So the first stage of Recon removes them, whole IPs at a time.*
 
-- **Most of it is not real.** 42% of records are CDN edges answering on every port (so the scanner
-  "finds" remote-access trojans and PLCs on Cloudflare), 11% are IPs answering on more than 50 ports,
-  and 2.2% are honeypots with 80 to 170 fake CVEs each. A ranking by CVE count puts the decoys first.
-  The scanner tags the honeypot ports it recognises; the same IPs' other ports are just as fake.
-- **The scanner's verdicts are guesses.** Its CVE matches come from version numbers and were verified
-  on 1.5% of the services carrying a known-exploited CVE. Nearly half are on Ubuntu, Debian or RHEL
-  packages, which fix CVEs without changing the version; a quarter name no version at all; and the top
-  PHP and WordPress CVEs land on every server whose page uses PHP or WordPress. Its end-of-life tag
-  marks Ubuntu 24.04's supported nginx and misses CentOS 7. Its "industrial controller" on port 3001 is
-  a web page 70% of the time, and 29% of its MySQL servers refused the connection. Taken at face value,
-  44% of the claims behind the top tiers didn't hold up for a blind reviewer; Recon now keeps a claim
-  only when the record shows it, and a blind reviewer rejects 6% (below).
-- **Two "known-exploited" CVEs are noise.** HTTP/2 Rapid Reset is matched on nearly every nginx, and
-  the jQuery CVEs come from a script on the page, not the server. Counted, they make "KEV" meaningless.
-- **The owner on record is usually the ISP.** The WHOIS organisation and reverse DNS name the carrier
-  or hoster, not the buyer. The company's own name is in its TLS certificate, a leaked Active
-  Directory domain or its HTTP host.
-- **The strongest signal names nobody.** A FortiGate admin interface on port 541 or 10443 has a vendor
-  default certificate; port 443 on the same IP names the company. Carrying identity across the ports
-  of one IP turns the most common ransomware entry point into a named account.
-- **Leaked AD domains do double duty.** An NTLM handshake gives away the internal domain (a name for
-  the company) and the Windows build (an end-of-life operating system).
-- **The newest attack surface is AI.** 1,700 services are self-hosted AI apps (LiteLLM, Ollama, Dify,
-  Flowise) or MCP servers answering on the open internet, often with no login: 169 identified
-  companies, seven of them in P1. A model gateway or agent server in the open leaks keys, data and
-  tool access.
-- **A few are already breached.** The scanner flags ransomed databases, and fingerprints
-  remote-access trojans and cryptominers. Those count as evidence of a breach, the strongest signal;
-  the offensive tools it also tags (GoPhish, BurpSuite, C2 frameworks) are what red teams run, so they
-  don't. Only two such services belong to companies Recon can name in this file; the signal is there
-  for the stream.
-- **Security maturity changes the pitch, not the rank.** A WAF, a security.txt or post-quantum TLS
-  marks a buyer with a team: a consolidation conversation, not a first purchase.
+**2. The owner on record is the wrong company.** The WHOIS organisation and reverse DNS name the ISP
+or the hoster, not the buyer. The real name is in the company's own TLS certificate, a leaked Active
+Directory domain or its HTTP host. And the most valuable finding, a firewall's admin page, usually
+carries only the vendor's certificate, while port 443 on the same IP names the company. *So identity
+comes from the company's own services, carried across the ports of one IP. That's what turns an
+anonymous FortiGate into an account you can call.*
 
-The result: 907k services tied to 295k companies, and 39,190 companies with a material risk signal.
-Every signal, threshold and rule is in [docs/technical-notes.md](docs/technical-notes.md).
+**3. The scanner's own labels are guesses.** Its CVE list is inferred from version numbers, and it
+verified 1.5% of them. Nearly half sit on Ubuntu, Debian or Red Hat packages, which get fixed without
+the version number changing. Its "end-of-life" tag marks Ubuntu 24.04's supported nginx and misses
+CentOS 7, and its "industrial controller" on port 3001 is a web page 70% of the time. A seller repeats
+these claims to a security engineer, who will check. *So Recon treats every label as a lead, and
+claims only what the record shows: the version on the banner, the OS release a package version pins,
+a reply in the protocol.*
+
+| | Claims a blind reviewer rejected | Top accounts that are real, named companies |
+| --- | --- | --- |
+| Taking the scanner's labels at face value | 44% | 60% |
+| Recon | 6% | 72% |
+
+[How this was measured →](docs/technical-notes.md#8-how-it-was-measured)
+
+**4. What's left says "call now".** Once the noise and the guesses are gone, the findings that predict
+an incident are clear, and they became Recon's signal categories, in order of urgency:
+
+- **Breach:** ransomed databases, trojans and cryptominers, i.e. already compromised.
+- **Edge:** firewalls and VPNs reachable from the internet, the most common way ransomware gets in,
+  and worse on a known-exploited version.
+- **Exposure:** remote desktop, databases, file shares, industrial devices, and 1,700 self-hosted AI
+  apps and MCP servers open to anyone.
+- **Vulnerability and end of life:** software that's exploitable or past support.
+- **Hygiene:** expired certificates and old TLS. These never rank an account on their own; they show a
+  thin security team.
+
+Each category maps to a buying trigger, and each trigger became a template a seller can start from:
+"firewall with exploited CVEs", "on-prem Exchange", "legacy Windows".
+
+39,190 companies in the file have a material risk signal. Every rule and threshold is in
+[docs/technical-notes.md](docs/technical-notes.md).
 
 ## Results
 
-There are no sales outcomes to test against, so the measure is **precision**: of the top-tier
-accounts, how many could a seller actually prospect? Seeded samples of 60 were labelled blind by a
-reviewer with no view of the pipeline, and each change was measured on a fresh sample that hadn't
-influenced any tuning.
+**How accounts are scored.** Each finding has a weight for how likely it is to lead to an incident
+soon: evidence of a breach first, then a firewall or VPN on a known-exploited version, exposed remote
+access and databases, exploitable CVEs, end of life, and hygiene last. Repeats of a finding count with
+diminishing returns. Urgency rises with known-exploited CVEs, end-of-life software and new exposure,
+and fit reflects how sure the identity is and how large the estate. Tiers follow sales capacity: P1 is
+the 500 accounts a team can call in a week.
 
-| Pipeline | Top-tier precision |
+**How I validated it.** There are no sales outcomes for a take-home, so I tested the two things a
+seller depends on, with blind AI reviewers: agents that never saw Recon's code or rules, judging random
+top-tier accounts from a seeded sample that was never used for tuning, against a fixed rubric.
+
+First, are the top accounts real, correctly named companies?
+
+| Pipeline | Sellable |
 | --- | --- |
 | Rules only | 43% (26/60) |
 | + LLM labels for organisation type | 53% (32/60) |
 | + IP-owner identities need an education or government label | 62% (37/60) |
-| Final build (deterministic identity), same holdout | 61% (36/59) |
+| Recon, final build (fresh sample) | 72% (43/60) |
 
-Then the claims themselves: does the scan evidence support what Recon tells a seller about each
-account? Blind reviewers judged every risk claim against the raw scan record behind it (product,
-version, server header, banner), first on random P1/P2 accounts from the build before the fix and after
-it, shuffled together so they couldn't tell which was which, then on fresh holdouts as the fixes went in:
+Then, is what Recon says about them true? Each risk claim was judged against the raw record behind it:
 
-| Build | Claims rejected | Claims confirmed | Accounts sellable |
-| --- | --- | --- | --- |
-| Before: the scanner's verdicts taken at face value | 44% (59/135) | 46% | 60% (36/60) |
-| After the first fixes, same blind comparison | 21% (21/102) | 59% | 65% (39/60) |
-| + claims need the version in the record; labels for newly ranked names; domains the labeller can't place stay out of P1/P2 | | | |
-| **Final build, fresh holdout of 60** | **6% (8/131)** | **71%** | **72% (43/60)** |
+| | Claims rejected | Claims confirmed |
+| --- | --- | --- |
+| Taking the scanner's labels at face value | 44% (59/135) | 46% |
+| Recon | **6% (8/131)** | **71%** |
 
-The rest are "unclear": all 30 are two PHP CVEs CISA added on 26 October 2026, after the reviewers'
-knowledge, and CISA's catalogue doesn't give their affected versions, so those rest on the scanner's
-version data. The 8 rejections are a long tail (a camera product imitating an Apache header, a
-PHPMailer CVE listed under PHP, a NetScaler cookie in front of a web app, an empty reply on a DVR port).
-Every step, including the intermediate holdouts and the one change that made things worse and was
-reverted, is in [docs/technical-notes.md](docs/technical-notes.md#8-how-it-was-measured); the samples
-and verdicts are in [`data/eval/`](data/eval/).
+The rest are "unclear": all of them two PHP CVEs CISA listed in late October 2026 without affected
+versions. With 60 accounts the margin is about ±12 points. The LLM labels agreed with the blind
+reviewers on carrier versus business 83 to 87% of the time, and labelling 7,328 names with Claude Haiku
+cost $0.26 to $1.28. Every sample, verdict and step is in
+[docs/technical-notes.md](docs/technical-notes.md#8-how-it-was-measured), including a scoring change
+that made things worse and was reverted.
 
-With 60 accounts the margin is about ±12 points, so the gain is real and the middle step indicative.
-Each sample pointed at the next fix: the first showed that IP-owner identities were 15% sellable, the
-second that labels alone didn't fix them except for universities and governments. The remaining errors
-are single-IP personal sites. The LLM agreed with the blind reviewer on carrier versus business 83 to
-87% of the time, at a cost of about $0.26 to $1.28 for 7,328 names with Claude Haiku.
+**In production, outcomes join the score.** Every account already carries a seller's status (to
+contact, contacted, meeting booked, not a fit). In production I'd add a performance term: how accounts
+like this one have done lately (meetings booked against not-a-fit, by signal, template, industry and
+size), with recent outcomes counting more. A trigger that keeps booking meetings rises; one that keeps
+coming back "not a fit" sinks. The blind reviews stand in for that until real outcomes exist.
 
-The MCP server was tested the same way: given only the tool schemas, does an assistant make the right
-first call for a salesperson's request? The first run exposed two description problems; the revised
-tools were then tested on 12 requests written before the re-run. The full ten-tool server, with lists
-and saved searches, was tested on all 30 plus 10 new list requests.
+The MCP tools were tested the same way: given only the tool schemas, does an assistant make the right
+first call for a salesperson's request?
 
 | First call correct | First descriptions | Revised, same 18 | Revised, 12 new | All ten tools, 40 requests |
 | --- | --- | --- | --- | --- |
 | Claude Sonnet | 10/18 | 17/18 | 12/12 | 40/40 |
 | Claude Haiku | 8/18 | 18/18 | 12/12 | 40/40 |
 
-CVE search returns exactly the companies a direct query over the build finds (four CVEs, one of them on
-24,291 companies), and peer ranks were recomputed independently.
 ## Key decisions
 
-- **DuckDB, for the build and the API.** The work is analytical: scans, joins and aggregates over
-  millions of rows, run in batch and then read. DuckDB runs inside the process with no server to
-  operate, queries Parquet where it sits, reads only the columns and row groups a query needs, and
-  spills to disk, so the full 13.4M-row build runs in about 4 minutes on an 8 GB laptop without the
-  data ever having to fit in memory. The work stays in plain SQL, so it moves to a warehouse (BigQuery,
-  ClickHouse) when one machine is no longer enough, and one dialect serves the batch build and the
-  API. Spark is more to operate than this volume needs; Postgres would add a load step and a row store
-  for a column-shaped workload.
-- **Time, not files, defines what is current and what is new.** The file covers five hours of crawl,
-  so "the last three files" would be fifteen hours of the internet. Retention is 30 days of
-  observations, and "new" needs an IP the crawl had already seen, so a file that covers a fresh range
-  doesn't light up as newly exposed.
-- **Identity from the company's own services, carried across ports.** WHOIS names the ISP. Certificates,
-  leaked AD domains and HTTP hosts name the company, and the same-IP carry is what turns an anonymous
-  FortiGate admin port into a named account.
-- **Rules for scoring, an LLM only for what rules can't know.** There are no outcome labels to learn
-  from, and a seller has to be able to say why an account is hot. The LLM classifies distinct names
-  (carrier, hoster, business; industry) as a cached batch, so its cost grows with new names, not
-  records, and nothing calls a model when a page loads.
-- **A claim needs the record behind it, not the scanner's verdict.** A seller repeats what Recon says
-  to a security engineer, who will check. So a CVE needs its product seen with a version that isn't a
-  distro package patched in place, end of life is read from the OS release and the component that's
-  actually old, a port needs a reply in its protocol, and the evidence names the product the CVE
-  belongs to. That cut the companies with a material signal from 83,934 to 39,190, and claims the blind
-  reviewer rejected from 44% to 6%.
-- **Measured on blind, fresh holdouts.** Each change was judged on a sample that hadn't influenced any
-  tuning, labelled by a reviewer who never saw the pipeline (the tables above).
-- **Tiers sized to sales capacity.** P1 is 500 accounts, what a team can call in a week, not a
-  percentile that grows with the market.
+- **DuckDB for the build and the API.** The work is scans and joins over millions of rows. DuckDB runs
+  in-process, reads Parquet where it sits and spills to disk, so the full build runs on an 8 GB laptop.
+  It's plain SQL, so it moves to BigQuery or ClickHouse when one machine isn't enough. Spark would be
+  more to run than this volume needs.
+- **Time decides what's current, not files.** One file is five hours of crawl, so "the last three
+  files" would be meaningless. Recon keeps 30 days of observations instead.
+- **Identity from the company's own services.** WHOIS names the ISP; certificates and leaked domains
+  name the buyer.
+- **Rules for scoring, an LLM only where rules can't know.** There are no outcomes to learn from, and a
+  seller has to be able to say why an account is hot. The LLM labels distinct names once, in a cached
+  batch, so nothing calls a model when a page loads.
+- **A claim needs the record behind it.** A seller repeats what Recon says to a security engineer, who
+  will check. Taken at face value, the scanner's labels make 83,934 companies look at risk; checked
+  against the record, 39,190 are, and blind reviewers reject 6% of the claims instead of 44%.
+- **P1 is sized to what a team can call.** 500 accounts a week, not a percentile that grows with the
+  market.
 - **Evidence instead of generated outreach.** The opening line and the brief are filled from findings,
-  so neither can claim a vulnerability the scan didn't see.
-- **IPs masked to /24 in everything served, and nothing served without sign-in.** A public list of
-  vulnerable hosts is a target list, and an unlisted URL isn't private: its TLS certificate is in the
-  public Certificate Transparency logs that scanners watch.
-- **SQLite for users' work in this deployment, Postgres in production.** Lists, statuses and saved
-  searches are small, frequent writes that must not be lost: a row store with transactions, not the
-  column store the scan data uses. One API host makes SQLite (WAL mode) enough and serverless;
-  several API instances and shared team lists are where Postgres takes over. The queries are portable
-  SQL in one module, and every row carries a workspace, so teams are a membership table away.
-- **Counts from a pre-aggregated cube, "new" from the data.** The queries the app sends most cost the
-  same at any number of accounts, and each account records the build it was first ranked in, so a
-  saved search finds what is new with one filter instead of storing old results per user.
-- **An MCP server rather than a chatbot in the app.** The assistant does the language; the tools are
-  deterministic queries over the same layer as the API, evaluated on held-out requests.
+  so they can't claim something the scan didn't see.
+- **IPs masked to /24, nothing served without sign-in.** A public list of vulnerable hosts is a target
+  list.
+
+SQLite versus Postgres for users' work, the count cube and the other serving choices are in
+[docs/architecture.md](docs/architecture.md).
 
 ## Built for growth
 
-The data grows with every file, so nothing the app or an assistant reads is sized by the market:
-
-- **A read API** ([`api/`](api/)) answers every list, count and badge with DuckDB over a versioned,
-  IP-masked Parquet store. The browser holds one page at a time, and all 39,190 risky companies are
-  served.
-- **A count cube** answers the template counts and the profile badges. It grows with the number of
-  country × sector × industry × size combinations, not with accounts.
-- **New builds land atomically.** The export writes a new folder, checks it (no full IPs, unique ids,
-  no orphan evidence) and moves a pointer; the API picks it up without a restart.
-
-Measured over the real store and synthetic stores 10× and 100× its size (median ms, one laptop,
-`uv run python -m api.bench`):
+The served table grows with companies, not with banners, so the read side stays fast long after the
+raw data reaches billions of records. Every list, count and badge comes from one read API over a
+versioned Parquet store, and the counts the app asks for most come from a pre-aggregated cube.
+Measured on the real store and on synthetic ones 10× and 100× its size (median ms, one laptop):
 
 | Query | 83,744 accounts | 837,440 | 8,374,400 |
 | --- | --- | --- | --- |
@@ -329,22 +279,17 @@ Measured over the real store and synthetic stores 10× and 100× its size (media
 | Name search | 9.8 | 29 | 158 |
 | Account, evidence | 3.0, 1.8 | 5.3, 2.6 | 37, 20 |
 
-The served table grows with companies, not banners, so the read side meets millions long before
-billions; the billions of raw records stay in the batch layer (Parquet and SQL that move to a warehouse
-unchanged). What changes for a full stream of files and many users, and when, is in
+What changes for a full stream of files and many users, and when, is in
 [docs/architecture.md](docs/architecture.md#7-the-production-path).
 
 ## MCP server
 
-Ten deterministic tools over the same query layer and app database as the API (IP-masked). The
-assistant handles the language; nothing runs a model or costs per call on Recon's side. The hosted app
-serves it at `/mcp`, so a client connects with no setup (the host and token come with the submission):
+Ten tools over the same data and the same user lists as the app. The assistant handles the language;
+the tools are plain queries, so nothing on Recon's side runs a model. The hosted app serves it at `/mcp`:
 
 ```bash
 claude mcp add --transport http recon https://<host>/mcp --header "Authorization: Bearer <token>"
 ```
-
-A list Claude builds is the same list the user opens in the app.
 
 | Tool | Returns |
 | --- | --- |
@@ -352,56 +297,42 @@ A list Claude builds is the same list the user opens in the app.
 | `list_signal_templates(product)` | Templates, with those built for your product first |
 | `search_accounts(template, country, industry, sector, software, ...)` | Ranked accounts and a link to the same view |
 | `get_account(account_id)` | Score breakdown, peer rank, evidence by signal |
-| `cve_exposure(cve_or_name, ...)` | CVE facts and affected accounts, with the product fallback |
-| `make_list(account_ids or template + filters, list_name)` | Adds accounts, or a search's top results, to one of the seller's lists |
-| `my_lists()` | The seller's lists, and how many accounts are new in each saved search |
+| `cve_exposure(cve_or_name, ...)` | CVE facts and affected accounts |
+| `make_list(account_ids or template + filters, list_name)` | Adds accounts, or a search's results, to a list |
+| `my_lists()` | The seller's lists and what's new in each saved search |
 | `save_search(name, template, filters)` | A saved search the seller can re-run in the app |
-| `whats_new(saved_search, mark_reviewed)` | Accounts new since the search was last reviewed and in none of the lists |
+| `whats_new(saved_search, mark_reviewed)` | Accounts new since the last review and in no list |
 | `export_crm_tasks(account_ids)` | CRM call tasks as CSV, filled from the evidence |
 
 ## How it was built
 
-An AI-native loop, with checks at the points where a model's confidence can't be taken on trust:
+I designed Recon: the product, the approach and the scoring. I built it with Claude Code, which wrote
+most of the implementation under my direction. What I cared about most was not trusting anything,
+the scanner's labels or the AI's output, without checking it:
 
-- **Data first.** The file was profiled on a 1% systematic sample, with profiling queries
-  ([`analysis/`](analysis/)), before any pipeline code existed. Most of the traps above came from that;
-  the phantom IPs only showed on the full run.
-- **Claude Code for implementation and proposals.** It wrote most of the code and proposed designs; I
-  set the direction, chose between options and decided what shipped.
-- **Review after every full run.** The top of the ranking was read after each build, and most of the
-  identity and noise rules started as a wrong account found there.
-- **Every signal checked against its records.** An independent audit agent, given the code and the
-  data but not my suspicions, read the raw records behind each signal in the top tiers; every finding
-  was confirmed by a query before it changed a rule, and the result was measured by blind reviewers.
-- **Independent measurement.** Gold labels came from separate agents that never saw the pipeline,
-  each change was measured on a fresh holdout, and the MCP tools were tested on requests written
-  before the re-run.
-- **An independent design review.** A separate agent reviewed the design at 10× to 1,000× the volume;
-  every finding was checked against the code and the data before acting on it (the five-hour window
-  above came out of that).
-- **Costs measured, not estimated.** LLM labelling cost is logged per run (`data/labels/llm_usage.json`),
-  and the read path is benchmarked at 1×, 10× and 100× ([`api/bench.py`](api/bench.py)).
+- I profiled the data before any pipeline code existed ([`analysis/`](analysis/)). Most of the
+  findings above came from that; the phantom IPs only showed up on the full file.
+- After every full build I had Claude review the top of the ranking. Most identity and noise rules
+  started as a wrong account found there.
+- When the scanner's labels didn't hold up, I had an independent agent, given the code and the data but
+  not my suspicions, audit every signal against its raw records. Each finding was confirmed with a
+  query before it changed a rule, and each fix was measured by the blind reviewers.
+- Every measurement came from reviewers that never saw the pipeline, on samples never used to tune it.
+- LLM cost is logged per run ([`data/labels/llm_usage.json`](data/labels/llm_usage.json)), and the
+  read path is benchmarked at 1×, 10× and 100× ([`api/bench.py`](api/bench.py)).
 
 ## Documentation
 
-- [Architecture and data flow](docs/architecture.md): what happened to this file, continuous ingestion,
-  one file arriving, and what is kept, dropped and masked.
-- [Technical notes](docs/technical-notes.md): signals and weights, identity rules, scoring, the LLM
-  step and its evaluation in detail.
-- [MCP evaluation](mcp_server/eval/results.md): the requests, the accepted answers and both runs.
+- [Architecture and data flow](docs/architecture.md): ingestion, serving, the production path.
+- [Technical notes](docs/technical-notes.md): every signal and rule, scoring, the LLM step and how it
+  was measured.
+- [MCP evaluation](mcp_server/eval/results.md): the requests, the accepted answers and the runs.
 
 ## Roadmap
 
-- **Signal agents:** re-run each template on every new scan and fire on newly matching accounts.
-- **Enrichment by domain:** firmographics for real company size, verified contacts, IP-to-company
-  data for the estates on ISP lines, certificate transparency for subsidiaries, SPF and DMARC for
-  email security sellers.
-- **Identity precision:** 72% of top-tier accounts are real, correctly named organisations (final
-  holdout). Most of the rest are small sites on shared hosting and junk domains the labeller took for
-  businesses; firmographics by domain would separate a small business from a hobby site.
-- **Vulnerability data instead of hand tables:** the distro package versions, end-of-life dates and
-  CVE preconditions are short curated lists; distro security trackers and OSV would cover every
-  package and say which fixes a backported version already has.
-- **Teams and CRM sync:** shared team workspaces on Postgres with SSO, and lists synced to the CRM.
-- **Scheduled saved searches:** a worker re-runs each saved search when a build lands and notifies the
-  owner of new accounts, through the same API.
+- **Signal agents** that re-run each template on every new scan and alert on new matches.
+- **Enrichment by domain:** real company size, verified contacts, subsidiaries from certificate
+  transparency. It would also fix most of the remaining identity errors (small sites on shared hosting).
+- **Vulnerability data instead of hand tables:** distro security trackers and OSV would say exactly
+  which fixes a backported package already has.
+- **Teams and CRM sync:** shared workspaces on Postgres with SSO, lists synced to the CRM.
