@@ -74,7 +74,7 @@
   {
    "id": "edge-kev",
    "name": "Firewall/VPN with exploited CVEs",
-   "blurb": "An exposed firewall or VPN admin plane plus CISA known-exploited CVEs in the same estate: the classic ransomware entry path.",
+   "blurb": "An exposed firewall or VPN appliance plus CISA known-exploited CVEs in the same estate: the classic ransomware entry path.",
    "pitch": "Edge devices are the most common way ransomware gets in, and this estate already runs software attackers are exploiting.",
    "forProducts": [
     "firewall",
@@ -106,9 +106,9 @@
   },
   {
    "id": "edge",
-   "name": "Exposed firewall/VPN admin",
-   "blurb": "FortiGate, NetScaler, SonicWall, Pulse or BIG-IP with its management interface reachable from the internet.",
-   "pitch": "Their firewall’s admin interface answers on the public internet; that is a configuration problem you can fix with them.",
+   "name": "Exposed firewall/VPN appliances",
+   "blurb": "FortiGate, NetScaler, SonicWall, Ivanti/Pulse or BIG-IP appliances answering on the internet: recognised by their own fingerprint, login or admin page, not by a certificate or header alone.",
+   "pitch": "Their firewall or VPN appliance answers on the public internet, the most common way ransomware gets in; keeping it patched and locking down its admin access is work you can do with them.",
    "forProducts": [
     "firewall",
     "asm"
@@ -247,7 +247,7 @@
   {
    "id": "kev",
    "name": "Known-exploited CVEs",
-   "blurb": "Software with CVEs on CISA’s Known Exploited Vulnerabilities list (Rapid Reset and jQuery noise excluded).",
+   "blurb": "Software on a version affected by a CVE on CISA’s Known Exploited Vulnerabilities list: verified by the scanner, or a versioned product that isn’t a distro package patched in place.",
    "pitch": "They run software with vulnerabilities that attackers are exploiting right now, per CISA.",
    "forProducts": [
     "vuln",

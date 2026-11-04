@@ -25,6 +25,13 @@ DEFAULT_CERT_DOMAINS = {
     "ddns.net", "duckdns.org", "plex.direct", "mikrotik.com", "draytek.com", "ui.com", "ubnt.com",
     "asuscomm.com", "zyxel.com", "hikvision.com", "dahuasecurity.com", "cluster.local",
     "acme.com", "domain.com", "test.com", "yourdomain.com", "company.com", "mydomain.com",
+    # dynamic-DNS providers: their subdomains are anyone's home server, not the provider
+    "spdns.org", "spdns.de", "ddnss.de", "freeddns.org", "dyndns.info", "dyndns.biz", "dynv6.net", "hopto.org",
+    "zapto.org", "sytes.net", "myftp.org", "myftp.biz", "serveftp.com", "servebeer.com", "ddns.me", "dnsalias.com",
+    "dnsalias.net", "dnsalias.org", "homeip.net", "mooo.com", "changeip.com", "3322.org", "oray.net", "myds.me",
+    "quickconnect.to", "selfhost.de", "goip.de", "dynu.net", "dynu.com", "kozow.com", "theworkpc.com", "ddns.info",
+    "dyndns.tv", "dyndns-server.com", "dyndns-ip.com", "dnsupdate.info", "duckdns.net", "freedynamicdns.net",
+    "noip.me", "webhop.me", "redirectme.net", "gotdns.ch", "ddnsfree.com", "ddnsgeek.com", "accesscam.org",
 }
 
 # cloud, CDN, hosting and SaaS platforms: their certs/PTRs name the platform, not the customer

@@ -99,7 +99,7 @@ def build(con, build_dir, out, kev_path=KEV_PATH):
     # CVEs on the KEV list today that this scan never matched: the "in the news" case
     for cve, k in kev.items():
         if cve not in facts:
-            facts[cve] = {"inScan": False, "kev": True, "companies": 0, "kevAdded": k["added"], "ransomware": k["ransomware"],
+            facts[cve] = {"inScan": False, "kev": True, "companies": 0, "inApp": 0, "kevAdded": k["added"], "ransomware": k["ransomware"],
                           "vendor": k["vendor"], "product": k["product"], "title": k["name"], "noise": cve in NOISE,
                           "family": family(f"{k['vendor']} {k['product']}")}
 

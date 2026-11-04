@@ -38,9 +38,11 @@ seller sends is generated: the outreach is the evidence.
 
 ## Features
 
-- **Signals that survive the noise.** 42% of the scan is CDN edges that answer on every port, 12%
-  is phantom hosts and 1.8% is honeypots with fake CVEs. After those are removed, 22 signals remain,
-  led by internet-facing firewall and VPN admin planes, the most common way ransomware gets in.
+- **Signals that survive the noise, and claims that survive the record.** 42% of the scan is CDN
+  edges that answer on every port, 11% is phantom hosts and 2.2% is honeypots with fake CVEs. Of what
+  remains, the scanner's own verdicts (CVE matches, end-of-life tags, which protocol a port speaks)
+  are mostly guesses, so each of the 22 signals is held to what the record actually shows. They're led
+  by exposed firewall and VPN appliances, the most common way ransomware gets in.
 - **Company identity from the services themselves.** TLS certificates, leaked Active Directory
   domains and HTTP hosts name the company; identity carries across ports of one IP, and hosters and
   ISP customer pools are recognised and excluded.
@@ -125,8 +127,11 @@ flowchart LR
 2. **Keep a window of observations.** A file is a few hours of an ongoing crawl, not a re-scan of the
    internet, so the build keeps the latest observation of each service from the last 30 days. A
    service first seen this week, on an IP the crawl already knew, is newly exposed.
-3. **Remove noise.** CDN edges that answer on every port, IPs answering on more than 50 ports,
-   honeypots advertising fake CVEs, and CVEs matched on nearly every server of a type.
+3. **Remove noise, and keep only claims the record supports.** CDN edges that answer on every port,
+   IPs answering on more than 50 ports, honeypot IPs and Tor relays go. A CVE counts only when the
+   scanner verified it or its product was seen with a version that isn't a distro package patched in
+   place; end of life is read from the OS release and the component's version; a port counts only when
+   it answered in that protocol and didn't refuse.
 4. **Identify the company.** From its own services: the TLS certificate, then a leaked Active Directory
    domain, then the HTTP host, then the IP block's owner, carried across the ports of one IP. Hosters
    and ISP customer pools are excluded. An LLM settles what rules can't (is this name a carrier, a
@@ -156,18 +161,27 @@ config:
 ---
 sankey-beta
 Banners scanned,CDN edges (dropped),5.60
-Banners scanned,Phantom IPs (dropped),1.55
-Banners scanned,Honeypots (dropped),0.25
-Banners scanned,Real services,5.99
-Real services,Tied to a company,0.92
-Real services,Owner not identifiable,5.07
+Banners scanned,Phantom IPs (dropped),1.52
+Banners scanned,Honeypot IPs (dropped),0.29
+Banners scanned,Real services,5.97
+Real services,Tied to a company,0.91
+Real services,Owner not identifiable,5.06
 ```
 
 What the file hides, and what Recon does about it:
 
 - **Most of it is not real.** 42% of records are CDN edges answering on every port (so the scanner
-  "finds" remote-access trojans and PLCs on Cloudflare), 12% are IPs answering on more than 50 ports,
-  and 1.8% are honeypots with 80 to 170 fake CVEs each. A ranking by CVE count puts the decoys first.
+  "finds" remote-access trojans and PLCs on Cloudflare), 11% are IPs answering on more than 50 ports,
+  and 2.2% are honeypots with 80 to 170 fake CVEs each. A ranking by CVE count puts the decoys first.
+  The scanner tags the honeypot ports it recognises; the same IPs' other ports are just as fake.
+- **The scanner's verdicts are guesses.** Its CVE matches come from version numbers and were verified
+  on 1.5% of the services carrying a known-exploited CVE. Nearly half are on Ubuntu, Debian or RHEL
+  packages, which fix CVEs without changing the version; a quarter name no version at all; and the top
+  PHP and WordPress CVEs land on every server whose page uses PHP or WordPress. Its end-of-life tag
+  marks Ubuntu 24.04's supported nginx and misses CentOS 7. Its "industrial controller" on port 3001 is
+  a web page 70% of the time, and 29% of its MySQL servers refused the connection. Taken at face value,
+  44% of the claims behind the top tiers didn't hold up for a blind reviewer; Recon now keeps a claim
+  only when the record shows it, and a blind reviewer rejects 7% (below).
 - **Two "known-exploited" CVEs are noise.** HTTP/2 Rapid Reset is matched on nearly every nginx, and
   the jQuery CVEs come from a script on the page, not the server. Counted, they make "KEV" meaningless.
 - **The owner on record is usually the ISP.** The WHOIS organisation and reverse DNS name the carrier
@@ -179,8 +193,8 @@ What the file hides, and what Recon does about it:
 - **Leaked AD domains do double duty.** An NTLM handshake gives away the internal domain (a name for
   the company) and the Windows build (an end-of-life operating system).
 - **The newest attack surface is AI.** 1,700 services are self-hosted AI apps (LiteLLM, Ollama, Dify,
-  Flowise) or MCP servers answering on the open internet, often with no login: 170 identified
-  companies, eight of them in P1. A model gateway or agent server in the open leaks keys, data and
+  Flowise) or MCP servers answering on the open internet, often with no login: 169 identified
+  companies, seven of them in P1. A model gateway or agent server in the open leaks keys, data and
   tool access.
 - **A few are already breached.** The scanner flags ransomed databases, and fingerprints
   remote-access trojans and cryptominers. Those count as evidence of a breach, the strongest signal;
@@ -190,7 +204,7 @@ What the file hides, and what Recon does about it:
 - **Security maturity changes the pitch, not the rank.** A WAF, a security.txt or post-quantum TLS
   marks a buyer with a team: a consolidation conversation, not a first purchase.
 
-The result: 917k services tied to 298k companies, and 83,934 companies with a material risk signal.
+The result: 909k services tied to 295k companies, and 36,554 companies with a material risk signal.
 Every signal, threshold and rule is in [docs/technical-notes.md](docs/technical-notes.md).
 
 ## Results
@@ -206,6 +220,22 @@ influenced any tuning.
 | + LLM labels for organisation type | 53% (32/60) |
 | + IP-owner identities need an education or government label | 62% (37/60) |
 | Final build (deterministic identity), same holdout | 61% (36/59) |
+
+Then the claims themselves: does the scan evidence support what Recon tells a seller about each
+account? Two blind reviewers judged every risk claim against the raw scan fields behind it (product,
+version, server header, banner), on random P1/P2 accounts from the build before the fix and after it,
+shuffled together so they couldn't tell which was which, and then on a fresh holdout:
+
+| Build | Claims rejected | Claims confirmed | Accounts sellable |
+| --- | --- | --- | --- |
+| Before: the scanner's verdicts taken at face value | 44% (59/135) | 46% | 60% (36/60) |
+| After the fixes, same blind comparison | 21% (21/102) | 59% | 65% (39/60) |
+| Final build, fresh holdout of 60 | **7% (8/119)** | **64%** | **73% (44/60)** |
+
+The rest are "unclear", mostly (29 of 35) two PHP CVEs CISA added on 26 October 2026, after the
+reviewers' knowledge, so they couldn't check the affected versions. The remaining rejections are a long
+tail: an Exim or nginx version a distro also ships, two CVEs that need a configuration the banner
+doesn't show. Files: [`data/eval/claims_v4_*`, `claims_v5_*`](data/eval/).
 
 With 60 accounts the margin is about ±12 points, so the gain is real and the middle step indicative.
 Each sample pointed at the next fix: the first showed that IP-owner identities were 15% sellable, the
@@ -246,8 +276,14 @@ CVE search returns exactly the companies a direct query over the build finds (fo
   from, and a seller has to be able to say why an account is hot. The LLM classifies distinct names
   (carrier, hoster, business; industry) as a cached batch, so its cost grows with new names, not
   records, and nothing calls a model when a page loads.
+- **A claim needs the record behind it, not the scanner's verdict.** A seller repeats what Recon says
+  to a security engineer, who will check. So a CVE needs its product seen with a version that isn't a
+  distro package patched in place, end of life is read from the OS release and the component that's
+  actually old, a port needs a reply in its protocol, and the evidence names the product the CVE
+  belongs to. That cut the companies with a material signal from 83,934 to 36,554, and claims the blind
+  reviewer rejected from 44% to 7%.
 - **Measured on blind, fresh holdouts.** Each change was judged on a sample that hadn't influenced any
-  tuning, labelled by a reviewer who never saw the pipeline (the precision table above).
+  tuning, labelled by a reviewer who never saw the pipeline (the tables above).
 - **Tiers sized to sales capacity.** P1 is 500 accounts, what a team can call in a week, not a
   percentile that grows with the market.
 - **Evidence instead of generated outreach.** The opening line and the brief are filled from findings,
@@ -271,7 +307,7 @@ CVE search returns exactly the companies a direct query over the build finds (fo
 The data grows with every file, so nothing the app or an assistant reads is sized by the market:
 
 - **A read API** ([`api/`](api/)) answers every list, count and badge with DuckDB over a versioned,
-  IP-masked Parquet store. The browser holds one page at a time, and all 83,934 risky companies are
+  IP-masked Parquet store. The browser holds one page at a time, and all 36,554 risky companies are
   served.
 - **A count cube** answers the template counts and the profile badges. It grows with the number of
   country × sector × industry × size combinations, not with accounts.
@@ -330,6 +366,9 @@ An AI-native loop, with checks at the points where a model's confidence can't be
   set the direction, chose between options and decided what shipped.
 - **Review after every full run.** The top of the ranking was read after each build, and most of the
   identity and noise rules started as a wrong account found there.
+- **Every signal checked against its records.** An independent audit agent, given the code and the
+  data but not my suspicions, read the raw records behind each signal in the top tiers; every finding
+  was confirmed by a query before it changed a rule, and the result was measured by blind reviewers.
 - **Independent measurement.** Gold labels came from separate agents that never saw the pipeline,
   each change was measured on a fresh holdout, and the MCP tools were tested on requests written
   before the re-run.
@@ -353,7 +392,12 @@ An AI-native loop, with checks at the points where a model's confidence can't be
 - **Enrichment by domain:** firmographics for real company size, verified contacts, IP-to-company
   data for the estates on ISP lines, certificate transparency for subsidiaries, SPF and DMARC for
   email security sellers.
-- **Single-IP precision:** the largest remaining error, measured on a fresh blind sample.
+- **Single-IP precision:** after the claims fixes, one-IP accounts are 65% sellable against 74% for
+  larger estates (two blind samples, 120 accounts); firmographics by domain would separate a small
+  business from a hobby site.
+- **Vulnerability data instead of hand tables:** the distro package versions, end-of-life dates and
+  CVE preconditions are short curated lists; distro security trackers and OSV would cover every
+  package and say which fixes a backported version already has.
 - **Teams and CRM sync:** shared team workspaces on Postgres with SSO, and lists synced to the CRM.
 - **Scheduled saved searches:** a worker re-runs each saved search when a build lands and notifies the
   owner of new accounts, through the same API.

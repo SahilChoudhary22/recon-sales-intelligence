@@ -1,0 +1,2030 @@
+[
+ {
+  "case": "c001",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Small venue/organisation site on Swedish hoster",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "PHP version visible; CVE ID unverifiable, affected range unknown"
+   }
+  ]
+ },
+ {
+  "case": "c002",
+  "entity_type": "personal_or_junk",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Sports live-stream site, likely piracy/gambling-adjacent",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "PHP version visible; CVE ID unverifiable, affected range unknown"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.23 mainline branch is dead upstream"
+   }
+  ]
+ },
+ {
+  "case": "c003",
+  "entity_type": "unknown",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Obscure domain on Azure VM, no identifiable organisation",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "TDS handshake with NTLM info proves MSSQL listening"
+   }
+  ]
+ },
+ {
+  "case": "c004",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Careers site for GKG, WordPress on Azure",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "Apache version hidden; listed CVEs track PHP, not Apache"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "Apache version not visible; cannot judge EOL"
+   }
+  ]
+ },
+ {
+  "case": "c005",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Same gkgcareers.com WordPress host",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "PHP version visible; CVE ID unverifiable, affected range unknown"
+   }
+  ]
+ },
+ {
+  "case": "c006",
+  "entity_type": "education",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "National Taichung University of Science and Technology",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Upstream XAMPP Apache 2.4.58 in CVE-2024-38475 range; Windows PHP 8.2.12"
+   },
+   {
+    "verdict": "supported",
+    "reason": "MSSQL handshake answered on 1433"
+   },
+   {
+    "verdict": "supported",
+    "reason": "IIS 8.5 implies Server 2012 R2, EOL Oct 2023"
+   }
+  ]
+ },
+ {
+  "case": "c007",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Indian IT firm Qualix",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "nginx 1.14.1 likely RHEL8 build with backports; resolver config unknown"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.14 branch EOL upstream"
+   }
+  ]
+ },
+ {
+  "case": "c008",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "DTDC, large Indian courier company",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "RHEL Apache 2.4.6 receives backported fixes"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "RHEL nginx 1.14.1 package backports these fixes"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.14 branch EOL; RHEL8 1.14 stream retired"
+   }
+  ]
+ },
+ {
+  "case": "c009",
+  "entity_type": "hosting_cloud",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Vietnamese hosting/datacenter block; services belong to customers",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "Listed CVE is PHP's; attributed to nginx"
+   },
+   {
+    "verdict": "supported",
+    "reason": "MSSQL handshake answered on 1433"
+   },
+   {
+    "verdict": "supported",
+    "reason": "FGFM management port 541 answering with device details"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.27 mainline superseded, no longer supported"
+   }
+  ]
+ },
+ {
+  "case": "c010",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Small Czech firm; includes a personal Windows 11 PC",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Debian 8 build; backports uncertain post-EOL, CVE-2021-40438 patched"
+   },
+   {
+    "verdict": "supported",
+    "reason": "RDP responded with NTLM info on 3389"
+   }
+  ]
+ },
+ {
+  "case": "c011",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "ASDP Indonesia Ferry's Ferizy ticketing platform",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CentOS 7 build; some CVEs backported, CVE-2024-38475 status uncertain"
+   },
+   {
+    "verdict": "supported",
+    "reason": "CentOS 7 Apache 2.4.6, OS EOL June 2024"
+   }
+  ]
+ },
+ {
+  "case": "c012",
+  "entity_type": "hosting_cloud",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Microsoft 365/SharePoint front door, not a prospect",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "Azure Front Door 400; no IIS version, CVEs unverifiable"
+   }
+  ]
+ },
+ {
+  "case": "c013",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Tsuribito-sha, Japanese fishing magazine publisher",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "No PHP version in reply; 401 basic auth only"
+   }
+  ]
+ },
+ {
+  "case": "c014",
+  "entity_type": "hosting_cloud",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Russian hosting provider 1Gb.ru",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Upstream Apache 2.4.53 within CVE-2024-38475 range"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Index of / page served"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "Outdated point release; Apache 2.4 branch still supported"
+   }
+  ]
+ },
+ {
+  "case": "c015",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Münster hotel/conference marketing site",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Debian 10 build; older CVEs patched, CVE-2024-38475 status uncertain"
+   }
+  ]
+ },
+ {
+  "case": "c016",
+  "entity_type": "unknown",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Default Laravel app on DigitalOcean, no clear org",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "Apache version hidden; CVE-2019-11043 needs nginx+FPM; PHP CVEs misattributed"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "Apache version not visible"
+   }
+  ]
+ },
+ {
+  "case": "c017",
+  "entity_type": "personal_or_junk",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Swedish online games/casino affiliate site",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "WordPress version not visible in scan fields"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.15 mainline branch EOL"
+   }
+  ]
+ },
+ {
+  "case": "c018",
+  "entity_type": "personal_or_junk",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Iranian stock-market blog; sanctioned jurisdiction",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Upstream Win64 Apache 2.4.53 in CVE-2024-38475 range"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "Outdated point release; Apache 2.4 branch still supported"
+   }
+  ]
+ },
+ {
+  "case": "c019",
+  "entity_type": "education",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Utah State University",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "Reply is Ubuntu Apache redirect; no Tableau evidence; backported"
+   }
+  ]
+ },
+ {
+  "case": "c020",
+  "entity_type": "public_sector",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Catholic youth welfare charity, Munich archdiocese",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "1.14.2 matches Debian 10 package, which patched these"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.14 branch EOL; Debian 10 also EOL"
+   }
+  ]
+ },
+ {
+  "case": "c021",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Portuguese company on Contabo VPS with AD",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "AD LDAP rootDSE answers anonymously on 389"
+   },
+   {
+    "verdict": "supported",
+    "reason": "WinRM NTLM reveals domain ALTOGA and host"
+   }
+  ]
+ },
+ {
+  "case": "c022",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Spradling International, coated fabrics manufacturer",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "PHP version visible; CVE ID unverifiable, affected range unknown"
+   }
+  ]
+ },
+ {
+  "case": "c023",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Alkali, Finnish digital agency",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CentOS 7 build; CVE-2021-40438 backported, CVE-2024-38475 uncertain"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "CVE-2019-0190 affects only 2.4.37; this is 2.4.62"
+   }
+  ]
+ },
+ {
+  "case": "c024",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Mobile game studio on Tencent Cloud",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.18.0 plain build within CVE-2021-23017 range"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.18 branch EOL upstream"
+   }
+  ]
+ },
+ {
+  "case": "c025",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Sywatec, small German company",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "CVE-2021-40438 is 2.4-only; Heartbleed is OpenSSL, version unseen"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Index of / listing served"
+   }
+  ]
+ },
+ {
+  "case": "c026",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "MapsCloud ERP software vendor",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Plain nginx 1.18.0 within CVE-2021-23017 range"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "1.22.1 with Debian page; Debian 12 package still supported"
+   }
+  ]
+ },
+ {
+  "case": "c027",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Smart street-light management vendor, China",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "PHP version visible; CVE ID unverifiable, affected range unknown"
+   }
+  ]
+ },
+ {
+  "case": "c028",
+  "entity_type": "business",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Shared-hosting parking page; redirects to dev.grupadbk.com",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "No PHP version in reply; LiteSpeed redirect only"
+   }
+  ]
+ },
+ {
+  "case": "c029",
+  "entity_type": "personal_or_junk",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Betway-impersonating gambling spam site",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "PHP version visible; CVE ID unverifiable, affected range unknown"
+   }
+  ]
+ },
+ {
+  "case": "c030",
+  "entity_type": "isp_telecom",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Sri Lanka Telecom leased-line customer block",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Upstream Win64 Apache 2.4.43 within both CVE ranges"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "Banner is generic Welcome text, not ATG protocol"
+   },
+   {
+    "verdict": "supported",
+    "reason": "MSSQL handshake answered on 1433"
+   },
+   {
+    "verdict": "supported",
+    "reason": "RDP responded with NTLM info"
+   }
+  ]
+ },
+ {
+  "case": "c031",
+  "entity_type": "public_sector",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "ÖBB-Infrastruktur, Austrian state railway infrastructure",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "NetScaler fronts web app; no gateway/VPN login seen"
+   },
+   {
+    "verdict": "unclear",
+    "reason": "1.22.1 matches Debian 12 package, possibly still supported"
+   }
+  ]
+ },
+ {
+  "case": "c032",
+  "entity_type": "personal_or_junk",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "OVH generic reverse-DNS hostname, no organisation",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Upstream Win64 Apache 2.4.41 within both CVE ranges"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Index of / listing served"
+   }
+  ]
+ },
+ {
+  "case": "c033",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Dealertrack, Cox Automotive software company",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "'Apache/2.4.58 ()' is Amazon Linux build with backports"
+   }
+  ]
+ },
+ {
+  "case": "c034",
+  "entity_type": "government",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Tonga Meteorological Services, government ministry",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "MariaDB handshake returned on 3306"
+   },
+   {
+    "verdict": "supported",
+    "reason": "CentOS 7 Apache banner; OS EOL June 2024"
+   },
+   {
+    "verdict": "supported",
+    "reason": "MariaDB 10.2 EOL since 2022"
+   }
+  ]
+ },
+ {
+  "case": "c035",
+  "entity_type": "education",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Chung Yuan Christian University",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Upstream Apache 2.4.56 within CVE-2024-38475 range"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "Port 50000 replies with nginx HTTP 400, not DB2"
+   },
+   {
+    "verdict": "supported",
+    "reason": "OWA login page on IIS indicates on-prem Exchange"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "X11 server refused access"
+   }
+  ]
+ },
+ {
+  "case": "c036",
+  "entity_type": "personal_or_junk",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Random-phrase domain on AWS, no organisation",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "CentOS Stream package backports; PHP CVEs misattributed to Apache"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "CentOS Stream 9 still supported; outdated, not EOL"
+   }
+  ]
+ },
+ {
+  "case": "c037",
+  "entity_type": "personal_or_junk",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Gambling spam site",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Upstream Win64 Apache 2.4.39 within CVE-2021-40438 range"
+   },
+   {
+    "verdict": "supported",
+    "reason": "WinRM reports Windows Server 2012 R2, EOL"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "Outdated point release; Apache 2.4 branch still supported"
+   }
+  ]
+ },
+ {
+  "case": "c038",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "The Chia Co, Australian food company",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "Apache version hidden; CVE belongs to PHP"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "Apache version not visible"
+   }
+  ]
+ },
+ {
+  "case": "c039",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "magicJack VoIP company's own server",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "CVE-2021-40438 affects Apache 2.4 only; this is 2.2.15"
+   }
+  ]
+ },
+ {
+  "case": "c040",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Indian organisation tsim.in on AWS",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "'Apache/2.4.58 ()' is Amazon Linux build with backports"
+   }
+  ]
+ },
+ {
+  "case": "c041",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Kelco, Maine business on AWS",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "CVE belongs to PHP; PHP 5.4.16 is backported distro package"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "Apache 2.4.67 is current, not EOL"
+   }
+  ]
+ },
+ {
+  "case": "c042",
+  "entity_type": "personal_or_junk",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Random-letter Chinese domain, API only",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "PHP 7.2.7 in CVE-2019-11043 range but FPM/nginx unknown"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "No product or version named in evidence"
+   }
+  ]
+ },
+ {
+  "case": "c043",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Morgan & Slates, retail/recycling business",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CentOS 7 build; CVE-2021-40438 backported, CVE-2024-38475 uncertain"
+   },
+   {
+    "verdict": "supported",
+    "reason": "CentOS 7 Apache 2.4.6, EOL distro"
+   }
+  ]
+ },
+ {
+  "case": "c044",
+  "entity_type": "government",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Pernambuco state health secretariat, Brazil",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "2.4.6 is distro build; backport status uncertain"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Plain nginx 1.24 stable branch EOL upstream"
+   }
+  ]
+ },
+ {
+  "case": "c045",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Zhibo8, large Chinese sports news/streaming site",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "PHP 7.1.8 behind nginx in CVE-2019-11043 range; misattributed to nginx"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.8.0 within all three CVE ranges"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.8 branch long EOL"
+   }
+  ]
+ },
+ {
+  "case": "c046",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "RJ Corp, Indian conglomerate (Varun Beverages)",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "ownCloud version unseen; CVE not ownCloud's"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "Ubuntu nginx 1.18.0 package backported CVE-2021-23017"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Ubuntu 20.04 standard support ended; nginx 1.18 EOL"
+   }
+  ]
+ },
+ {
+  "case": "c047",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Small Chinese lifestyle/beauty brand",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.9.9 within all three CVE ranges"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.9 branch long EOL"
+   }
+  ]
+ },
+ {
+  "case": "c048",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "The Chia Co, Australian food company",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "PHP version visible; CVE ID unverifiable, affected range unknown"
+   }
+  ]
+ },
+ {
+  "case": "c049",
+  "entity_type": "hosting_cloud",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Polish web hoster serving schools and cooperatives",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "WordPress/PHPMailer versions unseen; misattributed to Apache"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "MariaDB refused connection from scanner host"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.2 branch EOL since 2018"
+   }
+  ]
+ },
+ {
+  "case": "c050",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Exostar, aerospace/defense supply-chain platform",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "BIG-IP virtual server redirect, not management interface"
+   }
+  ]
+ },
+ {
+  "case": "c051",
+  "entity_type": "isp_telecom",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Indonesian ISP/network provider customer block",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "SMB2 only; no SMBv3.1.1 compression evidence"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "Reply is HTTP 400, not HandPunch protocol"
+   },
+   {
+    "verdict": "supported",
+    "reason": "MySQL 8.0.30 handshake returned"
+   },
+   {
+    "verdict": "supported",
+    "reason": "SMB service answered on 445"
+   }
+  ]
+ },
+ {
+  "case": "c052",
+  "entity_type": "isp_telecom",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Ukrainian ISP's own corporate network",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "SMB2 only; no SMBv3.1.1 compression evidence"
+   },
+   {
+    "verdict": "supported",
+    "reason": "SMB service answered on 445"
+   },
+   {
+    "verdict": "supported",
+    "reason": "WinRM NTLM reveals corp domain and RDS gateway host"
+   }
+  ]
+ },
+ {
+  "case": "c053",
+  "entity_type": "unknown",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Unidentified small site on DigitalOcean",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "2.4.29 likely Ubuntu 18.04 build with backports"
+   }
+  ]
+ },
+ {
+  "case": "c054",
+  "entity_type": "personal_or_junk",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Gambling spam site",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Upstream Win64 Apache 2.4.39 within CVE-2021-40438 range"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "Outdated point release; Apache 2.4 branch still supported"
+   }
+  ]
+ },
+ {
+  "case": "c055",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "FC Porto football club",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "PHP 7.1.17 behind nginx within CVE-2019-11043 range"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.12 branch EOL"
+   }
+  ]
+ },
+ {
+  "case": "c056",
+  "entity_type": "public_sector",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Small German civic lab project on shared hosting",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "PHP version visible; CVE ID unverifiable, affected range unknown"
+   }
+  ]
+ },
+ {
+  "case": "c057",
+  "entity_type": "government",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "SERCOP, Ecuador public procurement agency",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "No PHP version in captured reply"
+   },
+   {
+    "verdict": "supported",
+    "reason": "CentOS 7 Apache banner; OS EOL June 2024"
+   }
+  ]
+ },
+ {
+  "case": "c058",
+  "entity_type": "unknown",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Unidentified site on IONOS Windows host",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Upstream Win32 Apache 2.4.55 within CVE-2024-38475 range"
+   }
+  ]
+ },
+ {
+  "case": "c059",
+  "entity_type": "public_sector",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "NOVACAP, Federal District state urban development company",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "Listed CVEs are PHP's or need FPM; not Apache"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "Outdated point release; Apache 2.4 branch still supported"
+   }
+  ]
+ },
+ {
+  "case": "c060",
+  "entity_type": "unknown",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Japanese document service, unclear operator",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "PHP 5.3.3 is RHEL6 package, CVE-2012-1823 patched; CGI-only"
+   }
+  ]
+ },
+ {
+  "case": "c061",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "BMZ Group, German battery maker; Check Point gateway",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "CPWS banner is Check Point Mobile Access/SSL VPN portal"
+   }
+  ]
+ },
+ {
+  "case": "c062",
+  "entity_type": "personal_or_junk",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Free .my.id personal domain on residential broadband",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "Ubuntu nginx 1.18.0 package has CVE-2021-23017 fix backported"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Ubuntu 20.04 nginx; 20.04 standard support ended 2025"
+   }
+  ]
+ },
+ {
+  "case": "c063",
+  "entity_type": "unknown",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Small WordPress site on GoDaddy; organisation unclear",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "nginx version not visible; CVE not tied to nginx"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "No nginx version shown; EOL cannot be judged"
+   }
+  ]
+ },
+ {
+  "case": "c064",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "CHRISTUS Health, large US health system",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "BIG-IP APM logout page is a remote-access gateway"
+   }
+  ]
+ },
+ {
+  "case": "c065",
+  "entity_type": "personal_or_junk",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Template 'YourBrand' site on Contabo VPS",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "PHP 5.4.16 is RHEL/CentOS 7 package; unknown CVE, backports"
+   }
+  ]
+ },
+ {
+  "case": "c066",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Groupe Poujoulat careers site, French manufacturer",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "nginx version not visible; CVE attribution unverifiable"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "No nginx version shown; EOL cannot be judged"
+   }
+  ]
+ },
+ {
+  "case": "c067",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Norwegian hydraulics firm on One.com shared hosting",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unknown 2026 CVEs; PHP 8.1.34 range unverifiable"
+   }
+  ]
+ },
+ {
+  "case": "c068",
+  "entity_type": "education",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Universidad Autonoma de Nayarit, own address block",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "MS-SQL prelogin/NTLM answered on 1433"
+   },
+   {
+    "verdict": "supported",
+    "reason": "IIS 8.5 implies Windows Server 2012 R2, EOL"
+   }
+  ]
+ },
+ {
+  "case": "c069",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Chinese company site; server shows default LANMP page",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "nginx 1.8.1 visible but unknown 2026 CVE unverifiable"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.8.x unsupported since 2016"
+   }
+  ]
+ },
+ {
+  "case": "c070",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "AgFirst Farm Credit Bank, US agricultural lender",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "BIG-IP 503 maintenance page is data plane, not admin UI"
+   }
+  ]
+ },
+ {
+  "case": "c071",
+  "entity_type": "personal_or_junk",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Lifestyle blog on AWS",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unknown 2026 CVEs; PHP 7.3.18 range unverifiable"
+   }
+  ]
+ },
+ {
+  "case": "c072",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Mainichi Shimbun, major Japanese newspaper",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Amazon Linux httpd 2.4.53 predates CVE-2024-38475 fix"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Amazon Linux 2 package; AL2 reached EOL mid-2026"
+   }
+  ]
+ },
+ {
+  "case": "c073",
+  "entity_type": "unknown",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "MantisBT bug tracker; organisation behind tidyinfo unclear",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "PHP 5.4.16 is CentOS 7 package; unknown CVE"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "Tengine 3.1.0 is current Tengine line, not declared EOL"
+   }
+  ]
+ },
+ {
+  "case": "c074",
+  "entity_type": "government",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Municipality of Quinze de Novembro, RS, Brazil",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Upstream Apache 2.4.47 Win64 within CVE-2024-38475 range"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "Ubuntu nginx 1.18.0 has CVE-2021-23017 backported"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Ubuntu 20.04 nginx; standard support ended 2025"
+   }
+  ]
+ },
+ {
+  "case": "c075",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Istituto Italiano Privacy, training organisation, Moodle site",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unknown 2026 CVEs; PHP 8.3.23 range unverifiable"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.29 mainline superseded; no longer supported"
+   }
+  ]
+ },
+ {
+  "case": "c076",
+  "entity_type": "public_sector",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Prodesp, Sao Paulo state IT company",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "RHEL 2.4.57 package backports fixes; patch level unknown"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "OpenSSL CVEs on RHEL package; 2019-0190 needs 2.4.37"
+   },
+   {
+    "verdict": "supported",
+    "reason": "CentOS 7 Apache 2.4.6; CentOS 7 EOL June 2024"
+   }
+  ]
+ },
+ {
+  "case": "c077",
+  "entity_type": "personal_or_junk",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Anonymous paste site",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "nginx version not visible; CVE attribution unverifiable"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "No nginx version shown; EOL cannot be judged"
+   }
+  ]
+ },
+ {
+  "case": "c078",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "iTour Translator, Chinese translation device maker",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.10.3 (Ubuntu) is 16.04 package; 16.04 EOL"
+   }
+  ]
+ },
+ {
+  "case": "c079",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Senior residence in Mansfeld on Strato hosting",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unknown 2026 CVE against Apache 2.4.69; range unverifiable"
+   }
+  ]
+ },
+ {
+  "case": "c080",
+  "entity_type": "personal_or_junk",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Personal Japanese blog on GMO VPS",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "CentOS 7 httpd never received CVE-2024-38475 fix"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Title 'Index of /' on 443 shows directory listing"
+   },
+   {
+    "verdict": "supported",
+    "reason": "CentOS 7 Apache 2.4.6; CentOS 7 EOL"
+   }
+  ]
+ },
+ {
+  "case": "c081",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Call-centre services company",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "CentOS 8 httpd; EOL before CVE-2024-38475 fix"
+   },
+   {
+    "verdict": "supported",
+    "reason": "CentOS 8 package; CentOS 8 EOL"
+   }
+  ]
+ },
+ {
+  "case": "c082",
+  "entity_type": "public_sector",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "World Agroforestry (ICRAF), CGIAR research centre",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "cPanel Apache 2.4.48 upstream; in range of CVE-2021-40438"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "443 title is Default Web Site Page, no open-dir tag"
+   }
+  ]
+ },
+ {
+  "case": "c083",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Miniso Mexico, retail chain",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unknown 2026 CVEs; PHP 8.2.29 range unverifiable"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.26 stable superseded April 2025"
+   }
+  ]
+ },
+ {
+  "case": "c084",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Plateronics, small US manufacturer site on GoDaddy",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.4.6 (CentOS 7 build) lacks CVE-2024-38475 fix"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.4.6 / CentOS 7 era, unsupported"
+   }
+  ]
+ },
+ {
+  "case": "c085",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Sacheerome, Indian fragrance and flavour manufacturer",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "CentOS 7 httpd never received CVE-2024-38475 fix"
+   },
+   {
+    "verdict": "supported",
+    "reason": "CentOS 7 Apache 2.4.6; CentOS 7 EOL"
+   }
+  ]
+ },
+ {
+  "case": "c086",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Beachside rehab centre, US healthcare provider",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "Apache version not visible; CVE attribution unverifiable"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "No Apache version shown; EOL cannot be judged"
+   }
+  ]
+ },
+ {
+  "case": "c087",
+  "entity_type": "unknown",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Test server on Tencent Cloud; owner unclear",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Upstream Apache 2.4.23 Win32 in CVE-2021-40438 range"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Title Index of / with open-dir tag"
+   }
+  ]
+ },
+ {
+  "case": "c088",
+  "entity_type": "education",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Universidad Veracruzana, own address block",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "IIS 8.5 implies Server 2012 R2 or 8.1, both EOL"
+   }
+  ]
+ },
+ {
+  "case": "c089",
+  "entity_type": "unknown",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Japanese site; only error pages, organisation unclear",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "CentOS 7 httpd never received CVE-2024-38475 fix"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "OpenSSL CVEs on AlmaLinux package; backported, not httpd"
+   },
+   {
+    "verdict": "supported",
+    "reason": "CentOS 7 Apache 2.4.6; CentOS 7 EOL"
+   }
+  ]
+ },
+ {
+  "case": "c090",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Surecomp, trade-finance software company",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "CPWS banner is Check Point Mobile Access portal"
+   }
+  ]
+ },
+ {
+  "case": "c091",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Kyoei Denki Koji, Aichi electrical contractor",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "40438 is 2.4-only; 2012-1823 needs PHP-CGI, not shown"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.2 EOL since 2018"
+   }
+  ]
+ },
+ {
+  "case": "c092",
+  "entity_type": "education",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Name from Fortinet default cert; FAPERJ/hosted IPs, not UFRJ",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "CentOS 7 httpd never received CVE-2024-38475 fix"
+   },
+   {
+    "verdict": "supported",
+    "reason": "FGFM on 541 is FortiGate management channel"
+   },
+   {
+    "verdict": "supported",
+    "reason": "CentOS 7 Apache 2.4.6; CentOS 7 EOL"
+   }
+  ]
+ },
+ {
+  "case": "c093",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "DaXtra Technologies Japan, recruitment software",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unknown 2026 CVEs; nginx 1.20.1 range unverifiable"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.20 branch unsupported since 2022"
+   }
+  ]
+ },
+ {
+  "case": "c094",
+  "entity_type": "education",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Yuan Ze University, own address block",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "MS-SQL NTLM handshake answered on 1433"
+   },
+   {
+    "verdict": "supported",
+    "reason": "WinRM NTLM reveals YZ domain and DC hostname"
+   }
+  ]
+ },
+ {
+  "case": "c095",
+  "entity_type": "unknown",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "CodeIgniter app on Contabo; organisation unclear",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "nginx version not visible; CVE attribution unverifiable"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "No nginx version shown; EOL cannot be judged"
+   }
+  ]
+ },
+ {
+  "case": "c096",
+  "entity_type": "unknown",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Garbled Chinese site on Cogent; organisation unclear",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Upstream Apache 2.4.39 Win64 in CVE-2021-40438 range"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.4.39 from 2019, long unsupported release"
+   }
+  ]
+ },
+ {
+  "case": "c097",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Shenzhen Powlicon Microelectronics, chip maker",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CVE-2024-4577 Windows-only, host Unix; others unverifiable"
+   }
+  ]
+ },
+ {
+  "case": "c098",
+  "entity_type": "education",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Purdue University, own address block",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Lantronix device-server discovery reply on 30718"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Ubuntu 18.04 Apache; 18.04 standard support ended 2023"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Cisco SNMPv3 engine answered on 161"
+   }
+  ]
+ },
+ {
+  "case": "c099",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Versal Finance, Brazilian financial firm",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Upstream Apache 2.4.51 within CVE-2024-38475 range"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.4.51 with OpenSSL 1.1.1n, long unsupported"
+   }
+  ]
+ },
+ {
+  "case": "c100",
+  "entity_type": "education",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Chinese Culture University, own address block",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "MS-SQL NTLM handshake answered on 1433"
+   },
+   {
+    "verdict": "supported",
+    "reason": "WinRM NTLM shows Server 2012 R2, EOL"
+   },
+   {
+    "verdict": "supported",
+    "reason": "LDAP rootDSE with AD OIDs answered on 389"
+   },
+   {
+    "verdict": "supported",
+    "reason": "ESXi 5.1 EOL since 2018"
+   }
+  ]
+ },
+ {
+  "case": "c101",
+  "entity_type": "unknown",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "No certs; Argentine hoster block, fangio.net link unproven",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "CWP-built Apache 2.4.57 within CVE-2024-38475 range"
+   },
+   {
+    "verdict": "supported",
+    "reason": "WinRM NTLM shows Server 2012 R2, EOL"
+   }
+  ]
+ },
+ {
+  "case": "c102",
+  "entity_type": "government",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "TRF4, Brazilian federal regional court",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unknown 2026 CVEs; PHP 8.1.34 range unverifiable"
+   }
+  ]
+ },
+ {
+  "case": "c103",
+  "entity_type": "public_sector",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "NCHC/TWAREN block; hosts services of other institutions",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "Ubuntu Apache 2.4.57 package; fixes likely backported"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "Reply is an SSH banner, not tank-gauge protocol"
+   },
+   {
+    "verdict": "supported",
+    "reason": "CouchDB 3.2.2 root endpoint answered on 5984"
+   },
+   {
+    "verdict": "supported",
+    "reason": "FGFM on 541 is FortiGate management channel"
+   }
+  ]
+ },
+ {
+  "case": "c104",
+  "entity_type": "isp_telecom",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Brazilian ISP block; devices belong to customers",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "Banner shows only SMB2; no 3.1.1 compression evidence"
+   },
+   {
+    "verdict": "supported",
+    "reason": "MS-SQL NTLM handshake answered on 1433"
+   },
+   {
+    "verdict": "supported",
+    "reason": "SMB answered on 445"
+   },
+   {
+    "verdict": "supported",
+    "reason": "FortiGate identified via FGFM on 541"
+   }
+  ]
+ },
+ {
+  "case": "c105",
+  "entity_type": "business",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Site is Eurofirms Services; domain name is a legacy brand",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "nginx version not visible; CVE attribution unverifiable"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "No nginx version shown; EOL cannot be judged"
+   }
+  ]
+ },
+ {
+  "case": "c106",
+  "entity_type": "hosting_cloud",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Newfold shared-hosting servers, not a single customer org",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "MySQL handshake answered on 3306"
+   },
+   {
+    "verdict": "unclear",
+    "reason": "OpenSSH 7.4 could be CloudLinux 7 with extended support"
+   },
+   {
+    "verdict": "supported",
+    "reason": "MySQL 5.7 EOL October 2023"
+   }
+  ]
+ },
+ {
+  "case": "c107",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "The Food Corridor, shared-kitchen software company",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unknown 2026 CVE; PHP 7.0.31 range unverifiable"
+   }
+  ]
+ },
+ {
+  "case": "c108",
+  "entity_type": "education",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Mississippi State University, own address block",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "RHEL 8 httpd 2.4.37 backports; 2019-0211 fixed in RHEL"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "BIG-IP redirect is a virtual server, not admin UI"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.25 mainline superseded 2024"
+   }
+  ]
+ },
+ {
+  "case": "c109",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Japanese pachinko-industry information company",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Upstream Apache 2.4.46 Win64 within CVE-2024-38475 range"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.4.46 from 2020, long unsupported release"
+   }
+  ]
+ },
+ {
+  "case": "c110",
+  "entity_type": "unknown",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "WordPress redirect only; organisation unconfirmed",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unknown 2026 CVEs; PHP 7.3.25 range unverifiable"
+   }
+  ]
+ },
+ {
+  "case": "c111",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Decker Studios, fine-arts foundry",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "CVE-2019-11043 needs nginx+PHP-FPM; server is Apache"
+   }
+  ]
+ },
+ {
+  "case": "c112",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Captivea, Odoo consultancy",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "OpenVPN Access Server web service on 9943"
+   },
+   {
+    "verdict": "unclear",
+    "reason": "1.18.0 in range but likely Debian package with backport"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.18 unsupported; Debian 11 LTS ended 2026"
+   }
+  ]
+ },
+ {
+  "case": "c113",
+  "entity_type": "unknown",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Apache log page; organisation behind s4bdigital unclear",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Upstream Apache 2.4.23 within CVE-2024-38475 range"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.4.23 from 2016, long unsupported"
+   }
+  ]
+ },
+ {
+  "case": "c114",
+  "entity_type": "personal_or_junk",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Short random-looking .ru domain on datacenter VPS",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "MariaDB handshake answered on 3306"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "CVE-2023-42115 needs EXTERNAL auth; only PLAIN/LOGIN/CRAM-MD5 offered"
+   },
+   {
+    "verdict": "supported",
+    "reason": "MariaDB 10.5 EOL June 2025"
+   }
+  ]
+ },
+ {
+  "case": "c115",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Chafu handmade tea brand official site",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "nginx version not visible; CVE attribution unverifiable"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "No nginx version shown; EOL cannot be judged"
+   }
+  ]
+ },
+ {
+  "case": "c116",
+  "entity_type": "education",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "National Yang Ming Chiao Tung University",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "MySQL refused scanner host with error 1130"
+   },
+   {
+    "verdict": "supported",
+    "reason": "LDAPS rootDSE exposes NYCU directory naming context"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.25 mainline superseded 2024"
+   }
+  ]
+ },
+ {
+  "case": "c117",
+  "entity_type": "isp_telecom",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Page is Discovery Cable Network login, not plaasvision",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unknown 2026 CVEs; nginx 1.28.0 range unverifiable"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.28 stable superseded by 1.30 in 2026"
+   }
+  ]
+ },
+ {
+  "case": "c118",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Ilias Delicatessen, Dutch food shop",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Unknown 2026 CVEs; PHP 7.3.33 range unverifiable"
+   }
+  ]
+ },
+ {
+  "case": "c119",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "TrueVisions, Thai pay-TV operator (True Corp)",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "Ubuntu 24.04 Apache 2.4.58 has CVE-2024-38475 backported"
+   },
+   {
+    "verdict": "unsupported",
+    "reason": "Ubuntu-packaged nginx 1.28.3 on supported release"
+   }
+  ]
+ },
+ {
+  "case": "c120",
+  "entity_type": "unknown",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "C2CXchange site on IONOS; organisation unclear",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "PHP 5.4.16 is CentOS 7 package; unknown CVE"
+   }
+  ]
+ }
+]

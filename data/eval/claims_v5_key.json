@@ -1,0 +1,302 @@
+{
+ "c001": {
+  "build": "after",
+  "company_id": "castplan.com",
+  "tier": "P2"
+ },
+ "c002": {
+  "build": "after",
+  "company_id": "magomoebel.de",
+  "tier": "P2"
+ },
+ "c003": {
+  "build": "after",
+  "company_id": "pma.sp.gov.br",
+  "tier": "P1"
+ },
+ "c004": {
+  "build": "after",
+  "company_id": "org:Universitas Muhammadiyah Jember",
+  "tier": "P2"
+ },
+ "c005": {
+  "build": "after",
+  "company_id": "fusiondms.com.br",
+  "tier": "P1"
+ },
+ "c006": {
+  "build": "after",
+  "company_id": "afb86cam.com",
+  "tier": "P1"
+ },
+ "c007": {
+  "build": "after",
+  "company_id": "youpin91.cn",
+  "tier": "P2"
+ },
+ "c008": {
+  "build": "after",
+  "company_id": "psrg.org",
+  "tier": "P2"
+ },
+ "c009": {
+  "build": "after",
+  "company_id": "encoreredwoodcity.com",
+  "tier": "P2"
+ },
+ "c010": {
+  "build": "after",
+  "company_id": "reliancecomfort.com",
+  "tier": "P2"
+ },
+ "c011": {
+  "build": "after",
+  "company_id": "energynadi.com",
+  "tier": "P2"
+ },
+ "c012": {
+  "build": "after",
+  "company_id": "marcoeagle.net",
+  "tier": "P2"
+ },
+ "c013": {
+  "build": "after",
+  "company_id": "nonprofittrust.net",
+  "tier": "P1"
+ },
+ "c014": {
+  "build": "after",
+  "company_id": "vgplay.vn",
+  "tier": "P2"
+ },
+ "c015": {
+  "build": "after",
+  "company_id": "pourmesdossiers.com",
+  "tier": "P2"
+ },
+ "c016": {
+  "build": "after",
+  "company_id": "lublin.eu",
+  "tier": "P2"
+ },
+ "c017": {
+  "build": "after",
+  "company_id": "hstgr.io",
+  "tier": "P2"
+ },
+ "c018": {
+  "build": "after",
+  "company_id": "canastariccione.com",
+  "tier": "P2"
+ },
+ "c019": {
+  "build": "after",
+  "company_id": "cruzrojacolombiana.org",
+  "tier": "P2"
+ },
+ "c020": {
+  "build": "after",
+  "company_id": "fiocruz.br",
+  "tier": "P1"
+ },
+ "c021": {
+  "build": "after",
+  "company_id": "tuferreteriaamiga.es",
+  "tier": "P2"
+ },
+ "c022": {
+  "build": "after",
+  "company_id": "yourist.app",
+  "tier": "P2"
+ },
+ "c023": {
+  "build": "after",
+  "company_id": "137.com",
+  "tier": "P2"
+ },
+ "c024": {
+  "build": "after",
+  "company_id": "ibc24.in",
+  "tier": "P2"
+ },
+ "c025": {
+  "build": "after",
+  "company_id": "scu.edu.tw",
+  "tier": "P1"
+ },
+ "c026": {
+  "build": "after",
+  "company_id": "thestar.com.my",
+  "tier": "P2"
+ },
+ "c027": {
+  "build": "after",
+  "company_id": "tanomail.com",
+  "tier": "P2"
+ },
+ "c028": {
+  "build": "after",
+  "company_id": "routine-control.net",
+  "tier": "P2"
+ },
+ "c029": {
+  "build": "after",
+  "company_id": "sapeet.com",
+  "tier": "P2"
+ },
+ "c030": {
+  "build": "after",
+  "company_id": "yieh.com",
+  "tier": "P2"
+ },
+ "c031": {
+  "build": "after",
+  "company_id": "mydealerdirect.org",
+  "tier": "P2"
+ },
+ "c032": {
+  "build": "after",
+  "company_id": "org:Baran Cirak",
+  "tier": "P2"
+ },
+ "c033": {
+  "build": "after",
+  "company_id": "pmsignsinc.com",
+  "tier": "P2"
+ },
+ "c034": {
+  "build": "after",
+  "company_id": "mcmaster.ca",
+  "tier": "P1"
+ },
+ "c035": {
+  "build": "after",
+  "company_id": "isra.edu.pk",
+  "tier": "P2"
+ },
+ "c036": {
+  "build": "after",
+  "company_id": "daihen.co.jp",
+  "tier": "P2"
+ },
+ "c037": {
+  "build": "after",
+  "company_id": "mazeikiuligonine.lt",
+  "tier": "P2"
+ },
+ "c038": {
+  "build": "after",
+  "company_id": "jc-photograph.com",
+  "tier": "P2"
+ },
+ "c039": {
+  "build": "after",
+  "company_id": "acclaimtutor.com",
+  "tier": "P2"
+ },
+ "c040": {
+  "build": "after",
+  "company_id": "jisidun.com",
+  "tier": "P1"
+ },
+ "c041": {
+  "build": "after",
+  "company_id": "oneview.com",
+  "tier": "P2"
+ },
+ "c042": {
+  "build": "after",
+  "company_id": "zephop.com",
+  "tier": "P2"
+ },
+ "c043": {
+  "build": "after",
+  "company_id": "kylos.net.pl",
+  "tier": "P1"
+ },
+ "c044": {
+  "build": "after",
+  "company_id": "ohio-state.edu",
+  "tier": "P2"
+ },
+ "c045": {
+  "build": "after",
+  "company_id": "posten-boerse.de",
+  "tier": "P2"
+ },
+ "c046": {
+  "build": "after",
+  "company_id": "zimzim.co.il",
+  "tier": "P2"
+ },
+ "c047": {
+  "build": "after",
+  "company_id": "printery.gov.kn",
+  "tier": "P2"
+ },
+ "c048": {
+  "build": "after",
+  "company_id": "escala.net.mx",
+  "tier": "P2"
+ },
+ "c049": {
+  "build": "after",
+  "company_id": "fallsway.com",
+  "tier": "P2"
+ },
+ "c050": {
+  "build": "after",
+  "company_id": "queniumf.com",
+  "tier": "P2"
+ },
+ "c051": {
+  "build": "after",
+  "company_id": "uni-bremen.de",
+  "tier": "P2"
+ },
+ "c052": {
+  "build": "after",
+  "company_id": "albadistribution.it",
+  "tier": "P2"
+ },
+ "c053": {
+  "build": "after",
+  "company_id": "rspasundan.com",
+  "tier": "P1"
+ },
+ "c054": {
+  "build": "after",
+  "company_id": "seimitsusatei.com",
+  "tier": "P2"
+ },
+ "c055": {
+  "build": "after",
+  "company_id": "j-matsuzaki.co.jp",
+  "tier": "P2"
+ },
+ "c056": {
+  "build": "after",
+  "company_id": "4yousee.com.br",
+  "tier": "P2"
+ },
+ "c057": {
+  "build": "after",
+  "company_id": "dobyverrolec.com",
+  "tier": "P2"
+ },
+ "c058": {
+  "build": "after",
+  "company_id": "plataformawindsor.com.mx",
+  "tier": "P2"
+ },
+ "c059": {
+  "build": "after",
+  "company_id": "azpns.com",
+  "tier": "P2"
+ },
+ "c060": {
+  "build": "after",
+  "company_id": "sweaden.com",
+  "tier": "P2"
+ }
+}

@@ -31,7 +31,7 @@ def index():
 def test_index_matches_direct_query(cve):
     expected = direct_count(cve)
     total, served = duckdb.connect().execute(
-        f"select count(*), count_if(served) from '{SERVE}/cve_hits.parquet' where cve = ?", [cve]).fetchone()
+        f"select count(*), coalesce(count_if(served), 0) from '{SERVE}/cve_hits.parquet' where cve = ?", [cve]).fetchone()
     assert index()[cve]["companies"] == expected == total
     assert served == index()[cve]["inApp"]
 

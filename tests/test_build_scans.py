@@ -17,6 +17,9 @@ def banner(port, module, ts, **extra):
     return slim(r)
 
 
+RDP = {"security": ["SSL"]}  # the scanner's parsed RDP reply: an empty probe on 3389 isn't RDP
+
+
 def write_scan(root, scan_id, rows):
     os.makedirs(f"{root}/{scan_id}")
     pq.write_table(pa.Table.from_pylist(rows, schema=SCHEMA), f"{root}/{scan_id}/part-000000.parquet")
@@ -27,7 +30,7 @@ def test_new_exposure_across_scans(tmp_path):
     write_scan(tmp_path, "scan-2026-10-01", [banner(443, "https", "2026-10-01T10:00:00", **web)])
     write_scan(tmp_path, "scan-2026-11-01", [
         banner(443, "https", "2026-11-01T10:00:00", **web),   # same service, seen again
-        banner(3389, "rdp", "2026-11-01T10:05:00"),            # RDP opened since last month
+        banner(3389, "rdp", "2026-11-01T10:05:00", rdp_encryption=RDP),  # RDP opened since last month
     ])
     funnel = build(f"{tmp_path}/*/*.parquet", f"{tmp_path}/out")
 
@@ -55,8 +58,8 @@ def test_a_file_covering_new_ip_ranges_is_not_all_new(tmp_path):
     write_scan(tmp_path, "scan-2026-08-01", [banner(22, "ssh", "2026-08-01T10:00:00", **known)])  # > 30 days old
     write_scan(tmp_path, "scan-2026-10-20", [banner(443, "https", "2026-10-20T10:00:00", **known)])
     write_scan(tmp_path, "scan-2026-11-01", [
-        banner(3389, "rdp", "2026-11-01T10:05:00"),                      # new port on a known IP: new
-        banner(3389, "rdp", "2026-11-01T10:06:00", ip_str="203.0.113.9", org="Other Co Ltd"),  # IP never crawled before: not new
+        banner(3389, "rdp", "2026-11-01T10:05:00", rdp_encryption=RDP),                      # new port on a known IP: new
+        banner(3389, "rdp", "2026-11-01T10:06:00", rdp_encryption=RDP, ip_str="203.0.113.9", org="Other Co Ltd"),  # IP never crawled before: not new
     ])
     funnel = build(f"{tmp_path}/*/*.parquet", f"{tmp_path}/out")
     assert funnel["services_new_in_latest_scan"] == 1

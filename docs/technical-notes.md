@@ -27,40 +27,59 @@ ranking after each full run.
 |---|---|---|
 | **CDN edges** (`cdn` tag) | 5.6M records (42%) | CDN IPs answer on every port, so the scanner "finds" RAT C2 servers, PLCs and language servers on Incapsula/Google/Cloudflare. Phantom services. |
 | **Phantom IPs** (answer on > 50 ports) | 1.55M records (12%) | Tarpits and proxies that respond to everything. Invisible in a 1% sample; found only on the full run. |
-| **Honeypots** | 246k records (1.8%) | Each advertises 80–170 fake CVEs. A "most CVEs" ranking puts decoys first. |
+| **Honeypots** | 293k records (2.2%) | Each advertises 80–170 fake CVEs. A "most CVEs" ranking puts decoys first. The scanner tags the ports it recognised; the same IP's other ports (43k records) are just as fake, so the whole IP goes. |
 | **Over-reported KEV CVEs** | ~every nginx | CVE-2023-44487 (HTTP/2 Rapid Reset) is KEV-listed and matched on nearly every nginx. The jQuery XSS CVEs (CVE-2020-11023 etc.) come from a JS library on the *page*, not the server. Counting them makes "KEV" meaningless. |
 | **WHOIS `org` and reverse DNS name the ISP** | most records | `hinet.net`, `telecomitalia.it` and "Clientes Residenciales" are carriers and their customer pools, not buyers. |
 | **Hosters' naming schemes** | 1.8k domains | `vps123.hoster.com` on hundreds of IPs looks like one big company. |
 | **Vendor default certificates** | thousands | FortiGate ships CN `support` / `fortinet-subca2001`; Traefik, Kubernetes and DrayTek have their own placeholders. |
+| **Tor relays** | 431 records | Not anyone's estate; some imitate a VPN login page. Dropped. |
+
+### What the scan claims vs. what it shows
+
+The traps above are records to drop. These are fields that say more than the record supports. Each
+one was found by checking a signal against the raw records behind it, after an early build ranked on
+them (§8 has the before/after).
+
+| Field | What it seems to say | What it actually shows | Rule now |
+|---|---|---|---|
+| `vulns` (CVE matches) | "this server has CVE-X" | A match from a version number; verified on 1.5% of services with a KEV CVE. 47% of KEV matches were on distro builds (Ubuntu, Debian, RHEL backport fixes without changing the version), 25% named no version at all, and the top PHP and WordPress KEVs landed on every server whose page used PHP or WordPress | Kept only when verified, or when the build isn't patched in place (distro markers, Amazon Linux's `Apache/x ()`, RHEL's frozen Apache, OpenSSH, PHP and OpenSSL versions, IIS) and the CVE's product was seen with a version (a versioned CPE from the CVE's CISA vendor; for other CVEs, the only versioned product on the service). Preconditions a version can't show are checked where known (CVE-2024-4577 needs Windows, CVE-2019-11043 nginx with PHP-FPM, the Apache mod_proxy/mod_rewrite CVEs Apache 2.4). 405k of 3.3M notable matches hold up. The evidence names the CVE's product ("PHP 7.4.33", not "nginx") |
+| `eol-product` tag | "end-of-life software" | A tag on the whole host, shown against the web server: every `nginx/1.24.0 (Ubuntu)` is tagged though Ubuntu 24.04 supports it until 2029, Apache 2.4 (a supported branch) is tagged when the PHP beside it is old, and `Apache/2.4.6 (CentOS)` (RHEL/CentOS 7, unsupported since June 2024) isn't tagged at all | Not used. End-of-life software is decided from the versioned products a service names, against the end of upstream support (PHP ≤ 8.1, Apache ≤ 2.2, Tomcat ≤ 8.5, OpenSSL ≤ 1.1), never on distro builds, and the evidence names the component ("PHP 7.4.33, support ended November 2022"): 3,359 companies, from 35,693. The OS release is read from the package versions each release ships (OpenSSH `7.4` = RHEL/CentOS 7, Apache 2.4.29 on Ubuntu = 18.04, IIS 8.5 = Server 2012 R2) and dated: 9,972 companies with an end-of-life OS, from 2,508 |
+| `module` (which probe ran) | "an industrial controller / database / remote desktop" | The port, not the protocol: 70% of port-3001 "HandPunch" replies are web pages, 29% of MySQL replies are "host not allowed" (error 1130), Redis answers `-NOAUTH`, X11 "access denied" | A port-based detection needs a reply in that protocol (not empty, not a web page or SSH greeting) and no refusal. OT needs the scanner's `ics`/`medical` tag or an industrial product: 186 companies, from 6,071 |
+| `Server: BigIP`, Fortinet certificates | "firewall/VPN admin interface" | 96% of BIG-IPs are load-balancing an ordinary website; FortiWeb and FortiMail certificates front sites | The appliance's own fingerprint, login or admin page |
+| NTLM `dns_domain` | "leaks the internal AD domain" | 96% of replies are standalone servers whose "domain" is their own name | A domain different from the host name |
+| Certificate SANs | "this company runs it" | A hoster's shared certificate lists its customers; the alphabetically first SAN named the account | The CN names the owner; SANs are ignored when the CN is a platform's or they span 5+ domains |
+| WHOIS org + domain | two accounts | UNIVERSIDADE DE SAO PAULO and usp.br ranked twice | An org's unnamed services join its own domain when the domain is the org's acronym or a word of its name (1,524 orgs); never for a network that hosts many organisations |
+| Let's Encrypt expiry | "certificate expiring" | ACME certificates renew themselves at 30 days left | Expiring means the last 7 days for them |
 
 ## 3. The signals
 
 Every signal is a SQL predicate over the slim schema with a weight, a sales-facing label and an
-evidence string ([`pipeline/signals.py`](../pipeline/signals.py)). Counts are companies, full file:
+evidence string ([`pipeline/signals.py`](../pipeline/signals.py)), held to the rules above.
+Counts are companies, full file:
 
 | Signal | Companies | Why it means "call now" |
 |---|---|---|
-| Exposed firewall/VPN admin plane (FortiGate on 541/10443, NetScaler, SonicWall, Pulse/Ivanti, BIG-IP…) | 9,461 | The #1 ransomware initial-access vector |
-| Edge appliance **with** a KEV CVE | 38 | The above, already known-exploited |
-| On-prem Exchange / OWA | 803 | ProxyShell-class surface; cloud-email pitch |
-| RDP / VNC / Telnet / X11 open | 1,069 | Direct remote access |
-| Database reachable (MS-SQL, MySQL, Oracle, Redis, Mongo…) | 3,429 | Data exposure |
-| SMB / open directories | 1,278 | Data exposure, lateral movement |
-| OT / medical / POS protocols (non-cloud only) | 6,258 | Compliance-driven buyer |
-| Self-hosted AI app or MCP server (LiteLLM, Ollama, Dify, Flowise, MCP) | 170 | New attack surface: leaked keys, data and agent tools |
+| Firewall/VPN appliance reachable (FortiGate, NetScaler, SonicWall, Ivanti/Pulse, Palo Alto, BIG-IP admin…) | 7,654 | The #1 ransomware initial-access vector |
+| Edge appliance on a version **with** a KEV CVE | 20 | The above, already known-exploited |
+| On-prem Exchange / OWA | 798 | ProxyShell-class surface; cloud-email pitch |
+| RDP / VNC / Telnet / X11 answering, no refusal | 907 | Direct remote access |
+| Database answering, no refusal (MS-SQL, MySQL, Oracle, Redis, Mongo…) | 2,710 | Data exposure |
+| SMB / open directories | 1,241 | Data exposure, lateral movement |
+| OT / medical / POS devices (scanner's `ics`/`medical` tag or an industrial product; non-cloud) | 186 | Compliance-driven buyer |
+| Self-hosted AI app or MCP server (LiteLLM, Ollama, Dify, Flowise, MCP) | 169 | New attack surface: leaked keys, data and agent tools |
 | Evidence of a breach (ransomed database, remote-access trojan, cryptominer; red-team tools excluded) | 2 | Already compromised: an incident-response call |
-| KEV CVE (noise CVEs excluded) | 16,272 | Known exploited in the wild |
-| EPSS ≥ 0.5 | 15,741 | Likely to be exploited soon |
-| EOL Windows (from NTLM OS build) / EOL software | 2,618 / 35,918 | Unpatchable |
-| NTLM leaks internal AD domain | 11,304 | Recon handed to attackers |
+| Version affected by a KEV CVE (attributable matches only; noise CVEs excluded) | 4,692 | Known exploited in the wild |
+| Version with an EPSS ≥ 0.5 CVE | 3,957 | Likely to be exploited soon |
+| End-of-life OS (NTLM, IIS version, distro release) / EOL component (PHP, Apache, Tomcat, OpenSSL; not distro builds) | 9,972 / 3,359 | Unpatchable |
+| NTLM leaks an internal AD domain | 2,525 | Recon handed to attackers |
 | Expired / expiring certs, TLS 1.0/1.1, self-signed | many | Hygiene: points to a thin or absent security team |
 
 **Maturity signals** (WAF, security.txt, post-quantum TLS, HSTS) don't hide an account. They
-change the pitch from "first security purchase" to "consolidation / coverage gaps" (15,943 accounts).
+change the pitch from "first security purchase" to "consolidation / coverage gaps" (6,502 accounts).
 
 ## 4. How a company is identified
 
-1. **Candidate names per record**, strongest first: TLS cert CN/SAN → NTLM FQDN (leaked AD
+1. **Candidate names per record**, strongest first: TLS cert CN, then its SANs → NTLM FQDN (leaked AD
    domain) → HTTP Host → reverse DNS. Each is reduced to a registrable domain with the offline public
    suffix list, after removing vendor default certs, `.local`/`.corp`, and known cloud/SaaS/CDN domains.
 2. **Data-driven infrastructure detection:** a domain is a platform or ISP (not a customer) if it
@@ -73,7 +92,10 @@ change the pitch from "first security purchase" to "consolidation / coverage gap
    DNS or ≥ 10% are consumer gear (TR-069 routers, cameras), or if its name/size/cloud share says so.
    LLM labels settle the long tail (§7). IP-owner and reverse-DNS identities only reach P1/P2 when labeled education/government (measured, §8).
 
-Result: 917k assets attributed to 298k companies; **83,934 companies with a material risk signal**.
+5. **One organisation, one account:** an org's unnamed services join its own domain when the domain
+   is the org's acronym or a word of its name (usp.br for UNIVERSIDADE DE SAO PAULO).
+
+Result: 909k assets attributed to 295k companies; **37,601 companies with a material risk signal**.
 
 ## 5. Scoring
 
@@ -106,7 +128,7 @@ The score is log-scaled to 0–100. **Tiers are sized to sales capacity, not per
 |---|---|
 | Ingest 118 GB raw → 1.2 GB Parquet (100× smaller) | **882 s, 134 MB/s, 15k records/s**, flat memory |
 | Full build (13.4M rows → scored accounts) | ~3.5 min |
-| Export to the serving store (83,934 accounts, evidence, CVE hits, count cube) | ~20 s; 39 MB of Parquet |
+| Export to the serving store (37,601 accounts, evidence, CVE hits, count cube) | ~10 s |
 
 **Volume in production (hundreds to thousands of files a month):** a zstd frame can't be split, so
 the unit of parallelism is the file. Ingest is stateless per file, so N workers on a file queue scale
@@ -189,6 +211,37 @@ With n = 60 the 95% interval is about ±12 points: 43% → 62% is a real gain, w
 figures are indicative. The final build (identity ties broken deterministically) scores 61% (36/59) on
 the same holdout. Re-scored in-sample, the final build reaches 65% (v1) and 68% (v2). That's
 optimistic, since those sets informed the rules, and is reported only for completeness.
+
+**Claims, not just accounts.** The gold sets above measure whether an account is a real, correctly
+named organisation. They don't measure whether what Recon says about it is true, and that was the
+larger gap: the scanner's CVE, end-of-life and protocol verdicts were taken at face value (§2, "What the
+scan claims vs. what it shows"). [`pipeline/claims_sample.py`](../pipeline/claims_sample.py) draws
+random P1/P2 accounts, each with up to four risk claims (hygiene left out) and the raw scan fields
+behind each claim, IPs masked; two blind reviewers judged each claim supported, unsupported or
+unclear; [`pipeline/evaluate_claims.py`](../pipeline/evaluate_claims.py) scores them per build.
+
+| Sample (blind) | Build | Claims rejected | Confirmed | Unclear | Accounts sellable |
+|---|---|---|---|---|---|
+| claims v4: 60 + 60, shuffled together | before | 44% (59/135) | 46% | 10% | 60% (36/60) |
+| | after the first fixes | 21% (21/102) | 59% | 21% | 65% (39/60) |
+| claims v5: 60 new (holdout) | final | **7% (8/119)** | **64%** | 29% | **73% (44/60)** |
+
+v4's "after" half drove the last fixes (Amazon Linux and RHEL's frozen PHP/OpenSSL versions, CVE
+preconditions, end of life per component), so v5 is the measurement. 30 of the 35 "unclear" in v5 are
+known-exploited CVE claims, 29 of them two PHP CVEs CISA added on 2026-10-26 that the reviewers
+couldn't place; CISA's catalogue gives no affected versions, so they rest on the scanner's version
+data. The 8 rejections: an Exim (4.92) and an nginx (1.0.15) version a distro also ships, an ntpd
+version without its patch level, two CVEs that need a configuration the banner doesn't show
+(CVE-2023-42115's EXTERNAL auth; SMBGhost's compression, though the scanner verified that one), a PHP
+version absent from the captured reply, and one NetScaler on a CDN. The build reviewed in v5 was then
+changed in two ways that only re-weight or remove claims (distro-shipped versions without an upstream
+marker are treated as patched; an end-of-life component that is also a CVE's product scores once);
+the final build still makes all 119 sampled claims.
+
+Scoring was also tried with diminishing weight for each further kind of problem (to reduce the
+university share of P1, a third). It promoted one-site hobby and junk domains whose only finding was an
+old PHP version, the largest error the identity samples had found, so it was reverted: breadth is a fair
+proxy for a real organisation's estate, and the sector filter is how a seller narrows to commercial.
 
 **What the gold sets showed, and the change each one drove:**
 - gold v1: identity by TLS cert was 62% sellable, by WHOIS org **15%** (21 of 26 were ISPs/hosters).

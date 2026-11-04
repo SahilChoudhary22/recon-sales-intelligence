@@ -4,17 +4,23 @@ import type { Account, Meta, Evidence } from './types'
 const LINES: Record<string, (e: Evidence) => string> = {
   breach_evidence: (e) => `${e.e ?? 'a service'} at ${e.ip} shows signs of an existing compromise, which usually means someone is already inside.`,
   ai_exposed: (e) => `a self-hosted AI service (${e.e ?? 'an AI app'}) at ${e.ip} answers on the public internet, where model gateways and agent servers can leak keys, data and tool access.`,
-  edge_kev: (e) => `${e.p ?? 'Your edge appliance'} at ${e.ip}:${e.port} is reachable from the internet and matches ${cves(e)}, which CISA lists as actively exploited.`,
-  edge_device: (e) => `the management interface of ${e.p ?? 'your firewall/VPN'} (${e.ip}:${e.port}) answers on the public internet. These appliances are the most common ransomware entry point.`,
+  edge_kev: (e) => `${e.p ?? 'Your edge appliance'} at ${e.ip}:${e.port} is reachable from the internet and runs a version affected by ${cves(e)}, which CISA lists as actively exploited.`,
+  edge_device: (e) => `${e.p ?? 'your firewall/VPN appliance'} (${e.ip}:${e.port}) answers on the public internet. These appliances are the most common ransomware entry point.`,
   exchange_onprem: (e) => `${e.e ?? 'an on-prem Exchange server'} is internet-facing at ${e.ip}.`,
   remote_access: (e) => `${e.e} at ${e.ip} is open to anyone on the internet.`,
   database_exposed: (e) => `a database (${e.e}) at ${e.ip} accepts connections from the internet.`,
   smb_exposed: (e) => `Windows file sharing is exposed at ${e.ip}:${e.port}.`,
   ot_exposed: (e) => `an industrial/operational protocol (${e.e}) is reachable at ${e.ip}.`,
-  kev_cve: (e) => `${e.p ?? 'a public server'} at ${e.ip}:${e.port} matches ${cves(e)}, which is on CISA's known-exploited list.`,
-  eol_os: (e) => `${e.e} at ${e.ip} is past end of support and no longer gets security patches.`,
+  kev_cve: (e) => `${seen(e) ?? e.p ?? 'a public server'} at ${e.ip}:${e.port} is a version affected by ${cves(e)}, which is on CISA's known-exploited list.`,
+  eol_os: (e) => e.e?.includes('support ended') ? `a server at ${e.ip} runs ${e.e}.` : `a server at ${e.ip} runs ${e.e}, past the end of its security support.`,
   ntlm_leak: (e) => `a Windows host at ${e.ip} reveals your internal domain (${e.e}) to anyone who connects.`,
   mgmt_exposed: (e) => `an infrastructure management service (${e.e}) is exposed at ${e.ip}.`,
+}
+
+// the product a CVE belongs to, as the evidence names it ("PHP 7.4.33 — CVE-…"), which can differ from the web server
+function seen(e: Evidence) {
+  const m = e.e?.split(' — ')
+  return m && m.length > 1 ? m[0] : undefined
 }
 
 function cves(e: Evidence) {

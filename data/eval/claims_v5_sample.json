@@ -1,0 +1,2985 @@
+[
+ {
+  "case": "c001",
+  "name": "castplan.com",
+  "identity_source": "http_host",
+  "network_owner": "SAKURA Internet Inc.",
+  "country": "JP",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [
+   "キャストプラン大阪｜タレント・モデル・エキストラなど0歳からシニアまで幅広く所属するプロダクション"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 5.6.30 — CVE-2026-109619, CVE-2016-10033, CVE-2026-87902",
+    "service": "59.106.113.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "キャストプラン大阪｜タレント・モデル・エキストラなど0歳からシニアまで幅広く所属するプロダクション",
+     "os": "Linux 2.6.x",
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:41:45 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/5.6.30\r\nSet-Cookie: PHPSESSID=7tqem12h06slol70f5afkqaj45; path=/\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nCache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0\r\nPragma: no-cache\r\nX-Pingbac"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 5.6.30, support ended December 2018",
+    "service": "59.106.113.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "キャストプラン大阪｜タレント・モデル・エキストラなど0歳からシニアまで幅広く所属するプロダクション",
+     "os": "Linux 2.6.x",
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:41:45 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/5.6.30\r\nSet-Cookie: PHPSESSID=7tqem12h06slol70f5afkqaj45; path=/\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nCache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0\r\nPragma: no-cache\r\nX-Pingbac"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c002",
+  "name": "magomoebel.de",
+  "identity_source": "cert",
+  "network_owner": "IONOS SE",
+  "country": "DE",
+  "ips": 1,
+  "certificate_names": [
+   "magomoebel.de"
+  ],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.2.34 — CVE-2026-109619",
+    "service": "87.106.182.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": null,
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 500 Internal Server Error\r\nDate: Sun, 01 Nov 2026 01:39:26 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/7.2.34\r\nVary: Accept-Encoding\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.2.34, support ended November 2020",
+    "service": "87.106.182.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": null,
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 500 Internal Server Error\r\nDate: Sun, 01 Nov 2026 01:39:26 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/7.2.34\r\nVary: Accept-Encoding\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c003",
+  "name": "pma.sp.gov.br",
+  "identity_source": "cert",
+  "network_owner": "TELEFÔNICA BRASIL S.A",
+  "country": "BR",
+  "ips": 2,
+  "certificate_names": [
+   "pma.sp.gov.br"
+  ],
+  "page_titles": [
+   "Dashboard Prefeitura Araras"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "Apache httpd 2.4.34 — CVE-2019-0211, CVE-2021-40438, CVE-2024-38475",
+    "service": "189.56.68.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Apache httpd",
+     "version": "2.4.34",
+     "server_header": "Apache/2.4.34 (Win32) OpenSSL/1.0.2o PHP/7.3.0",
+     "page_title": null,
+     "os": "Windows 7 or 8",
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 302 Found\r\nDate: Sun, 01 Nov 2026 01:20:45 GMT\r\nServer: Apache/2.4.34 (Win32) OpenSSL/1.0.2o PHP/7.3.0\r\nX-Powered-By: PHP/7.3.0\r\nLocation: https://pma.sp.gov.br/intranet\r\nContent-Length: 0\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "OpenSSL 1.0.2o, support ended December 2019",
+    "service": "189.56.68.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Apache httpd",
+     "version": "2.4.34",
+     "server_header": "Apache/2.4.34 (Win32) OpenSSL/1.0.2o PHP/7.3.0",
+     "page_title": null,
+     "os": "Windows 7 or 8",
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 302 Found\r\nDate: Sun, 01 Nov 2026 01:20:45 GMT\r\nServer: Apache/2.4.34 (Win32) OpenSSL/1.0.2o PHP/7.3.0\r\nX-Powered-By: PHP/7.3.0\r\nLocation: https://pma.sp.gov.br/intranet\r\nContent-Length: 0\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c004",
+  "name": "Universitas Muhammadiyah Jember",
+  "identity_source": "org",
+  "network_owner": "Universitas Muhammadiyah Jember",
+  "country": "ID",
+  "ips": 9,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "Apache httpd 2.4.56 — CVE-2024-38475, CVE-2024-4577, CVE-2026-109618",
+    "service": "103.242.78.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Apache httpd",
+     "version": "2.4.56",
+     "server_header": "Apache/2.4.56 (Win64) OpenSSL/1.1.1t PHP/8.1.17",
+     "page_title": null,
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 301 Moved Permanently\r\nDate: Sun, 01 Nov 2026 01:36:56 GMT\r\nServer: Apache/2.4.56 (Win64) OpenSSL/1.1.1t PHP/8.1.17\r\nX-Powered-By: PHP/8.1.17\r\nSet-Cookie: eb4cf2c25716adcca048476f7c520541=tggau1ct857al0liat0ivc2uao; path=/; secure; HttpOnly\r\nx-frame-options: SAMEORIGIN\r\nreferrer-policy: str"
+    }
+   },
+   {
+    "claim": "End-of-life operating system",
+    "evidence": "Ubuntu 18.04, support ended May 2023 (OpenSSH 7.6p1 Ubuntu 4ubuntu0.7)",
+    "service": "103.242.78.x:22",
+    "scan": {
+     "module": "ssh",
+     "product": "OpenSSH",
+     "version": "7.6p1 Ubuntu 4ubuntu0.7",
+     "server_header": null,
+     "page_title": null,
+     "os": "Ubuntu",
+     "tags": [],
+     "banner": "SSH-2.0-OpenSSH_7.6p1 Ubuntu-4ubuntu0.7\nKey type: ssh-rsa\nKey: AAAAB3NzaC1yc2EAAAADAQABAAABAQC13oqEne/xMAD6vR68lTTn4023XqfhxSfST7/PB80ClMZJ\n5S6xDxiVwDASHa2uLByzO113gchET5a5TtCMkZImelhasrUMHxvxvKGnp44g4nJ8EtN/2J3JppMj\nooieLf/rVsjSiYUIXtiydj0cVk5HMggnvT53akjOp+AQo3LMbVJNBPjaeBiRP0PbtEtNEyrrsDpt\nrjvEUt"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "OpenSSL 1.1.1t, support ended September 2023",
+    "service": "103.242.78.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Apache httpd",
+     "version": "2.4.56",
+     "server_header": "Apache/2.4.56 (Win64) OpenSSL/1.1.1t PHP/8.1.17",
+     "page_title": null,
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 301 Moved Permanently\r\nDate: Sun, 01 Nov 2026 01:36:56 GMT\r\nServer: Apache/2.4.56 (Win64) OpenSSL/1.1.1t PHP/8.1.17\r\nX-Powered-By: PHP/8.1.17\r\nSet-Cookie: eb4cf2c25716adcca048476f7c520541=tggau1ct857al0liat0ivc2uao; path=/; secure; HttpOnly\r\nx-frame-options: SAMEORIGIN\r\nreferrer-policy: str"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c005",
+  "name": "fusiondms.com.br",
+  "identity_source": "cert",
+  "network_owner": "Amazon.com, Inc.",
+  "country": "US",
+  "ips": 4,
+  "certificate_names": [
+   "*.fusiondms.com.br"
+  ],
+  "page_titles": [
+   "Fusion Mobilecast API",
+   "503 Service Temporarily Unavailable",
+   "Fusion DMS",
+   "Welcome to WildFly 11"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 5.6.40 — CVE-2026-109619",
+    "service": "32.191.15.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Apache httpd",
+     "version": "2.4.61",
+     "server_header": "Apache/2.4.61 (Amazon) PHP/5.6.40",
+     "page_title": "Fusion Mobilecast API",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:39:36 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Length: 331\r\nConnection: keep-alive\r\nServer: Apache/2.4.61 (Amazon) PHP/5.6.40\r\nLast-Modified: Wed, 10 Mar 2021 19:47:49 GMT\r\nETag: \"14b-5bd33f11a69ed\"\r\nAccept-Ranges: bytes\r\n\r\n"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 5.6.40, support ended December 2018",
+    "service": "32.191.15.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Apache httpd",
+     "version": "2.4.61",
+     "server_header": "Apache/2.4.61 (Amazon) PHP/5.6.40",
+     "page_title": "Fusion Mobilecast API",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:39:36 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Length: 331\r\nConnection: keep-alive\r\nServer: Apache/2.4.61 (Amazon) PHP/5.6.40\r\nLast-Modified: Wed, 10 Mar 2021 19:47:49 GMT\r\nETag: \"14b-5bd33f11a69ed\"\r\nAccept-Ranges: bytes\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c006",
+  "name": "afb86cam.com",
+  "identity_source": "cert",
+  "network_owner": "Neterra Ltd.",
+  "country": "GB",
+  "ips": 5,
+  "certificate_names": [
+   "afb86cam.com"
+  ],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 8.2.20 — CVE-2026-109618, CVE-2026-109619",
+    "service": "194.180.37.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": null,
+     "os": null,
+     "tags": [],
+     "banner": "HTTP/1.1 301 Moved Permanently\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:25:57 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nX-Powered-By: PHP/8.2.20\r\nX-Redirect-By: WordPress\r\nLocation: https://afb86cam.com/\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c007",
+  "name": "youpin91.cn",
+  "identity_source": "cert",
+  "network_owner": "Aliyun Computing Co., LTD",
+  "country": "CN",
+  "ips": 1,
+  "certificate_names": [
+   "youpin91.cn"
+  ],
+  "page_titles": [
+   "优享优品平台—全民“消创”电商平台"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.2.2 — CVE-2019-11043, CVE-2026-109619",
+    "service": "59.110.159.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": "优享优品平台—全民“消创”电商平台",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:54:40 GMT\r\nContent-Type: text/html; charset=utf-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nVary: Accept-Encoding\r\nX-Powered-By: PHP/7.2.2\r\n\r\n"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.2.2, support ended November 2020",
+    "service": "59.110.159.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": "优享优品平台—全民“消创”电商平台",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:54:40 GMT\r\nContent-Type: text/html; charset=utf-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nVary: Accept-Encoding\r\nX-Powered-By: PHP/7.2.2\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c008",
+  "name": "psrg.org",
+  "identity_source": "http_host",
+  "network_owner": "Amateur Radio Digital Communications",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [
+   "VOTER.PSRG.ORG | Supermon | "
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "Apache httpd 2.4.18 — CVE-2019-0211, CVE-2021-40438, CVE-2024-38475",
+    "service": "44.25.240.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Apache httpd",
+     "version": "2.4.18",
+     "server_header": "Apache/2.4.18 (Unix) PHP/7.0.4",
+     "page_title": "VOTER.PSRG.ORG | Supermon | ",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:31:27 GMT\r\nServer: Apache/2.4.18 (Unix) PHP/7.0.4\r\nX-Powered-By: PHP/7.0.4\r\nSet-Cookie: supermon61=3h379p22km4pes4i57f1jp9f96; path=/\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nCache-Control: no-store, no-cache, must-revalidate\r\nPragma: no-cache\r\nTransfer-Enc"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.0.4, support ended January 2019",
+    "service": "44.25.240.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Apache httpd",
+     "version": "2.4.18",
+     "server_header": "Apache/2.4.18 (Unix) PHP/7.0.4",
+     "page_title": "VOTER.PSRG.ORG | Supermon | ",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:31:27 GMT\r\nServer: Apache/2.4.18 (Unix) PHP/7.0.4\r\nX-Powered-By: PHP/7.0.4\r\nSet-Cookie: supermon61=3h379p22km4pes4i57f1jp9f96; path=/\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nCache-Control: no-store, no-cache, must-revalidate\r\nPragma: no-cache\r\nTransfer-Enc"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c009",
+  "name": "encoreredwoodcity.com",
+  "identity_source": "cert",
+  "network_owner": "Amazon.com, Inc.",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [
+   "encoreredwoodcity.com"
+  ],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.1.25 — CVE-2026-109619",
+    "service": "35.162.13.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": null,
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 301 Moved Permanently\r\nDate: Sun, 01 Nov 2026 00:56:05 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/7.1.25\r\nX-Redirect-By: WordPress\r\nX-Frame-Options: SAMEORIGIN\r\nLocation: https://www.encoreredwoodcity.com/\r\nContent-Length: 0\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.1.25, support ended December 2019",
+    "service": "35.162.13.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": null,
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 301 Moved Permanently\r\nDate: Sun, 01 Nov 2026 00:56:05 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/7.1.25\r\nX-Redirect-By: WordPress\r\nX-Frame-Options: SAMEORIGIN\r\nLocation: https://www.encoreredwoodcity.com/\r\nContent-Length: 0\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c010",
+  "name": "reliancecomfort.com",
+  "identity_source": "cert",
+  "network_owner": "Beanfield Technologies Inc.",
+  "country": "CA",
+  "ips": 5,
+  "certificate_names": [
+   "*.reliancecomfort.com"
+  ],
+  "page_titles": [
+   "401 - Unauthorized: Access is denied due to invalid credentials.",
+   "Outlook",
+   "IIS Windows Server"
+  ],
+  "claims": [
+   {
+    "claim": "On-prem Microsoft Exchange exposed",
+    "evidence": "Exchange Server SE RTM Oct26SU",
+    "service": "206.223.171.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Outlook Web App",
+     "version": null,
+     "server_header": "Microsoft-IIS/10.0",
+     "page_title": "Outlook",
+     "os": "Windows",
+     "tags": [],
+     "banner": "HTTP/1.1 200 OK\r\nCache-Control: no-cache, no-store\r\nPragma: no-cache\r\nContent-Type: text/html; charset=utf-8\r\nExpires: -1\r\nServer: Microsoft-IIS/10.0\r\nrequest-id: 3b4793a1-041a-4012-b014-c79cbf61da0a\r\nX-Frame-Options: SAMEORIGIN\r\nX-AspNet-Version: 4.0.30319\r\nX-Powered-By: ASP.NET\r\nDate: Sun, 01 Nov "
+    }
+   },
+   {
+    "claim": "End-of-life operating system",
+    "evidence": "Windows Server 2008 R2, support ended January 2020 (Microsoft IIS httpd 7.5)",
+    "service": "206.223.171.x:444",
+    "scan": {
+     "module": "https",
+     "product": "Microsoft IIS httpd",
+     "version": "7.5",
+     "server_header": "Microsoft-IIS/7.5",
+     "page_title": "401 - Unauthorized: Access is denied due to invalid credentials.",
+     "os": "Windows (build 6.1.7601)",
+     "tags": [
+      "eol-os"
+     ],
+     "banner": "HTTP/1.1 401 Unauthorized\r\nContent-Type: text/html\r\nServer: Microsoft-IIS/7.5\r\nWWW-Authenticate: Negotiate\r\nWWW-Authenticate: NTLM\r\nX-Powered-By: ASP.NET\r\nDate: Sun, 01 Nov 2026 01:47:14 GMT\r\nContent-Length: 1293\r\n\r\n\nHTTP NTLM Info:\n  OS: Windows 7/Windows Server 2008 R2\n  OS Build: 6.1.7601\n  Targe"
+    }
+   },
+   {
+    "claim": "Leaks internal Windows domain / host names (NTLM)",
+    "evidence": "srmon010674.reliance.corp — Windows 7, Windows Server 2008 R2",
+    "service": "206.223.171.x:444",
+    "scan": {
+     "module": "https",
+     "product": "Microsoft IIS httpd",
+     "version": "7.5",
+     "server_header": "Microsoft-IIS/7.5",
+     "page_title": "401 - Unauthorized: Access is denied due to invalid credentials.",
+     "os": "Windows (build 6.1.7601)",
+     "tags": [
+      "eol-os"
+     ],
+     "banner": "HTTP/1.1 401 Unauthorized\r\nContent-Type: text/html\r\nServer: Microsoft-IIS/7.5\r\nWWW-Authenticate: Negotiate\r\nWWW-Authenticate: NTLM\r\nX-Powered-By: ASP.NET\r\nDate: Sun, 01 Nov 2026 01:47:14 GMT\r\nContent-Length: 1293\r\n\r\n\nHTTP NTLM Info:\n  OS: Windows 7/Windows Server 2008 R2\n  OS Build: 6.1.7601\n  Targe"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c011",
+  "name": "energynadi.com",
+  "identity_source": "cert",
+  "network_owner": "Aliyun Computing Co., LTD",
+  "country": "CN",
+  "ips": 1,
+  "certificate_names": [
+   "energynadi.com"
+  ],
+  "page_titles": [
+   "钠谛科技有限公司-尖端电池系统储能专家"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 8.0.20 — CVE-2026-109618, CVE-2026-109619",
+    "service": "106.14.26.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "钠谛科技有限公司-尖端电池系统储能专家",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:26:06 GMT\r\nServer: Apache\r\nX-Frame-Options: SAMEORIGIN\r\nX-Powered-By: PHP/8.0.20\r\nSet-Cookie: asp_transient_id=f2f338f5113d20e0cc963d50e292cd6a; expires=Sun, 08-Nov-2026 01:26:06 GMT; Max-Age=604800; path=/\r\nSet-Cookie: WP_SESSION_COOKIE=0db8f1de350246fb7dd"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 8.0.20, support ended November 2023",
+    "service": "106.14.26.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "钠谛科技有限公司-尖端电池系统储能专家",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:26:06 GMT\r\nServer: Apache\r\nX-Frame-Options: SAMEORIGIN\r\nX-Powered-By: PHP/8.0.20\r\nSet-Cookie: asp_transient_id=f2f338f5113d20e0cc963d50e292cd6a; expires=Sun, 08-Nov-2026 01:26:06 GMT; Max-Age=604800; path=/\r\nSet-Cookie: WP_SESSION_COOKIE=0db8f1de350246fb7dd"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c012",
+  "name": "marcoeagle.net",
+  "identity_source": "cert",
+  "network_owner": "Shanghai UCloud Information Technology Company Limited",
+  "country": "CN",
+  "ips": 1,
+  "certificate_names": [
+   "*.marcoeagle.net"
+  ],
+  "page_titles": [
+   "成都力鹰科技有限公司-日本中北阀门NAKAKITA"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "Apache httpd 2.4.39 — CVE-2021-40438, CVE-2024-38475",
+    "service": "117.50.56.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.4.39",
+     "server_header": "Apache/2.4.39 (Win64) OpenSSL/1.1.1b mod_fcgid/2.3.9a mod_log_rotate/1.02",
+     "page_title": "成都力鹰科技有限公司-日本中北阀门NAKAKITA",
+     "os": "Windows 7 or 8",
+     "tags": [],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:42:16 GMT\r\nServer: Apache/2.4.39 (Win64) OpenSSL/1.1.1b mod_fcgid/2.3.9a mod_log_rotate/1.02\r\nX-UA-Compatible: IE=edge,chrome=1\r\nX-Powered-By: PbootCMS\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nCache-Control: no-store, no-cache, must-revalidate\r\nPragma: no-c"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "OpenSSL 1.1.1b, support ended September 2023",
+    "service": "117.50.56.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.4.39",
+     "server_header": "Apache/2.4.39 (Win64) OpenSSL/1.1.1b mod_fcgid/2.3.9a mod_log_rotate/1.02",
+     "page_title": "成都力鹰科技有限公司-日本中北阀门NAKAKITA",
+     "os": "Windows 7 or 8",
+     "tags": [],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:42:16 GMT\r\nServer: Apache/2.4.39 (Win64) OpenSSL/1.1.1b mod_fcgid/2.3.9a mod_log_rotate/1.02\r\nX-UA-Compatible: IE=edge,chrome=1\r\nX-Powered-By: PbootCMS\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nCache-Control: no-store, no-cache, must-revalidate\r\nPragma: no-c"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c013",
+  "name": "nonprofittrust.net",
+  "identity_source": "cert",
+  "network_owner": "Hostinger International Limited",
+  "country": "US",
+  "ips": 2,
+  "certificate_names": [
+   "nonprofittrust.net"
+  ],
+  "page_titles": [
+   "How to start a planned giving program - Just Got Easy."
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 8.1.34 — CVE-2026-109618, CVE-2026-109619",
+    "service": "2a02:4780:4e:b66b:22c1:2cd1:a11a:cad6:443",
+    "scan": {
+     "module": "https",
+     "product": null,
+     "version": null,
+     "server_header": "hcdn",
+     "page_title": "How to start a planned giving program - Just Got Easy.",
+     "os": null,
+     "tags": [
+      "pqc",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:17:45 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nVary: Accept-Encoding\r\nX-Powered-By: PHP/8.1.34\r\nLink: <https://nonprofittrust.net/wp-json/>; rel=\"https://api.w.org/\"\r\nLink: <https://nonprofittrust.net/"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 8.1.34, support ended December 2025",
+    "service": "2a02:4780:4e:b66b:22c1:2cd1:a11a:cad6:443",
+    "scan": {
+     "module": "https",
+     "product": null,
+     "version": null,
+     "server_header": "hcdn",
+     "page_title": "How to start a planned giving program - Just Got Easy.",
+     "os": null,
+     "tags": [
+      "pqc",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:17:45 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nVary: Accept-Encoding\r\nX-Powered-By: PHP/8.1.34\r\nLink: <https://nonprofittrust.net/wp-json/>; rel=\"https://api.w.org/\"\r\nLink: <https://nonprofittrust.net/"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c014",
+  "name": "vgplay.vn",
+  "identity_source": "cert",
+  "network_owner": "VGP JOINT STOCK COMPANY",
+  "country": "VN",
+  "ips": 1,
+  "certificate_names": [
+   "*.vgplay.vn"
+  ],
+  "page_titles": [
+   "登录"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 5.6.30 — CVE-2026-109619",
+    "service": "103.102.129.x:9443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": "1.6.3",
+     "server_header": "nginx/1.6.3",
+     "page_title": "登录",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx/1.6.3\r\nDate: Sun, 01 Nov 2026 01:45:46 GMT\r\nContent-Type: text/html;charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nVary: Accept-Encoding\r\nX-Powered-By: PHP/5.6.30\r\nSet-Cookie: PHPSESSID=4ul4e4hs5j0h4ll1jsuq6n5ae3; path=/\r\nExpires: Thu, 19 Nov 1981 0"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 5.6.30, support ended December 2018",
+    "service": "103.102.129.x:9443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": "1.6.3",
+     "server_header": "nginx/1.6.3",
+     "page_title": "登录",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx/1.6.3\r\nDate: Sun, 01 Nov 2026 01:45:46 GMT\r\nContent-Type: text/html;charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nVary: Accept-Encoding\r\nX-Powered-By: PHP/5.6.30\r\nSet-Cookie: PHPSESSID=4ul4e4hs5j0h4ll1jsuq6n5ae3; path=/\r\nExpires: Thu, 19 Nov 1981 0"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c015",
+  "name": "pourmesdossiers.com",
+  "identity_source": "cert",
+  "network_owner": "OVH SAS",
+  "country": "FR",
+  "ips": 1,
+  "certificate_names": [
+   "pourmesdossiers.com"
+  ],
+  "page_titles": [
+   "Accueil | Esabora PourMesDossiers"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.4.8 — CVE-2026-109618, CVE-2026-109619",
+    "service": "51.210.180.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": "Accueil | Esabora PourMesDossiers",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:19:34 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nVary: Accept-Encoding\r\nX-Powered-By: PHP/7.4.8\r\nLink: <https://pourmesdossiers.com/wp-json/>; rel=\"https://api.w.org/\", <https://pourmesdos"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.4.8, support ended November 2022",
+    "service": "51.210.180.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": "Accueil | Esabora PourMesDossiers",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:19:34 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nVary: Accept-Encoding\r\nX-Powered-By: PHP/7.4.8\r\nLink: <https://pourmesdossiers.com/wp-json/>; rel=\"https://api.w.org/\", <https://pourmesdos"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c016",
+  "name": "lublin.eu",
+  "identity_source": "cert",
+  "network_owner": "Gmina Lublin",
+  "country": "PL",
+  "ips": 4,
+  "certificate_names": [
+   "*.lublin.eu"
+  ],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "Exim smtpd 4.92 — CVE-2019-16928",
+    "service": "193.93.68.x:25",
+    "scan": {
+     "module": "smtp",
+     "product": "Exim smtpd",
+     "version": "4.92",
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [
+      "starttls"
+     ],
+     "banner": "220 hosting1.lublin.eu ESMTP Exim 4.92 Sun, 01 Nov 2026 02:06:02 +0100\r\n250-hosting1.lublin.eu Hello 224.58.248.x [224.58.248.x]\r\n250-SIZE 52428800\r\n250-8BITMIME\r\n250-PIPELINING\r\n250-AUTH PLAIN LOGIN CRAM-MD5\r\n250-CHUNKING\r\n250-STARTTLS\r\n250 HELP\r\n"
+    }
+   },
+   {
+    "claim": "Infrastructure management interface exposed",
+    "evidence": "snmp_v2 on port 161",
+    "service": "193.93.68.x:161",
+    "scan": {
+     "module": "snmp_v2",
+     "product": null,
+     "version": null,
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [],
+     "banner": "SNMP:\n  Uptime: 59571603\n  Description: A850 Telemetry Gateway\n  Versions:\n    1\n  Objectid: 1.3.6.x.4.1.31999\n  Name: a850-104033"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c017",
+  "name": "hstgr.io",
+  "identity_source": "cert",
+  "network_owner": "Hostinger International Limited",
+  "country": "BR",
+  "ips": 13,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Database reachable from the internet",
+    "evidence": "MariaDB on port 3306",
+    "service": "147.79.109.x:3306",
+    "scan": {
+     "module": "mysql",
+     "product": "MariaDB",
+     "version": "11.8.9-MariaDB-log",
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [
+      "database"
+     ],
+     "banner": "MariaDB:\n  Protocol Version: 10\n  Version: 11.8.9-MariaDB-log\n  Capabilities: 65534\n  Server Language: 224\n  Server Status: 2\n  Extended Server Capabilities: 33279\n  Authentication Plugin: mysql_native_password"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c018",
+  "name": "canastariccione.com",
+  "identity_source": "cert",
+  "network_owner": "OVH GmbH",
+  "country": "DE",
+  "ips": 1,
+  "certificate_names": [
+   "canastariccione.com"
+  ],
+  "page_titles": [
+   "Ristorante Canasta a Riccione con proposte culinarie di carne e pesce"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.4.33 — CVE-2026-109618, CVE-2026-109619",
+    "service": "51.75.71.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "Ristorante Canasta a Riccione con proposte culinarie di carne e pesce",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:23:40 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/7.4.33\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nCache-Control: no-store, no-cache, must-revalidate\r\nPragma: no-cache\r\nSet-Cookie: PHPSESSID=70u7ejs0lqubno9iejcnkabbrq; path=/\r\nUpgrade: h2\r\nConnection: Upgrade\r\nVa"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.4.33, support ended November 2022",
+    "service": "51.75.71.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "Ristorante Canasta a Riccione con proposte culinarie di carne e pesce",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:23:40 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/7.4.33\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nCache-Control: no-store, no-cache, must-revalidate\r\nPragma: no-cache\r\nSet-Cookie: PHPSESSID=70u7ejs0lqubno9iejcnkabbrq; path=/\r\nUpgrade: h2\r\nConnection: Upgrade\r\nVa"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c019",
+  "name": "cruzrojacolombiana.org",
+  "identity_source": "cert",
+  "network_owner": "Media Commerce Partners S.A",
+  "country": "CO",
+  "ips": 10,
+  "certificate_names": [
+   "loteriabi.cruzrojacolombiana.org",
+   "lotecruz.cruzrojacolombiana.org",
+   "*.cruzrojacolombiana.org"
+  ],
+  "page_titles": [
+   "301 Moved Permanently",
+   "Acceso - Cruz Roja Colombia",
+   "GlobalProtect Portal",
+   "Lotería Cruz Roja",
+   "Lotería de la Cruz Roja Colombiana · BI"
+  ],
+  "claims": [
+   {
+    "claim": "Firewall/VPN appliance reachable from the internet",
+    "evidence": "GlobalProtect Portal",
+    "service": "181.118.150.x:443",
+    "scan": {
+     "module": "https",
+     "product": null,
+     "version": null,
+     "server_header": null,
+     "page_title": "GlobalProtect Portal",
+     "os": "PAN-OS",
+     "tags": [],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:55:34 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Length: 11705\r\nConnection: keep-alive\r\nCache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0\r\nSet-Cookie: SESSID=87a380b2-9afb-4ae2-afe2-3bd3070f05ed; Path=/; SameSite=Lax; H"
+    }
+   },
+   {
+    "claim": "End-of-life operating system",
+    "evidence": "Ubuntu 18.04, support ended May 2023 (Apache httpd 2.4.29)",
+    "service": "13.65.39.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Apache httpd",
+     "version": "2.4.29",
+     "server_header": "Apache/2.4.29 (Ubuntu)",
+     "page_title": "301 Moved Permanently",
+     "os": null,
+     "tags": [
+      "cloud"
+     ],
+     "banner": "HTTP/1.1 301 Moved Permanently\r\nDate: Sun, 01 Nov 2026 01:35:38 GMT\r\nServer: Apache/2.4.29 (Ubuntu)\r\nLocation: https://ns1.cruzrojacolombiana.org/\r\nContent-Length: 335\r\nContent-Type: text/html; charset=iso-8859-1\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c020",
+  "name": "fiocruz.br",
+  "identity_source": "cert",
+  "network_owner": "FUNDACAO INSTITUTO OSWALDO CRUZ",
+  "country": "BR",
+  "ips": 50,
+  "certificate_names": [
+   "ead.matogrossodosul.fiocruz.br",
+   "smtp.ini.fiocruz.br",
+   "informeadmin.ensp.fiocruz.br",
+   "aedeseacidade.ioc.fiocruz.br",
+   "cursos.matogrossodosul.fiocruz.br"
+  ],
+  "page_titles": [
+   " Portfólio de Inovação da Fiocruz",
+   "301 Moved Permanently",
+   "Biologia Computacional e Sistemas - IOC",
+   "Concurso Publico Fiocruz 2023",
+   "REDCap"
+  ],
+  "claims": [
+   {
+    "claim": "End-of-life operating system",
+    "evidence": "RHEL/CentOS 7, support ended June 2024 (Apache httpd 2.4.6)",
+    "service": "157.86.10.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Apache httpd",
+     "version": "2.4.6",
+     "server_header": "Apache/2.4.6 () OpenSSL/1.0.2k-fips",
+     "page_title": "301 Moved Permanently",
+     "os": null,
+     "tags": [],
+     "banner": "HTTP/1.1 301 Moved Permanently\r\nDate: Sun, 01 Nov 2026 02:05:50 GMT\r\nServer: Apache/2.4.6 () OpenSSL/1.0.2k-fips\r\nLocation: https://acervo.incqs.fiocruz.br/\r\nContent-Length: 240\r\nContent-Type: text/html; charset=iso-8859-1\r\n\r\n"
+    }
+   },
+   {
+    "claim": "Runs a version with a CVE likely to be exploited soon (EPSS ≥ 0.5)",
+    "evidence": "nginx 1.0.15 — CVE-2013-4547, CVE-2016-0742, CVE-2017-7529",
+    "service": "157.86.150.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": "1.0.15",
+     "server_header": "nginx/1.0.15",
+     "page_title": "Apache HTTP Server Test Page powered by CentOS",
+     "os": "Linux 3.x",
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 403 Forbidden\r\nServer: nginx/1.0.15\r\nDate: Sun, 01 Nov 2026 01:55:28 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nConnection: keep-alive\r\nAccept-Ranges: bytes\r\nContent-Length: 4954\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c021",
+  "name": "tuferreteriaamiga.es",
+  "identity_source": "cert",
+  "network_owner": "OVH SAS",
+  "country": "FR",
+  "ips": 1,
+  "certificate_names": [
+   "www.tuferreteriaamiga.es"
+  ],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 5.2.10 — CVE-2012-1823",
+    "service": "193.70.22.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": null,
+     "os": "Linux 2.6.x",
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 302 Found\r\nDate: Sun, 01 Nov 2026 01:42:21 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/5.2.10\r\nLocation: http://www.tuferreteriaamiga.es/\r\nVary: Accept-Encoding,User-Agent\r\nX-Powered-By: PleskLin\r\nContent-Length: 0\r\nConnection: close\r\nContent-Type: text/html; charset=utf-8\r\n\r\n"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 5.2.10, support ended December 2018",
+    "service": "193.70.22.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": null,
+     "os": "Linux 2.6.x",
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 302 Found\r\nDate: Sun, 01 Nov 2026 01:42:21 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/5.2.10\r\nLocation: http://www.tuferreteriaamiga.es/\r\nVary: Accept-Encoding,User-Agent\r\nX-Powered-By: PleskLin\r\nContent-Length: 0\r\nConnection: close\r\nContent-Type: text/html; charset=utf-8\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c022",
+  "name": "yourist.app",
+  "identity_source": "cert",
+  "network_owner": "A100 ROW GmbH",
+  "country": "DE",
+  "ips": 1,
+  "certificate_names": [
+   "yourist.app"
+  ],
+  "page_titles": [
+   "Yourist Official Site | Istanbul Tours & Activities | yourist.co"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.2.27 — CVE-2026-109619",
+    "service": "3.72.56.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": "Yourist Official Site | Istanbul Tours & Activities | yourist.co",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:09:06 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nX-Powered-By: PHP/7.2.27\r\nSet-Cookie: PHPSESSID=520578ce1959cc7d24210b9649966577; path=/\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nCache-Con"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.2.27, support ended November 2020",
+    "service": "3.72.56.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": "Yourist Official Site | Istanbul Tours & Activities | yourist.co",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:09:06 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nX-Powered-By: PHP/7.2.27\r\nSet-Cookie: PHPSESSID=520578ce1959cc7d24210b9649966577; path=/\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nCache-Con"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c023",
+  "name": "137.com",
+  "identity_source": "cert",
+  "network_owner": "Cogent Communications, LLC",
+  "country": "HK",
+  "ips": 1,
+  "certificate_names": [
+   "137.com"
+  ],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "Apache httpd 2.4.54 — CVE-2024-38475",
+    "service": "38.162.125.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.4.54",
+     "server_header": "Apache/2.4.54 (Win64) OpenSSL/1.1.1p mod_fcgid/2.3.9a",
+     "page_title": null,
+     "os": null,
+     "tags": [],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:22:59 GMT\r\nServer: Apache/2.4.54 (Win64) OpenSSL/1.1.1p mod_fcgid/2.3.9a\r\nUpgrade: h2,h2c\r\nConnection: Upgrade\r\nLast-Modified: Tue, 24 Mar 2026 13:41:58 GMT\r\nETag: \"fc-64dc550c11f0b\"\r\nAccept-Ranges: bytes\r\nContent-Length: 252\r\nVary: Accept-Encoding\r\nContent"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "OpenSSL 1.1.1p, support ended September 2023",
+    "service": "38.162.125.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.4.54",
+     "server_header": "Apache/2.4.54 (Win64) OpenSSL/1.1.1p mod_fcgid/2.3.9a",
+     "page_title": null,
+     "os": null,
+     "tags": [],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:22:59 GMT\r\nServer: Apache/2.4.54 (Win64) OpenSSL/1.1.1p mod_fcgid/2.3.9a\r\nUpgrade: h2,h2c\r\nConnection: Upgrade\r\nLast-Modified: Tue, 24 Mar 2026 13:41:58 GMT\r\nETag: \"fc-64dc550c11f0b\"\r\nAccept-Ranges: bytes\r\nContent-Length: 252\r\nVary: Accept-Encoding\r\nContent"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c024",
+  "name": "ibc24.in",
+  "identity_source": "cert",
+  "network_owner": "S B Multimedia Pvt Ltd",
+  "country": "IN",
+  "ips": 1,
+  "certificate_names": [
+   "*.ibc24.in"
+  ],
+  "page_titles": [
+   "404 Error"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "Apache httpd 2.4.46 — CVE-2021-40438, CVE-2024-38475, CVE-2026-109619",
+    "service": "103.125.53.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.4.46",
+     "server_header": "Apache/2.4.46 (Win64) OpenSSL/1.1.1g PHP/7.2.33",
+     "page_title": "404 Error",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:45:09 GMT\r\nServer: Apache/2.4.46 (Win64) OpenSSL/1.1.1g PHP/7.2.33\r\nLast-Modified: Fri, 16 Dec 2022 08:10:35 GMT\r\nETag: \"695-5efed8115fee4\"\r\nAccept-Ranges: bytes\r\nContent-Length: 1685\r\nContent-Type: text/html\r\n\r\n"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.2.33, support ended November 2020",
+    "service": "103.125.53.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.4.46",
+     "server_header": "Apache/2.4.46 (Win64) OpenSSL/1.1.1g PHP/7.2.33",
+     "page_title": "404 Error",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:45:09 GMT\r\nServer: Apache/2.4.46 (Win64) OpenSSL/1.1.1g PHP/7.2.33\r\nLast-Modified: Fri, 16 Dec 2022 08:10:35 GMT\r\nETag: \"695-5efed8115fee4\"\r\nAccept-Ranges: bytes\r\nContent-Length: 1685\r\nContent-Type: text/html\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c025",
+  "name": "scu.edu.tw",
+  "identity_source": "cert",
+  "network_owner": "SooChow University",
+  "country": "TW",
+  "ips": 40,
+  "certificate_names": [
+   "*.lib.scu.edu.tw",
+   "cert-new.scu.edu.tw",
+   "*.sys.scu.edu.tw",
+   "www.ext.scu.edu.tw",
+   "*.scu.edu.tw"
+  ],
+  "page_titles": [
+   "東吳大學校史填報暨查詢系統",
+   "東吳大學海量資料分析研究中心 — 海量資料分析研究中心",
+   "公文管理系統",
+   "403 - 禁止: 拒絕存取。",
+   "東吳大學巨量資料管理學院 - 歡迎蒞臨\n  "
+  ],
+  "claims": [
+   {
+    "claim": "Database reachable from the internet",
+    "evidence": "MS-SQL Server 2008 SP4 on port 1433",
+    "service": "163.14.136.x:1433",
+    "scan": {
+     "module": "ms-sql",
+     "product": "MS-SQL Server 2008 SP4",
+     "version": "10.0.6000.0",
+     "server_header": null,
+     "page_title": null,
+     "os": "Windows (build 6.0.6003)",
+     "tags": [
+      "database",
+      "eol-os"
+     ],
+     "banner": "MS-SQL NTLM Info:\n  OS: Windows Vista/Windows Server 2008\n  OS Build: 6.0.6003\n  Target Name: WIN-UC5I3XDZLEC\n  NetBIOS Domain Name: WIN-UC5I3XDZLEC\n  NetBIOS Computer Name: WIN-UC5I3XDZLEC\n  DNS Domain Name: WIN-UC5I3XDZLEC\n  FQDN: WIN-UC5I3XDZLEC"
+    }
+   },
+   {
+    "claim": "End-of-life operating system",
+    "evidence": "Windows Vista, Windows Server 2008 (MS-SQL Server 2008 SP4 10.0.6000.0)",
+    "service": "163.14.136.x:1433",
+    "scan": {
+     "module": "ms-sql",
+     "product": "MS-SQL Server 2008 SP4",
+     "version": "10.0.6000.0",
+     "server_header": null,
+     "page_title": null,
+     "os": "Windows (build 6.0.6003)",
+     "tags": [
+      "database",
+      "eol-os"
+     ],
+     "banner": "MS-SQL NTLM Info:\n  OS: Windows Vista/Windows Server 2008\n  OS Build: 6.0.6003\n  Target Name: WIN-UC5I3XDZLEC\n  NetBIOS Domain Name: WIN-UC5I3XDZLEC\n  NetBIOS Computer Name: WIN-UC5I3XDZLEC\n  DNS Domain Name: WIN-UC5I3XDZLEC\n  FQDN: WIN-UC5I3XDZLEC"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c026",
+  "name": "thestar.com.my",
+  "identity_source": "cert",
+  "network_owner": "Amazon Technologies Inc.",
+  "country": "SG",
+  "ips": 6,
+  "certificate_names": [
+   "newsstand.thestar.com.my",
+   "staredufair.thestar.com.my"
+  ],
+  "page_titles": [
+   "503 Service Temporarily Unavailable",
+   "Star Newsstand | Subscribe: The Star e-Paper &amp; Bundle, Kuntum"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.1.33 — CVE-2026-109619",
+    "service": "13.229.7.x:80",
+    "scan": {
+     "module": "http",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": null,
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nCache-Control: private, must-revalidate\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 01 Nov 2026 01:13:47 GMT\r\nETag: \"ed13c87b595b9077b404d45325593182\"\r\nLast-Modified: Sun, 01 Nov 2026 01:13:47 GMT\r\nServer: nginx\r\nX-Powered-By: PHP/7.1.33\r\nContent-Length: 40\r\nConnection: keep"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.1.33, support ended December 2019",
+    "service": "13.229.7.x:80",
+    "scan": {
+     "module": "http",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": null,
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nCache-Control: private, must-revalidate\r\nContent-Type: text/html; charset=UTF-8\r\nDate: Sun, 01 Nov 2026 01:13:47 GMT\r\nETag: \"ed13c87b595b9077b404d45325593182\"\r\nLast-Modified: Sun, 01 Nov 2026 01:13:47 GMT\r\nServer: nginx\r\nX-Powered-By: PHP/7.1.33\r\nContent-Length: 40\r\nConnection: keep"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c027",
+  "name": "tanomail.com",
+  "identity_source": "cert",
+  "network_owner": "OTSUKA CORPORATION",
+  "country": "JP",
+  "ips": 17,
+  "certificate_names": [
+   "fcb2b.tanomail.com",
+   "ct.tanomail.com",
+   "tnbc.tanomail.com",
+   "rco.tanomail.com",
+   "dev-fcadmin.tanomail.com"
+  ],
+  "page_titles": [
+   "HTTP Status 400 â€“ Bad Request",
+   "Index of /",
+   "404 Not Found",
+   "1",
+   "Invalid Connection"
+  ],
+  "claims": [
+   {
+    "claim": "Open directory / file share listing",
+    "evidence": "Index of / on port 443",
+    "service": "202.47.139.x:443",
+    "scan": {
+     "module": "https",
+     "product": null,
+     "version": null,
+     "server_header": null,
+     "page_title": "Index of /",
+     "os": null,
+     "tags": [
+      "open-dir"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:42:01 GMT\r\nSet-Cookie: Apache=44b22424.65f2d22c1e32b; path=/; expires=Mon, 01-Nov-27 01:42:01 GMT\r\nX-Cnection: close\r\nContent-Type: text/html;charset=ISO-8859-1\r\nSet-Cookie: dev-fcadmin_tano_cookie=!h/o80XAu0pLKyG3XjEbgwBI4eIJ3+apkUIaTRBWdmsUpAsF0fXU4cWA4ai"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c028",
+  "name": "routine-control.net",
+  "identity_source": "cert",
+  "network_owner": "SAKURA Internet Inc.",
+  "country": "JP",
+  "ips": 2,
+  "certificate_names": [
+   "routine-control.net"
+  ],
+  "page_titles": [
+   "r.c.o."
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.4.33 — CVE-2026-109618, CVE-2026-109619",
+    "service": "112.78.125.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": "r.c.o.",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:32:42 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nX-Powered-By: PHP/7.4.33\r\nLink: <https://routine-control.net/wp-json/>; rel=\"https://api.w.org/\"\r\nLink: <https://routine-control.net/wp-jso"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.4.33, support ended November 2022",
+    "service": "112.78.125.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": "r.c.o.",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:32:42 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nX-Powered-By: PHP/7.4.33\r\nLink: <https://routine-control.net/wp-json/>; rel=\"https://api.w.org/\"\r\nLink: <https://routine-control.net/wp-jso"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c029",
+  "name": "sapeet.com",
+  "identity_source": "cert",
+  "network_owner": "Amazon Technologies Inc.",
+  "country": "JP",
+  "ips": 1,
+  "certificate_names": [
+   "about.sapeet.com"
+  ],
+  "page_titles": [
+   "Sapeet"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.0.27 — CVE-2026-109619",
+    "service": "54.238.202.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "Sapeet",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:18:16 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/7.0.27\r\nLink: <https://54.238.202.x/wp-json/>; rel=\"https://api.w.org/\"\r\nSet-Cookie: lang=ja; path=/\r\nX-Frame-Options: SAMEORIGIN\r\nX-Mod-Pagespeed: 1.9.32.x-0\r\nVary: Accept-Encoding\r\nCache-Control: max-age=0, n"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.0.27, support ended January 2019",
+    "service": "54.238.202.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "Sapeet",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:18:16 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/7.0.27\r\nLink: <https://54.238.202.x/wp-json/>; rel=\"https://api.w.org/\"\r\nSet-Cookie: lang=ja; path=/\r\nX-Frame-Options: SAMEORIGIN\r\nX-Mod-Pagespeed: 1.9.32.x-0\r\nVary: Accept-Encoding\r\nCache-Control: max-age=0, n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c030",
+  "name": "yieh.com",
+  "identity_source": "cert",
+  "network_owner": "Data Communication Business Group,",
+  "country": "TW",
+  "ips": 4,
+  "certificate_names": [
+   "mail2.yieh.com",
+   "*.yieh.com"
+  ],
+  "page_titles": [
+   "Yieh Corp. | Stainless Steel, Carbon Steel, Aluminum company",
+   "Outlook"
+  ],
+  "claims": [
+   {
+    "claim": "On-prem Microsoft Exchange exposed",
+    "evidence": "Exchange Server 2019 CU15 Oct25SU",
+    "service": "59.125.149.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Outlook Web App",
+     "version": null,
+     "server_header": "Microsoft-IIS/10.0",
+     "page_title": "Outlook",
+     "os": "Windows",
+     "tags": [],
+     "banner": "HTTP/1.1 200 OK\r\nCache-Control: no-cache, no-store\r\nPragma: no-cache\r\nContent-Type: text/html; charset=utf-8\r\nExpires: -1\r\nServer: Microsoft-IIS/10.0\r\nrequest-id: 91287bb2-d0b6-4c35-99cd-0c4e8b7a9c9a\r\nX-Frame-Options: SAMEORIGIN\r\nX-AspNet-Version: 4.0.30319\r\nX-Powered-By: ASP.NET\r\nDate: Sun, 01 Nov "
+    }
+   },
+   {
+    "claim": "End-of-life operating system",
+    "evidence": "Windows Server 2012 R2, support ended October 2023 (Microsoft IIS httpd 8.5)",
+    "service": "59.125.149.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Microsoft IIS httpd",
+     "version": "8.5",
+     "server_header": "Microsoft-IIS/8.5",
+     "page_title": "Yieh Corp. | Stainless Steel, Carbon Steel, Aluminum company",
+     "os": "Windows 7 or 8",
+     "tags": [],
+     "banner": "HTTP/1.1 200 OK\r\nCache-Control: private\r\nContent-Type: text/html; charset=utf-8\r\nServer: Microsoft-IIS/8.5\r\nX-AspNetMvc-Version: 5.2\r\nX-AspNet-Version: 4.0.30319\r\nX-Frame-Options: SAMEORIGIN\r\nX-Powered-By: ASP.NET\r\nDate: Sun, 01 Nov 2026 01:27:17 GMT\r\nContent-Length: 67852\r\n\r\n"
+    }
+   },
+   {
+    "claim": "Leaks internal Windows domain / host names (NTLM)",
+    "evidence": "KH-MBX6.yieh.corp — Windows 10 (version 1809), Windows Server 2019 (version 1809)",
+    "service": "59.125.149.x:25",
+    "scan": {
+     "module": "smtp",
+     "product": "Microsoft Exchange smtpd",
+     "version": null,
+     "server_header": null,
+     "page_title": null,
+     "os": "Windows (build 10.0.17763)",
+     "tags": [],
+     "banner": "220 KH-MBX6.yieh.corp Microsoft ESMTP MAIL Service ready at Sun, 1 Nov 2026 09:08:13 +0800\r\n250-KH-MBX6.yieh.corp Hello [224.58.248.x]\r\n250-SIZE 20971520\r\n250-PIPELINING\r\n250-DSN\r\n250-ENHANCEDSTATUSCODES\r\n250-STARTTLS\r\n250-X-ANONYMOUSTLS\r\n250-AUTH NTLM\r\n250-X-EXPS GSSAPI NTLM\r\n250-8BITMIME\r\n250-BI"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c031",
+  "name": "mydealerdirect.org",
+  "identity_source": "cert",
+  "network_owner": "Flexential Corp.",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [
+   "mydealerdirect.org"
+  ],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "Apache httpd 2.4.48 — CVE-2021-40438, CVE-2024-38475, CVE-2026-109618",
+    "service": "74.84.195.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.4.48",
+     "server_header": "Apache/2.4.48 (Unix) OpenSSL/1.1.1g PHP/7.3.29",
+     "page_title": null,
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:07:11 GMT\r\nServer: Apache/2.4.48 (Unix) OpenSSL/1.1.1g PHP/7.3.29\r\nLast-Modified: Mon, 11 Jun 2007 18:53:14 GMT\r\nETag: \"2d-432a5e4a73a80\"\r\nAccept-Ranges: bytes\r\nContent-Length: 45\r\nContent-Type: text/html\r\n\r\n"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.3.29, support ended December 2021",
+    "service": "74.84.195.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.4.48",
+     "server_header": "Apache/2.4.48 (Unix) OpenSSL/1.1.1g PHP/7.3.29",
+     "page_title": null,
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:07:11 GMT\r\nServer: Apache/2.4.48 (Unix) OpenSSL/1.1.1g PHP/7.3.29\r\nLast-Modified: Mon, 11 Jun 2007 18:53:14 GMT\r\nETag: \"2d-432a5e4a73a80\"\r\nAccept-Ranges: bytes\r\nContent-Length: 45\r\nContent-Type: text/html\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c032",
+  "name": "Baran Cirak",
+  "identity_source": "org",
+  "network_owner": "Baran Cirak",
+  "country": "DE",
+  "ips": 30,
+  "certificate_names": [],
+  "page_titles": [
+   "Not Found",
+   "AppServ Open Project 9.3.0"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "smb — CVE-2020-0796 (confirmed by the scanner)",
+    "service": "146.103.24.x:445",
+    "scan": {
+     "module": "smb",
+     "product": null,
+     "version": null,
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [],
+     "banner": "SMB Status:\n  Authentication: enabled\n  SMB Version: 2\n  Capabilities: raw-mode"
+    }
+   },
+   {
+    "claim": "Windows file sharing (SMB) exposed",
+    "evidence": "SMB on port 445",
+    "service": "146.103.24.x:445",
+    "scan": {
+     "module": "smb",
+     "product": null,
+     "version": null,
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [],
+     "banner": "SMB Status:\n  Authentication: enabled\n  SMB Version: 2\n  Capabilities: raw-mode"
+    }
+   },
+   {
+    "claim": "End-of-life operating system",
+    "evidence": "Windows Server 2012 R2 (WinRM)",
+    "service": "146.103.24.x:5985",
+    "scan": {
+     "module": "http-simple-new",
+     "product": "WinRM",
+     "version": null,
+     "server_header": "Microsoft-HTTPAPI/2.0",
+     "page_title": "Not Found",
+     "os": "Windows Server 2012 R2 (build 6.3.9600)",
+     "tags": [
+      "eol-os"
+     ],
+     "banner": "HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=us-ascii\r\nServer: Microsoft-HTTPAPI/2.0\r\nDate: Sun, 01 Nov 2026 01:32:39 GMT\r\nConnection: close\r\nContent-Length: 315\r\n\r\n\nWinRM NTLM Info:\n  OS: Windows Server 2012 R2\n  OS Build: 6.3.9600\n  Target Name: WIN-G7JA6TR4PNT\n  NetBIOS Domain Name: W"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.3.10, support ended December 2021",
+    "service": "146.103.24.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Apache httpd",
+     "version": "2.4.41",
+     "server_header": "Apache/2.4.41 (Win64) OpenSSL/1.1.1c PHP/7.3.10",
+     "page_title": "AppServ Open Project 9.3.0",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:56:40 GMT\r\nServer: Apache/2.4.41 (Win64) OpenSSL/1.1.1c PHP/7.3.10\r\nX-Powered-By: PHP/7.3.10\r\nContent-Length: 4026\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c033",
+  "name": "pmsignsinc.com",
+  "identity_source": "cert",
+  "network_owner": "Southwest Cyberport, Inc.",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [
+   "www.pmsignsinc.com"
+  ],
+  "page_titles": [
+   "P&amp;M Signs"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.4.33 — CVE-2026-109618, CVE-2026-109619",
+    "service": "216.184.2.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "Albuquerque&#039;s Number 1 Pet Store | Clark&#039;s Pet Emporium",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:33:34 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/7.4.33\r\nLink: <https://www.clarkspets.com/wp-json/>; rel=\"https://api.w.org/\"\r\nLink: <https://www.clarkspets.com/>; rel=shortlink\r\nVary: Accept-Encoding\r\nTransfer-Encoding: chunked\r\nContent-Type: text/html; chars"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.4.33, support ended November 2022",
+    "service": "216.184.2.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "Albuquerque&#039;s Number 1 Pet Store | Clark&#039;s Pet Emporium",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:33:34 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/7.4.33\r\nLink: <https://www.clarkspets.com/wp-json/>; rel=\"https://api.w.org/\"\r\nLink: <https://www.clarkspets.com/>; rel=shortlink\r\nVary: Accept-Encoding\r\nTransfer-Encoding: chunked\r\nContent-Type: text/html; chars"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c034",
+  "name": "mcmaster.ca",
+  "identity_source": "cert",
+  "network_owner": "McMaster University",
+  "country": "CA",
+  "ips": 74,
+  "certificate_names": [
+   "pinmm01.uts.mcmaster.ca",
+   "covid19.mcmaster.ca",
+   "eskape.mcmaster.ca",
+   "pinedl02.uts.mcmaster.ca",
+   "msemulti.mcmaster.ca"
+  ],
+  "page_titles": [
+   "SIM3P",
+   "301 Moved Permanently",
+   "The ESKAPE Model",
+   "302 Found",
+   "Apache HTTP Server Test Page powered by CentOS"
+  ],
+  "claims": [
+   {
+    "claim": "End-of-life operating system",
+    "evidence": "RHEL/CentOS 6, support ended November 2020 (Apache httpd 2.2.15)",
+    "service": "130.113.226.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Apache httpd",
+     "version": "2.2.15",
+     "server_header": "Apache/2.2.15 (Red Hat)",
+     "page_title": "301 Moved Permanently",
+     "os": "Linux 3.x",
+     "tags": [],
+     "banner": "HTTP/1.1 301 Moved Permanently\r\nDate: Sun, 01 Nov 2026 01:06:42 GMT\r\nServer: Apache/2.2.15 (Red Hat)\r\nLocation: https://mailman.mcmaster.ca/mailman/listinfo\r\nContent-Length: 338\r\nConnection: close\r\nContent-Type: text/html; charset=iso-8859-1\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c035",
+  "name": "isra.edu.pk",
+  "identity_source": "cert",
+  "network_owner": "Gemnet Enterprise Solutions Pvt Ltd",
+  "country": "PK",
+  "ips": 1,
+  "certificate_names": [
+   "lms-dpt.isra.edu.pk"
+  ],
+  "page_titles": [
+   "Home | DPT-LMS"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 8.0.30 — CVE-2026-109618, CVE-2026-109619",
+    "service": "103.12.58.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "Home | DPT-LMS",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:03:24 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/8.0.30\r\nContent-Language: en\r\nContent-Script-Type: text/javascript\r\nContent-Style-Type: text/css\r\nX-UA-Compatible: IE=edge\r\nCache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0, no-transf"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 8.0.30, support ended November 2023",
+    "service": "103.12.58.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "Home | DPT-LMS",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:03:24 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/8.0.30\r\nContent-Language: en\r\nContent-Script-Type: text/javascript\r\nContent-Style-Type: text/css\r\nX-UA-Compatible: IE=edge\r\nCache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0, no-transf"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c036",
+  "name": "daihen.co.jp",
+  "identity_source": "cert",
+  "network_owner": "Amazon Technologies Inc.",
+  "country": "JP",
+  "ips": 1,
+  "certificate_names": [
+   "daihen.co.jp"
+  ],
+  "page_titles": [
+   "株式会社ダイヘン"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 8.0.30 — CVE-2026-109618, CVE-2026-109619",
+    "service": "54.150.13.x:443",
+    "scan": {
+     "module": "https",
+     "product": null,
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "株式会社ダイヘン",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:55:06 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nServer: Apache\r\nX-Powered-By: PHP/8.0.30\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nCache-Control: no-store, no-cache, must-revalidate\r\nPragma: no-cache\r\nSe"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 8.0.30, support ended November 2023",
+    "service": "54.150.13.x:443",
+    "scan": {
+     "module": "https",
+     "product": null,
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "株式会社ダイヘン",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:55:06 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nServer: Apache\r\nX-Powered-By: PHP/8.0.30\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nCache-Control: no-store, no-cache, must-revalidate\r\nPragma: no-cache\r\nSe"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c037",
+  "name": "mazeikiuligonine.lt",
+  "identity_source": "http_host",
+  "network_owner": "PBAS hosting system LAN",
+  "country": "LT",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 5.6.40 — CVE-2026-109619",
+    "service": "92.61.37.x:80",
+    "scan": {
+     "module": "http",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": null,
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:01:30 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nVary: Accept-Encoding\r\nX-Powered-By: PHP/5.6.40\r\nVary: Accept-Encoding,User-Agent\r\nX-Cache-Status: MISS\r\n\r\n"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 5.6.40, support ended December 2018",
+    "service": "92.61.37.x:80",
+    "scan": {
+     "module": "http",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": null,
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:01:30 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nVary: Accept-Encoding\r\nX-Powered-By: PHP/5.6.40\r\nVary: Accept-Encoding,User-Agent\r\nX-Cache-Status: MISS\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c038",
+  "name": "jc-photograph.com",
+  "identity_source": "cert",
+  "network_owner": "Amazon Technologies Inc.",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [
+   "jc-photograph.com"
+  ],
+  "page_titles": [
+   "山水之间"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "Apache httpd 2.4.43 — CVE-2021-40438, CVE-2024-38475, CVE-2026-109618",
+    "service": "3.18.254.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.4.43",
+     "server_header": "Apache/2.4.43 (Unix) OpenSSL/1.1.1n",
+     "page_title": "山水之间",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:23:04 GMT\r\nServer: Apache/2.4.43 (Unix) OpenSSL/1.1.1n\r\nX-Powered-By: PHP/7.4.7\r\nVary: Accept-Encoding\r\nAccess-Control-Allow-Origin: *\r\nAccess-Control-Allow-Headers: *\r\nTransfer-Encoding: chunked\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.4.7, support ended November 2022",
+    "service": "3.18.254.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.4.43",
+     "server_header": "Apache/2.4.43 (Unix) OpenSSL/1.1.1n",
+     "page_title": "山水之间",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:23:04 GMT\r\nServer: Apache/2.4.43 (Unix) OpenSSL/1.1.1n\r\nX-Powered-By: PHP/7.4.7\r\nVary: Accept-Encoding\r\nAccess-Control-Allow-Origin: *\r\nAccess-Control-Allow-Headers: *\r\nTransfer-Encoding: chunked\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c039",
+  "name": "acclaimtutor.com",
+  "identity_source": "cert",
+  "network_owner": "Amazon Technologies Inc.",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [
+   "*.acclaimtutor.com"
+  ],
+  "page_titles": [
+   "Acclaim Academic Institute -"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.3.11 — CVE-2026-109618, CVE-2026-109619, CVE-2026-87902",
+    "service": "54.184.67.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "Acclaim Academic Institute -",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:32:23 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/7.3.11\r\nLink: <https://acclaimtutor.com/blog/wp-json/>; rel=\"https://api.w.org/\"\r\nX-Frame-Options: SAMEORIGIN\r\nX-Mod-Pagespeed: 1.13.35.x-0\r\nVary: Accept-Encoding\r\nCache-Control: max-age=0, no-cache, s-maxage=10\r"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.3.11, support ended December 2021",
+    "service": "54.184.67.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "Acclaim Academic Institute -",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:32:23 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/7.3.11\r\nLink: <https://acclaimtutor.com/blog/wp-json/>; rel=\"https://api.w.org/\"\r\nX-Frame-Options: SAMEORIGIN\r\nX-Mod-Pagespeed: 1.13.35.x-0\r\nVary: Accept-Encoding\r\nCache-Control: max-age=0, no-cache, s-maxage=10\r"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c040",
+  "name": "jisidun.com",
+  "identity_source": "cert",
+  "network_owner": "Eonix Corporation",
+  "country": "US",
+  "ips": 2,
+  "certificate_names": [
+   "jisidun.com"
+  ],
+  "page_titles": [
+   "十大外围app-正规的外围app"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 5.4.41 — CVE-2026-109619",
+    "service": "107.158.68.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": "十大外围app-正规的外围app",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:27:54 GMT\r\nContent-Type: text/html;charset=utf-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nVary: Accept-Encoding\r\nX-Powered-By: PHP/5.4.41\r\n\r\n"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 5.4.41, support ended December 2018",
+    "service": "107.158.68.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": "十大外围app-正规的外围app",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:27:54 GMT\r\nContent-Type: text/html;charset=utf-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nVary: Accept-Encoding\r\nX-Powered-By: PHP/5.4.41\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c041",
+  "name": "oneview.com",
+  "identity_source": "cert",
+  "network_owner": "Comcast Cable Communications, LLC",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [
+   "secure.oneview.com"
+  ],
+  "page_titles": [
+   "Pulse Connect Secure"
+  ],
+  "claims": [
+   {
+    "claim": "Edge/VPN appliance on a version with a known-exploited CVE",
+    "evidence": "Pulse Secure Network Connect 8.2 8.2.2.44173 — CVE-2019-11510 (confirmed by the scanner)",
+    "service": "96.82.241.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Pulse Secure Network Connect 8.2",
+     "version": "8.2.2.44173",
+     "server_header": null,
+     "page_title": "Pulse Connect Secure",
+     "os": "Linux 3.x",
+     "tags": [
+      "self-signed"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=utf-8\r\nDate: Sun, 01 Nov 2026 06:00:03 GMT\r\nx-frame-options: SAMEORIGIN\r\nPragma: no-cache\r\nCache-Control: no-store\r\nExpires: -1\r\nTransfer-Encoding: chunked\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c042",
+  "name": "zephop.com",
+  "identity_source": "cert",
+  "network_owner": "Amazon Data Services India",
+  "country": "IN",
+  "ips": 1,
+  "certificate_names": [
+   "wedding.zephop.com"
+  ],
+  "page_titles": [
+   "Udita &amp; Chirag&#039;s Wedding &#8211; Join us in Kolkata and Mumbai for our wedding in February 2020"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.2.17 — CVE-2026-109619, CVE-2026-87902",
+    "service": "13.235.127.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "Udita &amp; Chirag&#039;s Wedding &#8211; Join us in Kolkata and Mumbai for our wedding in February 2020",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 00:54:13 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/7.2.17\r\nLink: <https://13.235.127.x/index.php?rest_route=/>; rel=\"https://api.w.org/\", <https://13.235.127.x/>; rel=shortlink\r\nX-Frame-Options: SAMEORIGIN\r\nX-Mod-Pagespeed: 1.13.35.x-0\r\nVary: Accept-Encoding\r\nC"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.2.17, support ended November 2020",
+    "service": "13.235.127.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "Udita &amp; Chirag&#039;s Wedding &#8211; Join us in Kolkata and Mumbai for our wedding in February 2020",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 00:54:13 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/7.2.17\r\nLink: <https://13.235.127.x/index.php?rest_route=/>; rel=\"https://api.w.org/\", <https://13.235.127.x/>; rel=shortlink\r\nX-Frame-Options: SAMEORIGIN\r\nX-Mod-Pagespeed: 1.13.35.x-0\r\nVary: Accept-Encoding\r\nC"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c043",
+  "name": "kylos.net.pl",
+  "identity_source": "cert",
+  "network_owner": "Kylos sp. z o.o.",
+  "country": "PL",
+  "ips": 9,
+  "certificate_names": [
+   "vps.markopol.kylos.net.pl",
+   "localhost",
+   "vps.avete.kylos.net.pl",
+   "mmsbck1.kylos.net.pl"
+  ],
+  "page_titles": [
+   "FreeNAS"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "Exim smtpd 4.89 — CVE-2018-6789, CVE-2019-10149",
+    "service": "193.107.90.x:465",
+    "scan": {
+     "module": "smtps",
+     "product": "Exim smtpd",
+     "version": "4.89",
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [
+      "self-signed"
+     ],
+     "banner": "220 vps.dukar.kylos.net.pl ESMTP Exim 4.89 Sun, 01 Nov 2026 02:28:49 +0100\r\n250-vps.dukar.kylos.net.pl Hello 224.169.153.x [224.169.153.x]\r\n250-SIZE 20971520\r\n250-8BITMIME\r\n250-PIPELINING\r\n250-AUTH PLAIN LOGIN\r\n250-CHUNKING\r\n250 HELP\r\n"
+    }
+   },
+   {
+    "claim": "Runs a version with a CVE likely to be exploited soon (EPSS ≥ 0.5)",
+    "evidence": "Exim smtpd 4.94 — CVE-2020-28019, CVE-2020-28018",
+    "service": "193.107.90.x:25",
+    "scan": {
+     "module": "smtp",
+     "product": "Exim smtpd",
+     "version": "4.94",
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [
+      "starttls"
+     ],
+     "banner": "220 vps.avete.kylos.net.pl ESMTP Exim 4.94 Sun, 01 Nov 2026 02:22:57 +0100\r\n250-vps.avete.kylos.net.pl Hello 224.169.229.x [224.169.229.x]\r\n250-SIZE 52428800\r\n250-8BITMIME\r\n250-PIPELINING\r\n250-X_PIPE_CONNECT\r\n250-AUTH PLAIN LOGIN\r\n250-STARTTLS\r\n250 HELP\r\n"
+    }
+   },
+   {
+    "claim": "Runs a version with a critical CVE (CVSS ≥ 9) and non-trivial exploit odds",
+    "evidence": "Exim smtpd 4.94.2 — CVE-2023-42115",
+    "service": "91.241.61.x:587",
+    "scan": {
+     "module": "smtp",
+     "product": "Exim smtpd",
+     "version": "4.94.2",
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [
+      "starttls"
+     ],
+     "banner": "220 vps.markopol.kylos.net.pl ESMTP Exim 4.94.2 Sun, 01 Nov 2026 02:48:56 +0100\r\n250-vps.markopol.kylos.net.pl Hello 224.169.229.x [224.169.229.x]\r\n250-SIZE 52428800\r\n250-8BITMIME\r\n250-PIPELINING\r\n250-PIPE_CONNECT\r\n250-AUTH PLAIN LOGIN\r\n250-STARTTLS\r\n250 HELP\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c044",
+  "name": "ohio-state.edu",
+  "identity_source": "cert",
+  "network_owner": "Ohio State University",
+  "country": "US",
+  "ips": 10,
+  "certificate_names": [],
+  "page_titles": [],
+  "claims": [
+   {
+    "claim": "End-of-life operating system",
+    "evidence": "RHEL/CentOS 7, support ended June 2024 (OpenSSH 7.4)",
+    "service": "2620:0:1a10:125:92e2:baff:fe68:7c29:22",
+    "scan": {
+     "module": "ssh",
+     "product": "OpenSSH",
+     "version": "7.4",
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [],
+     "banner": "SSH-2.0-OpenSSH_7.4\nKey type: ssh-rsa\nKey: AAAAB3NzaC1yc2EAAAADAQABAAABAQDLPE1kDPlcNjfi9yekFNvPZMoCaIo+aSAi0dov/F2kXdtO\nyhzfIQq5BHzsXwMdEaOpD44/WFQr1Ni+TcDPXahIWfD2X99uJL2mAzjRYQcoYProgdkZvn4siX+Q\nb55mDSIAOWaHZaVorIZh3Kfnz7GEHrYQRGPx0QDWTzSMdgrcJQbaBFk2KfTH3fwVYBGn2+GYqtEg\nJtyvYO0ZPOwCf6F8dWh94yHuKs"
+    }
+   },
+   {
+    "claim": "Runs a version with a CVE likely to be exploited soon (EPSS ≥ 0.5)",
+    "evidence": "ntpd 4.2.8 — CVE-2016-7434, CVE-2015-7871",
+    "service": "2620:0:1a10:40a8::11:123",
+    "scan": {
+     "module": "ntp",
+     "product": "ntpd",
+     "version": "4.2.8",
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [],
+     "banner": "NTP\nversion: ntpd 4.2.8p15@1.3728-o Wed Sep 23 11:46:38 UTC 2020 (1)\nprocessor: x86_64\nsystem: Linux/5.10.0-38-amd64\nleap: 0\nstratum: 2\nprecision: -24\nrootdelay: 0.212\nrootdisp: 47.132\nrefid: 128.146.1.x\nreftime: 0xee910fad.d3ac51a2\nclock: 0xee91179c.08585460\npeer: 56804\ntc: 10\nmintc: 3\noffset: 0.28"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c045",
+  "name": "posten-boerse.de",
+  "identity_source": "cert",
+  "network_owner": "IONOS SE",
+  "country": "DE",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [
+   "Herbie H. Hart: Solo, Duo, Trio, Quartett Performance - Saxofon Show"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.3.33 — CVE-2026-109618, CVE-2026-109619",
+    "service": "217.160.0.x:80",
+    "scan": {
+     "module": "http",
+     "product": "nginx",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "The Golden Sugarbirds &#8211; Vertraute Musik &#8211; erfrischend neu",
+     "os": null,
+     "tags": [],
+     "banner": "HTTP/1.1 403 Forbidden\r\nContent-Type: text/html\r\nContent-Length: 1271\r\nConnection: keep-alive\r\nX-WS-Origin: available\r\nX-WS-RateLimit-Limit: 1000\r\nX-WS-RateLimit-Remaining: 999\r\nDate: Sun, 01 Nov 2026 01:35:58 GMT\r\nServer: Apache\r\nX-Frame-Options: deny\r\n\r\n"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.3.33, support ended December 2021",
+    "service": "217.160.0.x:80",
+    "scan": {
+     "module": "http",
+     "product": "nginx",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "The Golden Sugarbirds &#8211; Vertraute Musik &#8211; erfrischend neu",
+     "os": null,
+     "tags": [],
+     "banner": "HTTP/1.1 403 Forbidden\r\nContent-Type: text/html\r\nContent-Length: 1271\r\nConnection: keep-alive\r\nX-WS-Origin: available\r\nX-WS-RateLimit-Limit: 1000\r\nX-WS-RateLimit-Remaining: 999\r\nDate: Sun, 01 Nov 2026 01:35:58 GMT\r\nServer: Apache\r\nX-Frame-Options: deny\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c046",
+  "name": "zimzim.co.il",
+  "identity_source": "cert",
+  "network_owner": "OVH SAS",
+  "country": "FR",
+  "ips": 1,
+  "certificate_names": [
+   "zimzim.co.il"
+  ],
+  "page_titles": [
+   "\n  צימרים מומלצים  "
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.0.33 — CVE-2026-109619",
+    "service": "51.254.50.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": "\n  צימרים מומלצים  ",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:05:40 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Length: 27083\r\nConnection: keep-alive\r\nX-Powered-By: PHP/7.0.33\r\nX-Powered-By: PleskLin\r\n\r\n"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.0.33, support ended January 2019",
+    "service": "51.254.50.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": "\n  צימרים מומלצים  ",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:05:40 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Length: 27083\r\nConnection: keep-alive\r\nX-Powered-By: PHP/7.0.33\r\nX-Powered-By: PleskLin\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c047",
+  "name": "printery.gov.kn",
+  "identity_source": "cert",
+  "network_owner": "Amazon Technologies Inc.",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [
+   "printery.gov.kn"
+  ],
+  "page_titles": [
+   "Front Page | Government of St.Christopher (St.Kitts) and Nevis"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.4.8 — CVE-2026-109618, CVE-2026-109619",
+    "service": "54.91.20.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "Front Page | Government of St.Christopher (St.Kitts) and Nevis",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:35:36 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/7.4.8\r\nLink: <https://54.91.20.x/wp-json/>; rel=\"https://api.w.org/\", <https://54.91.20.x/wp-json/wp/v2/pages/65>; rel=\"alternate\"; title=\"JSON\"; type=\"application/json\", <https://54.91.20.x/>; rel=shortlin"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.4.8, support ended November 2022",
+    "service": "54.91.20.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "Front Page | Government of St.Christopher (St.Kitts) and Nevis",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:35:36 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/7.4.8\r\nLink: <https://54.91.20.x/wp-json/>; rel=\"https://api.w.org/\", <https://54.91.20.x/wp-json/wp/v2/pages/65>; rel=\"alternate\"; title=\"JSON\"; type=\"application/json\", <https://54.91.20.x/>; rel=shortlin"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c048",
+  "name": "escala.net.mx",
+  "identity_source": "cert",
+  "network_owner": "OVH Hosting, Inc.",
+  "country": "CA",
+  "ips": 6,
+  "certificate_names": [
+   "*.escala.net.mx"
+  ],
+  "page_titles": [
+   "Web Server's Default Page"
+  ],
+  "claims": [
+   {
+    "claim": "End-of-life operating system",
+    "evidence": "RHEL/CentOS 7, support ended June 2024 (OpenSSH 7.4)",
+    "service": "192.95.36.x:50000",
+    "scan": {
+     "module": "teradici-pcoip-old",
+     "product": "OpenSSH",
+     "version": "7.4",
+     "server_header": null,
+     "page_title": null,
+     "os": null,
+     "tags": [],
+     "banner": "SSH-2.0-OpenSSH_7.4\nKey type: ssh-rsa\nKey: AAAAB3NzaC1yc2EAAAADAQABAAABAQCiBXpylxTRLsRAvEXz3FLOticTUyNm6Bgpi4U3WJ2guMbU\nQJCta0xVQgggWGu2V+uBcQ5VISxPveMcMS8UbxFo9IRi67Ckv9ER03XFL+UqJhyQsW7BYztoWlNA\nLDJUVKGfF2Z2YtEb9xjZD7ybUF2LiaqYzDu178lFeK9L/XsO9B6+iiF5GUpquiclzNAzSj8YfohR\nmDrCfU6DiCTckWfWL8emVOP0OR"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c049",
+  "name": "fallsway.com",
+  "identity_source": "cert",
+  "network_owner": "Charter Communications Inc",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [
+   "enl.fallsway.com"
+  ],
+  "page_titles": [
+   "401 - Unauthorized: Access is denied due to invalid credentials.",
+   "403 - Forbidden: Access is denied."
+  ],
+  "claims": [
+   {
+    "claim": "End-of-life operating system",
+    "evidence": "Windows Server 2008 R2, support ended January 2020 (Microsoft IIS httpd 7.5)",
+    "service": "98.100.67.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Microsoft IIS httpd",
+     "version": "7.5",
+     "server_header": "Microsoft-IIS/7.5",
+     "page_title": "403 - Forbidden: Access is denied.",
+     "os": "Windows 7 or 8",
+     "tags": [],
+     "banner": "HTTP/1.1 403 Forbidden\r\nContent-Type: text/html\r\nServer: Microsoft-IIS/7.5\r\nX-Powered-By: ASP.NET\r\nDate: Sun, 01 Nov 2026 01:37:02 GMT\r\nContent-Length: 1233\r\n\r\n"
+    }
+   },
+   {
+    "claim": "Leaks internal Windows domain / host names (NTLM)",
+    "evidence": "FALLEN01.FALLSWAY.local — Windows 7, Windows Server 2008 R2",
+    "service": "98.100.67.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Microsoft IIS httpd",
+     "version": "7.5",
+     "server_header": "Microsoft-IIS/7.5",
+     "page_title": "401 - Unauthorized: Access is denied due to invalid credentials.",
+     "os": "Windows (build 6.1.7601)",
+     "tags": [
+      "eol-os"
+     ],
+     "banner": "HTTP/1.1 401 Unauthorized\r\nContent-Type: text/html\r\nServer: Microsoft-IIS/7.5\r\nWWW-Authenticate: Negotiate\r\nWWW-Authenticate: NTLM\r\nX-Powered-By: ASP.NET\r\nDate: Sun, 01 Nov 2026 01:38:23 GMT\r\nContent-Length: 1293\r\n\r\n\nHTTP NTLM Info:\n  OS: Windows 7/Windows Server 2008 R2\n  OS Build: 6.1.7601\n  Targe"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c050",
+  "name": "queniumf.com",
+  "identity_source": "http_host",
+  "network_owner": "Alibaba Cloud LLC",
+  "country": "US",
+  "ips": 12,
+  "certificate_names": [
+   "*.certfallback.com"
+  ],
+  "page_titles": [
+   "403 Forbidden"
+  ],
+  "claims": [
+   {
+    "claim": "Firewall/VPN appliance reachable from the internet",
+    "evidence": "Citrix Netscaler",
+    "service": "155.102.176.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Citrix Netscaler",
+     "version": null,
+     "server_header": "Tengine",
+     "page_title": "403 Forbidden",
+     "os": null,
+     "tags": [
+      "cloud"
+     ],
+     "banner": "HTTP/1.1 403 Forbidden\r\nServer: Tengine\r\nDate: Sun, 01 Nov 2026 01:57:32 GMT\r\nContent-Type: text/html\r\nContent-Length: 238\r\nConnection: keep-alive\r\nX-Tengine-Error: non-existent domain\r\nVia: ens-cache14.us37[,0]\r\nTiming-Allow-Origin: *\r\nEagleId: 9b6682a217934982529414123e\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c051",
+  "name": "uni-bremen.de",
+  "identity_source": "cert",
+  "network_owner": "Universitaet Bremen",
+  "country": "DE",
+  "ips": 24,
+  "certificate_names": [
+   "mercurius.math.uni-bremen.de",
+   "TRAEFIK DEFAULT CERT"
+  ],
+  "page_titles": [
+   "401 Authorization Required",
+   "301 Moved Permanently",
+   "Not Found"
+  ],
+  "claims": [
+   {
+    "claim": "End-of-life operating system",
+    "evidence": "Ubuntu 18.04, support ended May 2023 (nginx 1.14.0)",
+    "service": "134.102.210.x:80",
+    "scan": {
+     "module": "http",
+     "product": "nginx",
+     "version": "1.14.0",
+     "server_header": "nginx/1.14.0 (Ubuntu)",
+     "page_title": "301 Moved Permanently",
+     "os": "Ubuntu",
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 301 Moved Permanently\r\nServer: nginx/1.14.0 (Ubuntu)\r\nDate: Sun, 01 Nov 2026 01:18:41 GMT\r\nContent-Type: text/html\r\nContent-Length: 194\r\nConnection: keep-alive\r\nLocation: https://134.102.210.x/\r\n\r\n"
+    }
+   },
+   {
+    "claim": "Leaks internal Windows domain / host names (NTLM)",
+    "evidence": "T4.terminal.fb3.uni-bremen.de — Windows Server 2016 (version 1607)",
+    "service": "134.102.223.x:5985",
+    "scan": {
+     "module": "http-simple-new",
+     "product": "WinRM",
+     "version": null,
+     "server_header": "Microsoft-HTTPAPI/2.0",
+     "page_title": "Not Found",
+     "os": "Windows Server 2016 (version 1607) (build 10.0.14393)",
+     "tags": [],
+     "banner": "HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=us-ascii\r\nServer: Microsoft-HTTPAPI/2.0\r\nDate: Sun, 01 Nov 2026 01:46:04 GMT\r\nConnection: close\r\nContent-Length: 315\r\n\r\n\nWinRM NTLM Info:\n  OS: Windows Server 2016 (version 1607)\n  OS Build: 10.0.14393\n  Target Name: TERMINAL\n  NetBIOS Domain "
+    }
+   }
+  ]
+ },
+ {
+  "case": "c052",
+  "name": "albadistribution.it",
+  "identity_source": "cert",
+  "network_owner": "Amazon Technologies Inc.",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [
+   "albadistribution.it"
+  ],
+  "page_titles": [
+   "ALBA DISTRIBUTION &#8211; BOOKS · E-BOOKS · JOURNALS · E-JOURNALS · DATABASES"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.1.24 — CVE-2026-109619, CVE-2026-87902",
+    "service": "3.222.199.x:443",
+    "scan": {
+     "module": "https",
+     "product": null,
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "ALBA DISTRIBUTION &#8211; BOOKS · E-BOOKS · JOURNALS · E-JOURNALS · DATABASES",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:50:09 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Length: 65707\r\nConnection: keep-alive\r\nServer: Apache\r\nX-Powered-By: PHP/7.1.24\r\nLink: <https://3.222.199.x/wp-json/>; rel=\"https://api.w.org/\", <https://3.222.199.x/>; rel=shortlink\r\nX-Frame-Op"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.1.24, support ended December 2019",
+    "service": "3.222.199.x:443",
+    "scan": {
+     "module": "https",
+     "product": null,
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "ALBA DISTRIBUTION &#8211; BOOKS · E-BOOKS · JOURNALS · E-JOURNALS · DATABASES",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:50:09 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Length: 65707\r\nConnection: keep-alive\r\nServer: Apache\r\nX-Powered-By: PHP/7.1.24\r\nLink: <https://3.222.199.x/wp-json/>; rel=\"https://api.w.org/\", <https://3.222.199.x/>; rel=shortlink\r\nX-Frame-Op"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c053",
+  "name": "rspasundan.com",
+  "identity_source": "cert",
+  "network_owner": "Universitas Pasundan Bandung",
+  "country": "ID",
+  "ips": 1,
+  "certificate_names": [
+   "CloudFlare Origin Certificate"
+  ],
+  "page_titles": [
+   "E-Klaim INA-CBG"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 5.6.19 — CVE-2026-109619",
+    "service": "103.141.61.x:15",
+    "scan": {
+     "module": "auto",
+     "product": "nginx",
+     "version": "1.27.5",
+     "server_header": "nginx/1.27.5",
+     "page_title": "E-Klaim INA-CBG",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx/1.27.5\r\nDate: Sun, 01 Nov 2026 01:25:48 GMT\r\nContent-Type: text/html; charset=iso-8859-1\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nVary: Accept-Encoding\r\nX-Powered-By: PHP/5.6.19\r\nSet-Cookie: XOCPSID=7r20rf91pftvle3p49em3bea71; path=/\r\nExpires: Mon, 26 Jul 1"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 5.6.19, support ended December 2018",
+    "service": "103.141.61.x:15",
+    "scan": {
+     "module": "auto",
+     "product": "nginx",
+     "version": "1.27.5",
+     "server_header": "nginx/1.27.5",
+     "page_title": "E-Klaim INA-CBG",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx/1.27.5\r\nDate: Sun, 01 Nov 2026 01:25:48 GMT\r\nContent-Type: text/html; charset=iso-8859-1\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nVary: Accept-Encoding\r\nX-Powered-By: PHP/5.6.19\r\nSet-Cookie: XOCPSID=7r20rf91pftvle3p49em3bea71; path=/\r\nExpires: Mon, 26 Jul 1"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c054",
+  "name": "seimitsusatei.com",
+  "identity_source": "cert",
+  "network_owner": "Amazon Technologies Inc.",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [
+   "seimitsusatei.com"
+  ],
+  "page_titles": [
+   "不動産高値売却ならハウスマーケットの精密査定｜大野城・筑紫野・鳥栖"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.2.18 — CVE-2026-109619",
+    "service": "34.198.13.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "不動産高値売却ならハウスマーケットの精密査定｜大野城・筑紫野・鳥栖",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:20:40 GMT\r\nServer: Apache\r\nX-Frame-Options: SAMEORIGIN\r\nX-Powered-By: PHP/7.2.18\r\nSet-Cookie: ci_session=r0bdfko64s1o4tjhd2hld5v5b9svh41u; expires=Sun, 01-Nov-2026 03:20:40 GMT; Max-Age=7200; path=/; HttpOnly\r\nCache-Control: max-age=0, no-cache, no-store, m"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.2.18, support ended November 2020",
+    "service": "34.198.13.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "不動産高値売却ならハウスマーケットの精密査定｜大野城・筑紫野・鳥栖",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:20:40 GMT\r\nServer: Apache\r\nX-Frame-Options: SAMEORIGIN\r\nX-Powered-By: PHP/7.2.18\r\nSet-Cookie: ci_session=r0bdfko64s1o4tjhd2hld5v5b9svh41u; expires=Sun, 01-Nov-2026 03:20:40 GMT; Max-Age=7200; path=/; HttpOnly\r\nCache-Control: max-age=0, no-cache, no-store, m"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c055",
+  "name": "j-matsuzaki.co.jp",
+  "identity_source": "http_host",
+  "network_owner": "KAGOYA JAPAN Inc.",
+  "country": "JP",
+  "ips": 1,
+  "certificate_names": [],
+  "page_titles": [
+   "matsuzaki inc. 有限会社 美術工芸 松崎 Tokyo Japan"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 5.2.17 — CVE-2012-1823",
+    "service": "203.142.193.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "matsuzaki inc. 有限会社 美術工芸 松崎 Tokyo Japan",
+     "os": "Linux 2.6.x",
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:22:22 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/5.2.17\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nContent-Type: text/html\r\n\r\n"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 5.2.17, support ended December 2018",
+    "service": "203.142.193.x:80",
+    "scan": {
+     "module": "http",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "matsuzaki inc. 有限会社 美術工芸 松崎 Tokyo Japan",
+     "os": "Linux 2.6.x",
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:22:22 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/5.2.17\r\nConnection: close\r\nTransfer-Encoding: chunked\r\nContent-Type: text/html\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c056",
+  "name": "4yousee.com.br",
+  "identity_source": "cert",
+  "network_owner": "Amazon Technologies Inc.",
+  "country": "US",
+  "ips": 7,
+  "certificate_names": [
+   "sni-support-required-for-valid-ssl",
+   "*.4yousee.com.br"
+  ],
+  "page_titles": [
+   "400 Bad Request",
+   "4yousee Designer",
+   "Login"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.2.27 — CVE-2026-109619",
+    "service": "3.92.125.x:443",
+    "scan": {
+     "module": "https",
+     "product": null,
+     "version": null,
+     "server_header": null,
+     "page_title": "Login",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:55:39 GMT\r\nContent-Type: text/html; charset=utf-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nX-Powered-By: PHP/7.2.27\r\nAccess-Control-Allow-Origin: *\r\nSet-Cookie: PHPSESSID=cff83c3ce74377a84f4c1f2e287dcfd9; path=/\r\nExpires: Thu, 19 Nov 1981 08:52:"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.2.27, support ended November 2020",
+    "service": "3.92.125.x:443",
+    "scan": {
+     "module": "https",
+     "product": null,
+     "version": null,
+     "server_header": null,
+     "page_title": "Login",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:55:39 GMT\r\nContent-Type: text/html; charset=utf-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nX-Powered-By: PHP/7.2.27\r\nAccess-Control-Allow-Origin: *\r\nSet-Cookie: PHPSESSID=cff83c3ce74377a84f4c1f2e287dcfd9; path=/\r\nExpires: Thu, 19 Nov 1981 08:52:"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c057",
+  "name": "dobyverrolec.com",
+  "identity_source": "cert",
+  "network_owner": "SWIFTCOM IT GROUP LTD",
+  "country": "GB",
+  "ips": 1,
+  "certificate_names": [
+   "dobyverrolec.com"
+  ],
+  "page_titles": [
+   "Doby Verrolec is the UK market leading supplier of ductwork components and wire suspension systems"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.4.33 — CVE-2026-109618, CVE-2026-109619",
+    "service": "185.215.37.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": "A comprehensive list of uk charities and organisations",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:39:30 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nX-Powered-By: PHP/7.4.33\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nCache-Control: no-store, no-cache, must-revalidate\r\nPragma: no-cache\r\nSet"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.4.33, support ended November 2022",
+    "service": "185.215.37.x:443",
+    "scan": {
+     "module": "https",
+     "product": "nginx",
+     "version": null,
+     "server_header": "nginx",
+     "page_title": "A comprehensive list of uk charities and organisations",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nServer: nginx\r\nDate: Sun, 01 Nov 2026 01:39:30 GMT\r\nContent-Type: text/html; charset=UTF-8\r\nTransfer-Encoding: chunked\r\nConnection: keep-alive\r\nX-Powered-By: PHP/7.4.33\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nCache-Control: no-store, no-cache, must-revalidate\r\nPragma: no-cache\r\nSet"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c058",
+  "name": "plataformawindsor.com.mx",
+  "identity_source": "cert",
+  "network_owner": "Google LLC",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [
+   "plataformawindsor.com.mx"
+  ],
+  "page_titles": [
+   "Redireccionar"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "Apache httpd 2.4.48 — CVE-2021-40438, CVE-2024-38475, CVE-2026-109618",
+    "service": "35.203.159.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.4.48",
+     "server_header": "Apache/2.4.48 (Unix) OpenSSL/1.1.1n",
+     "page_title": "Redireccionar",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 303 See Other\r\nDate: Sun, 01 Nov 2026 01:21:58 GMT\r\nServer: Apache/2.4.48 (Unix) OpenSSL/1.1.1n\r\nX-Powered-By: PHP/7.3.29\r\nX-Redirect-By: Moodle\r\nContent-Language: es-mx\r\nLocation: http://plataformawindsor.com.mx\r\nTransfer-Encoding: chunked\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.3.29, support ended December 2021",
+    "service": "35.203.159.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.4.48",
+     "server_header": "Apache/2.4.48 (Unix) OpenSSL/1.1.1n",
+     "page_title": "Redireccionar",
+     "os": null,
+     "tags": [
+      "cloud",
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 303 See Other\r\nDate: Sun, 01 Nov 2026 01:21:58 GMT\r\nServer: Apache/2.4.48 (Unix) OpenSSL/1.1.1n\r\nX-Powered-By: PHP/7.3.29\r\nX-Redirect-By: Moodle\r\nContent-Language: es-mx\r\nLocation: http://plataformawindsor.com.mx\r\nTransfer-Encoding: chunked\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c059",
+  "name": "azpns.com",
+  "identity_source": "cert",
+  "network_owner": "Oso Grande IP Services, LLC",
+  "country": "US",
+  "ips": 1,
+  "certificate_names": [
+   "atlasintra-net.azpns.com"
+  ],
+  "page_titles": [
+   "Atlas Aluminum"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "PHP 7.4.33 — CVE-2026-109618, CVE-2026-109619",
+    "service": "129.121.99.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "Atlas Aluminum",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:47:31 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/7.4.33\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nCache-Control: no-store, no-cache, must-revalidate\r\nPragma: no-cache\r\nSet-Cookie: PHPSESSID=7iuasuqn0lmsol4lpedfjr5ruc; path=/\r\ncontent-Security-Policy: upgrade-ins"
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "PHP 7.4.33, support ended November 2022",
+    "service": "129.121.99.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": null,
+     "server_header": "Apache",
+     "page_title": "Atlas Aluminum",
+     "os": null,
+     "tags": [
+      "eol-product"
+     ],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 01:47:31 GMT\r\nServer: Apache\r\nX-Powered-By: PHP/7.4.33\r\nExpires: Thu, 19 Nov 1981 08:52:00 GMT\r\nCache-Control: no-store, no-cache, must-revalidate\r\nPragma: no-cache\r\nSet-Cookie: PHPSESSID=7iuasuqn0lmsol4lpedfjr5ruc; path=/\r\ncontent-Security-Policy: upgrade-ins"
+    }
+   }
+  ]
+ },
+ {
+  "case": "c060",
+  "name": "sweaden.com",
+  "identity_source": "cert",
+  "network_owner": "Aliyun Computing Co., LTD",
+  "country": "CN",
+  "ips": 1,
+  "certificate_names": [
+   "chatnote.sweaden.com"
+  ],
+  "page_titles": [
+   "Chat笔记"
+  ],
+  "claims": [
+   {
+    "claim": "Runs a version affected by a known-exploited (CISA KEV) CVE",
+    "evidence": "Apache httpd 2.4.39 — CVE-2021-40438, CVE-2024-38475",
+    "service": "123.57.3.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.4.39",
+     "server_header": "Apache/2.4.39 (Win64) OpenSSL/1.1.1b mod_fcgid/2.3.9a mod_log_rotate/1.02",
+     "page_title": "Chat笔记",
+     "os": null,
+     "tags": [],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 00:59:03 GMT\r\nServer: Apache/2.4.39 (Win64) OpenSSL/1.1.1b mod_fcgid/2.3.9a mod_log_rotate/1.02\r\nX-Powered-By: Express\r\nAccess-Control-Allow-Origin: *\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nLast-Modified: Sat, 20 Jun 2026 19:34:39 GMT\r\nETag: "
+    }
+   },
+   {
+    "claim": "End-of-life software version",
+    "evidence": "OpenSSL 1.1.1b, support ended September 2023",
+    "service": "123.57.3.x:443",
+    "scan": {
+     "module": "https",
+     "product": "Apache httpd",
+     "version": "2.4.39",
+     "server_header": "Apache/2.4.39 (Win64) OpenSSL/1.1.1b mod_fcgid/2.3.9a mod_log_rotate/1.02",
+     "page_title": "Chat笔记",
+     "os": null,
+     "tags": [],
+     "banner": "HTTP/1.1 200 OK\r\nDate: Sun, 01 Nov 2026 00:59:03 GMT\r\nServer: Apache/2.4.39 (Win64) OpenSSL/1.1.1b mod_fcgid/2.3.9a mod_log_rotate/1.02\r\nX-Powered-By: Express\r\nAccess-Control-Allow-Origin: *\r\nAccept-Ranges: bytes\r\nCache-Control: public, max-age=0\r\nLast-Modified: Sat, 20 Jun 2026 19:34:39 GMT\r\nETag: "
+    }
+   }
+  ]
+ }
+]

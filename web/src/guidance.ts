@@ -10,12 +10,12 @@ export const GUIDANCE: Record<string, { means: string; action: string }> = {
     action: 'Put it behind single sign-on or a VPN, rotate any API keys it holds, and review which tools an exposed agent can call.',
   },
   edge_kev: {
-    means: 'A firewall or VPN appliance is reachable from the internet and runs software with vulnerabilities CISA lists as actively exploited.',
+    means: 'A firewall or VPN appliance is reachable from the internet and runs a version affected by vulnerabilities CISA lists as actively exploited.',
     action: 'Patch the appliance to a fixed release and move its management interface off the public internet.',
   },
   edge_device: {
-    means: 'The management interface of a firewall or VPN answers on the public internet, the most common way ransomware gets in.',
-    action: 'Restrict management access to a VPN or an allow-list of admin addresses.',
+    means: 'A firewall or VPN appliance (its login, VPN portal or admin page) answers on the public internet, the most common way ransomware gets in.',
+    action: 'Keep it on a patched release and restrict its admin interface to a VPN or an allow-list.',
   },
   exchange_onprem: {
     means: 'A self-hosted Microsoft Exchange or Outlook Web App server is internet-facing, a long-running target (ProxyShell, ProxyLogon).',
@@ -41,12 +41,12 @@ export const GUIDANCE: Record<string, { means: string; action: string }> = {
   },
   iot_camera: { means: 'An IP camera or video recorder is reachable from the internet.', action: 'Take it off the public internet and update its firmware.' },
   kev_cve: {
-    means: 'Internet-facing software matches a version with vulnerabilities CISA lists as actively exploited.',
-    action: 'Patch to a fixed version; treat as urgent per CISA guidance.',
+    means: 'Internet-facing software runs a version affected by vulnerabilities CISA lists as actively exploited.',
+    action: 'Confirm the version on the server and patch; treat as urgent per CISA guidance.',
   },
-  high_epss: { means: 'Internet-facing software matches vulnerabilities with a high predicted chance of exploitation (EPSS).', action: 'Prioritise these in the next patch cycle.' },
-  critical_cve: { means: 'Internet-facing software matches a critical-severity vulnerability.', action: 'Confirm the version and patch.' },
-  eol_os: { means: 'A server runs an operating system that no longer receives security updates.', action: 'Plan an upgrade; isolate the server until then.' },
+  high_epss: { means: 'Internet-facing software runs a version with vulnerabilities that have a high predicted chance of exploitation (EPSS).', action: 'Prioritise these in the next patch cycle.' },
+  critical_cve: { means: 'Internet-facing software runs a version with a critical-severity vulnerability.', action: 'Confirm the version and patch.' },
+  eol_os: { means: 'A server runs an operating system release past the end of its standard security support.', action: 'Plan an upgrade; isolate the server until then.' },
   eol_product: { means: 'Internet-facing software is past end of life.', action: 'Upgrade to a supported release.' },
   ntlm_leak: { means: 'A Windows service reveals the internal Active Directory domain and host names to anyone who connects.', action: 'Disable NTLM on internet-facing services or put them behind a gateway.' },
   cert_expired: { means: 'A public service presents an expired TLS certificate.', action: 'Renew it and add certificate-expiry monitoring.' },
