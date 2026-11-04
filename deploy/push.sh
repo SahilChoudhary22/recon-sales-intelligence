@@ -33,4 +33,5 @@ ssh "$HOST" "cd $DIR/serve && ln -sfn $BUILD current.new && mv -T current.new cu
 rsync -az deploy/compose.yaml deploy/compose.tailscale.yaml deploy/compose.ngrok.yaml deploy/tailscale-serve.json deploy/nginx.conf deploy/api.Dockerfile "$HOST:$DIR/"
 # the public URL is the ngrok static domain; the Tailscale sidecar keeps the app on the tailnet
 FILES="-f compose.yaml -f compose.tailscale.yaml -f compose.ngrok.yaml"
-ssh "$HOST" "cd $DIR && test -f .env && docker compose $FILES up -d --build && docker compose $FILES ps"
+# nginx.conf is a single-file mount: rsync swaps in a new file, so web is recreated to see it
+ssh "$HOST" "cd $DIR && test -f .env && docker compose $FILES up -d --build && docker compose $FILES up -d --force-recreate --no-deps web && docker compose $FILES ps"

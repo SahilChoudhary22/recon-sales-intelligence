@@ -208,6 +208,9 @@ class Workspace:
         list_id = list_id or new_id("l")
         if not ID.match(list_id):
             raise ValueError("bad list id")
+        # the client names its lists, so a repeated create (a retry after a dropped reply) is a no-op
+        if self._one("select id from lists where workspace_id = ? and id = ?", (ws, list_id)):
+            return self.find_list(ws, list_id)
         with self._tx() as c:
             if c.execute("select count(*) from lists where workspace_id = ?", (ws,)).fetchone()[0] >= MAX_LISTS:
                 raise LimitError(f"a workspace holds at most {MAX_LISTS} lists")

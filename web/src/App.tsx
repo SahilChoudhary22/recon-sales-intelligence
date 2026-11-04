@@ -15,6 +15,7 @@ import { Brief } from './Brief'
 import { peerLine } from './peer'
 import { guideSeen } from './tourSteps'
 import { IcpCard } from './IcpCard'
+import { Icon } from './icons'
 import { EMPTY_ICP, SIZES, describeIcp, icpFilters, icpIsEmpty, personaRoles, type Icp, type Persona } from './icp'
 
 const fmt = (n: number) => n.toLocaleString('en-US')
@@ -217,10 +218,13 @@ function Recon() {
     const on = p.id === play.id && !f.search
     return (
       <button type="button" aria-current={on ? 'page' : undefined} onClick={() => set({ play: p.id, search: null, onlyNew: false })}
-        className={`flex w-full min-h-9 items-center justify-between gap-3 rounded-[var(--radius-ctl)] px-2.5 text-left text-sm transition-colors duration-[var(--dur-micro)] ${
-          on ? 'bg-accent-soft font-medium text-ink' : 'text-ink-2 hover:bg-paper-2'
+        className={`group flex w-full min-h-9 items-center gap-2.5 rounded-[var(--radius-ctl)] px-2.5 text-left text-sm transition-colors duration-[var(--dur-micro)] ${
+          on ? 'bg-accent-soft font-medium text-ink' : 'text-ink-2 hover:bg-paper-2 hover:text-ink'
         }`}>
-        <span className="truncate whitespace-nowrap lg:whitespace-normal">{p.name}</span>
+        <span className={on ? 'text-accent' : 'text-muted group-hover:text-ink-2'}>
+          <Icon name={p.id.startsWith('list:') ? 'list' : p.id === MARKET.id ? 'signals' : p.id} />
+        </span>
+        <span className="min-w-0 flex-1 truncate whitespace-nowrap lg:whitespace-normal">{p.name}</span>
         {extra ?? <span className="measured text-xs text-muted">{count === undefined ? '' : fmt(count)}</span>}
       </button>
     )
@@ -245,15 +249,15 @@ function Recon() {
       <div className="mx-auto max-w-[112rem] lg:grid lg:grid-cols-[16rem_minmax(0,1fr)] 2xl:grid-cols-[16rem_minmax(0,1fr)_minmax(0,34rem)]">
         <nav aria-label="Views" className="flex gap-4 overflow-x-auto border-b border-rule px-4 py-3 lg:block lg:overflow-visible lg:border-b-0 lg:border-r lg:px-3 lg:py-5">
           <div data-tour="mylist" className="shrink-0 lg:mb-5">
-            <h2 className="mb-2 hidden px-2 text-sm text-muted lg:block">Lists</h2>
+            <NavHeading>Lists</NavHeading>
             <ul className="flex gap-1 lg:block lg:space-y-0.5">
               {lists.lists.map((l) => <li key={l.id} className="shrink-0">{navButton(listPlay(l), lists.idsIn(l.id).length)}</li>)}
             </ul>
             <NewList onCreate={(name) => set({ play: `list:${lists.create(name)}`, search: null })} />
           </div>
           {saved.searches.length > 0 && (
-            <div className="hidden shrink-0 lg:mb-5 lg:block">
-              <h2 className="mb-2 px-2 text-sm text-muted">Saved searches</h2>
+            <div className="hidden shrink-0 lg:mb-5 lg:block lg:border-t lg:border-rule lg:pt-4">
+              <NavHeading>Saved searches</NavHeading>
               <ul className="space-y-0.5">
                 {saved.searches.map((s) => (
                   <li key={s.id}>
@@ -263,13 +267,14 @@ function Recon() {
               </ul>
             </div>
           )}
-          <div className="shrink-0 lg:mb-5">
-            <h2 className="mb-2 hidden px-2 text-sm text-muted lg:block">Prospect</h2>
+          <div className="shrink-0 lg:mb-5 lg:border-t lg:border-rule lg:pt-4">
+            <NavHeading>Prospect</NavHeading>
             {navButton(MARKET, counts[MARKET.id])}
           </div>
-          <div data-tour="plays" className="min-w-0">
-            <div className="mb-2 hidden px-2 lg:block">
-              <label htmlFor="product" className="text-sm text-muted">What you sell</label>
+          <div data-tour="plays" className="min-w-0 lg:border-t lg:border-rule lg:pt-4">
+            <NavHeading>{product ? 'Signal templates for you' : 'Signal templates'}</NavHeading>
+            <div className="mb-3 hidden px-2 lg:block">
+              <label htmlFor="product" className="text-xs text-muted">Tailored to what you sell</label>
               <span className="relative mt-1 flex">
                 <select id="product" value={product} onChange={(e) => setProduct(e.target.value)} className="field w-full appearance-none pl-3 pr-9">
                   <option value="">Any security product</option>
@@ -278,13 +283,12 @@ function Recon() {
                 <Chevron />
               </span>
             </div>
-            <h2 className="mb-2 mt-4 hidden px-2 text-sm text-muted lg:block">{product ? 'Signal templates for you' : 'Signal templates'}</h2>
             <ul className="flex gap-1 lg:flex-col">
               {mine.map((t) => <li key={t.id} className="shrink-0">{navButton(t, counts[t.id])}</li>)}
             </ul>
             {others.length > 0 && (
               <>
-                <h2 className="mb-2 mt-4 hidden px-2 text-sm text-muted lg:block">Other templates</h2>
+                <NavHeading className="mt-4">Other templates</NavHeading>
                 <ul className="flex gap-1 lg:flex-col">
                   {others.map((t) => <li key={t.id} className="shrink-0">{navButton(t, counts[t.id])}</li>)}
                 </ul>
@@ -452,8 +456,9 @@ function SavedSearchItem({ s, on, version, onOpen }: { s: SavedSearch; on: boole
   const n = useApi(s.lastRun ? `new:${JSON.stringify(fresh)}:v${version}` : null, (sig) => api.search(fresh, 0, 1, sig)).data?.total ?? 0
   return (
     <button type="button" onClick={onOpen} aria-current={on ? 'page' : undefined} title={`Saved search: ${s.name}`}
-      className={`flex min-h-8 w-full items-center justify-between gap-2 rounded-[var(--radius-ctl)] px-2.5 text-left text-sm ${on ? 'bg-accent-soft font-medium text-ink' : 'text-ink-2 hover:bg-paper-2'}`}>
-      <span className="truncate">{s.name}</span>
+      className={`group flex min-h-9 w-full items-center gap-2.5 rounded-[var(--radius-ctl)] px-2.5 text-left text-sm ${on ? 'bg-accent-soft font-medium text-ink' : 'text-ink-2 hover:bg-paper-2 hover:text-ink'}`}>
+      <span className={on ? 'text-accent' : 'text-muted group-hover:text-ink-2'}><Icon name="search" /></span>
+      <span className="min-w-0 flex-1 truncate">{s.name}</span>
       {n > 0 && <span className="chip chip-act measured shrink-0">{fmt(n)} new</span>}
     </button>
   )
@@ -503,12 +508,18 @@ function SavedSearchBanner({ s, build, onlyNew, lists, onAddNew, onOnlyNew, onRu
   )
 }
 
+// a sidebar section label: small caps, so it never reads as one of the rows it heads
+function NavHeading({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+  return <h2 className={`mb-2 hidden px-2.5 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-muted lg:block ${className}`}>{children}</h2>
+}
+
 function NewList({ onCreate }: { onCreate: (name: string) => void }) {
   const [open, setOpen] = useState(false)
   const [name, setName] = useState('')
   if (!open) {
     return (
-      <button type="button" className="mt-1 hidden min-h-8 px-2.5 text-sm text-muted underline underline-offset-4 hover:text-ink lg:block" onClick={() => setOpen(true)}>
+      <button type="button" className="mt-0.5 hidden min-h-9 w-full items-center gap-2.5 rounded-[var(--radius-ctl)] px-2.5 text-left text-sm text-muted hover:bg-paper-2 hover:text-ink lg:flex" onClick={() => setOpen(true)}>
+        <Icon name="plus" />
         New list
       </button>
     )

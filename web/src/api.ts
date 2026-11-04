@@ -20,10 +20,30 @@ export const SIGN_IN = 'recon:sign-in'
 let signInNeeded = false
 export const needsSignIn = () => signInNeeded
 
+const pause = (ms: number, signal?: AbortSignal) => new Promise<void>((done, fail) => {
+  const t = setTimeout(done, ms)
+  signal?.addEventListener('abort', () => { clearTimeout(t); fail(signal.reason) }, { once: true })
+})
+
+// worth asking again: throttled, briefly unavailable, or an error page from the tunnel in front of the
+// app (ngrok marks its own with this header, e.g. while its session reconnects)
+const transient = (r: Response) => [429, 502, 503, 504].includes(r.status) || r.headers.has('ngrok-error-code')
+
 async function call<T>(path: string, body?: unknown, signal?: AbortSignal, method?: string): Promise<T> {
-  const r = await fetch(`./api/${path}`, body === undefined && !method ? { signal } : {
+  const send = () => fetch(`./api/${path}`, body === undefined && !method ? { signal } : {
     method: method ?? 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body ?? {}), signal,
   })
+  // a dropped connection or a transient answer is retried with backoff (about 3 s in all) before giving up
+  let r!: Response
+  for (let wait = 400; ; wait *= 2) {
+    try {
+      r = await send()
+      if (!transient(r) || wait > 1600) break
+    } catch (e) {
+      if (signal?.aborted || wait > 1600) throw e
+    }
+    await pause(wait + Math.random() * 200, signal)
+  }
   if (r.status === 401 && path !== 'login') {
     signInNeeded = true
     window.dispatchEvent(new Event(SIGN_IN))
