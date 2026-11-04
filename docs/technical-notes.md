@@ -235,3 +235,24 @@ written plan ([`plan.md`](../plan.md)) → extractor tested on the sample → fu
 while building identity and scoring on the sample → full build → review the top of the ranking →
 fix → repeat. An independent agent produced the evaluation labels so the measurement isn't graded by
 the same reasoning that built the pipeline.
+
+## Added after the first build
+
+- **One catalogue** (`web/src/catalog.json`): products, sectors and the ten signal templates, each with
+  a rule written as data (an OR of clauses, each an AND of conditions on signals, KEV, tier, maturity,
+  new). The app (`web/src/plays.ts`) and the MCP server (`mcp_server/data.py`) evaluate the same rules.
+- **CVE in the news** (`pipeline/cve_index.py`): the build writes notable CVEs per service (KEV, EPSS
+  >= 0.1 or CVSS >= 9) for every attributed company (907k company-CVE pairs over 1,710 CVEs). The index
+  ships one file per CVE (accounts in the app in full, the rest summarised to the top 300) plus a
+  760 KB lookup enriched from the CISA KEV catalogue: date added, ransomware use, vendor and product,
+  mapped to a software family for the fallback. Tested against a direct query (`tests/test_cve_index.py`).
+- **Peer benchmark** (`pipeline/export.py`): risk = need x urgency, ranked within industry + country,
+  then industry, then country, over all 131k scored companies, minimum 30 peers. Peer industries use
+  the keyword rules for every company; an industry group is used only when it agrees with the
+  industry the app shows.
+- **Exposure brief** (`web/src/Brief.tsx`, `?brief=<account>`): printable, evidence only, with fixed
+  guidance per signal (`web/src/guidance.ts`).
+- **MCP server** (`mcp_server/`): six deterministic tools over the published data; protocol tests in
+  `tests/test_mcp_server.py`; accuracy evaluation in `mcp_server/eval/`.
+- **Segments and Lists** live in the browser (localStorage) in this demo; a `?import=` link from the
+  MCP server adds accounts to the list.
