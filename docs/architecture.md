@@ -18,7 +18,7 @@ into (dashed).
 flowchart LR
   files[("<b>Scan files</b><br/>hundreds to thousands a month,<br/>billions of banners")] --> ingest["<b>Ingest</b><br/>one worker per file"]
   ingest --> lake[("<b>Parquet by scan</b>")]
-  lake --> build["<b>Build</b><br/>removes noise, identifies the company,<br/>finds signals, scores"]
+  lake --> build["<b>Build</b><br/>removes noise, names the company,<br/>checks each claim against the record,<br/>scores"]
   build --> store[("<b>Serving store</b><br/>a new folder per build")]
   store --> api["<b>API</b><br/>FastAPI, DuckDB"]
   appdb[("<b>App database</b><br/>users, lists, saved searches")] <--> api
@@ -39,18 +39,19 @@ flowchart TD
   lake --> noise["Remove noise (pipeline/build.py)"]
   noise -.->|"5.6M CDN edges"| dropped(["dropped"])
   noise -.->|"1.52M phantom IPs"| dropped
-  noise -.->|"293k honeypot-IP records"| dropped
-  noise --> real["5.99M real services"]
+  noise -.->|"293k on honeypot IPs, 431 Tor relays"| dropped
+  noise --> real["5.97M real services"]
   real --> identity["<b>Identify the company</b><br/>TLS cert, AD domain, HTTP host,<br/>reverse DNS or IP owner,<br/>shared across ports of one IP"]
-  labels[("<b>LLM label cache</b><br/>4,430 names labelled")] --> identity
-  identity --> attributed["917k services, 298k companies"]
+  labels[("<b>LLM label cache</b><br/>7,328 names labelled")] --> identity
+  identity --> attributed["907k services, 295k companies"]
   attributed --> signals["<b>Find risk signals</b><br/>22 per service, pipeline/signals.py"]
-  signals --> score["<b>Score each company</b><br/>need × urgency × fit, tiers P1 / P2 / P3"]
+  signals --> check["<b>Check each claim against the record</b><br/>a CVE needs its product's version on the banner,<br/>not a distro package patched in place;<br/>end of life from the OS release or component;<br/>a port needs a reply in its protocol"]
+  check --> score["<b>Score each company</b><br/>need × urgency × fit, tiers P1 / P2 / P3"]
   score --> risky["39,190 companies with real risk"]
   risky --> export["<b>Export</b><br/>pipeline/export.py<br/>masks IPs to /24, adds peer ranks,<br/>template flags, the count cube"]
   risky --> cveidx["<b>CVE hits</b><br/>pipeline/cve_index.py<br/>854 CVEs, 42,105 company matches"]
   kev[("CISA KEV v2026.11.03")] --> cveidx
-  export --> published[("<b>Serving store</b><br/>data/serve/&lt;build&gt;, 45 MB")]
+  export --> published[("<b>Serving store</b><br/>data/serve/&lt;build&gt;, 11 MB")]
   cveidx --> published
   published --> api["<b>API</b><br/>DuckDB over the Parquet"]
   api --> app["<b>Web app</b>"]
@@ -288,6 +289,8 @@ for a full stream of files and many users, with the point at which each is neede
 | Ingest idempotency | Keyed on source path, size and modification time | Content hash; scan id from the observation times |
 | Data quality | The export fails on a full IP, duplicate ids or orphan evidence | Plus row-count and null-rate drift checks against the previous build |
 | LLM label cache | Keyed by name | Keyed by name, model and prompt version, so a prompt change relabels |
+| LLM labelling cost | Claude Haiku, 40 names a request, only names never labelled before | The Batch API (half price, results within the day); a cheap first-stage classifier so only uncertain names reach the LLM ([technical notes §7](technical-notes.md#7-where-an-llm-is-used-how-its-checked-and-what-it-costs)) |
+| Observability | Build funnel counts in `funnel.json`, LLM tokens per run in `llm_usage.json` | OpenTelemetry traces across every service, below |
 | Serving store | Parquet on local disk, DuckDB in the API process | Past tens of millions of accounts or many concurrent users: the same API on ClickHouse (or Postgres with indexes), partitioned by country, a search index for names, the cube materialised per build |
 | User state | SQLite in WAL mode on one API host | Postgres: several API instances, teams sharing workspaces, point-in-time recovery; a runner that re-executes saved searches per build and notifies |
 | Sign-in | Configured users with scrypt-hashed passwords, server-side sessions | SSO (OIDC), identity-provider groups mapped to team workspaces, audit log |
@@ -295,3 +298,44 @@ for a full stream of files and many users, with the point at which each is neede
 Unchanged at any scale: ingest streams with bounded memory and renames atomically, DuckDB spills to
 disk, CVE results grow with the number of CVEs rather than companies, evidence is capped per company,
 and LLM cost grows with distinct new names, not records.
+
+### Tracing a request end to end
+
+This is the production design; none of it is built yet. In production Recon is several services: ingest workers, build workers, the labelling job, the FastAPI
+read API, the MCP server and the web app. I'd use OpenTelemetry so that any request can be followed
+through all of them as one trace. Each service passes the trace context on: the standard W3C
+`traceparent` header on HTTP calls, and a message attribute on the work queue. Every span then joins
+the same trace, whichever service it was recorded in.
+
+```mermaid
+flowchart LR
+  subgraph seller["A seller's request"]
+    direction LR
+    c(["Claude"]) -->|"MCP tool call"| m["<b>MCP server</b><br/>span: tool, arguments"]
+    m -->|"HTTP + traceparent"| a["<b>FastAPI</b><br/>span: endpoint, status"]
+    a --> q[("<b>DuckDB query</b><br/>span: query, rows, ms")]
+    a --> u[("<b>User database</b><br/>span: lists, saved searches")]
+  end
+  subgraph file["A scan file's journey"]
+    direction LR
+    f(["New file"]) -->|"queue message + traceparent"| i["<b>Ingest</b><br/>span: records in and out"]
+    i --> b["<b>Build</b><br/>a span per stage, with counts:<br/>noise, identity, signals, scores"]
+    b -->|"only new names"| l["<b>LLM labelling</b><br/>span: model, tokens, cache, cost"]
+    b --> s[("<b>Serving store</b><br/>span: build published")]
+  end
+  seller -.->|"every span, over OTLP"| o[("<b>Tracing backend</b><br/>Grafana, Honeycomb, Datadog")]
+  file -.->|"every span, over OTLP"| o
+```
+
+- **A seller's request.** Claude calls an MCP tool, the MCP server calls the API, and the API queries
+  DuckDB and the user database. One trace shows where the time went and which step failed.
+- **A scan file's journey.** A new file lands, a worker ingests it, and the build removes noise, names
+  companies, labels new names and scores. Each stage is a span carrying its record counts, so the trace
+  shows how long a file takes to reach sellers, and whether a stage behaved oddly (a sudden jump in
+  honeypots, say, or a drop in companies identified).
+- **The LLM's cost rides on the same traces.** The Anthropic SDK can emit spans with the model, tokens
+  and cache use in OpenTelemetry's standard GenAI fields, so cost per file sits next to latency, and a
+  file that suddenly costs ten times the usual raises an alert.
+
+FastAPI and HTTP clients have ready-made OpenTelemetry instrumentation; the pipeline stages and MCP
+tools need a span each, opened where the funnel counts are already computed.

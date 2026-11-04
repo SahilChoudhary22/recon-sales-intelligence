@@ -169,7 +169,8 @@ play. Covered by `tests/test_build_scans.py`.
 
 ## 7. Where an LLM is used, how it's checked, and what it costs
 
-**Where:** one place only. It classifies **distinct names** behind ranked accounts (WHOIS orgs and
+**Where:** one place in the pipeline. (Agents were also used to build and measure it: the audit and
+the blind reviewers in §8.) It classifies **distinct names** behind ranked accounts (WHOIS orgs and
 domains) as carrier / hoster / business / government / education, and gives an industry. Rules can't
 know that "Etihad Etisalat" is a carrier or "Kamatera" a hoster; a model can. Labels only overrule
 the heuristics at medium/high confidence. It is a **batch enrichment step**, not a runtime call: the
@@ -195,6 +196,24 @@ Pydantic schema, disk cache, per-call token logging).
 - Estimate for the API path: ~40 names per request at ~2.5k in + ~2k out ≈ **$0.08 per 3,000 names**.
   Roughly cents per file in production, and falling, because the cache carries over (orgs repeat
   month to month).
+
+**Cutting the cost further.** Labelling is already cheap because it runs once per distinct name. In
+production, in order of effort:
+- **Batch API.** Labelling is an offline job, so the Message Batches API halves its price (results
+  usually within the hour, always within 24) with no other change. OpenAI offers the same pattern.
+- **Low effort.** Claude Haiku 5.5 reasons by default; a one-word label doesn't need it, so low effort
+  cuts the hidden reasoning tokens.
+- **Short, typed answers.** Output costs five times input on Haiku ($0.50 vs $0.10 per million), so
+  labels come back as compact structured output with no explanations.
+- **Prompt caching, when the prompt grows.** Cached input reads cost a tenth of the normal price, but
+  Haiku 5.5 caches only prefixes of 512 tokens or more. Today's instructions are shorter, so caching
+  saves nothing yet; it pays once the prompt carries worked examples to raise accuracy.
+- **A cheap first stage.** The largest saving is a cascade: a cheap classifier labels the names it is
+  confident about, and only the rest reach the LLM. Two candidates: a new non-generative decision
+  model such as Jev (TypeSafe AI, September 2026), which takes the label list per request and returns a
+  calibrated confidence; or a small classifier trained on the 7,328 labels already collected, which
+  runs locally for free. I'd pick between them by agreement with the blind gold labels (§8), and on
+  cost.
 
 **How it's checked:** compared against the blind gold labels (§8). On names both labeled,
 buyer-vs-infrastructure agreement is **83% (gold v1, n=47) and 87% (gold v2, n=38)**. The main

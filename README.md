@@ -11,6 +11,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.12-3776ab?logo=python&logoColor=white" alt="Python 3.12" />
+  <img src="https://img.shields.io/badge/FastAPI-API-009688?logo=fastapi&logoColor=white" alt="FastAPI" />
   <img src="https://img.shields.io/badge/DuckDB-SQL%20over%20Parquet-fff000?logo=duckdb&logoColor=black" alt="DuckDB" />
   <img src="https://img.shields.io/badge/TypeScript-React%2019-3178c6?logo=typescript&logoColor=white" alt="TypeScript and React 19" />
   <img src="https://img.shields.io/badge/MCP-server-6b46c1" alt="MCP server" />
@@ -37,6 +38,10 @@ line a seller can send comes from something the scan actually saw.
 From one file of 13.4M scan records, Recon finds 39,190 companies with real security problems. Blind
 reviewers rejected 6% of the claims it makes about them, against 44% when the scanner's own labels
 are taken at face value, and 72% of its top accounts are real, correctly named companies.
+
+**Built with:** Python 3.12, FastAPI and DuckDB for the pipeline and the API; React 19 and TypeScript
+(Vite, on the Node.js 22 toolchain) for the app; SQLite for users' lists; the MCP Python SDK; Claude
+Haiku through the Anthropic SDK, with Pydantic-typed outputs, for labelling.
 
 ## Features
 
@@ -93,7 +98,7 @@ Tests: `uv run pytest`. MCP server: `uv run python -m mcp_server.server`. Benchm
 flowchart LR
   files[("<b>Scan files</b><br/>hundreds to thousands a month,<br/>billions of banners")] --> ingest["<b>Ingest</b><br/>one worker per file"]
   ingest --> lake[("<b>Parquet</b><br/>~1.2 GB a file")]
-  lake --> build["<b>Build</b><br/>removes noise, identifies<br/>the company, scores"]
+  lake --> build["<b>Build</b><br/>removes noise, names the company,<br/>checks each claim against<br/>the record, scores"]
   labels[("<b>LLM label cache</b>")] --> build
   kev[("<b>CISA KEV</b>")] --> build
   build --> store[("<b>Serving store</b><br/>one row per company,<br/>a new folder per build")]
@@ -136,8 +141,8 @@ config:
 ---
 sankey-beta
 Banners scanned,CDN edges (dropped),5.60
-Banners scanned,Phantom IPs (dropped),1.52
-Banners scanned,Honeypot IPs (dropped),0.29
+Banners scanned,IPs answering on 50+ ports (dropped),1.52
+Banners scanned,Honeypots (dropped),0.29
 Banners scanned,Real services,5.97
 Real services,Tied to a company,0.91
 Real services,Owner not identifiable,5.06
@@ -220,7 +225,8 @@ Then, is what Recon says about them true? Each risk claim was judged against the
 The rest are "unclear": all of them two PHP CVEs CISA listed in late October 2026 without affected
 versions. With 60 accounts the margin is about ±12 points. The LLM labels agreed with the blind
 reviewers on carrier versus business 83 to 87% of the time, and labelling 7,328 names with Claude Haiku
-cost $0.26 to $1.28. Every sample, verdict and step is in
+cost $0.26 to $1.28 (how I'd cut that further in production, with the Batch API and a cheap
+first-stage classifier, is in [the technical notes](docs/technical-notes.md#7-where-an-llm-is-used-how-its-checked-and-what-it-costs)). Every sample, verdict and step is in
 [docs/technical-notes.md](docs/technical-notes.md#8-how-it-was-measured), including a scoring change
 that made things worse and was reverted.
 
@@ -260,6 +266,14 @@ first call for a salesperson's request?
   so they can't claim something the scan didn't see.
 - **IPs masked to /24, nothing served without sign-in.** A public list of vulnerable hosts is a target
   list.
+- **Agents, not a chatbot.** I put LLMs where they change the result, not in a chat window on top. In
+  the pipeline, Claude Haiku labels every organisation name rules can't classify, with measured
+  accuracy and logged cost. In the development loop, independent agents audited every signal against
+  the raw records and blind reviewers measured each fix. For sellers, the MCP server gives any
+  assistant Recon's search, accounts and lists as ten deterministic tools, so "find UK firewall
+  accounts with exploited CVEs and add them to my list" is one request (tested at 40/40). Next would be
+  agents that work unasked: one that re-runs each template when a new scan lands and briefs the seller
+  on what changed, and one that turns an account's evidence into a call plan.
 
 SQLite versus Postgres for users' work, the count cube and the other serving choices are in
 [docs/architecture.md](docs/architecture.md).
@@ -280,7 +294,10 @@ Measured on the real store and on synthetic ones 10× and 100× its size (median
 | Account, evidence | 3.0, 1.8 | 5.3, 2.6 | 37, 20 |
 
 What changes for a full stream of files and many users, and when, is in
-[docs/architecture.md](docs/architecture.md#7-the-production-path).
+[docs/architecture.md](docs/architecture.md#7-the-production-path), including how I'd trace every
+request end to end across the services with OpenTelemetry: a seller's request from the assistant
+through the MCP server, the API and the database, and each scan file from arrival to the accounts it
+changes.
 
 ## MCP server
 
