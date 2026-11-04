@@ -59,7 +59,10 @@ const withCounts = (opts: [string, string][], counts: [string, number][] | undef
 
 export default function App() {
   const [f, setF] = useState<ViewState>(readUrl)
-  const [guide, setGuide] = useState(() => !guideSeen())
+  // the tour starts by itself on a first visit once the profile card is out of the way; asked for
+  // from the header, it always opens
+  const [guide, setGuide] = useState<'auto' | 'asked' | null>(() => (guideSeen() ? null : 'auto'))
+  const [icpPing, setIcpPing] = useState(0)
   const [product, setProductState] = useState(readProduct)
   const [naming, setNaming] = useState(false)
   const lists = useLists()
@@ -197,7 +200,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen">
-      <Header data={data} onGuide={() => setGuide(true)} onIcp={() => { setEditingIcp(true); window.scrollTo({ top: 0 }) }} icpOn={profileOn} />
+      <Header data={data} onGuide={() => setGuide('asked')} onIcp={() => { setEditingIcp(true); setIcpPing((n) => n + 1) }} icpOn={profileOn} />
       <div className="mx-auto max-w-[112rem] lg:grid lg:grid-cols-[16rem_minmax(0,1fr)] 2xl:grid-cols-[16rem_minmax(0,1fr)_minmax(0,34rem)]">
         <nav aria-label="Views" className="flex gap-4 overflow-x-auto border-b border-rule px-4 py-3 lg:block lg:overflow-visible lg:border-b-0 lg:border-r lg:px-3 lg:py-5">
           <div data-tour="mylist" className="shrink-0 lg:mb-5">
@@ -250,7 +253,7 @@ export default function App() {
         </nav>
 
         <main className="min-w-0 px-4 py-5 sm:px-6">
-          {showIcp && data && <IcpCard initial={{ ...profile, product }} first={!profileSeen} onSave={saveIcp} onClose={closeIcp} />}
+          {showIcp && data && <IcpCard initial={{ ...profile, product }} first={!profileSeen} ping={icpPing} onSave={saveIcp} onClose={closeIcp} />}
 
           {openSearch ? (
             <SavedSearchBanner s={openSearch} build={build} onlyNew={f.onlyNew} listed={lists.listed}
@@ -374,7 +377,7 @@ export default function App() {
 
         <Detail key={selected?.id ?? 'none'} account={selected} meta={data} lists={lists} highlight={cveIds} personas={profile.personas} onClose={() => set({ id: null })} />
       </div>
-      {guide && data && !showIcp && <Tour onClose={() => setGuide(false)} />}
+      {data && (guide === 'asked' || (guide === 'auto' && !showIcp)) && <Tour onClose={() => setGuide(null)} />}
     </div>
   )
 }

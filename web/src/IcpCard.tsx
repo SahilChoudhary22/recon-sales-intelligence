@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Sector } from './types'
 import { PERSONAS, SIZES, icpFilters, type Icp, type Persona, type Size } from './icp'
 import { PRODUCTS, SECTORS } from './plays'
@@ -11,10 +11,19 @@ const fmt = (n: number) => n.toLocaleString('en-US')
 // working, so a seller who'd rather filter by hand just carries on. Each part opens a picker whose
 // badges are counts from the server's count cube (each group's own choice left out), so they cost the
 // same at any number of accounts.
-export function IcpCard({ initial, first, onSave, onClose }: {
-  initial: Icp; first: boolean; onSave: (icp: Icp) => void; onClose: () => void
+export function IcpCard({ initial, first, ping, onSave, onClose }: {
+  initial: Icp; first: boolean; ping: number; onSave: (icp: Icp) => void; onClose: () => void
 }) {
   const [p, setP] = useState<Icp>({ ...initial, active: true })
+  // "Your ICP" in the header brings the card into view and marks it, even when it is already open
+  const card = useRef<HTMLElement>(null)
+  useEffect(() => {
+    const el = card.current
+    if (!ping || !el) return
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    el.focus({ preventScroll: true })
+    el.animate([{ boxShadow: '0 0 0 3px var(--color-accent)' }, { boxShadow: '0 0 0 3px transparent' }], { duration: 1400, easing: 'ease-out' })
+  }, [ping])
   const set = (patch: Partial<Icp>) => setP((cur) => ({ ...cur, ...patch }))
 
   const draft = useDebounced(icpFilters(p), 120)
@@ -31,7 +40,8 @@ export function IcpCard({ initial, first, onSave, onClose }: {
   const sizes: Option[] = SIZES.map(([k, l, hint]) => [k, `${l} (${hint})`, nSize.get(k) ?? 0])
 
   return (
-    <section aria-labelledby="icp-title" className="mb-5 rounded-[var(--radius-card)] border border-rule-2 bg-paper-2 px-5 py-4">
+    <section ref={card} tabIndex={-1} aria-labelledby="icp-title"
+      className="mb-5 rounded-[var(--radius-card)] border border-rule-2 bg-paper-2 px-5 py-4 outline-none">
       <div className="flex items-baseline justify-between gap-4">
         <h2 id="icp-title" className="text-lg text-ink">Your ideal customer profile</h2>
         <button type="button" className="text-sm text-muted underline underline-offset-4 hover:text-ink" onClick={onClose}>
