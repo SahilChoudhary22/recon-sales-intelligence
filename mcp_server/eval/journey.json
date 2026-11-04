@@ -1,0 +1,200 @@
+[
+ {
+  "id": 301,
+  "request": "Find firewall/VPN accounts with exploited CVEs in the UK or Ireland.",
+  "expect": [
+   {
+    "tool": "search_accounts",
+    "args": {
+     "template": "edge-kev",
+     "country": [
+      "GB",
+      "IE"
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": 302,
+  "request": "Show me small companies, just a handful of IPs, with RDP or databases open in Germany.",
+  "expect": [
+   {
+    "tool": "search_accounts",
+    "args": {
+     "template": "remote",
+     "country": "DE",
+     "size": "small"
+    }
+   }
+  ]
+ },
+ {
+  "id": 303,
+  "request": "Which US accounts running on-prem Exchange haven't I put in a list yet?",
+  "expect": [
+   {
+    "tool": "search_accounts",
+    "args": {
+     "template": "exchange",
+     "country": "US",
+     "not_in_my_lists": true
+    }
+   }
+  ]
+ },
+ {
+  "id": 304,
+  "request": "Ignore my profile for a moment and show me the top P1 accounts across the whole market.",
+  "expect": [
+   {
+    "tool": "search_accounts",
+    "args": {
+     "template": "p1",
+     "use_my_profile": false
+    }
+   },
+   {
+    "tool": "search_accounts",
+    "args": {
+     "tier": "P1",
+     "use_my_profile": false
+    }
+   }
+  ]
+ },
+ {
+  "id": 305,
+  "request": "Mark chevron.com and toyota.com as contacted.",
+  "expect": [
+   {
+    "tool": "update_accounts",
+    "args": {
+     "account_ids": [
+      "chevron.com",
+      "toyota.com"
+     ],
+     "status": "contacted"
+    }
+   }
+  ]
+ },
+ {
+  "id": 306,
+  "request": "I booked a meeting with bbc.com.",
+  "expect": [
+   {
+    "tool": "update_accounts",
+    "args": {
+     "account_ids": [
+      "bbc.com"
+     ],
+     "status": "meeting"
+    }
+   }
+  ]
+ },
+ {
+  "id": 307,
+  "request": "Take usp.br out of my Q4 targets list.",
+  "expect": [
+   {
+    "tool": "update_accounts",
+    "args": {
+     "account_ids": [
+      "usp.br"
+     ],
+     "remove_from_list": "Q4 targets"
+    }
+   }
+  ]
+ },
+ {
+  "id": 308,
+  "request": "chevron.com turned out not to be a fit for us.",
+  "expect": [
+   {
+    "tool": "update_accounts",
+    "args": {
+     "account_ids": [
+      "chevron.com"
+     ],
+     "status": "not_a_fit"
+    }
+   }
+  ]
+ },
+ {
+  "id": 309,
+  "request": "Give me an opening line I can use with turkishbank.co.uk.",
+  "expect": [
+   {
+    "tool": "get_account",
+    "args": {
+     "account_id": "turkishbank.co.uk"
+    }
+   }
+  ]
+ },
+ {
+  "id": 310,
+  "request": "Add mid-size and large healthcare organisations with end-of-life Windows to a list called EOL health.",
+  "expect": [
+   {
+    "tool": "make_list",
+    "args": {
+     "template": "legacy",
+     "industry": "Healthcare",
+     "size": [
+      "mid",
+      "large"
+     ],
+     "list_name": "EOL health"
+    }
+   }
+  ]
+ },
+ {
+  "id": 311,
+  "request": "Save a search for on-prem Exchange in Germany or Austria and call it DACH Exchange.",
+  "expect": [
+   {
+    "tool": "save_search",
+    "args": {
+     "name": "DACH Exchange",
+     "template": "exchange",
+     "country": [
+      "DE",
+      "AT"
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": 312,
+  "request": "Which companies in France or Belgium are exposed to ProxyShell?",
+  "expect": [
+   {
+    "tool": "cve_exposure",
+    "args": {
+     "cve_or_name": "proxyshell",
+     "country": [
+      "FR",
+      "BE"
+     ]
+    }
+   },
+   {
+    "tool": "cve_exposure",
+    "args": {
+     "cve_or_name": "CVE-2021-34473",
+     "country": [
+      "FR",
+      "BE"
+     ]
+    }
+   }
+  ]
+ }
+]

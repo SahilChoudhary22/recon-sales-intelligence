@@ -239,10 +239,15 @@ coming back "not a fit" sinks. The blind reviews stand in for that until real ou
 The MCP tools were tested the same way: given only the tool schemas, does an assistant make the right
 first call for a salesperson's request?
 
-| First call correct | First descriptions | Revised, same 18 | Revised, 12 new | All ten tools, 40 requests |
-| --- | --- | --- | --- | --- |
-| Claude Sonnet | 10/18 | 17/18 | 12/12 | 40/40 |
-| Claude Haiku | 8/18 | 18/18 | 12/12 | 40/40 |
+| First call correct | First descriptions | Revised, same 18 | Revised, 12 new | Ten tools, 40 requests | Eleven tools, 52 requests |
+| --- | --- | --- | --- | --- | --- |
+| Claude Sonnet | 10/18 | 17/18 | 12/12 | 40/40 | 51/52 |
+| Claude Haiku | 8/18 | 18/18 | 12/12 | 40/40 | 52/52 |
+
+The 12 requests added for the eleven-tool server (several values in one filter, estate size, "not in
+my lists", the profile, statuses, removing from a list, opening lines) were all answered right by both
+models; Sonnet's one miss is a request the very first rubric scored strictly ("Look up Toyota" answered
+with `get_account("toyota.com")`, which works). [Every run →](mcp_server/eval/results.md)
 
 ## Key decisions
 
@@ -270,8 +275,9 @@ first call for a salesperson's request?
   the pipeline, Claude Haiku labels every organisation name rules can't classify, with measured
   accuracy and logged cost. In the development loop, independent agents audited every signal against
   the raw records and blind reviewers measured each fix. For sellers, the MCP server gives any
-  assistant Recon's search, accounts and lists as ten deterministic tools, so "find UK firewall
-  accounts with exploited CVEs and add them to my list" is one request (tested at 40/40). Next would be
+  assistant Recon's search, accounts, lists and statuses as eleven deterministic tools, so "find UK
+  firewall accounts with exploited CVEs and add them to my list" is one request (51 and 52 of 52 test
+  requests answered with the right first call). Next would be
   agents that work unasked: one that re-runs each template when a new scan lands and briefs the seller
   on what changed, and one that turns an account's evidence into a call plan.
 
@@ -301,8 +307,11 @@ changes.
 
 ## MCP server
 
-Ten tools over the same data and the same user lists as the app. The assistant handles the language;
-the tools are plain queries, so nothing on Recon's side runs a model. The hosted app serves it at `/mcp`:
+Everything a seller does while prospecting in the app, they can ask their assistant for: the same
+filters (several values in one, estate size, "not in my lists"), their ideal customer profile applied
+by default, accounts with an opening line, lists, statuses and saved searches. Eleven tools over the
+same data and the same user lists as the app; the assistant handles the language, and the tools are
+plain queries, so nothing on Recon's side runs a model. The hosted app serves it at `/mcp`:
 
 ```bash
 claude mcp add --transport http recon https://<host>/mcp --header "Authorization: Bearer <token>"
@@ -312,14 +321,19 @@ claude mcp add --transport http recon https://<host>/mcp --header "Authorization
 | --- | --- |
 | `dataset_overview()` | The scan and how many records survived each step |
 | `list_signal_templates(product)` | Templates, with those built for your product first |
-| `search_accounts(template, country, industry, sector, software, ...)` | Ranked accounts and a link to the same view |
-| `get_account(account_id)` | Score breakdown, peer rank, evidence by signal |
+| `search_accounts(template, country, industry, sector, software, size, ...)` | Ranked accounts, the profile applied, a link to the same view |
+| `get_account(account_id)` | Score breakdown, peer rank, evidence by signal, an opening line |
 | `cve_exposure(cve_or_name, ...)` | CVE facts and affected accounts |
 | `make_list(account_ids or template + filters, list_name)` | Adds accounts, or a search's results, to a list |
 | `my_lists()` | The seller's lists and what's new in each saved search |
 | `save_search(name, template, filters)` | A saved search the seller can re-run in the app |
 | `whats_new(saved_search, mark_reviewed)` | Accounts new since the last review and in no list |
+| `update_accounts(account_ids, status, remove_from_list)` | Sets statuses (contacted, meeting booked…) or removes from a list |
 | `export_crm_tasks(account_ids)` | CRM call tasks as CSV, filled from the evidence |
+
+A seller's week in plain requests ("find UK or Irish companies with an exploited firewall that I
+haven't listed", "I booked a meeting with bbc.com", "Citrix Bleed is in the news: who's exposed?") and
+the call each becomes: [mcp_server/README.md](mcp_server/README.md#a-sellers-week-in-plain-requests).
 
 ## How it was built
 

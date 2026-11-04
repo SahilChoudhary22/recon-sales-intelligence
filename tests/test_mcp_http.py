@@ -38,7 +38,7 @@ def test_lists_and_calls_tools(client):
     h = {**HEAD, "authorization": "Bearer test-token"}
     assert client.post("/mcp", json=INIT, headers=h).json()["result"]["serverInfo"]["name"] == "Recon"
     tools = client.post("/mcp", json={"jsonrpc": "2.0", "id": 2, "method": "tools/list"}, headers=h).json()
-    assert len(tools["result"]["tools"]) == 10
+    assert len(tools["result"]["tools"]) == 11
     r = client.post("/mcp", json={"jsonrpc": "2.0", "id": 3, "method": "tools/call",
                                   "params": {"name": "make_list", "arguments": {"account_ids": ["chevron.com"]}}}, headers=h).json()
     assert not r["result"].get("isError") and "My list" in r["result"]["content"][0]["text"]

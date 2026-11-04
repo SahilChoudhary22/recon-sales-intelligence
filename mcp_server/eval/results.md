@@ -4,6 +4,29 @@ Does an assistant, given only Recon's tool schemas, turn a salesperson's request
 first tool call? Scored by `score.py` (tool must match an accepted answer, every argument that answer
 names must match; extra arguments allowed). Models saw only the tool schemas and the request text.
 
+## v4: eleven tools, the app's filters, statuses
+
+The app could do things the MCP server couldn't: several values in one filter, estate size, "not in
+my lists", the seller's ideal customer profile, statuses, removing accounts from a list, the opening
+line. v4 extends the existing tools (lists or single values for `country`, `industry`, `sector`,
+`software` and `size`; `not_in_my_lists`; `use_my_profile`, on by default; the opening line, lists
+and status in `get_account`) and adds one tool, `update_accounts`. Renaming and deleting lists and
+searches stay in the app.
+
+Twelve new requests (`journey.json`, ids 301-312) were written with their accepted answers before the
+run, and the earlier 40 were re-run against the new schemas (`tools_v4.json`). The scorer now treats
+a list and a comma-separated string of the same values alike, as the server does; re-scoring the v3
+runs with it leaves them at 40/40.
+
+| First call correct (v4 tools) | Original 18 | Held-out 12 | Lists and saved searches 10 | New 12 | All 52 |
+|---|---|---|---|---|---|
+| Claude Sonnet | 17/18 | 12/12 | 10/10 | 12/12 | 51/52 |
+| Claude Haiku | 18/18 | 12/12 | 10/10 | 12/12 | 52/52 |
+
+Sonnet's miss is request 18, "Look up Toyota", answered with `get_account("toyota.com")`: it works, but
+the rubric fixed before the first run expected a search (the same case noted under v1 to v2). Runs:
+`run_v4_sonnet.json`, `run_v4_haiku.json`; requests and answers: `expected_v4.json`.
+
 ## v3: the full ten-tool server
 
 The current server (`tools_v3.json`, exported from a live `tools/list`) adds lists and saved searches

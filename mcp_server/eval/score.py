@@ -2,7 +2,8 @@
 
 A request counts as correct when the tool matches one of its accepted answers and every argument
 that answer specifies matches (strings compared case-insensitively by containment, country codes
-upper-cased, id lists as sets). Extra arguments are allowed.
+upper-cased, lists as sets, and a list or a comma-separated string of the same values treated alike, as
+the server reads them). Extra arguments are allowed.
 
 usage: python -m mcp_server.eval.score <run.json> [expected.json, default requests.json]
 """
@@ -12,11 +13,18 @@ import sys
 HERE = "mcp_server/eval"
 
 
+def _items(v):
+    """A filter value as the server reads it: a list, or a string of comma-separated values."""
+    return [str(x).strip().lower() for x in (v if isinstance(v, list) else str(v).split(",")) if str(x).strip()]
+
+
 def arg_ok(want, got):
-    if isinstance(want, list):
-        return isinstance(got, list) and {str(x).lower() for x in want} == {str(x).lower() for x in got}
+    if isinstance(want, list):  # same set of values, whether passed as a list or "GB,IE"
+        return isinstance(got, (list, str)) and set(_items(want)) == set(_items(got))
     if isinstance(want, bool) or isinstance(want, int):
         return got == want
+    if isinstance(got, list):  # one value asked for, passed as a one-item list
+        return len(got) == 1 and want.lower() in str(got[0]).lower()
     return isinstance(got, str) and want.lower() in got.lower()
 
 

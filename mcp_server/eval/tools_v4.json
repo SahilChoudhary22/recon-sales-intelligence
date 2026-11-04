@@ -1,0 +1,648 @@
+[
+ {
+  "name": "dataset_overview",
+  "description": "Where Recon's accounts come from: the scan, how many records survived each step (noise removal,\n    company identification, real risk), and the CISA KEV catalogue version used. Use it to explain or\n    cite the data behind any answer.",
+  "inputSchema": {
+   "properties": {},
+   "title": "dataset_overviewArguments",
+   "type": "object"
+  }
+ },
+ {
+  "name": "list_signal_templates",
+  "description": "List Recon's signal templates: ready-to-run searches, each built around one buying trigger.\n\n    product: optional product line the seller sells, one of firewall, email, endpoint, vuln, asm,\n    mdr, ot. Templates built for that product are marked for_you. Use the template id with\n    search_accounts.\n    ",
+  "inputSchema": {
+   "properties": {
+    "product": {
+     "default": "",
+     "title": "Product",
+     "type": "string"
+    }
+   },
+   "title": "list_signal_templatesArguments",
+   "type": "object"
+  }
+ },
+ {
+  "name": "search_accounts",
+  "description": "Find and rank companies that need security help now, from internet scan evidence.\n\ntemplate: the buying trigger to search for. Use one of these ids (or \"market\" for every account):\n  new: Newly exposed. A risky service that was not in the previous scan: the clearest reason to call this week.\n  p1: Top priority (P1). The 500 highest-priority accounts across every signal: this week\u2019s call list.\n  edge-kev: Firewall/VPN with exploited CVEs. An exposed firewall or VPN appliance plus CISA known-exploited CVEs in the same estate: the classic ransomware entry path.\n  edge: Exposed firewall/VPN appliances. FortiGate, NetScaler, SonicWall, Ivanti/Pulse or BIG-IP appliances answering on the internet: recognised by their own fingerprint, login or admin page, not by a certificate or header alone.\n  exchange: On-prem Exchange. Self-hosted Exchange or Outlook Web App on the internet: a ProxyShell-class attack surface.\n  remote: Open RDP, databases & shares. Remote access, databases or Windows file sharing reachable from the internet.\n  breach: Signs of a breach. A ransomed database, a remote-access trojan or a cryptominer running on the company's own address: it has already been breached.\n  ai: Exposed AI & MCP servers. Self-hosted AI apps (LiteLLM, Ollama, Dify, Flowise) or MCP servers answering on the public internet, often without a login.\n  legacy: Legacy Windows estates. End-of-life Windows Server, or NTLM banners leaking the internal Active Directory domain.\n  kev: Known-exploited CVEs. Software on a version affected by a CVE on CISA\u2019s Known Exploited Vulnerabilities list: verified by the scanner, or a versioned product that isn\u2019t a distro package patched in place.\n  ot: OT & IoT exposure. Industrial, medical or point-of-sale protocols and cameras on the internet.\n  mature: Already investing. Has a WAF, security.txt or post-quantum TLS but still has gaps.\nquery: part of a company or organisation name. tier: P1 (top 500 this week), P2 or P3. Ranked by priority,\nhighest first.\nFilters (each takes one value or a list; several values in one filter mean any of them, as in the app):\ncountry: ISO-2 codes (US, GB, DE, JP...); [\"GB\", \"IE\"] is UK or Ireland. industry: e.g. \"Financial services\",\n\"Healthcare\", \"Manufacturing\", \"Education\", \"Retail & e-commerce\", \"Energy & utilities\" (partial text matches).\nsector: commercial, public (public sector and education) or infra (telecom and hosting). software: a product family\nseen on their services, e.g. \"Fortinet FortiGate\", \"Microsoft Exchange\", \"Citrix NetScaler\", \"Microsoft SQL Server\".\nsize: estate size, small (1 to 5 IPs), mid (6 to 50) or large (more than 50). strong_identity: only accounts whose\nname comes from their own TLS certificate or domain. not_in_my_lists: leave out accounts already in any of the\nseller's lists. use_my_profile: apply the seller's ideal customer profile, as the app does (default true; the\nresponse says what was applied; pass false for the whole market).",
+  "inputSchema": {
+   "properties": {
+    "template": {
+     "default": "market",
+     "enum": [
+      "market",
+      "new",
+      "p1",
+      "edge-kev",
+      "edge",
+      "exchange",
+      "remote",
+      "breach",
+      "ai",
+      "legacy",
+      "kev",
+      "ot",
+      "mature"
+     ],
+     "title": "Template",
+     "type": "string"
+    },
+    "query": {
+     "default": "",
+     "title": "Query",
+     "type": "string"
+    },
+    "country": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      }
+     ],
+     "default": "",
+     "title": "Country"
+    },
+    "industry": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      }
+     ],
+     "default": "",
+     "title": "Industry"
+    },
+    "sector": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      }
+     ],
+     "default": "",
+     "title": "Sector"
+    },
+    "software": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      }
+     ],
+     "default": "",
+     "title": "Software"
+    },
+    "size": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      }
+     ],
+     "default": "",
+     "title": "Size"
+    },
+    "strong_identity": {
+     "default": false,
+     "title": "Strong Identity",
+     "type": "boolean"
+    },
+    "tier": {
+     "default": "",
+     "title": "Tier",
+     "type": "string"
+    },
+    "not_in_my_lists": {
+     "default": false,
+     "title": "Not In My Lists",
+     "type": "boolean"
+    },
+    "use_my_profile": {
+     "default": true,
+     "title": "Use My Profile",
+     "type": "boolean"
+    },
+    "limit": {
+     "default": 20,
+     "title": "Limit",
+     "type": "integer"
+    }
+   },
+   "title": "search_accountsArguments",
+   "type": "object"
+  }
+ },
+ {
+  "name": "get_account",
+  "description": "Everything Recon knows about one account: score breakdown, why now, the evidence by signal (IP addresses masked to /24), an opening line built only from that evidence, and the seller's lists and status for it. An account id is the company's own domain exactly as Recon shows it (e.g. chevron.com, toyota.com); pass it directly, no search needed. Accounts named only by the owner of their IP block use org:<name>.",
+  "inputSchema": {
+   "properties": {
+    "account_id": {
+     "title": "Account Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "account_id"
+   ],
+   "title": "get_accountArguments",
+   "type": "object"
+  }
+ },
+ {
+  "name": "cve_exposure",
+  "description": "Which companies run software affected by a vulnerability in the news.\n\ncve_or_name: a CVE id (CVE-2023-4966) or a well-known name (Citrix Bleed, ProxyShell, Log4Shell).\nReturns the CVE's facts (CVSS, EPSS, CISA KEV status and ransomware use) and the affected accounts\nranked by priority. A CVE not matched in the scan falls back to companies running the affected product.\nFilters (each takes one value or a list; several values in one filter mean any of them, as in the app):\ncountry: ISO-2 codes (US, GB, DE, JP...); [\"GB\", \"IE\"] is UK or Ireland. industry: e.g. \"Financial services\",\n\"Healthcare\", \"Manufacturing\", \"Education\", \"Retail & e-commerce\", \"Energy & utilities\" (partial text matches).\nsector: commercial, public (public sector and education) or infra (telecom and hosting). software: a product family\nseen on their services, e.g. \"Fortinet FortiGate\", \"Microsoft Exchange\", \"Citrix NetScaler\", \"Microsoft SQL Server\".\nsize: estate size, small (1 to 5 IPs), mid (6 to 50) or large (more than 50). strong_identity: only accounts whose\nname comes from their own TLS certificate or domain. not_in_my_lists: leave out accounts already in any of the\nseller's lists. use_my_profile: apply the seller's ideal customer profile, as the app does (default true; the\nresponse says what was applied; pass false for the whole market).",
+  "inputSchema": {
+   "properties": {
+    "cve_or_name": {
+     "title": "Cve Or Name",
+     "type": "string"
+    },
+    "country": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      }
+     ],
+     "default": "",
+     "title": "Country"
+    },
+    "industry": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      }
+     ],
+     "default": "",
+     "title": "Industry"
+    },
+    "sector": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      }
+     ],
+     "default": "",
+     "title": "Sector"
+    },
+    "size": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      }
+     ],
+     "default": "",
+     "title": "Size"
+    },
+    "strong_identity": {
+     "default": false,
+     "title": "Strong Identity",
+     "type": "boolean"
+    },
+    "not_in_my_lists": {
+     "default": false,
+     "title": "Not In My Lists",
+     "type": "boolean"
+    },
+    "use_my_profile": {
+     "default": true,
+     "title": "Use My Profile",
+     "type": "boolean"
+    },
+    "limit": {
+     "default": 20,
+     "title": "Limit",
+     "type": "integer"
+    }
+   },
+   "required": [
+    "cve_or_name"
+   ],
+   "title": "cve_exposureArguments",
+   "type": "object"
+  }
+ },
+ {
+  "name": "make_list",
+  "description": "Save accounts to one of the seller's lists in Recon (the same lists they see in the app), creating the list if it doesn't exist. Pass account ids, or a search (template and filters, as for search_accounts) to add its top results. Returns the list and a link to it. An account id is the company's own domain exactly as Recon shows it (e.g. chevron.com, toyota.com); pass it directly, no search needed. Accounts named only by the owner of their IP block use org:<name>.",
+  "inputSchema": {
+   "properties": {
+    "account_ids": {
+     "anyOf": [
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Account Ids"
+    },
+    "list_name": {
+     "default": "My list",
+     "title": "List Name",
+     "type": "string"
+    },
+    "template": {
+     "anyOf": [
+      {
+       "enum": [
+        "market",
+        "new",
+        "p1",
+        "edge-kev",
+        "edge",
+        "exchange",
+        "remote",
+        "breach",
+        "ai",
+        "legacy",
+        "kev",
+        "ot",
+        "mature"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Template"
+    },
+    "country": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      }
+     ],
+     "default": "",
+     "title": "Country"
+    },
+    "industry": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      }
+     ],
+     "default": "",
+     "title": "Industry"
+    },
+    "sector": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      }
+     ],
+     "default": "",
+     "title": "Sector"
+    },
+    "software": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      }
+     ],
+     "default": "",
+     "title": "Software"
+    },
+    "size": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      }
+     ],
+     "default": "",
+     "title": "Size"
+    },
+    "strong_identity": {
+     "default": false,
+     "title": "Strong Identity",
+     "type": "boolean"
+    },
+    "not_in_my_lists": {
+     "default": false,
+     "title": "Not In My Lists",
+     "type": "boolean"
+    },
+    "use_my_profile": {
+     "default": true,
+     "title": "Use My Profile",
+     "type": "boolean"
+    },
+    "limit": {
+     "default": 500,
+     "title": "Limit",
+     "type": "integer"
+    }
+   },
+   "title": "make_listArguments",
+   "type": "object"
+  }
+ },
+ {
+  "name": "my_lists",
+  "description": "The seller's lists (with how many accounts each holds) and saved searches (with how many accounts\n    are new since each was last reviewed and in none of their lists).",
+  "inputSchema": {
+   "properties": {},
+   "title": "my_listsArguments",
+   "type": "object"
+  }
+ },
+ {
+  "name": "save_search",
+  "description": "Save a search (a template and filters, as for search_accounts) so the seller can re-run it; its next run reports the accounts that are new since today and in none of their lists. With use_my_profile (default), the seller's ideal customer profile is saved with it, as in the app.",
+  "inputSchema": {
+   "properties": {
+    "name": {
+     "title": "Name",
+     "type": "string"
+    },
+    "template": {
+     "default": "market",
+     "enum": [
+      "market",
+      "new",
+      "p1",
+      "edge-kev",
+      "edge",
+      "exchange",
+      "remote",
+      "breach",
+      "ai",
+      "legacy",
+      "kev",
+      "ot",
+      "mature"
+     ],
+     "title": "Template",
+     "type": "string"
+    },
+    "country": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      }
+     ],
+     "default": "",
+     "title": "Country"
+    },
+    "industry": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      }
+     ],
+     "default": "",
+     "title": "Industry"
+    },
+    "sector": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      }
+     ],
+     "default": "",
+     "title": "Sector"
+    },
+    "software": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      }
+     ],
+     "default": "",
+     "title": "Software"
+    },
+    "size": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      }
+     ],
+     "default": "",
+     "title": "Size"
+    },
+    "strong_identity": {
+     "default": false,
+     "title": "Strong Identity",
+     "type": "boolean"
+    },
+    "use_my_profile": {
+     "default": true,
+     "title": "Use My Profile",
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "name"
+   ],
+   "title": "save_searchArguments",
+   "type": "object"
+  }
+ },
+ {
+  "name": "whats_new",
+  "description": "What a saved search finds that is new since it was last reviewed and not in any of the seller's lists, ranked. With mark_reviewed, the search's last review moves to now.",
+  "inputSchema": {
+   "properties": {
+    "saved_search": {
+     "title": "Saved Search",
+     "type": "string"
+    },
+    "limit": {
+     "default": 20,
+     "title": "Limit",
+     "type": "integer"
+    },
+    "mark_reviewed": {
+     "default": false,
+     "title": "Mark Reviewed",
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "saved_search"
+   ],
+   "title": "whats_newArguments",
+   "type": "object"
+  }
+ },
+ {
+  "name": "update_accounts",
+  "description": "Update accounts in the seller's lists: set their status (to_contact, contacted, meeting, not_a_fit) as they work them, and/or remove them from one list. An account given a status that is in none of their lists is added to 'My list' first, so its status shows in the app. An account id is the company's own domain exactly as Recon shows it (e.g. chevron.com, toyota.com); pass it directly, no search needed. Accounts named only by the owner of their IP block use org:<name>.",
+  "inputSchema": {
+   "properties": {
+    "account_ids": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Account Ids",
+     "type": "array"
+    },
+    "status": {
+     "anyOf": [
+      {
+       "enum": [
+        "to_contact",
+        "contacted",
+        "meeting",
+        "not_a_fit"
+       ],
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Status"
+    },
+    "remove_from_list": {
+     "default": "",
+     "title": "Remove From List",
+     "type": "string"
+    }
+   },
+   "required": [
+    "account_ids"
+   ],
+   "title": "update_accountsArguments",
+   "type": "object"
+  }
+ },
+ {
+  "name": "export_crm_tasks",
+  "description": "CRM-ready call tasks for accounts, one per row (company, subject, note, priority, link), as CSV to import into HubSpot or Salesforce. Subjects and notes are filled from the evidence. An account id is the company's own domain exactly as Recon shows it (e.g. chevron.com, toyota.com); pass it directly, no search needed. Accounts named only by the owner of their IP block use org:<name>.",
+  "inputSchema": {
+   "properties": {
+    "account_ids": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Account Ids",
+     "type": "array"
+    }
+   },
+   "required": [
+    "account_ids"
+   ],
+   "title": "export_crm_tasksArguments",
+   "type": "object"
+  }
+ }
+]

@@ -12,6 +12,7 @@ always give the same answer.
 import csv
 import io
 import os
+import re
 import urllib.parse
 
 from api.rules import CATALOG, TEMPLATES
@@ -39,11 +40,38 @@ def software_family(text):
     return next((f for f in FAMILIES if t and t in f.lower()), text)
 
 
-def query(template="market", query="", country="", industry="", sector="", software="", strong_identity=False,
-          tier="", ids=None):
-    return Query.make(template=template or "market", q=query, country=country.upper(), industry=industry,
-                      sector=sector, software=software_family(software) if software else (), strong=strong_identity,
-                      tier=tier, ids=ids)
+SIZES = {"small": "small", "mid": "mid", "mid-size": "mid", "midsize": "mid", "medium": "mid", "large": "large"}
+
+
+def values(v):
+    """A filter as the tools accept it (one value, a comma-separated string, a list, or nothing) -> a list."""
+    if v is None:
+        return []
+    items = v if isinstance(v, (list, tuple)) else str(v).split(",")
+    return [str(x).strip() for x in items if str(x).strip()]
+
+
+def query(template="market", query="", country=None, industry=None, sector=None, software=None, size=None,
+          strong_identity=False, tier="", ids=None, exclude_ids=(), icp=None):
+    """The app's search, from tool arguments. Several values in one filter are ORed, as in the app."""
+    return Query.make(template=template or "market", q=query, country=[c.upper() for c in values(country)],
+                      industry=values(industry), sector=[x.lower() for x in values(sector)],
+                      software=[software_family(x) for x in values(software)],
+                      size=[SIZES.get(x.lower(), x.lower()) for x in values(size)], strong=strong_identity,
+                      tier=tier, ids=ids, exclude_ids=tuple(exclude_ids), **(icp or {}))
+
+
+def profile_filters(ws):
+    """The seller's ideal customer profile as query filters, when it's set and switched on (as the app
+    applies it to every view), and a plain description of it."""
+    p = get_workspace().profile(ws) if ws else None
+    if not p or not p.get("active"):
+        return {}, None
+    f = {"icp_country": p.get("countries", []), "icp_sector": p.get("sectors", []),
+         "icp_industry": p.get("industries", []), "icp_size": p.get("sizes", [])}
+    f = {k: v for k, v in f.items() if v}
+    parts = [" or ".join(p[k]) for k in ("countries", "sectors", "industries", "sizes") if p.get(k)]
+    return f, ("; ".join(parts) if parts else None)
 
 
 def account(account_id):
@@ -59,9 +87,10 @@ def signal_label(sig):
     return meta()["signals"].get(sig, {}).get("label", sig)
 
 
-def summary(a):
-    """The compact form tools return: enough to rank and pitch, small enough to keep context lean."""
-    return {
+def summary(a, mine=None):
+    """The compact form tools return: enough to rank and pitch, small enough to keep context lean. With the
+    seller's entries (mine), also the lists the account is in and its status, as every table in the app shows."""
+    out = {
         "id": a["id"], "name": a["name"], "organisation": a["org"], "country": a["country"],
         "industry": a["industry"], "sector": SECTORS.get(a["sector"], a["sector"]),
         "score": round(a["score"]), "tier": a["tier"], "identified_by": a["ident"],
@@ -72,6 +101,73 @@ def summary(a):
                            if a.get("peer") else None),
         "exposure_brief": f"{APP_URL}/?brief={urllib.parse.quote(a['id'])}",
     }
+    if mine is not None and a["id"] in mine:
+        out["your_lists"], out["status"] = mine[a["id"]]["lists"], mine[a["id"]]["status"]
+    return out
+
+
+def my_entries(ws):
+    """account id -> the seller's lists (by name) and status, for the accounts in any of their lists."""
+    if not ws:
+        return None
+    snap = get_workspace().snapshot(ws)
+    names = {li["id"]: li["name"] for li in snap["lists"]}
+    return {aid: {"lists": [names.get(x, x) for x in e["lists"]], "status": e["status"]}
+            for aid, e in snap["entries"].items()}
+
+
+# The opening line, built only from what the scan observed: the same rules as the app (web/src/talkTrack.ts)
+def _cves(e):
+    m = re.findall(r"CVE-\d{4}-\d+", e.get("e") or "")
+    return " / ".join(m[:2]) if m else "a known-exploited CVE"
+
+
+def _seen(e):
+    parts = (e.get("e") or "").split(" — ")
+    return parts[0] if len(parts) > 1 else None
+
+
+def _or(v, default):
+    return default if v is None else v
+
+
+_LINES = {
+    "breach_evidence": lambda e: f"{_or(e.get('e'), 'a service')} at {e['ip']} shows signs of an existing compromise, which usually means someone is already inside.",
+    "ai_exposed": lambda e: f"a self-hosted AI service ({_or(e.get('e'), 'an AI app')}) at {e['ip']} answers on the public internet, where model gateways and agent servers can leak keys, data and tool access.",
+    "edge_kev": lambda e: f"{_or(e.get('p'), 'Your edge appliance')} at {e['ip']}:{e['port']} is reachable from the internet and runs a version affected by {_cves(e)}, which CISA lists as actively exploited.",
+    "edge_device": lambda e: f"{_or(e.get('p'), 'your firewall/VPN appliance')} ({e['ip']}:{e['port']}) answers on the public internet. These appliances are the most common ransomware entry point.",
+    "exchange_onprem": lambda e: f"{_or(e.get('e'), 'an on-prem Exchange server')} is internet-facing at {e['ip']}.",
+    "remote_access": lambda e: f"{e.get('e')} at {e['ip']} is open to anyone on the internet.",
+    "database_exposed": lambda e: f"a database ({e.get('e')}) at {e['ip']} accepts connections from the internet.",
+    "smb_exposed": lambda e: f"Windows file sharing is exposed at {e['ip']}:{e['port']}.",
+    "ot_exposed": lambda e: f"an industrial/operational protocol ({e.get('e')}) is reachable at {e['ip']}.",
+    "kev_cve": lambda e: f"{_seen(e) or _or(e.get('p'), 'a public server')} at {e['ip']}:{e['port']} is a version affected by {_cves(e)}, which is on CISA's known-exploited list.",
+    "eol_os": lambda e: (f"a server at {e['ip']} runs {e.get('e')}." if "support ended" in (e.get("e") or "")
+                         else f"a server at {e['ip']} runs {e.get('e')}, past the end of its security support."),
+    "ntlm_leak": lambda e: f"a Windows host at {e['ip']} reveals your internal domain ({e.get('e')}) to anyone who connects.",
+    "mgmt_exposed": lambda e: f"an infrastructure management service ({e.get('e')}) is exposed at {e['ip']}.",
+}
+
+
+def opening_line(a, evidence):
+    weight = {k: v["weight"] for k, v in meta()["signals"].items()}
+    lines, used = [], set()
+    for e in sorted(evidence, key=lambda x: -weight.get(x["s"], 0)):
+        f = _LINES.get(e["s"])
+        if not f or e["s"] in used:
+            continue
+        used.add(e["s"])
+        lines.append(f(e))
+        if len(lines) == 2:
+            break
+    if not lines:
+        return ""
+    who = a["org"] if a.get("org") and a.get("ident") == "org" else a["name"]
+    extra = (f" We counted {a['assets']} internet-facing services across {a['ips']} IPs in the same scan."
+             if a["assets"] > len(lines) else "")
+    second = f" {lines[1][0].upper()}{lines[1][1:]}" if len(lines) > 1 else ""
+    return (f"Hi, while mapping {who}'s external attack surface we noticed that {lines[0]}{second}{extra} "
+            "Worth 15 minutes to walk through what an attacker sees?")
 
 
 def account_link(account_id):
@@ -79,10 +175,20 @@ def account_link(account_id):
 
 
 def view_link(**params):
-    q = {k: v for k, v in params.items() if v not in ("", None, False, "market")}
+    """A link to the same view in the app; several values in one filter are comma-separated, as the app reads them."""
+    q = {k: (",".join(v) if isinstance(v, (list, tuple)) else v) for k, v in params.items()}
+    q = {k: v for k, v in q.items() if v not in ("", None, False, "market")}
     if q.get("strong"):
         q["strong"] = "1"
-    return f"{APP_URL}/?{urllib.parse.urlencode(q)}" if q else f"{APP_URL}/"
+    return f"{APP_URL}/?{urllib.parse.urlencode(q, safe=',')}" if q else f"{APP_URL}/"
+
+
+def workspace_or_none():
+    """The seller's workspace when RECON_USER is set; read-only tools work without one."""
+    try:
+        return workspace_id()
+    except LookupError:
+        return None
 
 
 def list_link(list_id):

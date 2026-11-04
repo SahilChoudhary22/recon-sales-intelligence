@@ -1,0 +1,210 @@
+[
+ {
+  "id": 1,
+  "request": "Find UK manufacturers running FortiGate that also have a known-exploited CVE."
+ },
+ {
+  "id": 2,
+  "request": "Which accounts are exposed to Citrix Bleed?"
+ },
+ {
+  "id": 3,
+  "request": "I sell email security. Which signal templates should I start with?"
+ },
+ {
+  "id": 4,
+  "request": "Show me German companies still running on-prem Exchange."
+ },
+ {
+  "id": 5,
+  "request": "Give me the top 10 P1 accounts in the US."
+ },
+ {
+  "id": 6,
+  "request": "Tell me everything you have on chevron.com."
+ },
+ {
+  "id": 7,
+  "request": "Which healthcare companies have RDP or databases open to the internet?"
+ },
+ {
+  "id": 8,
+  "request": "Hospitals and clinics still on end-of-life Windows servers."
+ },
+ {
+  "id": 9,
+  "request": "Which companies in France are affected by CVE-2024-38475?"
+ },
+ {
+  "id": 10,
+  "request": "Commercial companies with industrial control systems exposed online."
+ },
+ {
+  "id": 11,
+  "request": "Put chevron.com and toyota.com on a list for me."
+ },
+ {
+  "id": 12,
+  "request": "Create CRM tasks for bbci.co.uk and chevron.com so I can import them into HubSpot."
+ },
+ {
+  "id": 13,
+  "request": "Universities running software with known-exploited vulnerabilities."
+ },
+ {
+  "id": 14,
+  "request": "Banks that run Microsoft Exchange on-prem."
+ },
+ {
+  "id": 15,
+  "request": "Who is exposed to Log4Shell?"
+ },
+ {
+  "id": 16,
+  "request": "Australian companies that already invest in security but still have gaps."
+ },
+ {
+  "id": 17,
+  "request": "Exposed firewall or VPN admin panels, but only where we're sure who the company is."
+ },
+ {
+  "id": 18,
+  "request": "Look up Toyota."
+ },
+ {
+  "id": 101,
+  "request": "Any retailers in Spain with Windows file sharing or remote desktop reachable from outside?"
+ },
+ {
+  "id": 102,
+  "request": "We sell vulnerability management. What should I prospect first?"
+ },
+ {
+  "id": 103,
+  "request": "Pull up the evidence for toyota.com."
+ },
+ {
+  "id": 104,
+  "request": "Is anyone in our market hit by ProxyLogon?"
+ },
+ {
+  "id": 105,
+  "request": "Japanese companies with a firewall management interface exposed to the internet."
+ },
+ {
+  "id": 106,
+  "request": "Save bbci.co.uk, chevron.com and toyota.com to my list."
+ },
+ {
+  "id": 107,
+  "request": "Energy and utility companies with OT or SCADA equipment online."
+ },
+ {
+  "id": 108,
+  "request": "Which manufacturers are still running unsupported Windows Server?"
+ },
+ {
+  "id": 109,
+  "request": "Give me salesforce-ready call tasks for toyota.com."
+ },
+ {
+  "id": 110,
+  "request": "Show the 5 highest priority accounts in Germany this week."
+ },
+ {
+  "id": 111,
+  "request": "Which companies run software on CISA's exploited list, in the Netherlands, commercial only?"
+ },
+ {
+  "id": 112,
+  "request": "Companies running Citrix NetScaler in the UK."
+ },
+ {
+  "id": 201,
+  "request": "Put the top UK accounts with an exposed firewall or VPN admin interface into a list called UK edge Q4."
+ },
+ {
+  "id": 202,
+  "request": "What lists do I have?"
+ },
+ {
+  "id": 203,
+  "request": "Add chevron.com and toyota.com to my Energy targets list."
+ },
+ {
+  "id": 204,
+  "request": "Save a search for German companies still on on-prem Exchange so I can check it every week."
+ },
+ {
+  "id": 205,
+  "request": "Anything new in my UK edge Q4 saved search?"
+ },
+ {
+  "id": 206,
+  "request": "Which of my saved searches have new accounts in them?"
+ },
+ {
+  "id": 207,
+  "request": "Show me what's new in GB firewalls and mark it as reviewed."
+ },
+ {
+  "id": 208,
+  "request": "Make a list of US healthcare companies with remote desktop or databases open to the internet."
+ },
+ {
+  "id": 209,
+  "request": "Keep an eye on Dutch companies running software with known-exploited CVEs for me."
+ },
+ {
+  "id": 210,
+  "request": "Add bbc.com to my list."
+ },
+ {
+  "id": 301,
+  "request": "Find firewall/VPN accounts with exploited CVEs in the UK or Ireland."
+ },
+ {
+  "id": 302,
+  "request": "Show me small companies, just a handful of IPs, with RDP or databases open in Germany."
+ },
+ {
+  "id": 303,
+  "request": "Which US accounts running on-prem Exchange haven't I put in a list yet?"
+ },
+ {
+  "id": 304,
+  "request": "Ignore my profile for a moment and show me the top P1 accounts across the whole market."
+ },
+ {
+  "id": 305,
+  "request": "Mark chevron.com and toyota.com as contacted."
+ },
+ {
+  "id": 306,
+  "request": "I booked a meeting with bbc.com."
+ },
+ {
+  "id": 307,
+  "request": "Take usp.br out of my Q4 targets list."
+ },
+ {
+  "id": 308,
+  "request": "chevron.com turned out not to be a fit for us."
+ },
+ {
+  "id": 309,
+  "request": "Give me an opening line I can use with turkishbank.co.uk."
+ },
+ {
+  "id": 310,
+  "request": "Add mid-size and large healthcare organisations with end-of-life Windows to a list called EOL health."
+ },
+ {
+  "id": 311,
+  "request": "Save a search for on-prem Exchange in Germany or Austria and call it DACH Exchange."
+ },
+ {
+  "id": 312,
+  "request": "Which companies in France or Belgium are exposed to ProxyShell?"
+ }
+]
