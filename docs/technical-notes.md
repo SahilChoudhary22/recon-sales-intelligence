@@ -211,6 +211,9 @@ was reviewed after every full build, and each rule in §2/§4 came from that loo
   The extractor keeps a superset of fields so the 17 GB file is read once.
 - **Rule-based, explainable scores** over a learned model: there are no labels to learn from, and a
   seller has to be able to say *why* an account is hot.
+- **DuckDB for the build and the API:** in-process (no server), queries Parquet in place, reads only
+  the columns and row groups a query touches, and spills to disk, so the 13.4M-row build fits an 8 GB
+  laptop. The work stays plain SQL, portable to a warehouse, and one dialect serves batch and API.
 - **Batch scoring, a read-only API for serving:** scores are computed per build, offline; the API only
   queries the published store, and the browser holds one page at a time.
 - **IPs masked to /24 in anything published:** a list of vulnerable hosts mustn't double as a
