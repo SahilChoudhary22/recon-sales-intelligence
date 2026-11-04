@@ -26,8 +26,8 @@
 </p>
 
 <p align="center">
-  <img src="docs/media/walkthrough.gif" alt="A 70-second walkthrough of Recon: sign in, set an ideal customer profile, open a signal template, filter with multi-select, add accounts to lists, open an account, save a search, search a CVE in the news and open an exposure brief" width="880" />
-  <br /><sub>A 70-second walkthrough (<a href="docs/media/walkthrough.mp4">MP4, full resolution</a>).</sub>
+  <img src="docs/media/walkthrough.gif" alt="A one-minute walkthrough of Recon: set an ideal customer profile, open a signal template, filter with multi-select, add accounts to lists, open an account, save a search, search a CVE in the news and open an exposure brief" width="880" />
+  <br /><sub>A one-minute walkthrough (<a href="docs/media/walkthrough.mp4">MP4, full resolution</a>).</sub>
 </p>
 
 Recon turns a stream of internet scan data (Shodan-style banners, one per IP and port) into a ranked
