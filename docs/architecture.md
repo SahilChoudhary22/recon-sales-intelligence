@@ -163,7 +163,7 @@ flowchart LR
     cube[("<b>cube.parquet</b><br/>counts by template, country,<br/>sector, industry, size")]
     hits[("<b>cve_hits.parquet</b><br/>sorted by CVE")]
   end
-  api["<b>API</b><br/>FastAPI and DuckDB<br/>search, counts, facets,<br/>CVE, export, evidence"]
+  api["<b>API</b><br/>FastAPI and DuckDB<br/>search, counts, facets,<br/>CVE, export, evidence;<br/>MCP over HTTP at /mcp"]
   acc --> api
   byid --> api
   ev --> api
@@ -190,6 +190,10 @@ flowchart LR
   unique ids, no evidence for unknown accounts), renames it and moves the `current` link. The API
   opens the new build on its next request, with no restart. The last three builds are kept for
   rollback and comparison.
+- **One query layer, two ways in.** The MCP server calls the same `api/store.py` as the HTTP API, so an
+  assistant and the app can't disagree about a count. The hosted app serves it at `/mcp` (MCP's
+  streamable HTTP transport, stateless JSON calls behind a bearer token) from the API's own process,
+  and locally it runs over stdio.
 - **Scan data is read-only to the API.** The build is the only writer of the serving store, so serving
   needs no locking and scales by adding read replicas of the same files; the only writes are users'
   lists and searches, in the app database (section 6).
