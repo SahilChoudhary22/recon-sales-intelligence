@@ -16,3 +16,6 @@ data/build/
 *.local.md
 deploy/.env
 .claude/
+
+# planning notes stay local
+plan.md
