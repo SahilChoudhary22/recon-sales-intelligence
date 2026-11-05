@@ -1,0 +1,1018 @@
+[
+ {
+  "case": "c001",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Korean messaging service API host",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.4.25 in range of KEV CVEs"
+   }
+  ]
+ },
+ {
+  "case": "c002",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Luz del Sur, Peruvian electricity utility",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "NetScaler 13.1-59.19 predates CVE-2025-7775 fix"
+   }
+  ]
+ },
+ {
+  "case": "c003",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Fleurop flower delivery, Germany",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "IIS 8.5 implies Server 2012 R2, past end of support"
+   }
+  ]
+ },
+ {
+  "case": "c004",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "NTLM domain matches globalcc.com",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "NTLM build shows EOL Windows Server"
+   },
+   {
+    "verdict": "supported",
+    "reason": "WinRM 5985 answers with HTTPAPI"
+   },
+   {
+    "verdict": "supported",
+    "reason": "NTLM reveals internal host/domain name"
+   }
+  ]
+ },
+ {
+  "case": "c005",
+  "entity_type": "hosting_cloud",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Swiss hosting provider",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "RHEL-style BIND package, fixes likely backported"
+   }
+  ]
+ },
+ {
+  "case": "c006",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Small UK fitness business",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CVE IDs not verifiable from fields or known to reviewer"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Exact upstream version shown; branch past end of life"
+   }
+  ]
+ },
+ {
+  "case": "c007",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Mexican software firm on IBM Cloud",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "IIS 8.5 implies Server 2012 R2, past end of support"
+   }
+  ]
+ },
+ {
+  "case": "c008",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Small UK retailer, self-run phpMyAdmin",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.4.58 vulnerable to CVE-2024-38475"
+   },
+   {
+    "verdict": "supported",
+    "reason": "phpMyAdmin admin page publicly reachable"
+   },
+   {
+    "verdict": "supported",
+    "reason": "OpenSSL 1.1.1 public support ended 2023"
+   }
+  ]
+ },
+ {
+  "case": "c009",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Japanese cram-school management software",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "Scanner test result not shown in fields"
+   },
+   {
+    "verdict": "supported",
+    "reason": "IIS 7.5 implies Server 2008 R2, EOL"
+   }
+  ]
+ },
+ {
+  "case": "c010",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "NTLM domain matches; small Spanish firm",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "NTLM build shows EOL Windows Server"
+   },
+   {
+    "verdict": "supported",
+    "reason": "WinRM 5985 answers with HTTPAPI"
+   },
+   {
+    "verdict": "supported",
+    "reason": "NTLM reveals internal host/domain name"
+   }
+  ]
+ },
+ {
+  "case": "c011",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Chilean booking software company",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.19.10 within CVE-2021-23017 range"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Page text shows Django DEBUG = True"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.19 mainline long superseded"
+   }
+  ]
+ },
+ {
+  "case": "c012",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Domain controller name leaked via NTLM",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "WinRM 5985 answers with HTTPAPI"
+   },
+   {
+    "verdict": "supported",
+    "reason": "NTLM reveals DC hostname"
+   }
+  ]
+ },
+ {
+  "case": "c013",
+  "entity_type": "education",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "INSA Toulouse engineering school",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.4.18 Ubuntu is 16.04, standard support ended"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.26 branch superseded by 1.28"
+   }
+  ]
+ },
+ {
+  "case": "c014",
+  "entity_type": "public_sector",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Slovak state export-import bank",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "MariaDB handshake returned on 3306"
+   },
+   {
+    "verdict": "supported",
+    "reason": "MariaDB 5.5 handshake, branch EOL"
+   }
+  ]
+ },
+ {
+  "case": "c015",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Small US IT consultancy",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CVE IDs not verifiable from fields or known to reviewer"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Exact upstream version shown; branch past end of life"
+   }
+  ]
+ },
+ {
+  "case": "c016",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "German furniture/home business",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CVE IDs not verifiable from fields or known to reviewer"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Exact upstream version shown; branch past end of life"
+   }
+  ]
+ },
+ {
+  "case": "c017",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "German car body shop",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CVE IDs not verifiable from fields or known to reviewer"
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 8.1 security support ended Dec 2025"
+   }
+  ]
+ },
+ {
+  "case": "c018",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "NTN-SNR bearings manufacturer",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Check Point CPWS gateway responds publicly"
+   }
+  ]
+ },
+ {
+  "case": "c019",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Panasonic Avionics",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.4.6 CentOS is EL7, EOL June 2024"
+   }
+  ]
+ },
+ {
+  "case": "c020",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Small US web agency",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CVE IDs not verifiable from fields or known to reviewer"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Exact upstream version shown; branch past end of life"
+   }
+  ]
+ },
+ {
+  "case": "c021",
+  "entity_type": "government",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Thai Ministry of Labour",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.4.38 affected by CVE-2021-40438"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Exact upstream version shown; branch past end of life"
+   }
+  ]
+ },
+ {
+  "case": "c022",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Taiwanese tutoring company",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "IIS 8.5 implies Server 2012 R2, past end of support"
+   }
+  ]
+ },
+ {
+  "case": "c023",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Brazilian IT firm via NTLM",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "NTLM build shows EOL Windows Server"
+   },
+   {
+    "verdict": "supported",
+    "reason": "WinRM 5985 answers with HTTPAPI"
+   },
+   {
+    "verdict": "supported",
+    "reason": "NTLM reveals internal host/domain name"
+   }
+  ]
+ },
+ {
+  "case": "c024",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Keshet, Israeli broadcaster",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "BIG-IP APM logout page publicly reachable"
+   }
+  ]
+ },
+ {
+  "case": "c025",
+  "entity_type": "isp_telecom",
+  "name_ok": "yes",
+  "sellable": "no",
+  "note": "Iraqi fibre ISP",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "WinRM 5985 answers with HTTPAPI"
+   },
+   {
+    "verdict": "supported",
+    "reason": "NTLM reveals internal hostname"
+   }
+  ]
+ },
+ {
+  "case": "c026",
+  "entity_type": "hosting_cloud",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Multi-tenant hosted 3CX for many customers",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "3CX web client/console login exposed"
+   }
+  ]
+ },
+ {
+  "case": "c027",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "German metalwork firm",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CVE IDs not verifiable from fields or known to reviewer"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Exact upstream version shown; branch past end of life"
+   }
+  ]
+ },
+ {
+  "case": "c028",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "El Corte Ingles retailer",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "BIG-IP APM logout page publicly reachable"
+   }
+  ]
+ },
+ {
+  "case": "c029",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "US CPA firm",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CVE IDs not verifiable from fields or known to reviewer"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Exact upstream version shown; branch past end of life"
+   }
+  ]
+ },
+ {
+  "case": "c030",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Indian industrial coatings maker",
+  "claims": [
+   {
+    "verdict": "unclear",
+    "reason": "CVE IDs not verifiable from fields or known to reviewer"
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 8.1 security support ended Dec 2025"
+   }
+  ]
+ },
+ {
+  "case": "c031",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Medidata (imedidata) on AWS",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Ubuntu 16.04 nginx package; standard support ended 2021"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.27 mainline superseded, no longer maintained"
+   }
+  ]
+ },
+ {
+  "case": "c032",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Small GPS tracking firm",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "PHP version visible in header; branch end-of-life, unpatched"
+   },
+   {
+    "verdict": "supported",
+    "reason": "IIS 7.5 implies Windows Server 2008 R2, end of life"
+   }
+  ]
+ },
+ {
+  "case": "c033",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Veterinary business, NTLM domain matches",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "NTLM shows Server 2012 R2, EOL October 2023"
+   },
+   {
+    "verdict": "supported",
+    "reason": "WinRM HTTPAPI responding on 5985"
+   },
+   {
+    "verdict": "supported",
+    "reason": "NTLM reveals internal host and domain"
+   }
+  ]
+ },
+ {
+  "case": "c034",
+  "entity_type": "isp_telecom",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "STPI provides connectivity; IPs belong to park tenants",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "MS-SQL handshake with NTLM info returned"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Telnet service responded, though pty failed"
+   },
+   {
+    "verdict": "supported",
+    "reason": "FortiGate device identified"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.4.6 CentOS implies CentOS 7, EOL"
+   }
+  ]
+ },
+ {
+  "case": "c035",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Small dental clinic WordPress site",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "PHP version visible in header; branch end-of-life, unpatched"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Version visible in header and past end of life"
+   }
+  ]
+ },
+ {
+  "case": "c036",
+  "entity_type": "education",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "UCLA",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "NetScaler AAA login page seen"
+   },
+   {
+    "verdict": "supported",
+    "reason": "RouterOS API replied on 8728"
+   },
+   {
+    "verdict": "supported",
+    "reason": "WinRM responding on 5985"
+   },
+   {
+    "verdict": "supported",
+    "reason": "NTLM leaks FQDN and domain"
+   }
+  ]
+ },
+ {
+  "case": "c037",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Dental supply company",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "PHP version visible in header; branch end-of-life, unpatched"
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 8.1 security support ended December 2025"
+   }
+  ]
+ },
+ {
+  "case": "c038",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "RoboSense lidar company",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "PHP version visible in header; branch end-of-life, unpatched"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Version visible in header and past end of life"
+   }
+  ]
+ },
+ {
+  "case": "c039",
+  "entity_type": "public_sector",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "AATF/CGIAR agricultural research body",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "WinRM responding on 5985"
+   },
+   {
+    "verdict": "supported",
+    "reason": "NTLM leaks host and domain"
+   }
+  ]
+ },
+ {
+  "case": "c040",
+  "entity_type": "government",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Colombian science ministry",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "PHP version visible in header; branch end-of-life, unpatched"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.2.15 Red Hat implies RHEL 6, EOL"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Version visible in header and past end of life"
+   }
+  ]
+ },
+ {
+  "case": "c041",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Westat research firm",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "OWA served, Exchange on-prem exposed"
+   },
+   {
+    "verdict": "supported",
+    "reason": "NetScaler gateway reachable"
+   }
+  ]
+ },
+ {
+  "case": "c042",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Small Brazilian CRM business",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "PHP version visible in header; branch end-of-life, unpatched"
+   },
+   {
+    "verdict": "supported",
+    "reason": "PHP 8.1 security support ended December 2025"
+   }
+  ]
+ },
+ {
+  "case": "c043",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "MSM Malaysia sugar producer",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "PHP version visible in header; branch end-of-life, unpatched"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Version visible in header and past end of life"
+   }
+  ]
+ },
+ {
+  "case": "c044",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Japanese agency",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "PHP version visible in header; branch end-of-life, unpatched"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Version visible in header and past end of life"
+   }
+  ]
+ },
+ {
+  "case": "c045",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Primadonna fashion retailer, SAP",
+  "claims": [
+   {
+    "verdict": "unsupported",
+    "reason": "CVE-2021-38163 affects NetWeaver AS Java; this is ABAP"
+   }
+  ]
+ },
+ {
+  "case": "c046",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Shopper360 marketing firm",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.4.6 CentOS implies CentOS 7, EOL"
+   }
+  ]
+ },
+ {
+  "case": "c047",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Guardant Shield test site",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "PHP 8.5.3 below stated fix 8.5.12"
+   },
+   {
+    "verdict": "supported",
+    "reason": "nginx 1.25 branch no longer maintained"
+   }
+  ]
+ },
+ {
+  "case": "c048",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "UK sealed units manufacturer",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "PHP version visible in header; branch end-of-life, unpatched"
+   },
+   {
+    "verdict": "supported",
+    "reason": "MariaDB handshake returned on 3306"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Version visible in header and past end of life"
+   }
+  ]
+ },
+ {
+  "case": "c049",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "KIRZ Thai company",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "MS-SQL handshake returned"
+   },
+   {
+    "verdict": "unclear",
+    "reason": "Handpunch login banner, not RDP/VNC/Telnet/X11 clearly"
+   },
+   {
+    "verdict": "supported",
+    "reason": "FortiGate device identified"
+   },
+   {
+    "verdict": "supported",
+    "reason": "NTLM shows Server 2012 R2, EOL"
+   }
+  ]
+ },
+ {
+  "case": "c050",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "NTLM domain on OVH server",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "WinRM responding on 5985"
+   }
+  ]
+ },
+ {
+  "case": "c051",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Cancer care provider",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "PHP version visible in header; branch end-of-life, unpatched"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Version visible in header and past end of life"
+   }
+  ]
+ },
+ {
+  "case": "c052",
+  "entity_type": "personal_or_junk",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Tiny limo info site, not a real prospect",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "PHP version visible in header; branch end-of-life, unpatched"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Version visible in header and past end of life"
+   }
+  ]
+ },
+ {
+  "case": "c053",
+  "entity_type": "education",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "University of New Mexico",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "RouterOS API replied on 8728"
+   },
+   {
+    "verdict": "supported",
+    "reason": "WinRM responding on 5985"
+   }
+  ]
+ },
+ {
+  "case": "c054",
+  "entity_type": "hosting_cloud",
+  "name_ok": "no",
+  "sellable": "no",
+  "note": "Generic domain on hoster; WIN- default hostname",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "MS-SQL handshake returned"
+   },
+   {
+    "verdict": "supported",
+    "reason": "WinRM responding on 5985"
+   }
+  ]
+ },
+ {
+  "case": "c055",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Deutsche Bank netblock",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "MS-SQL 2005 handshake returned on 1433"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Build 6.1.7601 is Windows 2008 R2, EOL"
+   }
+  ]
+ },
+ {
+  "case": "c056",
+  "entity_type": "public_sector",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Academia Sinica research institute",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "OpenSSH 7.4 is RHEL/CentOS 7 package, EOL"
+   },
+   {
+    "verdict": "supported",
+    "reason": "WinRM responding on 5985"
+   }
+  ]
+ },
+ {
+  "case": "c057",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Czech tyre service",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.4.29 Ubuntu is 18.04, standard support ended"
+   }
+  ]
+ },
+ {
+  "case": "c058",
+  "entity_type": "government",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Alagoas public prosecutor",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.4.58 below 2.4.60 fix"
+   },
+   {
+    "verdict": "supported",
+    "reason": "GlobalProtect portal seen"
+   }
+  ]
+ },
+ {
+  "case": "c059",
+  "entity_type": "business",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "German construction firm",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "PHP version visible in header; branch end-of-life, unpatched"
+   },
+   {
+    "verdict": "supported",
+    "reason": "Version visible in header and past end of life"
+   }
+  ]
+ },
+ {
+  "case": "c060",
+  "entity_type": "education",
+  "name_ok": "yes",
+  "sellable": "yes",
+  "note": "Rennes School of Business",
+  "claims": [
+   {
+    "verdict": "supported",
+    "reason": "Apache 2.4.54 below 2.4.60 fix"
+   },
+   {
+    "verdict": "supported",
+    "reason": "OpenSSL 1.1.1p visible; 1.1.1 EOL September 2023"
+   }
+  ]
+ }
+]

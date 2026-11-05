@@ -8,6 +8,8 @@ const LINES: Record<string, (e: Evidence) => string> = {
   edge_device: (e) => `${e.p ?? 'your firewall/VPN appliance'} (${e.ip}:${e.port}) answers on the public internet. These appliances are the most common ransomware entry point.`,
   exchange_onprem: (e) => `${e.e ?? 'an on-prem Exchange server'} is internet-facing at ${e.ip}.`,
   remote_access: (e) => `${e.e} at ${e.ip} is open to anyone on the internet.`,
+  winrm_exposed: (e) => `Windows Remote Management (WinRM) at ${e.ip}:${e.port} answers on the public internet.`,
+  debug_exposed: (e) => `a public page at ${e.ip}:${e.port} shows ${e.e?.startsWith('phpinfo') ? 'a phpinfo() page' : 'a stack trace'}, giving away software versions and file paths.`,
   database_exposed: (e) => `a database (${e.e}) at ${e.ip} accepts connections from the internet.`,
   smb_exposed: (e) => `Windows file sharing is exposed at ${e.ip}:${e.port}.`,
   ot_exposed: (e) => `an industrial/operational protocol (${e.e}) is reachable at ${e.ip}.`,

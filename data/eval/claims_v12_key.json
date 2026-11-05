@@ -1,0 +1,347 @@
+{
+ "c001": {
+  "build": "after",
+  "company_id": "org:Ningbo Nanbiantuoluo Information Technology Co.,Ltd.",
+  "tier": "P3"
+ },
+ "c002": {
+  "build": "after",
+  "company_id": "org:PE-TDPERX3-LACNIC",
+  "tier": "P3"
+ },
+ "c003": {
+  "build": "after",
+  "company_id": "mchosting.org",
+  "tier": "P3"
+ },
+ "c004": {
+  "build": "after",
+  "company_id": "org:ImpSat Argentina",
+  "tier": "P3"
+ },
+ "c005": {
+  "build": "after",
+  "company_id": "ip-148-113-15.net",
+  "tier": "P3"
+ },
+ "c006": {
+  "build": "after",
+  "company_id": "org:BNW TECHNOLOGY LTD",
+  "tier": "P3"
+ },
+ "c007": {
+  "build": "after",
+  "company_id": "ip-51-79-214.net",
+  "tier": "P3"
+ },
+ "c008": {
+  "build": "after",
+  "company_id": "sinanogd.ac.cn",
+  "tier": "P3"
+ },
+ "c009": {
+  "build": "after",
+  "company_id": "org:MyTv-Alb SH.P.K.",
+  "tier": "P3"
+ },
+ "c010": {
+  "build": "after",
+  "company_id": "org:Windmoeller & Hoelscher KG",
+  "tier": "P3"
+ },
+ "c011": {
+  "build": "after",
+  "company_id": "vrpro24.ir",
+  "tier": "P2"
+ },
+ "c012": {
+  "build": "after",
+  "company_id": "pau.zone",
+  "tier": "P3"
+ },
+ "c013": {
+  "build": "after",
+  "company_id": "org:GABRIEL FRANCISCO ERBETTA Y MARIANO ANDRES CARRIZO RICHELET SOCIEDAD DE HECHO (TELNET SOLUCIONES)",
+  "tier": "P3"
+ },
+ "c014": {
+  "build": "after",
+  "company_id": "org:Prodigi Technology Services Limited - Routing",
+  "tier": "P3"
+ },
+ "c015": {
+  "build": "after",
+  "company_id": "rackh.co.id",
+  "tier": "P3"
+ },
+ "c016": {
+  "build": "after",
+  "company_id": "henossn.cv",
+  "tier": "P3"
+ },
+ "c017": {
+  "build": "after",
+  "company_id": "white-and-fluffy.de",
+  "tier": "P2"
+ },
+ "c018": {
+  "build": "after",
+  "company_id": "e-merchandiser.pl",
+  "tier": "P1"
+ },
+ "c019": {
+  "build": "after",
+  "company_id": "697911-solpowerandcontrol.in",
+  "tier": "P3"
+ },
+ "c020": {
+  "build": "after",
+  "company_id": "acuo.cz",
+  "tier": "P2"
+ },
+ "c021": {
+  "build": "after",
+  "company_id": "org:MS LINK-TECNOLOGIA E COMUNICA\u00c7\u00d5ES LTDA ME",
+  "tier": "P3"
+ },
+ "c022": {
+  "build": "after",
+  "company_id": "sax.de",
+  "tier": "P3"
+ },
+ "c023": {
+  "build": "after",
+  "company_id": "servera.info",
+  "tier": "P3"
+ },
+ "c024": {
+  "build": "after",
+  "company_id": "org:SAAT VE SAAT SANAYIVE TIC.A.S.",
+  "tier": "P3"
+ },
+ "c025": {
+  "build": "after",
+  "company_id": "jpanvista.com",
+  "tier": "P3"
+ },
+ "c026": {
+  "build": "after",
+  "company_id": "purebeverages.com",
+  "tier": "P3"
+ },
+ "c027": {
+  "build": "after",
+  "company_id": "ip-146-59-111.eu",
+  "tier": "P3"
+ },
+ "c028": {
+  "build": "after",
+  "company_id": "syllere.com",
+  "tier": "P3"
+ },
+ "c029": {
+  "build": "after",
+  "company_id": "org:RIGIL WEB TECHNOLOGIES LIMITED",
+  "tier": "P3"
+ },
+ "c030": {
+  "build": "after",
+  "company_id": "org:Aita Provedor de Acesso as Redes de Comunic. E Com",
+  "tier": "P3"
+ },
+ "c031": {
+  "build": "after",
+  "company_id": "arsipsharwar.com",
+  "tier": "P2"
+ },
+ "c032": {
+  "build": "after",
+  "company_id": "org:Otto Harrassowitz GmbH & Co. KG",
+  "tier": "P3"
+ },
+ "c033": {
+  "build": "after",
+  "company_id": "ip-164-132-185.eu",
+  "tier": "P3"
+ },
+ "c034": {
+  "build": "after",
+  "company_id": "org:Connect Suporte",
+  "tier": "P3"
+ },
+ "c035": {
+  "build": "after",
+  "company_id": "deafvision.net",
+  "tier": "P2"
+ },
+ "c036": {
+  "build": "after",
+  "company_id": "sirix.ca",
+  "tier": "P3"
+ },
+ "c037": {
+  "build": "after",
+  "company_id": "algobiz.in",
+  "tier": "P3"
+ },
+ "c038": {
+  "build": "after",
+  "company_id": "akdeshost.com.tr",
+  "tier": "P3"
+ },
+ "c039": {
+  "build": "after",
+  "company_id": "asatex.de",
+  "tier": "P3"
+ },
+ "c040": {
+  "build": "after",
+  "company_id": "techjays.com",
+  "tier": "P3"
+ },
+ "c041": {
+  "build": "after",
+  "company_id": "ip-167-114-36.net",
+  "tier": "P3"
+ },
+ "c042": {
+  "build": "after",
+  "company_id": "arkpower.co.in",
+  "tier": "P3"
+ },
+ "c043": {
+  "build": "after",
+  "company_id": "org:ZheJiang FengLi Electromechanical Co.Ltd",
+  "tier": "P3"
+ },
+ "c044": {
+  "build": "after",
+  "company_id": "vargonen.net",
+  "tier": "P3"
+ },
+ "c045": {
+  "build": "after",
+  "company_id": "loyal.ink",
+  "tier": "P3"
+ },
+ "c046": {
+  "build": "after",
+  "company_id": "mmg.vn",
+  "tier": "P3"
+ },
+ "c047": {
+  "build": "after",
+  "company_id": "hfcp.com.br",
+  "tier": "P3"
+ },
+ "c048": {
+  "build": "after",
+  "company_id": "org:Zhejiang Yoangli Industry Group Co.,Ltd",
+  "tier": "P3"
+ },
+ "c049": {
+  "build": "after",
+  "company_id": "winscloudmatrix.com",
+  "tier": "P3"
+ },
+ "c050": {
+  "build": "after",
+  "company_id": "org:VERAO COMUNICACOES EIRELI ME",
+  "tier": "P3"
+ },
+ "c051": {
+  "build": "after",
+  "company_id": "meetkudo.com",
+  "tier": "P3"
+ },
+ "c052": {
+  "build": "after",
+  "company_id": "ioon-technologies.com",
+  "tier": "P3"
+ },
+ "c053": {
+  "build": "after",
+  "company_id": "matchpointgps.in",
+  "tier": "P2"
+ },
+ "c054": {
+  "build": "after",
+  "company_id": "org:Proximit FAI",
+  "tier": "P3"
+ },
+ "c055": {
+  "build": "after",
+  "company_id": "ace.hu",
+  "tier": "P3"
+ },
+ "c056": {
+  "build": "after",
+  "company_id": "vdosb.com",
+  "tier": "P3"
+ },
+ "c057": {
+  "build": "after",
+  "company_id": "org:PT Ashyla Karya Abadi",
+  "tier": "P3"
+ },
+ "c058": {
+  "build": "after",
+  "company_id": "ip-51-222-240.net",
+  "tier": "P3"
+ },
+ "c059": {
+  "build": "after",
+  "company_id": "nuk.edu.tw",
+  "tier": "P3"
+ },
+ "c060": {
+  "build": "after",
+  "company_id": "rdock.ru",
+  "tier": "P3"
+ },
+ "c061": {
+  "build": "after",
+  "company_id": "org:CepatNet",
+  "tier": "P3"
+ },
+ "c062": {
+  "build": "after",
+  "company_id": "augambling.org",
+  "tier": "P1"
+ },
+ "c063": {
+  "build": "after",
+  "company_id": "cogita.ai",
+  "tier": "P3"
+ },
+ "c064": {
+  "build": "after",
+  "company_id": "serverconfig.center",
+  "tier": "P3"
+ },
+ "c065": {
+  "build": "after",
+  "company_id": "adocore.com",
+  "tier": "P3"
+ },
+ "c066": {
+  "build": "after",
+  "company_id": "readmysaju.com",
+  "tier": "P3"
+ },
+ "c067": {
+  "build": "after",
+  "company_id": "sun-inet.or.jp",
+  "tier": "P3"
+ },
+ "c068": {
+  "build": "after",
+  "company_id": "webatvantage.org",
+  "tier": "P3"
+ },
+ "c069": {
+  "build": "after",
+  "company_id": "ip-145-239-67.eu",
+  "tier": "P3"
+ }
+}

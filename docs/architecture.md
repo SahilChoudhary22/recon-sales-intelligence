@@ -47,11 +47,11 @@ flowchart TD
   attributed --> signals["<b>Find risk signals</b><br/>22 per service, pipeline/signals.py"]
   signals --> check["<b>Check each claim against the record</b><br/>a CVE needs its product's version on the banner,<br/>not a distro package patched in place;<br/>end of life from the OS release or component;<br/>a port needs a reply in its protocol"]
   check --> score["<b>Score each company</b><br/>need × urgency × fit, tiers P1 / P2 / P3"]
-  score --> risky["38,099 companies with real risk"]
+  score --> risky["45,646 companies with real risk"]
   risky --> export["<b>Export</b><br/>pipeline/export.py<br/>masks IPs to /24, adds peer ranks,<br/>template flags, the count cube"]
   risky --> cveidx["<b>CVE hits</b><br/>pipeline/cve_index.py<br/>828 CVEs, 39,146 company matches"]
   kev[("CISA KEV v2026.11.03")] --> cveidx
-  export --> published[("<b>Serving store</b><br/>data/serve/&lt;build&gt;, 11 MB")]
+  export --> published[("<b>Serving store</b><br/>data/serve/&lt;build&gt;, 12 MB")]
   cveidx --> published
   published --> api["<b>API</b><br/>DuckDB over the Parquet"]
   api --> app["<b>Web app</b>"]
@@ -206,21 +206,21 @@ synthetic stores 10× and 100× its size. Each account is copied with its eviden
 priority jittered so the copies interleave, and country, sector, industry and size keep their real
 distribution. Median of 15 runs on a MacBook Air with 8 GB RAM:
 
-| Query (ms) | 38,099 accounts | 380,990 | 3,809,900 |
+| Query (ms) | 45,646 accounts | 456,460 | 4,564,600 |
 | --- | --- | --- | --- |
 | Template counts (cube) | 0.8 | 0.8 | 0.8 |
-| Profile badges (cube) | 3.3 | 3.3 | 3.3 |
-| Ranked page, whole market | 6.8 | 12 | 38 |
-| Ranked page, template + profile | 6.4 | 22 | 50 |
-| Page 50 (offset 5,000) | 13 | 50 | 46 |
-| Name search | 8.2 | 19 | 74 |
-| Template counts (live, strong identity) | 2.0 | 5.0 | 37 |
-| Toolbar badges (live) | 3.7 | 8.5 | 52 |
-| Account by id | 2.9 | 3.9 | 18 |
-| Evidence by id | 1.7 | 1.8 | 9.7 |
-| CVE search (an OpenSSH CVE) | 14 | 31 | not run |
-| Store size | 11 MB | 54 MB | 383 MB |
-| Cube rows | 6,638 | 6,638 | 6,638 |
+| Profile badges (cube) | 3.2 | 3.3 | 3.2 |
+| Ranked page, whole market | 7.4 | 13 | 44 |
+| Ranked page, template + profile | 6.3 | 25 | 59 |
+| Page 50 (offset 5,000) | 13 | 55 | 48 |
+| Name search | 7.8 | 32 | 95 |
+| Template counts (live, strong identity) | 1.9 | 5.7 | 43 |
+| Toolbar badges (live) | 3.7 | 9.8 | 57 |
+| Account by id | 2.9 | 3.7 | 21 |
+| Evidence by id | 1.6 | 1.9 | 11 |
+| CVE search (an OpenSSH CVE) | 14 | 34 | not run |
+| Store size | 12 MB | 65 MB | 479 MB |
+| Cube rows | 7,097 | 7,097 | 7,097 |
 
 - **The most frequent queries don't grow.** The nav counts and the profile badges, sent on every
   click in the profile, come from the cube in 1 to 3 ms at every size.
@@ -230,7 +230,7 @@ distribution. Median of 15 runs on a MacBook Air with 8 GB RAM:
 - **Batch and serving run on separate machines.** Measured while a re-export ran on the same laptop,
   the 100× live paths took 0.3 to 1.5 s, five to ten times slower.
 - **The served table grows with companies, not banners.** Raw records grow with every file, billions
-  a year; the served table is one row per company with real risk. 13.4M banners give 38,099 of them,
+  a year; the served table is one row per company with real risk. 13.4M banners give 45,646 of them,
   and there are a few hundred million companies in the world at most, so the read side meets millions
   long before billions. The billions stay in the batch layer, as Parquet and SQL.
 

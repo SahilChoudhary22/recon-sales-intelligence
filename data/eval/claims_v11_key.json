@@ -1,0 +1,302 @@
+{
+ "c001": {
+  "build": "after",
+  "company_id": "sohomsg.kr",
+  "tier": "P2"
+ },
+ "c002": {
+  "build": "after",
+  "company_id": "luzdelsur.com.pe",
+  "tier": "P2"
+ },
+ "c003": {
+  "build": "after",
+  "company_id": "fleurop.de",
+  "tier": "P2"
+ },
+ "c004": {
+  "build": "after",
+  "company_id": "globalcc.com",
+  "tier": "P2"
+ },
+ "c005": {
+  "build": "after",
+  "company_id": "cyberlink.ch",
+  "tier": "P2"
+ },
+ "c006": {
+  "build": "after",
+  "company_id": "air-fit.co.uk",
+  "tier": "P2"
+ },
+ "c007": {
+  "build": "after",
+  "company_id": "sistemasenpunto.com.mx",
+  "tier": "P2"
+ },
+ "c008": {
+  "build": "after",
+  "company_id": "vintageinterior.co.uk",
+  "tier": "P1"
+ },
+ "c009": {
+  "build": "after",
+  "company_id": "jyuku-navi.net",
+  "tier": "P2"
+ },
+ "c010": {
+  "build": "after",
+  "company_id": "aaccoomm.com",
+  "tier": "P2"
+ },
+ "c011": {
+  "build": "after",
+  "company_id": "reservo.cl",
+  "tier": "P2"
+ },
+ "c012": {
+  "build": "after",
+  "company_id": "pazma.org",
+  "tier": "P2"
+ },
+ "c013": {
+  "build": "after",
+  "company_id": "insa-toulouse.fr",
+  "tier": "P1"
+ },
+ "c014": {
+  "build": "after",
+  "company_id": "eximbanka.sk",
+  "tier": "P2"
+ },
+ "c015": {
+  "build": "after",
+  "company_id": "rm-pc.com",
+  "tier": "P2"
+ },
+ "c016": {
+  "build": "after",
+  "company_id": "rynio-wohnen.de",
+  "tier": "P2"
+ },
+ "c017": {
+  "build": "after",
+  "company_id": "karosserie-walter.de",
+  "tier": "P2"
+ },
+ "c018": {
+  "build": "after",
+  "company_id": "ntn-snr.com",
+  "tier": "P2"
+ },
+ "c019": {
+  "build": "after",
+  "company_id": "panasonic.aero",
+  "tier": "P2"
+ },
+ "c020": {
+  "build": "after",
+  "company_id": "reproxweb.com",
+  "tier": "P2"
+ },
+ "c021": {
+  "build": "after",
+  "company_id": "mol.go.th",
+  "tier": "P1"
+ },
+ "c022": {
+  "build": "after",
+  "company_id": "tutorjr.com",
+  "tier": "P2"
+ },
+ "c023": {
+  "build": "after",
+  "company_id": "ssol.inf.br",
+  "tier": "P2"
+ },
+ "c024": {
+  "build": "after",
+  "company_id": "keshet-tv.com",
+  "tier": "P2"
+ },
+ "c025": {
+  "build": "after",
+  "company_id": "alsardfiber.com",
+  "tier": "P2"
+ },
+ "c026": {
+  "build": "after",
+  "company_id": "3cx.co.za",
+  "tier": "P2"
+ },
+ "c027": {
+  "build": "after",
+  "company_id": "metallbau-hoese.de",
+  "tier": "P2"
+ },
+ "c028": {
+  "build": "after",
+  "company_id": "elcorteingles.es",
+  "tier": "P2"
+ },
+ "c029": {
+  "build": "after",
+  "company_id": "fulpcpa.com",
+  "tier": "P2"
+ },
+ "c030": {
+  "build": "after",
+  "company_id": "grandpolycoats.com",
+  "tier": "P2"
+ },
+ "c031": {
+  "build": "after",
+  "company_id": "imedidata.com",
+  "tier": "P1"
+ },
+ "c032": {
+  "build": "after",
+  "company_id": "philgps.com",
+  "tier": "P2"
+ },
+ "c033": {
+  "build": "after",
+  "company_id": "farmascotas.vet",
+  "tier": "P2"
+ },
+ "c034": {
+  "build": "after",
+  "company_id": "org:Software Technology Parks of India",
+  "tier": "P1"
+ },
+ "c035": {
+  "build": "after",
+  "company_id": "drsunildentalclinic.com",
+  "tier": "P2"
+ },
+ "c036": {
+  "build": "after",
+  "company_id": "ucla.edu",
+  "tier": "P1"
+ },
+ "c037": {
+  "build": "after",
+  "company_id": "zestdent.com",
+  "tier": "P2"
+ },
+ "c038": {
+  "build": "after",
+  "company_id": "robosense.ai",
+  "tier": "P2"
+ },
+ "c039": {
+  "build": "after",
+  "company_id": "cgiarad.org",
+  "tier": "P2"
+ },
+ "c040": {
+  "build": "after",
+  "company_id": "minciencias.gov.co",
+  "tier": "P1"
+ },
+ "c041": {
+  "build": "after",
+  "company_id": "westat.com",
+  "tier": "P2"
+ },
+ "c042": {
+  "build": "after",
+  "company_id": "sempremaisagil.com.br",
+  "tier": "P2"
+ },
+ "c043": {
+  "build": "after",
+  "company_id": "msmsugar.com",
+  "tier": "P2"
+ },
+ "c044": {
+  "build": "after",
+  "company_id": "sawatsu.com",
+  "tier": "P2"
+ },
+ "c045": {
+  "build": "after",
+  "company_id": "primadonnacollection.com",
+  "tier": "P2"
+ },
+ "c046": {
+  "build": "after",
+  "company_id": "shopper360.com.my",
+  "tier": "P2"
+ },
+ "c047": {
+  "build": "after",
+  "company_id": "shieldbloodtest.com",
+  "tier": "P2"
+ },
+ "c048": {
+  "build": "after",
+  "company_id": "advancedsealedunits.com",
+  "tier": "P1"
+ },
+ "c049": {
+  "build": "after",
+  "company_id": "kirz.com",
+  "tier": "P1"
+ },
+ "c050": {
+  "build": "after",
+  "company_id": "factoriadeinnovacion.com",
+  "tier": "P2"
+ },
+ "c051": {
+  "build": "after",
+  "company_id": "cccancer.com",
+  "tier": "P2"
+ },
+ "c052": {
+  "build": "after",
+  "company_id": "a1limochauffeurinfo.com",
+  "tier": "P2"
+ },
+ "c053": {
+  "build": "after",
+  "company_id": "unm.edu",
+  "tier": "P2"
+ },
+ "c054": {
+  "build": "after",
+  "company_id": "securessl.net",
+  "tier": "P2"
+ },
+ "c055": {
+  "build": "after",
+  "company_id": "db.com",
+  "tier": "P2"
+ },
+ "c056": {
+  "build": "after",
+  "company_id": "sinica.edu.tw",
+  "tier": "P2"
+ },
+ "c057": {
+  "build": "after",
+  "company_id": "barumplus.cz",
+  "tier": "P2"
+ },
+ "c058": {
+  "build": "after",
+  "company_id": "mpal.mp.br",
+  "tier": "P2"
+ },
+ "c059": {
+  "build": "after",
+  "company_id": "stoldt-bau.de",
+  "tier": "P2"
+ },
+ "c060": {
+  "build": "after",
+  "company_id": "rennes-sb.com",
+  "tier": "P2"
+ }
+}

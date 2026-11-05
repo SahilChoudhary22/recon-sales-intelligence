@@ -155,7 +155,7 @@
   {
    "id": "remote",
    "name": "Open RDP, databases & shares",
-   "blurb": "Remote access, databases or Windows file sharing reachable from the internet.",
+   "blurb": "Remote access (RDP, WinRM), databases or Windows file sharing reachable from the internet.",
    "pitch": "Anyone on the internet can reach their remote desktop or database today.",
    "forProducts": [
     "endpoint",
@@ -167,6 +167,7 @@
    },
    "keys": [
     "remote_access",
+    "winrm_exposed",
     "database_exposed",
     "smb_exposed",
     "open_directory"
@@ -175,6 +176,7 @@
     {
      "signals": [
       "remote_access",
+      "winrm_exposed",
       "database_exposed",
       "smb_exposed",
       "open_directory"
@@ -185,7 +187,7 @@
   {
    "id": "breach",
    "name": "Signs of a breach",
-   "blurb": "A ransomed database, a remote-access trojan or a cryptominer running on the company's own address: it has already been breached.",
+   "blurb": "A ransomed database, a defaced site, a remote-access trojan or a cryptominer on the company's own address: it has already been breached.",
    "pitch": "This is an incident, not a risk: offer an assessment and response this week, starting from the service it was found on.",
    "forProducts": [
     "mdr",
