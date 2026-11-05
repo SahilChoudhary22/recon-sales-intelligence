@@ -304,6 +304,12 @@ Measured on the real store and on synthetic ones 10× and 100× its size (median
 | Name search | 8.2 | 19 | 74 |
 | Account, evidence | 2.9, 1.7 | 3.9, 1.8 | 18, 9.7 |
 
+In production the scan Parquet sits in S3, partitioned by scan date and read in place by the build.
+Each build's serving store is versioned in S3, and every API server keeps a local copy and switches
+when a new build is published (12 MB here, about 3 GB at 10M companies). That's measured to 4.6M
+accounts; past roughly 10M companies or many concurrent users, the same API moves onto ClickHouse
+partitioned by country, and only [`api/store.py`](api/store.py) changes.
+
 What changes for a full stream of files and many users, and when, is in
 [docs/architecture.md](docs/architecture.md#7-the-production-path), including how I'd trace every
 request end to end across the services with OpenTelemetry: a seller's request from the assistant

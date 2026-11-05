@@ -70,7 +70,7 @@ flowchart TB
   end
   subgraph ingest["Ingest"]
     queue --> w1["<b>Worker</b><br/>~15 min a file"] & w2["<b>Worker</b>"] & w3["<b>Worker ...</b>"]
-    w1 & w2 & w3 --> lake[("<b>Parquet by scan</b><br/>~1.2 GB a file, 0.1 to 1.2 TB a month,<br/>each with a _manifest.json")]
+    w1 & w2 & w3 --> lake[("<b>Parquet by scan, in S3</b><br/>~1.2 GB a file, 0.1 to 1.2 TB a month,<br/>each with a _manifest.json")]
   end
   subgraph build["Build"]
     lake --> merge["<b>Merge observations</b><br/>1.3 to 13 billion banners a month;<br/>latest per service wins,<br/>the last 30 days are kept"]
@@ -282,6 +282,7 @@ for a full stream of files and many users, with the point at which each is neede
 | --- | --- | --- |
 | Build | Recomputes the 30-day window: about 4 minutes for 13M observations | State tables (latest observation per service, first seen per service, hostname to domain) merged per file; only touched companies re-scored; global statistics (hoster detection, score normalisation, tiers, peer ranks) recomputed on a schedule. Needed once a rebuild no longer fits between files |
 | Name resolution and peer ranks | Python over the distinct hostnames (3.8M) and all scored companies | A persistent resolved-name table, so only new names are resolved; peer ranks as SQL window functions |
+| Storage | Raw files, scan Parquet and serving stores on one machine's disk; the API host gets a copy of the serving store | Raw files and scan Parquet in S3, partitioned by scan date and read in place by the build (DuckDB reads only the columns and row groups a query needs). Each build's serving store written to S3 under its build id, with a pointer to the current one; every API server keeps a local copy (12 MB now, about 3 GB at 10M companies) and swaps it atomically when the pointer moves, so requests never wait on S3 |
 | Parquet layout | One shard per 32 MB of input | One writer per worker with ~128 MB row groups, partitioned by observation date |
 | Company identity | Deterministic choice per build | A company registry with aliases (`acme.co.uk` and `acme.com`, an IP owner gaining a domain), so renames neither look new nor orphan list entries |
 | KEV in scoring | The scanner's KEV flag at scan time | The CISA catalogue joined in the build, so a CVE added to KEV after the scan raises the score |
@@ -291,7 +292,7 @@ for a full stream of files and many users, with the point at which each is neede
 | LLM label cache | Keyed by name | Keyed by name, model and prompt version, so a prompt change relabels |
 | LLM labelling cost | Claude Haiku, 40 names a request, only names never labelled before | The Batch API (half price, results within the day); a cheap first-stage classifier so only uncertain names reach the LLM ([technical notes §7](technical-notes.md#7-where-an-llm-is-used-how-its-checked-and-what-it-costs)) |
 | Observability | Build funnel counts in `funnel.json`, LLM tokens per run in `llm_usage.json` | OpenTelemetry traces across every service, below |
-| Serving store | Parquet on local disk, DuckDB in the API process | Past tens of millions of accounts or many concurrent users: the same API on ClickHouse (or Postgres with indexes), partitioned by country, a search index for names, the cube materialised per build |
+| Serving store | Parquet on local disk, DuckDB in the API process; benchmarked to 4.6M accounts | Past roughly 10M companies or many concurrent users: the same API on ClickHouse (or Postgres with indexes), partitioned by country, a search index for names, the cube materialised per build |
 | User state | SQLite in WAL mode on one API host | Postgres: several API instances, teams sharing workspaces, point-in-time recovery; a runner that re-executes saved searches per build and notifies |
 | Sign-in | Configured users with scrypt-hashed passwords, server-side sessions | SSO (OIDC), identity-provider groups mapped to team workspaces, audit log |
 
