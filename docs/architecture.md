@@ -49,7 +49,7 @@ flowchart TD
   check --> score["<b>Score each company</b><br/>need × urgency × fit, tiers P1 / P2 / P3"]
   score --> risky["45,646 companies with real risk"]
   risky --> export["<b>Export</b><br/>pipeline/export.py<br/>masks IPs to /24, adds peer ranks,<br/>template flags, the count cube"]
-  risky --> cveidx["<b>CVE hits</b><br/>pipeline/cve_index.py<br/>828 CVEs, 39,146 company matches"]
+  risky --> cveidx["<b>CVE hits</b><br/>pipeline/cve_index.py<br/>829 CVEs, 39,256 company matches"]
   kev[("CISA KEV v2026.11.03")] --> cveidx
   export --> published[("<b>Serving store</b><br/>data/serve/&lt;build&gt;, 12 MB")]
   cveidx --> published
@@ -93,7 +93,7 @@ flowchart TB
 - **Volume.** The brief's hundreds to thousands of files a month, at this file's size (13.4M banners,
   17 GB compressed), is 1.3 to 13 billion banners and 1.7 to 17 TB compressed a month, 0.1 to 1.2 TB
   once slimmed to Parquet. The served side is one row per company with real risk, so it grows with
-  companies (38k from this file), not with banners.
+  companies (45,646 from this file), not with banners.
 - **Throughput.** 118 GB raw in 882 s (134 MB/s) on one 8 GB laptop, about 15 minutes per file.
   1,000 files a month is about 250 machine-hours, a third of one machine running continuously, so a
   small worker pool absorbs bursts.
@@ -176,8 +176,8 @@ flowchart LR
 
 - **Two query paths.** Anything that filters only on template, country, sector, industry and estate
   size (the template counts in the nav and every badge in the profile) is answered from the count
-  cube. The cube grows with the number of those combinations, not with accounts: about 6,600 rows at
-  38k accounts and the same at 3.8M. Everything else (name search, software, identity strength, a
+  cube. The cube grows with the number of those combinations, not with accounts: about 7,100 rows at
+  45,646 accounts and the same at 4.6M. Everything else (name search, software, identity strength, a
   list of ids, "not in my lists") is SQL over `accounts.parquet`.
 - **Badges that answer "what if I pick this?"** Each facet leaves its own filter out: with GB chosen,
   the country badges still show what every other country would add under the rest of the filters.
@@ -225,7 +225,7 @@ distribution. Median of 15 runs on a MacBook Air with 8 GB RAM:
 - **The most frequent queries don't grow.** The nav counts and the profile badges, sent on every
   click in the profile, come from the cube in 1 to 3 ms at every size.
 - **The live paths stay interactive at 100×.** A filtered, ranked page and the toolbar badges take
-  about 50 ms at 3.8M accounts on one laptop. Name search (74 ms) is a scan, the first candidate for a
+  about 60 ms at 4.6M accounts on one laptop. Name search (95 ms) is a scan, the first candidate for a
   search index. CVE search runs to 10×; at 100× its table is partitioned by CVE in production.
 - **Batch and serving run on separate machines.** Measured while a re-export ran on the same laptop,
   the 100× live paths took 0.3 to 1.5 s, five to ten times slower.

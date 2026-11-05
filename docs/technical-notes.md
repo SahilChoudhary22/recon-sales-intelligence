@@ -437,7 +437,7 @@ build before moving the host's `current` pointer to it).
   and stores each template's membership as a column, so the app, the API and the MCP server agree on
   what a template matches.
 - **CVE in the news** ([`pipeline/cve_index.py`](../pipeline/cve_index.py)): notable CVEs per service
-  (KEV, EPSS ≥ 0.1 or CVSS ≥ 9) for every attributed company, 39,146 company-CVE pairs over 828
+  (KEV, EPSS ≥ 0.1 or CVSS ≥ 9) for every attributed company, 39,256 company-CVE pairs over 829
   CVEs, plus a lookup enriched from the CISA KEV catalogue (date added, ransomware use, vendor and
   product mapped to a software family for the fallback search). Tested against a direct query over the
   build (`tests/test_cve_index.py`).
